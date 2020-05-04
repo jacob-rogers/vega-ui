@@ -11,6 +11,7 @@
       "@gpn-prototypes/vega-avatar": ["packages/components/avatar/src/index.ts"],
       "@gpn-prototypes/vega-badge": ["packages/components/badge/src/index.ts"],
       "@gpn-prototypes/vega-button": ["packages/components/button/src/index.ts"],
+      "@gpn-prototypes/vega-carousel": ["packages/components/carousel/src/index.ts"],
       "@gpn-prototypes/vega-checkbox": ["packages/components/checkbox/src/index.ts"],
       "@gpn-prototypes/vega-choice-group": ["packages/components/choice-group/src/index.ts"],
       "@gpn-prototypes/vega-file": ["packages/components/file/src/index.ts"],

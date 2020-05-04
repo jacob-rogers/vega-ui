@@ -1,0 +1,137 @@
+.VegaCarousel {
+  display: block;
+
+  width: 100%;
+}
+
+.VegaCarousel__Container {
+  display: flex;
+  align-items: center;
+}
+
+.VegaCarousel__Track {
+  display: flex;
+  order: 2;
+
+  overflow: hidden;
+
+  width: 100%;
+
+  border-radius: 8px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.44);
+}
+
+.VegaCarousel__Slide {
+  width: 100%;
+  flex-basis: 100%;
+  flex-shrink: 0;
+}
+
+.VegaCarousel__Track_direction_next {
+  .VegaCarousel__Slide {
+    &.is-enter {
+      transform: translateX(100%);
+    }
+
+    &.is-enter.is-enter-active {
+      transition: transform 300ms ease-in;
+      transform: translateX(0);
+    }
+
+    &.is-exit {
+      transform: translateX(-100%);
+    }
+
+    &.is-exit.is-exit-active {
+      transition: transform 300ms ease-in;
+      transform: translateX(-200%);
+    }
+  }
+}
+
+.VegaCarousel__Track_direction_prev {
+  .VegaCarousel__Slide {
+    &.is-enter {
+      transform: translateX(-100%);
+    }
+
+    &.is-enter.is-enter-active {
+      transition: transform 300ms ease-in;
+      transform: translateX(0);
+    }
+
+    &.is-exit {
+      transform: translateX(-100%);
+    }
+
+    &.is-exit.is-exit-active {
+      transition: transform 300ms ease-in;
+      transform: translateX(0);
+    }
+  }
+}
+
+.VegaCarousel__Caption {
+  margin-top: var(--space-2xl);
+  margin-right: auto;
+  margin-left: auto;
+
+  max-width: 600px;
+
+  text-align: center;
+}
+
+.VegaCarousel__Dots {
+  margin-top: var(--space-3xl);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.VegaCarousel__Dot {
+  --color: var(--color-control-bg-ghost);
+  --color-hover: var(--color-control-bg-ghost-hover);
+  padding: 0;
+
+  box-sizing: border-box;
+  width: 12px;
+  height: 12px;
+
+  cursor: pointer;
+
+  background-color: transparent;
+  border: 2px solid var(--color);
+  border-radius: 50%;
+  -webkit-appearance: none;
+
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+
+  &:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  &:hover {
+    border-color: var(--color-hover);
+  }
+
+  &_active {
+    background-color: var(--color);
+    border-color: transparent;
+
+    &:hover {
+      background-color: var(--color-hover);
+      border-color: transparent;
+    }
+  }
+}
+
+.VegaCarousel__Arrow {
+  &_position_left {
+    order: 1;
+  }
+
+  &_position_right {
+    order: 3;
+  }
+}
