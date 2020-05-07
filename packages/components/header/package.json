@@ -1,0 +1,20 @@
+{
+  "name": "@vega-ui/header",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.js",
+  "types": "dist/components/header/index.d.ts",
+  "author": "csssr",
+  "peerDependencies": {
+    "react": "^16",
+    "bem-cn": "^3.0.1"
+  },
+  "dependencies": {
+    "@gpn-design/uikit": "^1.0.2",
+    "@vega-ui/dropdown": "0.0.1",
+    "@vega-ui/text": "0.0.1",
+    "@vega-ui/button": "0.0.1",
+    "@vega-ui/icons": "0.0.1"
+  }
+}
