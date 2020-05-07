@@ -1,0 +1,107 @@
+.VegaForm {
+  width: 100%;
+
+  &__Row {
+    display: grid;
+
+    width: 100%;
+    grid-template-columns: 1fr;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &_space_none {
+      margin-top: 0;
+    }
+
+    &_space_m {
+      margin-top: var(--space-m);
+    }
+
+    &_space_l {
+      margin-top: var(--space-l);
+    }
+
+    &_space_xl {
+      margin-top: var(--space-xl);
+    }
+
+    &_gap_none {
+      grid-row-gap: 0;
+      grid-column-gap: 0;
+    }
+
+    &_gap_m {
+      grid-column-gap: var(--space-m);
+      grid-row-gap: var(--space-m);
+    }
+
+    &_gap_l {
+      grid-column-gap: var(--space-l);
+      grid-row-gap: var(--space-l);
+    }
+
+    &_gap_xl {
+      grid-column-gap: var(--space-xl);
+      grid-row-gap: var(--space-xl);
+    }
+
+    &_col_2 {
+      grid-template-columns: repeat(2, minmax(auto, 2fr));
+    }
+
+    &_col_3 {
+      grid-template-columns: repeat(3, minmax(auto, 3fr));
+    }
+
+    &_col_4 {
+      grid-template-columns: repeat(4, minmax(auto, 4fr));
+    }
+  }
+
+  &__Label {
+    display: block;
+
+    color: var(--color-typo-secondary);
+
+    &_space_2xs {
+      margin-bottom: var(--space-2xs);
+    }
+
+    &_space_xs {
+      margin-bottom: var(--space-xs);
+    }
+
+    &_space_s {
+      margin-bottom: var(--space-s);
+    }
+
+    &_size_s {
+      font-size: var(--size-text-s);
+      line-height: var(--line-height-text-s);
+    }
+
+    &_size_l {
+      font-size: var(--size-text-l);
+      line-height: var(--line-height-text-l);
+    }
+
+    &_inline {
+      margin-bottom: 0;
+
+      display: inline-flex;
+    }
+  }
+
+  &__Fieldset {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+  }
+
+  &__Field {
+    width: 100%;
+  }
+}
