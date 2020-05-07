@@ -1,0 +1,31 @@
+input:not([type='checkbox']) {
+  width: 100%;
+}
+
+.rowFirst {
+  margin-top: 20px;
+  padding: 10px 0;
+}
+
+.rowSecond {
+  grid-column-gap: var(--space-xl);
+  grid-row-gap: var(--space-xl);
+}
+
+.fieldFirst {
+  grid-column: 1 / 5;
+}
+
+.fieldSecond {
+  grid-column: 1 / 4;
+
+  display: flex;
+}
+
+.inputFirst {
+  display: inline-flex;
+}
+
+.labelFirst {
+  margin-right: 10px;
+}
