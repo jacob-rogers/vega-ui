@@ -1,0 +1,13 @@
+.VegaHeader {
+  --header-height: 40px;
+  background: var(--color-bg-default);
+
+  &__MenuTrigger {
+    display: flex;
+    align-items: center;
+  }
+
+  &__Menu {
+    margin-top: 5px;
+  }
+}

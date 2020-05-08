@@ -2,8 +2,13 @@ import React from 'react';
 
 import { cnHeader } from './helpers/cn-header';
 import { HeaderMenu } from './HeaderMenu';
-import { HeaderView } from './HeaderView';
+
+import './Header.css';
 
 export const Header = (): React.ReactElement => {
-  return <HeaderView className={cnHeader().toString()} leftSide={HeaderMenu} />;
+  return (
+    <header className={cnHeader()}>
+      <HeaderMenu />
+    </header>
+  );
 };
