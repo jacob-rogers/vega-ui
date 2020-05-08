@@ -1,1 +1,1 @@
-export { Header } from '@gpn-design/uikit/Header';
+export { Header as HeaderView } from '@gpn-design/uikit/Header';

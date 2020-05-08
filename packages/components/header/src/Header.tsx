@@ -1,4 +1,9 @@
 import React from 'react';
-import { Dropdown, useDropdown } from '@vega-ui/dropdown';
-import { Text } from '@vega-ui/text';
-import block from 'bem-cn';
+
+import { cnHeader } from './helpers/cn-header';
+import { HeaderMenu } from './HeaderMenu';
+import { HeaderView } from './HeaderView';
+
+export const Header = (): React.ReactElement => {
+  return <HeaderView className={cnHeader().toString()} leftSide={HeaderMenu} />;
+};
