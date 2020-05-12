@@ -62,6 +62,7 @@
     "packages/components/page-banner",
     "packages/components/page-footer",
     "packages/components/logo",
+    "packages/components/form",
     "packages/components"
   ],
   "devDependencies": {
