@@ -1,1 +1,2 @@
-export { AppContainer } from './AppContainer';
+export { AppContainer, useAppContainerManager } from './AppContainer';
+export { AppContainerManager } from './AppContainerManager';

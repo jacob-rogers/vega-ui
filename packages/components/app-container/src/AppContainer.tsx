@@ -1,44 +1,50 @@
 import React from 'react';
 import { useMount, useUnmount } from '@vega-ui/hooks';
 
+import { AppContainerManager } from './AppContainerManager';
+
+const defaultPortalRootId = 'portalRootSelector';
+const defaultRootId = 'rootSelector';
+
 type AppContainerProps = {
-  rootId?: string;
-  portalRootId?: string;
+  appContainerManager: AppContainerManager;
   className?: string;
   portalClassName?: string;
+} & JSX.IntrinsicElements['div'];
+
+type AppContainerManagerContext = {
+  appContainerManager: AppContainerManager;
+};
+
+export const AppContainerContext = React.createContext<AppContainerManagerContext>({
+  appContainerManager: new AppContainerManager(defaultRootId, defaultPortalRootId),
+});
+
+export const useAppContainerManager = (): AppContainerManager => {
+  const { appContainerManager } = React.useContext(AppContainerContext);
+  return appContainerManager;
 };
 
 export const AppContainer: React.FC<AppContainerProps> = ({
-  rootId,
-  portalRootId,
+  appContainerManager,
   children,
   className,
   portalClassName,
+  ...rest
 }) => {
   useMount(() => {
-    const portalRoot = document.createElement('div');
-    portalRoot.id = portalRootId as string;
-    if (typeof portalClassName === 'string') {
-      portalRoot.className = portalClassName;
-    }
-    document.body.appendChild(portalRoot);
+    appContainerManager.createPortalRoot({ className: portalClassName });
   });
 
   useUnmount(() => {
-    const portalRoot = document.querySelector(`#${portalRootId}`);
-    if (portalRoot) {
-      document.body.removeChild(portalRoot);
-    }
+    appContainerManager.removePortalRoot();
   });
 
   return (
-    <div className={className} id={rootId}>
-      {children}
+    <div className={className} id={appContainerManager.rootId} {...rest}>
+      <AppContainerContext.Provider value={{ appContainerManager }}>
+        {children}
+      </AppContainerContext.Provider>
     </div>
   );
-};
-
-AppContainer.defaultProps = {
-  rootId: 'rootSelector',
-  portalRootId: 'portalRootSelector',
 };
