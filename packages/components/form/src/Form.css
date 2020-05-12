@@ -61,7 +61,7 @@
   }
 
   &__Label {
-    display: block;
+    display: inline-flex;
 
     color: var(--color-typo-secondary);
 
@@ -77,6 +77,10 @@
       margin-bottom: var(--space-s);
     }
 
+    &_space_none {
+      margin-bottom: 0;
+    }
+
     &_size_s {
       font-size: var(--size-text-s);
       line-height: var(--line-height-text-s);
@@ -86,17 +90,13 @@
       font-size: var(--size-text-l);
       line-height: var(--line-height-text-l);
     }
-
-    &_inline {
-      margin-bottom: 0;
-
-      display: inline-flex;
-    }
   }
 
   &__Fieldset {
     margin: 0;
     padding: 0;
+
+    display: flex;
 
     border: none;
   }
