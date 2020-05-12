@@ -34,3 +34,7 @@ export const DropdownItem: React.FC<DropdownItemProps> = (props) => {
     </li>
   );
 };
+
+DropdownItem.defaultProps = {
+  align: 'center',
+};
