@@ -46,6 +46,7 @@
   "workspaces": [
     "packages/hooks",
     "packages/components/icons",
+    "packages/components/app-container",
     "packages/components/avatar",
     "packages/components/badge",
     "packages/components/button",
