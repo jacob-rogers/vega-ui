@@ -11,7 +11,3 @@ export function useMount(fn: Function = (): void => {}): React.RefObject<boolean
   }, []);
   return isMountedRef;
 }
-
-export function useUnmount(fn: Function): void {
-  useMount(() => fn);
-}
