@@ -4,19 +4,16 @@
 [![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](docs/contributors.md)
 
 > Библиотека компонентов для проекта Vega 2.0.
-> Данная библиотека расширяет [GPN UI kit](https://github.com/gpn-prototypes/ui-kit).
-
-## Использование
-
-**TBD** Команды установки пакета ui kit
+>
+> Использует в своей основе [Дизайн-систему ГПН](https://github.com/gpn-prototypes/ui-kit).
 
 ## Компоненты
 
 - [Storybook](http://master.vega-ui-storybook.csssr.cloud/)
-- [Описание компонентов]()
-- [Примеры использования]()
+- [Компоненты](packages/components/README.md)
+- [React-хуки](packages/hooks/README.md)
 
-### Использование компонентов библиотеки
+### Использование компонентов из дизайн-системы ГПН
 
 Для взаимодействия с дизайн-системой написаны компоненты-обёртки. Они позволяют:
 
@@ -26,37 +23,20 @@
 ## Браузеры
 
 - Chromium (в т.ч. Chrome, Yandex) — две последние версии
-- Edge — **TBD**
+- Edge
+
+Не поддерживаем IE10-11. [Подробнее](docs/ie.md).
 
 ## Документация
 
 - [Начало работы](docs/getting-started.md)
-  - [Зависимости](docs/getting-started.md#Зависимости)
-  - [Установка зависимостей](docs/getting-started.md#Установка-зависимостей)
-  - [Инструменты и плагины]()
-  - [Основные команды](docs/getting-started.md#Основные-команды)
-- [Оформление кода](docs/project-structure.md)
-  - [Структура проекта](docs/project-structure.md#Структура-проекта)
-  - [Структура компонента](docs/project-structure.md#Структура-компонента)
-  - [Форматирование кода](docs/project-structure.md#Форматирование-кода)
-- [Добавление нового компонента](docs/new-component.md)
-  - [Статус и автор](docs/new-component.md#Статус-и-автор)
-- [Инструменты](docs/tools.md)
-  - [Декоратор для Сторибука withMetadata](docs/tools.md#Декоратор-для-Сторибука-withMetadata)
-- [Unit тесты (TBD)](docs/unit-tests.md)
-- [Оформления коммитов](docs/git-flow.md#Правила-оформления-коммитов)
-- [Хуки](packages/hooks)
-- [Компоненты](packages/components)
-
-## Для контрибьюторов
-
-- [Прохождение ревью](docs/contributors.md)
-
-## Для мейнтейнеров
-
-- [Release flow (TBD)]()
-  - [Обновление версии и публикация пакета (TBD)]()
-- [CI и deploy (TBD)]()
+- [Договоренности по оформлению кода](docs/project-structure.md)
+- [Как добавить новый компонент](docs/new-component.md)
+- [Ведение Storybook'а](docs/storybook.md)
+- [Тестирование компонентов](docs/unit-tests.md)
+- [Работа с гитом и оформление коммитов](docs/git-flow.md)
+- [Ревью и контрибьютинг](docs/contributors.md)
+- [Паблишинг пакетов](docs/publishing.md)
 
 ## Мейнтейнеры
 
