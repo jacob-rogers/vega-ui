@@ -21,6 +21,7 @@
       "@gpn-prototypes/vega-informer": ["packages/components/informer/src/index.ts"],
       "@gpn-prototypes/vega-modal": ["packages/components/modal/src/index.ts"],
       "@gpn-prototypes/vega-radio": ["packages/components/radio/src/index.ts"],
+      "@gpn-prototypes/vega-root": ["packages/components/root/src/index.ts"],
       "@gpn-prototypes/vega-switch": ["packages/components/switch/src/index.ts"],
       "@gpn-prototypes/vega-tabs": ["packages/components/tabs/src/index.ts"],
       "@gpn-prototypes/vega-text": ["packages/components/text/src/index.ts"],
