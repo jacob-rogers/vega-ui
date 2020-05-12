@@ -46,7 +46,7 @@
   "workspaces": [
     "packages/hooks",
     "packages/components/icons",
-    "packages/components/portals-root",
+    "packages/components/root",
     "packages/components/avatar",
     "packages/components/badge",
     "packages/components/button",
