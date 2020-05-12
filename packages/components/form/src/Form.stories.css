@@ -1,4 +1,8 @@
 input:not([type='checkbox']) {
+  padding: 6px 8px;
+
+  box-sizing: border-box;
+
   width: 100%;
 }
 
@@ -20,6 +24,8 @@ input:not([type='checkbox']) {
   grid-column: 1 / 4;
 
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .inputFirst {
@@ -28,4 +34,18 @@ input:not([type='checkbox']) {
 
 .labelFirst {
   margin-right: 10px;
+}
+
+legend {
+  margin-bottom: 10px;
+}
+
+.playground-form {
+  padding: 15px;
+
+  background-color: #d8d8d8;
+}
+
+.playground-title {
+  margin: 0;
 }
