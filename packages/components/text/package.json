@@ -1,10 +1,10 @@
 {
   "name": "@gpn-prototypes/vega-text",
   "version": "0.0.1",
-  "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/components/text/src/index.d.ts",
   "author": "csssr",
+  "sideEffects": false,
   "files": [
     "dist"
   ],
