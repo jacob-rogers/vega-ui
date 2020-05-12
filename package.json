@@ -28,7 +28,8 @@
     "lint:ts:fix": "eslint --ext=.ts,.tsx . --fix",
     "lint:css": "stylelint ./packages ./.storybook",
     "lint:css:fix": "stylelint ./packages ./.storybook --fix",
-    "lint:fix": "yarn run lint:ts:fix && yarn run lint:css:fix"
+    "lint:fix": "yarn run lint:ts:fix && yarn run lint:css:fix",
+    "clean": "git clean -fdx packages/"
   },
   "config": {
     "commitizen": {

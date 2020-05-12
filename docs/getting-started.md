@@ -18,9 +18,49 @@ $ yarn
 
 ## Основные команды
 
-**TBD** Заполнить по мере появления скриптов в package.json
-
 ```bash
-# TBD добавить команды и описание
-$ yarn start
+# Установить зависимости
+$ yarn
+
+# Собрать rollup'ом все пакеты и слинковать
+$ yarn build
+
+# Удаление директорий node_modules и dist у всех пакетов
+$ yarn clean
+
+# Прогнать все тесты во всех компонентах
+$ yarn test
+
+# Сформировать отчет по покрытию тестами
+$ yarn coverage
+
+# Запустить тесты в watch-режиме
+$ yarn test:watch
+
+# lerna
+$ yarn diff
+$ yarn bootstrap
+$ yarn update:version
+$ yarn link:packages
+
+# Запуск сторибука на 6006 порту
+$ yarn storybook
+
+# Собрать статику сторибука
+$ yarn build-storybook
+
+# Проверить типизацию???
+$ yarn types
+
+# Запустить проверку типизации в watch-режиме???
+$ yarn types:watch
+
+# Прогнать форматирование prettier'ом
+$ yarn prettier
+
+# Прогнать линтеры: eslint и stylelint
+$ yarn lint
+
+# Автофикс ошибок линтеров
+$ yarn lint:fix
 ```
