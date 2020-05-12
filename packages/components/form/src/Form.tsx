@@ -11,6 +11,7 @@ import './Form.css';
 type FormProps = {
   className?: string;
   children?: React.ReactNode;
+  onSubmit?: (e: React.FormEvent) => void;
 } & JSX.IntrinsicElements['form'];
 
 type Form<T> = React.FC<T> & {
@@ -20,11 +21,11 @@ type Form<T> = React.FC<T> & {
   Field: typeof FormField;
 };
 
-export const Form: Form<FormProps> = ({ children, className, ...props }) => {
+export const Form: Form<FormProps> = ({ children, className, onSubmit, ...props }) => {
   const cn = cnForm.mix(className);
 
   return (
-    <form className={cn} {...props}>
+    <form className={cn} onSubmit={onSubmit} {...props}>
       {children}
     </form>
   );
