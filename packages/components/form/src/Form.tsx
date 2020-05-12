@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cnForm } from './FormCn';
+import { cnForm } from './cn-form';
 import { FormField } from './FormField';
 import { FormFieldset } from './FormFieldset';
 import { FormLabel } from './FormLabel';
@@ -8,7 +8,10 @@ import { FormRow } from './FormRow';
 
 import './Form.css';
 
-type Props = JSX.IntrinsicElements['form'];
+type FormProps = {
+  className?: string;
+  children?: React.ReactNode;
+} & JSX.IntrinsicElements['form'];
 
 type Form<T> = React.FC<T> & {
   Row: typeof FormRow;
@@ -17,7 +20,7 @@ type Form<T> = React.FC<T> & {
   Field: typeof FormField;
 };
 
-export const Form: Form<Props> = ({ children, className, ...props }) => {
+export const Form: Form<FormProps> = ({ children, className, ...props }) => {
   const cn = cnForm.mix(className);
 
   return (
