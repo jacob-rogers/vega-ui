@@ -1,23 +1,24 @@
 import React from 'react';
 
-import { cnForm } from '../FormCn';
+import { cnForm } from '../cn-form';
 
-type Props = {
-  space?: '2xs' | 'xs' | 's';
+type FormLabelProps = {
+  className?: string;
+  space?: '2xs' | 'xs' | 's' | 'none';
   size?: 's' | 'l';
-  inline?: boolean;
+  htmlFor?: string;
+  children?: React.ReactNode;
 } & JSX.IntrinsicElements['label'];
 
-export const FormLabel: React.FC<Props> = ({
+export const FormLabel: React.FC<FormLabelProps> = ({
   className,
   size = 's',
   children,
   htmlFor,
   space = 's',
-  inline,
   ...props
 }) => {
-  const cn = cnForm('Label', { inline, space, size }).mix(className);
+  const cn = cnForm('Label', { space, size }).mix(className);
 
   return (
     <label htmlFor={htmlFor} className={cn} {...props}>

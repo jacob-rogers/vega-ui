@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cnForm } from '../FormCn';
+import { cnForm } from '../cn-form';
 
 type Props = JSX.IntrinsicElements['div'];
 
