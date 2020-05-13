@@ -43,4 +43,11 @@ export class AppContainerManager {
       portalRoot.className = className;
     }
   }
+
+  updateRootClassName(className: string): void {
+    const root = this.getRoot();
+    if (root) {
+      root.className = className;
+    }
+  }
 }
