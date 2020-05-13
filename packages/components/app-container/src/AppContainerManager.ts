@@ -1,7 +1,7 @@
 export class AppContainerManager {
-  public portalRootId = 'portalRootSelector';
+  public readonly portalRootId: string;
 
-  public rootId = 'rootSelector';
+  public readonly rootId: string;
 
   constructor(rootId: string, portalRootId: string) {
     this.portalRootId = portalRootId;
