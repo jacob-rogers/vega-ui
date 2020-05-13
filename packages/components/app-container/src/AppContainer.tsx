@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMount, useUnmount } from '@vega-ui/hooks';
+import { useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 
 import { AppContainerManager } from './AppContainerManager';
 
