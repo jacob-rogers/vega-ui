@@ -1,12 +1,9 @@
-<<<<<<< HEAD
-=======
 import React from 'react';
 import { cnTheme } from '@gpn-design/uikit/Theme';
->>>>>>> 571567d... feature(app-container): добавление appContainerManager
+import { AppContainer, AppContainerManager } from '@gpn-prototypes/vega-app-container';
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
 import { addDecorator, addParameters, configure } from '@storybook/react';
-import { AppContainer, AppContainerManager } from '@vega-ui/app-container';
 import { withPerformance } from 'storybook-addon-performance';
 import { withThemes } from 'storybook-addon-themes';
 
