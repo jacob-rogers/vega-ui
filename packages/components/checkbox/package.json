@@ -1,6 +1,7 @@
 {
   "name": "@gpn-prototypes/vega-checkbox",
   "version": "0.0.1",
+  "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/components/checkbox/src/index.d.ts",
   "author": "csssr",
