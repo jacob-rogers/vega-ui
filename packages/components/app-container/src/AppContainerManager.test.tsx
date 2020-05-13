@@ -36,6 +36,20 @@ describe('AppContainerManager', () => {
     });
   });
 
+  describe('updateRootClassName', () => {
+    test('обновляется className', () => {
+      render(
+        <AppContainer appContainerManager={appContainerManager} className="test-classname">
+          test
+        </AppContainer>,
+      );
+
+      const root = appContainerManager.getRoot();
+      appContainerManager.updateRootClassName('new-class-name');
+      expect(root?.className).toBe('new-class-name');
+    });
+  });
+
   describe('getRoot', () => {
     test('возвращает корректный root selector', () => {
       render(<AppContainer appContainerManager={appContainerManager}>test</AppContainer>);
