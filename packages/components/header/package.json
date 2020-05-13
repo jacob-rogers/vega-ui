@@ -1,5 +1,5 @@
 {
-  "name": "@vega-ui/header",
+  "name": "@gpn-prototypes/vega-heaer",
   "version": "0.0.1",
   "description": "",
   "main": "dist/index.umd.js",
@@ -12,9 +12,9 @@
   },
   "dependencies": {
     "@gpn-design/uikit": "^1.0.2",
-    "@vega-ui/dropdown": "0.0.1",
-    "@vega-ui/text": "0.0.1",
-    "@vega-ui/button": "0.0.1",
-    "@vega-ui/icons": "0.0.1"
+    "@gpn-prototypes/vega-dropdown": "0.0.1",
+    "@gpn-prototypes/vega-text": "0.0.1",
+    "@gpn-prototypes/vega-button": "0.0.1",
+    "@gpn-prototypes/vega-icons": "0.0.1"
   }
 }
