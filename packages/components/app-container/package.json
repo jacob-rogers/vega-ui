@@ -8,11 +8,20 @@
   "files": [
     "dist"
   ],
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/gpn-prototypes/vega-ui.git",
+    "directory": "packages/components/app-container"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/gpn-prototypes"
+  },
   "peerDependencies": {
     "react": "^16"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-hooks": "0.0.1"
+    "@gpn-prototypes/vega-hooks": "0.0.6"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.3"
