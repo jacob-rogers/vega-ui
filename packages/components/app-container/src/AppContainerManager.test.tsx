@@ -65,5 +65,14 @@ describe('AppContainerManager', () => {
 
       expect(appContainerManager.getPortalRoot()).toBe(null);
     });
+
+    test('удаляется portalRoot при анмаунте', () => {
+      const { unmount } = render(
+        <AppContainer appContainerManager={appContainerManager}>test</AppContainer>,
+      );
+
+      unmount();
+      expect(appContainerManager.getPortalRoot()).toBe(null);
+    });
   });
 });
