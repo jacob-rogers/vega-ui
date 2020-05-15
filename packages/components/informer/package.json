@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-informer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
   "types": "dist/components/informer/src/index.d.ts",
@@ -22,7 +22,7 @@
     "@gpn-design/uikit": "^1.0.1"
   },
   "devDependencies": {
-    "@gpn-prototypes/vega-icons": "^0.0.1"
+    "@gpn-prototypes/vega-icons": "^0.0.2"
   },
   "peerDependencies": {
     "react": "^16.8.0"
