@@ -4,10 +4,10 @@ import { render } from '@testing-library/react';
 import { AppContainer } from './AppContainer';
 import { AppContainerManager } from './AppContainerManager';
 
-const rootId = 'root';
-const portalRootId = 'portalRoot';
+const containerId = 'root';
+const portalcontainerId = 'portalRoot';
 
-export const appContainerManager = new AppContainerManager(rootId, portalRootId);
+export const appContainerManager = new AppContainerManager(containerId, portalcontainerId);
 
 afterEach(() => {
   appContainerManager.removePortalRoot();
@@ -18,7 +18,7 @@ describe('AppContainerManager', () => {
     test('возвращает корректный элемент', () => {
       const portalRoot = appContainerManager.createPortalRoot();
 
-      expect(portalRoot.id).toBe(portalRootId);
+      expect(portalRoot.id).toBe(portalcontainerId);
     });
 
     test('прокидывается className', () => {
@@ -44,17 +44,17 @@ describe('AppContainerManager', () => {
         </AppContainer>,
       );
 
-      const root = appContainerManager.getRoot();
+      const root = appContainerManager.getContainer();
       appContainerManager.updateRootClassName('new-class-name');
       expect(root?.className).toBe('new-class-name');
     });
   });
 
-  describe('getRoot', () => {
+  describe('getContainer', () => {
     test('возвращает корректный root selector', () => {
       render(<AppContainer appContainerManager={appContainerManager}>test</AppContainer>);
-      const root = appContainerManager.getRoot();
-      expect(root?.id).toBe(rootId);
+      const root = appContainerManager.getContainer();
+      expect(root?.id).toBe(containerId);
     });
   });
 
@@ -63,6 +63,15 @@ describe('AppContainerManager', () => {
       appContainerManager.createPortalRoot();
       appContainerManager.removePortalRoot();
 
+      expect(appContainerManager.getPortalRoot()).toBe(null);
+    });
+
+    test('удаляется portalRoot при анмаунте', () => {
+      const { unmount } = render(
+        <AppContainer appContainerManager={appContainerManager}>test</AppContainer>,
+      );
+
+      unmount();
       expect(appContainerManager.getPortalRoot()).toBe(null);
     });
   });

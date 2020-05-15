@@ -18,7 +18,7 @@ yarn add @gpn-prototypes/vega-app-container
 import { AppContainer, AppContainerManager } from '@gpn-prototypes/vega-app-container';
 
 export const MyComponent = () => {
-  const appContainerManager = new AppContainerManager('rootId', 'portalRootId'); // прокидываем id для корневого элемента и для корневого портала
+  const appContainerManager = new AppContainerManager('containerId', 'portalcontainerId'); // прокидываем id для корневого элемента и для корневого портала
 
   return (
     <AppContainer appContainerManager={appContainerManager}>
@@ -34,7 +34,7 @@ export const MyComponent = () => {
 type AppContainerProps = {
   appContainerManager: AppContainerManager;
   className?: string;
-  portalClassName?: string;
+  portalRootClassName?: string;
 } & JSX.IntrinsicElements['div'];
 ```
 
