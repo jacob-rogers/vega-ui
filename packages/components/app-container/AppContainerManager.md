@@ -14,8 +14,8 @@ portalRootId - id корневого элемента для порталов п
 Методы
 
 ```ts
-createPortalRoot(params) - метод для создания корневого элемента для порталов. На вход может принимать { className?: string }
-removePortalRoot() - метод для удаления корневого элемента для порталов.
+createPortalRoot({ className?: string }) - метод для создания корневого элемента для порталов. На вход может принимать { className?: string }
+removePortalRoot() - метод для удаления корневого элемента для порталов
 getPortalRoot() - возвращает корневой элемент для порталов
 getRoot - возвращает корневой элемент приложения
 updatePortalRootClassName(className: string) - обновляет класснейм для корневого портала
