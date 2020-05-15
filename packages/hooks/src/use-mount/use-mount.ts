@@ -8,6 +8,10 @@ export function useMount(fn: Function = (): void => {}): React.RefObject<boolean
   useEffect(() => {
     ref.current();
     isMountedRef.current = true;
+
+    return (): void => {
+      isMountedRef.current = false;
+    };
   }, []);
   return isMountedRef;
 }
