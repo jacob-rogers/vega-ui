@@ -56,4 +56,15 @@ describe('Form', () => {
       expect(renderLabel).not.toThrow();
     });
   });
+
+  describe('Legend', () => {
+    type Props = Partial<React.ComponentProps<typeof Form.Legend>>;
+
+    const renderLabel = (props: Props = {}): tl.RenderResult =>
+      tl.render(<Form.Legend {...props} />);
+
+    it('рендерится без ошибок', () => {
+      expect(renderLabel).not.toThrow();
+    });
+  });
 });
