@@ -92,6 +92,38 @@
     }
   }
 
+  &__Legend {
+    display: inline-flex;
+
+    color: var(--color-typo-secondary);
+
+    &_space_2xs {
+      margin-bottom: var(--space-2xs);
+    }
+
+    &_space_xs {
+      margin-bottom: var(--space-xs);
+    }
+
+    &_space_s {
+      margin-bottom: var(--space-s);
+    }
+
+    &_space_none {
+      margin-bottom: 0;
+    }
+
+    &_size_s {
+      font-size: var(--size-text-s);
+      line-height: var(--line-height-text-s);
+    }
+
+    &_size_l {
+      font-size: var(--size-text-l);
+      line-height: var(--line-height-text-l);
+    }
+  }
+
   &__Fieldset {
     margin: 0;
     padding: 0;
