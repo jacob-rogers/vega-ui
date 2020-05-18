@@ -1,17 +1,19 @@
-# @vega-ui/form
+# @gpn-prototypes/vega-form
 
 Компонент для построения форм
+
+![Компонент формы](docs/form-example.jpg)
 
 ### Установка
 
 ```
-yarn add @vega-ui/form
+yarn add @gpn-prototypes/vega-form
 ```
 
 ### Пример использования
 
 ```jsx
-import { Form } from '@vega-ui/form';
+import { Form } from '@gpn-prototypes/vega-form';
 
 export const MyComponent = () => {
   const handleSubmit = (e) => console.log(e);
@@ -63,7 +65,6 @@ type FormProps = {
 type FormRowProps = {
   className?: string;
   col?: '1' | '2' | '3' | '4'; // количество колонок в строке
-  as?: keyof JSX.IntrinsicElements;
   space?: 'm' | 'l' | 'xl' | 'none'; // отступ строки
   gap?: 'm' | 'l' | 'xl' | 'none'; // отступ между строками и колонками
   children?: React.ReactNode;
@@ -83,5 +84,10 @@ type FormFieldsetProps = {
   disabled?: boolean;
 };
 
-type FormFieldProps = JSX.IntrinsicElements['div'];
+type FormLegendProps = {
+  className?: string;
+  space?: '2xs' | 'xs' | 's' | 'none';
+  size?: 's' | 'l';
+  children?: React.ReactNode;
+} & JSX.IntrinsicElements['legend'];
 ```

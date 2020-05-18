@@ -1,12 +1,47 @@
+/** @jsx jsx */
 import React from 'react';
+import { css, jsx } from '@emotion/core';
 import { Button } from '@gpn-design/uikit/Button';
+import { TextField } from '@gpn-design/uikit/TextField';
 import { action } from '@storybook/addon-actions';
 import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Form } from './Form';
 
-import './Form.stories.css';
+const cssRowFirst = css`
+  margin-top: 20px;
+  padding: 10px 0;
+`;
+
+const cssRowSecond = css`
+  grid-column-gap: var(--space-xl);
+  grid-row-gap: var(--space-xl);
+`;
+
+const cssFieldFirst = css`
+  grid-column: 1 / 5;
+`;
+
+const cssFieldSecond = css`
+  grid-column: 1 / 4;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const cssLabelFirst = css`
+  margin-right: 10px;
+`;
+
+const cssButton = css`
+  margin-top: 20px;
+`;
+
+const cssTitle = css`
+  color: var(--color-typo-primary);
+`;
 
 const KNOB_GROUPS = {
   row: 'Form.Row',
@@ -32,81 +67,82 @@ const fieldsetKnobs = (): Partial<React.ComponentProps<typeof Form.Fieldset>> =>
 
 storiesOf('ui/Form', module)
   .addDecorator(withKnobs)
+  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
   .add('default', () => {
     const submitAction = action('Form submitted');
 
     return (
       <Form
         className="custom-classname"
-        onSubmit={(e): void => {
+        onSubmit={(e: React.FormEvent): void => {
           e.preventDefault();
           submitAction(e);
         }}
       >
-        <h2>Пример формы</h2>
-        <Form.Row col="3">
+        <h2 css={cssTitle}>Пример формы</h2>
+        <Form.Row>
           <Form.Field>
-            <Form.Label htmlFor="example-1">C множеством лейблов</Form.Label>
-            <input id="example-1" placeholder="C множеством лейблов" />
-          </Form.Field>
-          <Form.Field>
-            <Form.Label htmlFor="example-2">C множеством лейблов</Form.Label>
-            <input id="example-2" placeholder="C множеством лейблов" />
-          </Form.Field>
-          <Form.Field>
-            <Form.Label htmlFor="example-3">C множеством лейблов</Form.Label>
-            <input id="example-3" placeholder="C множеством лейблов" />
+            <Form.Label htmlFor="example-1">Просто лейбл</Form.Label>
+            <TextField width="full" id="example-4" placeholder="Просто лейбл" />
           </Form.Field>
         </Form.Row>
         <Form.Row space="xl" gap="none">
           <Form.Label htmlFor="example-4">C одним лейблом, но много инпутов</Form.Label>
           <Form.Row col="3" space="none">
             <Form.Field>
-              <input id="example-4" placeholder="C одним лейблов" />
+              <TextField width="full" id="example-4" placeholder="C одним лейблом" />
             </Form.Field>
             <Form.Field>
-              <input placeholder="C одним лейблов" />
+              <TextField width="full" placeholder="C одним лейблом" />
             </Form.Field>
             <Form.Field>
-              <input placeholder="C одним лейблов" />
+              <TextField width="full" placeholder="C одним лейблом" />
             </Form.Field>
           </Form.Row>
         </Form.Row>
-        <Form.Row>
+        <Form.Row col="3">
           <Form.Field>
-            <Form.Label htmlFor="example-1">Инлайн лейбл</Form.Label>
-            <input id="example-1" placeholder="C множеством лейблов" />
+            <Form.Label htmlFor="example-1">C множеством лейблов</Form.Label>
+            <TextField width="full" id="example-1" placeholder="C множеством лейблов" />
+          </Form.Field>
+          <Form.Field>
+            <Form.Label htmlFor="example-2">C множеством лейблов</Form.Label>
+            <TextField width="full" id="example-2" placeholder="C множеством лейблов" />
+          </Form.Field>
+          <Form.Field>
+            <Form.Label htmlFor="example-3">C множеством лейблов</Form.Label>
+            <TextField width="full" id="example-3" placeholder="C множеством лейблов" />
           </Form.Field>
         </Form.Row>
         <Form.Row gap="none">
-          <Form.Label htmlFor="example-5">C одним лейблов и инпуты</Form.Label>
+          <Form.Label htmlFor="example-5">C одним лейблом и инпуты</Form.Label>
           <Form.Row col="2" space="none">
             <Form.Field>
-              <input id="example-5" />
+              <TextField width="full" id="example-5" placeholder="C одним лейблом и инпуты" />
             </Form.Field>
             <Form.Field>
-              <input />
+              <TextField width="full" placeholder="C одним лейблом и инпуты" />
             </Form.Field>
             <Form.Field>
-              <input />
+              <TextField width="full" placeholder="C одним лейблом и инпуты" />
             </Form.Field>
           </Form.Row>
         </Form.Row>
-        <Form.Row gap="none" className="rowFirst">
+        <Form.Row gap="none" css={cssRowFirst}>
           <Form.Fieldset>
             <Form.Label htmlFor="example-6">Подмешанные классы в компоненты</Form.Label>
-            <Form.Row col="4" space="none" className="rowSecond">
-              <Form.Field className="fieldFirst">
-                <input id="example-6" placeholder="Большой" />
+            <Form.Row col="4" space="none" css={cssRowSecond}>
+              <Form.Field css={cssFieldFirst}>
+                <TextField width="full" id="example-6" placeholder="Большой" />
               </Form.Field>
-              <Form.Field className="fieldSecond">
-                <Form.Label htmlFor="example-7" className="labelFirst" space="none">
+              <Form.Field css={cssFieldSecond}>
+                <Form.Label htmlFor="example-7" css={cssLabelFirst} space="none">
                   Лейбл
                 </Form.Label>
-                <input id="example-7" className="inputFirst" placeholder="Средний" />
+                <TextField width="full" id="example-7" placeholder="Средний" />
               </Form.Field>
               <Form.Field>
-                <input id="example-8" placeholder="Маленький" />
+                <TextField width="full" id="example-8" placeholder="Маленький" />
               </Form.Field>
             </Form.Row>
           </Form.Fieldset>
@@ -114,7 +150,7 @@ storiesOf('ui/Form', module)
         <Form.Row gap="none">
           <Form.Row col="2" space="none">
             <Form.Fieldset>
-              <legend>Чекбоксы</legend>
+              <Form.Legend>Чекбоксы</Form.Legend>
               <Form.Label>
                 <input type="checkbox" />
                 Пример чекбокса
@@ -129,7 +165,7 @@ storiesOf('ui/Form', module)
               </Form.Label>
             </Form.Fieldset>
             <Form.Fieldset disabled>
-              <legend>Чекбоксы выключим в Fieldset</legend>
+              <Form.Legend>Чекбоксы выключим в Fieldset</Form.Legend>
               <Form.Label>
                 <input type="checkbox" />
                 Пример чекбокса
@@ -145,7 +181,7 @@ storiesOf('ui/Form', module)
             </Form.Fieldset>
           </Form.Row>
         </Form.Row>
-        <Button type="submit" label="Кнопка" />
+        <Button type="submit" label="Отправить" css={cssButton} />
       </Form>
     );
   })
@@ -155,25 +191,25 @@ storiesOf('ui/Form', module)
 
     return (
       <Form
-        className="playground-form"
-        onSubmit={(e): void => {
+        onSubmit={(e: React.FormEvent): void => {
           e.preventDefault();
           submitAction(e);
         }}
       >
-        <h2 className="playground-title">Пример формы</h2>
+        <h2 css={cssTitle}>Пример формы</h2>
         <Form.Row {...rowKnobs()}>
           <Form.Fieldset {...fieldsetKnobs()}>
             <Form.Field>
               <Form.Label {...labelKnobs()}>{textExample}</Form.Label>
-              <input id="example-1" placeholder="Инпут" />
+              <TextField width="full" id="example-1" placeholder="example-1" />
             </Form.Field>
           </Form.Fieldset>
           <Form.Field>
             <Form.Label htmlFor="example-2">example-2</Form.Label>
-            <input id="example-2" placeholder="Инпут" />
+            <TextField width="full" id="example-2" placeholder="example-2" />
           </Form.Field>
         </Form.Row>
+        <Button type="submit" label="Отправить" css={cssButton} />
       </Form>
     );
   });

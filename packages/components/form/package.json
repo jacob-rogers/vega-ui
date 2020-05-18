@@ -1,12 +1,15 @@
 {
-  "name": "@vega-ui/form",
+  "name": "@gpn-prototypes/vega-form",
   "version": "0.0.1",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.js",
-  "types": "dist/components/form/index.d.ts",
+  "types": "dist/components/form/src/index.d.ts",
   "author": "csssr",
   "peerDependencies": {
-    "react": "^16",
-    "@gpn-design/uikit": "^1.0.2"
+    "react": "^16"
+  },
+  "dependencies": {
+    "@gpn-design/uikit": "^1.0.2",
+    "bem-cn": "^3.0.1"
   }
 }
