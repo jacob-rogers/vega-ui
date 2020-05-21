@@ -67,18 +67,6 @@ addParameters({
 addDecorator(withKnobs);
 addDecorator(withPerformance);
 addDecorator((story) => {
-  return story();
-});
-
-addDecorator((storyFn) => {
-  window.document.documentElement.lang = 'ru';
-
-  document.body.className = defaultClassName;
-
-  return <div>{storyFn()}</div>;
-});
-
-addDecorator((story) => {
   const appStyles = {
     background: 'var(--color-bg-default)',
     padding: 'var(--space-3xl)',
