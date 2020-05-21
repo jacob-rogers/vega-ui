@@ -1,17 +1,17 @@
 export class AppContainerManager {
-  public readonly portalRootId: string;
+  public readonly portalcontainerId: string;
 
-  public readonly rootId: string;
+  public readonly containerId: string;
 
-  constructor(rootId: string, portalRootId: string) {
-    this.portalRootId = portalRootId;
-    this.rootId = rootId;
+  constructor(containerId: string, portalcontainerId: string) {
+    this.portalcontainerId = portalcontainerId;
+    this.containerId = containerId;
   }
 
   public createPortalRoot(params?: { className?: string }): Element {
     if (this.getPortalRoot() === null) {
       const portalRoot = document.createElement('div');
-      portalRoot.id = this.portalRootId;
+      portalRoot.id = this.portalcontainerId;
       if (params && params.className) {
         portalRoot.className = params.className;
       }
@@ -30,11 +30,11 @@ export class AppContainerManager {
   }
 
   public getPortalRoot(): Element | null {
-    return document.querySelector(`#${this.portalRootId}`);
+    return document.querySelector(`#${this.portalcontainerId}`);
   }
 
-  public getRoot(): Element | null {
-    return document.querySelector(`#${this.rootId}`);
+  public getContainer(): Element | null {
+    return document.querySelector(`#${this.containerId}`);
   }
 
   updatePortalRootClassName(className: string): void {
@@ -45,7 +45,7 @@ export class AppContainerManager {
   }
 
   updateRootClassName(className: string): void {
-    const root = this.getRoot();
+    const root = this.getContainer();
     if (root) {
       root.className = className;
     }
