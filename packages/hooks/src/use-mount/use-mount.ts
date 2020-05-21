@@ -14,6 +14,7 @@ export function useMount(fn: Function = (): void => {}): React.RefObject<boolean
       }
       isMountedRef.current = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return isMountedRef;
 }
