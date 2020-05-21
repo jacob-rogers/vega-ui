@@ -1,15 +1,17 @@
 export class AppContainerManager {
-  public readonly portalcontainerId: string;
+  public readonly portalcontainerId?: string;
 
   public readonly containerId: string;
 
-  constructor(containerId: string, portalcontainerId: string) {
-    this.portalcontainerId = portalcontainerId;
+  constructor(containerId: string, portalcontainerId?: string) {
+    if (portalcontainerId) {
+      this.portalcontainerId = portalcontainerId;
+    }
     this.containerId = containerId;
   }
 
   public createPortalRoot(params?: { className?: string }): Element {
-    if (this.getPortalRoot() === null) {
+    if (this.getPortalRoot() === null && this.portalcontainerId) {
       const portalRoot = document.createElement('div');
       portalRoot.id = this.portalcontainerId;
       if (params && params.className) {

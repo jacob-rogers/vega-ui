@@ -33,7 +33,9 @@ export const AppContainer: React.FC<AppContainerProps> = ({
   ...rest
 }) => {
   useMount(() => {
-    appContainerManager.createPortalRoot({ className: portalRootClassName });
+    if (appContainerManager.portalcontainerId) {
+      appContainerManager.createPortalRoot({ className: portalRootClassName });
+    }
   });
 
   useUnmount(() => {
