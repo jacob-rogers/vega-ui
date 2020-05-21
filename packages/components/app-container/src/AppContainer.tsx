@@ -3,13 +3,13 @@ import { useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 
 import { AppContainerManager } from './AppContainerManager';
 
-const defaultPortalRootId = 'portalRootSelector';
-const defaultRootId = 'rootSelector';
+const defaultPortalcontainerId = 'portalRootSelector';
+const defaultcontainerId = 'rootSelector';
 
 type AppContainerProps = {
   appContainerManager: AppContainerManager;
   className?: string;
-  portalClassName?: string;
+  portalRootClassName?: string;
 } & JSX.IntrinsicElements['div'];
 
 type AppContainerManagerContext = {
@@ -17,7 +17,7 @@ type AppContainerManagerContext = {
 };
 
 export const AppContainerContext = React.createContext<AppContainerManagerContext>({
-  appContainerManager: new AppContainerManager(defaultRootId, defaultPortalRootId),
+  appContainerManager: new AppContainerManager(defaultcontainerId, defaultPortalcontainerId),
 });
 
 export const useAppContainerManager = (): AppContainerManager => {
@@ -29,11 +29,11 @@ export const AppContainer: React.FC<AppContainerProps> = ({
   appContainerManager,
   children,
   className,
-  portalClassName,
+  portalRootClassName,
   ...rest
 }) => {
   useMount(() => {
-    appContainerManager.createPortalRoot({ className: portalClassName });
+    appContainerManager.createPortalRoot({ className: portalRootClassName });
   });
 
   useUnmount(() => {
@@ -41,7 +41,7 @@ export const AppContainer: React.FC<AppContainerProps> = ({
   });
 
   return (
-    <div className={className} id={appContainerManager.rootId} {...rest}>
+    <div className={className} id={appContainerManager.containerId} {...rest}>
       <AppContainerContext.Provider value={{ appContainerManager }}>
         {children}
       </AppContainerContext.Provider>
