@@ -7,11 +7,7 @@
 ```ts
 import { useMount } from '@gpn-prototypes/vega-hooks';
 
-/// some code
-
 const isMountedRef = useMount(() => {
   console.log('i am mount');
 });
-
-/// some code
 ```

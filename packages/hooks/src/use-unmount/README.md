@@ -7,11 +7,7 @@
 ```ts
 import { useUnmount } from '@gpn-prototypes/vega-hooks';
 
-/// some code
-
 useUnmount(() => {
   console.log('i am unmount');
 });
-
-/// some code
 ```
