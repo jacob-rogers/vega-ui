@@ -1,11 +1,16 @@
 import React from 'react';
 import * as tl from '@testing-library/react';
 
-import { Form } from './Form';
+import { Form, FormProps } from './Form';
+import { FormFieldProps } from './FormField';
+import { FormFieldsetProps } from './FormFieldset';
+import { FormLabelProps } from './FormLabel';
+import { FormLegendProps } from './FormLegend';
+import { FormRowProps } from './FormRow';
 
 describe('Form', () => {
   describe('Form', () => {
-    type Props = Partial<React.ComponentProps<typeof Form>>;
+    type Props = Partial<FormProps>;
 
     const renderForm = (props: Props = {}): tl.RenderResult => tl.render(<Form {...props} />);
 
@@ -15,7 +20,7 @@ describe('Form', () => {
   });
 
   describe('Field', () => {
-    type Props = Partial<React.ComponentProps<typeof Form.Field>>;
+    type Props = Partial<FormFieldProps>;
 
     const renderField = (props: Props = {}): tl.RenderResult =>
       tl.render(<Form.Field {...props} />);
@@ -26,7 +31,7 @@ describe('Form', () => {
   });
 
   describe('Fieldset', () => {
-    type Props = Partial<React.ComponentProps<typeof Form.Fieldset>>;
+    type Props = Partial<FormFieldsetProps>;
 
     const renderFieldset = (props: Props = {}): tl.RenderResult =>
       tl.render(<Form.Fieldset {...props} />);
@@ -37,7 +42,7 @@ describe('Form', () => {
   });
 
   describe('Row', () => {
-    type Props = Partial<React.ComponentProps<typeof Form.Row>>;
+    type Props = Partial<FormRowProps>;
 
     const renderRow = (props: Props = {}): tl.RenderResult => tl.render(<Form.Row {...props} />);
 
@@ -47,7 +52,7 @@ describe('Form', () => {
   });
 
   describe('Label', () => {
-    type Props = Partial<React.ComponentProps<typeof Form.Label>>;
+    type Props = Partial<FormLabelProps>;
 
     const renderLabel = (props: Props = {}): tl.RenderResult =>
       tl.render(<Form.Label {...props} />);
@@ -58,7 +63,7 @@ describe('Form', () => {
   });
 
   describe('Legend', () => {
-    type Props = Partial<React.ComponentProps<typeof Form.Legend>>;
+    type Props = Partial<FormLegendProps>;
 
     const renderLabel = (props: Props = {}): tl.RenderResult =>
       tl.render(<Form.Legend {...props} />);
