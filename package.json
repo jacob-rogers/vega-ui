@@ -30,7 +30,7 @@
     "lint:md": "remark . -o",
     "lint:css:fix": "stylelint ./packages ./.storybook --fix",
     "lint:fix": "yarn run lint:ts:fix && yarn run lint:css:fix && yarn run lint:md",
-    "clean": "git clean -fdx packages/ && rm -rf node_modules/",
+    "clean": "lerna clean && lerna exec 'rm -rf ./dist'",
     "nc": "hygen component new"
   },
   "config": {
