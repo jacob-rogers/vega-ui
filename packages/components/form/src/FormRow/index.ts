@@ -1,1 +1,1 @@
-export { FormRow } from './FormRow';
+export { FormRow, FormRowProps } from './FormRow';

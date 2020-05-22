@@ -1,1 +1,1 @@
-export { FormField } from './FormField';
+export { FormField, FormFieldProps } from './FormField';

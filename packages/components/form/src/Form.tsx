@@ -9,7 +9,7 @@ import { FormRow } from './FormRow';
 
 import './Form.css';
 
-type FormProps = {
+export type FormProps = {
   className?: string;
   children?: React.ReactNode;
   onSubmit?: (e: React.FormEvent) => void;

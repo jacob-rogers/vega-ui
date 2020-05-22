@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type FormFieldsetProps = {
+export type FormFieldsetProps = {
   className?: string;
   children?: React.ReactNode;
   disabled?: boolean;

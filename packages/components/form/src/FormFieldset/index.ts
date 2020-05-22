@@ -1,1 +1,1 @@
-export { FormFieldset } from './FormFieldset';
+export { FormFieldset, FormFieldsetProps } from './FormFieldset';

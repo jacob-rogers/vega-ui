@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type FormFieldProps = {
+export type FormFieldProps = {
   className?: string;
   children?: React.ReactNode;
 };

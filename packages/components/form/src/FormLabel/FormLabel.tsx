@@ -2,7 +2,7 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type FormLabelProps = {
+export type FormLabelProps = {
   className?: string;
   space?: '2xs' | 'xs' | 's' | 'none';
   size?: 's' | 'l';
