@@ -27,6 +27,8 @@ module.exports = ({ config }) => {
     }),
   ];
 
+  config.devServer = { stats: { warningsFilter: /export .* was not found in/ } };
+
   config.resolve.extensions.push('.ts', '.tsx', '.json');
 
   return config;
