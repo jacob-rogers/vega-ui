@@ -68,7 +68,7 @@ const fieldsetKnobs = (): Partial<React.ComponentProps<typeof Form.Fieldset>> =>
 storiesOf('ui/Form', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('default', () => {
+  .add('по умолчанию', () => {
     const submitAction = action('Form submitted');
 
     return (
@@ -187,7 +187,7 @@ storiesOf('ui/Form', module)
   })
   .add('playground', () => {
     const submitAction = action('Form submitted');
-    const textExample = text('example text', 'example-1', KNOB_GROUPS.label);
+    const textExample = text('example text', 'example-1');
 
     return (
       <Form
