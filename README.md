@@ -1,6 +1,10 @@
 # Vega UI kit
 
-![node-current](https://img.shields.io/node/v/latest)
+![version](https://img.shields.io/badge/dynamic/json?label=vega-ui&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpn-prototypes%2Fvega-ui%2Fmaster%2Fpackages%2Fcomponents%2Fpackage.json)
+[![проверки](https://github.com/gpn-prototypes/vega-ui/workflows/%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B8/badge.svg?branch=master)](https://github.com/gpn-prototypes/vega-ui/actions?query=workflow%3A%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B8)
+
+![node](https://img.shields.io/badge/node-%3E%3D%2012.16.2-brightgreen.svg)
+![yarn](https://img.shields.io/badge/yarn-%3E%3D%201.22.4-blue.svg)
 [![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](docs/contributors.md)
 
 > Библиотека компонентов для проекта Vega 2.0.
@@ -62,3 +66,5 @@
         </td>
     </tr>
 </table>
+
+[info-node]: package.json
