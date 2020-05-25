@@ -2,14 +2,16 @@ import fs from 'fs';
 import path from 'path';
 
 import resolve from '@rollup/plugin-node-resolve';
-import postcss from 'rollup-plugin-postcss';
-import typescript from 'rollup-plugin-typescript2';
+
+// const { getInputFilePath } = require('./scripts/get-input-file-path');
+// import postcss from 'rollup-plugin-postcss';
+// import typescript from 'rollup-plugin-typescript2';
 
 const PACKAGE_ROOT = process.cwd();
 
-const getInputFilePath = () => {
-  const srcPath = path.join(PACKAGE_ROOT, 'src', 'index.ts');
-  const noSrcPath = path.join(PACKAGE_ROOT, 'index.ts');
+const getInputFilePath = (packageRoot) => {
+  const srcPath = path.join(packageRoot, 'src', 'index.ts');
+  const noSrcPath = path.join(packageRoot, 'index.ts');
 
   try {
     fs.accessSync(srcPath, fs.constants.F_OK);
@@ -31,7 +33,7 @@ const changeSlash = (pathStr) => {
   return pathStr.replace(/\\/g, '/');
 };
 
-const INPUT_FILE = getInputFilePath();
+const INPUT_FILE = getInputFilePath(PACKAGE_ROOT);
 const OUTPUT_DIR = path.join(PACKAGE_ROOT, 'dist');
 const PKG_JSON = require(path.join(PACKAGE_ROOT, 'package.json')); // eslint-disable-line import/no-dynamic-require
 
@@ -56,16 +58,16 @@ export default formats.map((format) => {
     external: isExternalModule,
     plugins: [
       resolve(),
-      postcss({ extract: true }),
-      typescript({
-        tsconfig: 'tsconfig.json',
-        tsconfigOverride: {
-          compilerOptions: {
-            target: format.target,
-          },
-          exclude: ['**/*.stories.tsx'],
-        },
-      }),
+      // postcss({ extract: true }),
+      // typescript({
+      //   tsconfig: 'tsconfig.json',
+      //   tsconfigOverride: {
+      //     compilerOptions: {
+      //       target: format.target,
+      //     },
+      //     exclude: ['**/*.stories.tsx'],
+      //   },
+      // }),
     ],
   };
 });
