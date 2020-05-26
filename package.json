@@ -75,6 +75,7 @@
     "packages/components/theme",
     "packages/components/scale-panel",
     "packages/components/animation",
+    "packages/components/sidebar",
     "packages/components"
   ],
   "devDependencies": {

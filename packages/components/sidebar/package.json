@@ -1,0 +1,33 @@
+{
+  "name": "@gpn-prototypes/vega-sidebar",
+  "version": "0.0.1",
+  "main": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/components/sidebar/src/index.d.ts",
+  "author": "csssr",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/gpn-prototypes/vega-ui.git",
+    "directory": "packages/components/sidebar"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/gpn-prototypes"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.13.1"
+  },
+  "dependencies": {
+    "@gpn-design/uikit": "^1.0.2",
+    "@gpn-prototypes/vega-hooks": "^0.0.8",
+    "bem-cn": "^3.0.1",
+    "react-transition-group": "^4.3.0"
+  },
+  "devDependencies": {
+    "@types/react-transition-group": "^4.2.4"
+  }
+}

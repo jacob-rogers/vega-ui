@@ -29,3 +29,4 @@ export * from '@gpn-prototypes/vega-logo';
 export * from '@gpn-prototypes/vega-theme';
 export * from '@gpn-prototypes/vega-scale-panel';
 export * from '@gpn-prototypes/vega-animation';
+export * from '@gpn-prototypes/vega-sidebar';

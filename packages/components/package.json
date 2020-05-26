@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@gpn-prototypes/vega-animation": "^0.0.2",
+    "@gpn-prototypes/vega-sidebar": "^0.0.1",
     "@gpn-prototypes/vega-attach": "^0.1.2",
     "@gpn-prototypes/vega-avatar": "^0.1.4",
     "@gpn-prototypes/vega-badge": "^0.1.4",
