@@ -21,6 +21,7 @@
     "pretty": true,
     "removeComments": false,
     "stripInternal": true,
+    "importHelpers": true,
     "baseUrl": ".",
     "paths": {
       "@gpn-prototypes/vega-hooks": ["packages/hooks/src/index.ts"],
