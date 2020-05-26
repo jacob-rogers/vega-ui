@@ -1,4 +1,4 @@
-name: Добавление описания в Pull Requeston
+name: Добавление описания в Pull Request
 
 on:
   pull_request:
