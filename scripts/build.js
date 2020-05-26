@@ -13,20 +13,38 @@ function buildPackages() {
   exec('yarn build:css');
 }
 
-function moveCompiledCodeInsidePackage(packageDir) {
-  const packagePath = path.join(PROJECT_DIR, packageDir, 'dist');
+function prepatePackageDist(packageDir /* ex. packages/components/dropdown */) {
+  /* ex. /Users/Vasya/Documents/vega-ui/packages/components/dropdown/src */
+  const absoluteSrcPath = path.join(PROJECT_DIR, packageDir, 'src');
+  /* ex. /Users/Vasya/Documents/vega-ui/packages/components/dropdown/dist */
+  const absolutePackagePath = path.join(PROJECT_DIR, packageDir, 'dist');
+  /* ex. components/dropdown */
   const packageRelativePath = packageDir.replace('packages/', '');
-  const compiledPath = path.join(PROJECT_DIR, 'dist', packageRelativePath);
+  /* ex. /Users/Vasya/Documents/vega-ui/dist/components/dropdown */
+  const absoluteCompiledCodePath = path.join(PROJECT_DIR, 'dist', packageRelativePath);
 
-  exec(`mv '${compiledPath}' '${packagePath}'`);
-  exec(`rm -f ${path.join(packagePath, '**/*.stories.*')}`);
-  exec(`rm -f ${path.join(packagePath, '**/*.test.*')}`);
+  exec(`mv "${absoluteCompiledCodePath}" "${absolutePackagePath}"`);
+
+  // Windows: использовать баш, либо поставить пакет rimraf и использовать тут
+  exec(`rm -f "${path.join(absolutePackagePath, '**/*.stories.*')}"`);
+  exec(`rm -f "${path.join(absolutePackagePath, '**/*.test.*')}"`);
+
+  /*
+    ex. /Users/Vasya/Documents/vega-ui/packages/components/dropdown/src ->
+        /Users/Vasya/Documents/vega-ui/packages/components/dropdown/dist/src
+  */
+  exec(
+    `cpx -pv "${path.join(absoluteSrcPath, '**/*.{svg,png,jpg,jpeg}')}" "${path.join(
+      absolutePackagePath,
+      'src',
+    )}"`,
+  );
 }
 
 const cwd = process.cwd();
 
 buildPackages();
-PGK.workspaces.forEach(moveCompiledCodeInsidePackage);
+PGK.workspaces.forEach(prepatePackageDist);
 exec(`rm -rf dist`);
 
 process.chdir(cwd);
