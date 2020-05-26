@@ -1,4 +1,4 @@
-name: Проверки
+name: Проверки кода
 on:
   push:
     branches: [master]
@@ -6,7 +6,7 @@ on:
 
 jobs:
   checks:
-    name: Проверки
+    name: Проверки кода
     runs-on: ubuntu-latest
 
     steps:
@@ -28,7 +28,4 @@ jobs:
         if: always()
 
       - run: yarn lint
-        if: always()
-
-      - run: yarn types
         if: always()

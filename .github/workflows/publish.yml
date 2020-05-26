@@ -1,11 +1,11 @@
-name: Публикация новой версии
+name: Публикация новых версий пакетов
 on:
   push:
     branches: [master]
 
 jobs:
   publish:
-    name: Сборка
+    name: Публикация новых версий пакетов
     runs-on: ubuntu-latest
 
     steps:

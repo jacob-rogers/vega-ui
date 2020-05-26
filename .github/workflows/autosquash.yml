@@ -4,7 +4,7 @@ on:
 
 jobs:
   message-check:
-    name: Блокирование мерджа, если есть fixup или squash лейблы
+    name: Блокирование мерджа, если есть лейблы fixup или squash
 
     runs-on: ubuntu-latest
 
