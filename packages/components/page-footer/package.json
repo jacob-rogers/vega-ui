@@ -2,9 +2,9 @@
   "name": "@gpn-prototypes/vega-page-footer",
   "version": "0.1.1",
   "description": "",
-  "main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/components/page-footer/src/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "author": "csssr",
   "files": [
     "dist"

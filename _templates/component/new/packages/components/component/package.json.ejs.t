@@ -4,9 +4,9 @@ to: packages/components/<%= name %>/package.json
 {
   "name": "@gpn-prototypes/vega-<%= name %>",
   "version": "0.0.1",
-  "main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/components/<%= name %>/src/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "author": "csssr",
   "files": [
     "dist"

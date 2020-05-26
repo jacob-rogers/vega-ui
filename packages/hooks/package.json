@@ -2,9 +2,9 @@
   "name": "@gpn-prototypes/vega-hooks",
   "version": "0.0.8",
   "description": "",
-  "main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/hooks/src/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "author": "csssr",
   "sideEffects": false,
   "files": [

@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 const { PROJECT_DIR } = require('../config');
@@ -8,33 +7,26 @@ function exec(cmd) {
   execSync(cmd, { stdio: 'inherit', env: process.env });
 }
 
+function buildPackages() {
+  exec('yarn packages:clean');
+  exec('yarn build:ts');
+  exec('yarn build:css');
+}
+
+function moveCompiledCodeInsidePackage(packageDir) {
+  const packagePath = path.join(PROJECT_DIR, packageDir, 'dist');
+  const packageRelativePath = packageDir.replace('packages/', '');
+  const compiledPath = path.join(PROJECT_DIR, 'dist', packageRelativePath);
+
+  exec(`mv '${compiledPath}' '${packagePath}'`);
+  exec(`rm -f ${path.join(packagePath, '**/*.stories.*')}`);
+  exec(`rm -f ${path.join(packagePath, '**/*.test.*')}`);
+}
+
 const cwd = process.cwd();
 
-const ROLLUP_CONFIG_PATH = path.join(PROJECT_DIR, 'rollup.config.js');
-
-const prependCSSImportToJSFile = (packageDir) => {
-  // Записываем в js-файлы импорт css-файла,
-  // чтобы не приходилось импортировать стили руками
-  try {
-    const cssFileName = 'index.esm.css';
-    const jsFileName = 'index.esm.js';
-    const cssFilePath = path.join(PROJECT_DIR, packageDir, `/dist/${cssFileName}`);
-    const jsFilePath = path.join(PROJECT_DIR, packageDir, `/dist/${jsFileName}`);
-
-    if (fs.existsSync(cssFilePath)) {
-      const fsOptions = { encoding: 'utf8' };
-      const codeToPrepend = `import "./${cssFileName}";\n`;
-      const currentFileData = fs.readFileSync(jsFilePath, fsOptions);
-
-      fs.writeFileSync(jsFilePath, codeToPrepend + currentFileData, fsOptions);
-    }
-  } catch (e) {} // eslint-disable-line no-empty
-};
-
-PGK.workspaces.forEach((packageDir) => {
-  process.chdir(path.join(PROJECT_DIR, packageDir));
-  exec(`rollup -c=${ROLLUP_CONFIG_PATH}`);
-  prependCSSImportToJSFile(packageDir);
-});
+buildPackages();
+PGK.workspaces.forEach(moveCompiledCodeInsidePackage);
+exec(`rm -rf dist`);
 
 process.chdir(cwd);

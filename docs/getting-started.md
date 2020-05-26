@@ -26,38 +26,37 @@ $ yarn storybook
 # Установить зависимости
 $ yarn
 
-# Собрать rollup'ом все пакеты и слинковать
-$ yarn build
+# Создать директорию нового компонента по шаблону из ./_templates, [подробнее тут](./new-component.md)
+$ yarn nc <component-name>
 
-# Удаление директорий node_modules и dist у всех пакетов
-$ yarn clean
+# Собрать rollup'ом все пакеты и слинковать
+$ yarn build # включает в себя:
+$ yarn build:ts # сборка typescript'а
+$ yarn build:css # сборка css
 
 # Прогнать все тесты во всех компонентах
 $ yarn test
 
-# Сформировать отчет по покрытию тестами
-$ yarn coverage
-
 # Запустить тесты в watch-режиме
 $ yarn test:watch
 
+# Сформировать отчет по покрытию тестами
+$ yarn coverage
+
+# Удаление директорий node_modules и dist у всех пакетов
+$ yarn packages:clean
+
 # lerna
-$ yarn diff
-$ yarn bootstrap
-$ yarn update:version
-$ yarn link:packages
+$ yarn packages:diff
+$ yarn packages:bootstrap
+$ yarn packages:version
+$ yarn packages:link
 
 # Запуск сторибука на 6006 порту
 $ yarn storybook
 
 # Собрать статику сторибука
-$ yarn build-storybook
-
-# Проверить типизацию???
-$ yarn types
-
-# Запустить проверку типизации в watch-режиме???
-$ yarn types:watch
+$ yarn storybook:build
 
 # Прогнать форматирование prettier'ом
 $ yarn prettier

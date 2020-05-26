@@ -2,9 +2,9 @@
   "name": "@gpn-prototypes/vega-dropdown",
   "version": "0.0.10",
   "description": "",
-  "main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/components/dropdown/src/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "author": "csssr",
   "files": [
     "dist"

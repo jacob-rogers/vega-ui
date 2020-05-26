@@ -10,7 +10,7 @@
     },
     "publish": {
       "message": "chore(release): обновление версий пакетов",
-      "registry": "https://npm.pkg.github.com/ttteam-org"
+      "registry": "https://npm.pkg.github.com/gpn-prototypes"
     }
   },
   "ignoreChanges": [

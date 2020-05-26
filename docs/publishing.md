@@ -73,8 +73,11 @@ $ npm login --registry=https://npm.pkg.github.com`
 
 3.  переходим в ветку `master` локально
 
-4.  поднимаем версии пакетов с помощью `lerna`
-    `yarn lerna version --conventional-commits --allow-branch=master --no-commit-hooks --no-push --yes --create-release github`
+4.  поднимаем версии пакетов с помощью `lerna` и создаем git-теги с релизами
+    `yarn lerna version --conventional-commits --allow-branch=master --no-commit-hooks --no-push --create-release github`
+
+4.1 поднимаем версии у всех пакетов, даже если они не менялись в git — такое нужно, например, когда меняется сборка
+`yarn lerna version --conventional-commits --allow-branch=master --no-commit-hooks --no-push --create-release github --force-publish`
 
 5.  запускаем публикацию пакетов с помощью `lerna`
     `yarn lerna publish from-git --yes --registry https://npm.pkg.github.com/gpn-prototypes`
