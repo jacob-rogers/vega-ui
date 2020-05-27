@@ -9,6 +9,6 @@ function renderComponent(props?: DragAndDropProps): RenderResult {
 
 describe('DragAndDrop', () => {
   test('рендерится без ошибок', () => {
-    renderComponent({ title: 'Test' });
+    renderComponent();
   });
 });

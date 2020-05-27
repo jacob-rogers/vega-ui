@@ -1,9 +1,15 @@
+import { DragEvent } from 'react';
+
+export type ReactDivDragEvent = DragEvent<HTMLDivElement>;
+
+export type ReactDragEventHandler = (e: ReactDivDragEvent) => void;
+
 export type DragHandlers = {
-  onDragStart?: (e: DragEvent) => void;
-  onDragEnd?: (e: DragEvent) => void;
-  onDragOver?: (e: DragEvent) => void;
-  onDragEnter?: (e: DragEvent) => void;
-  onDragLeave?: (e: DragEvent) => void;
-  onDragExit?: (e: DragEvent) => void;
-  onDrop?: (e: DragEvent) => void;
+  onDragStart?: ReactDragEventHandler;
+  onDragEnd?: ReactDragEventHandler;
+  onDragOver?: ReactDragEventHandler;
+  onDragEnter?: ReactDragEventHandler;
+  onDragLeave?: ReactDragEventHandler;
+  onDragExit?: ReactDragEventHandler;
+  onDrop?: ReactDragEventHandler;
 };
