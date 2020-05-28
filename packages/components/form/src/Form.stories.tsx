@@ -102,7 +102,11 @@ storiesOf('ui/Form', module)
         </Form.Row>
         <Form.Row col="3">
           <Form.Field>
-            <Form.Label htmlFor="example-1">C множеством лейблов</Form.Label>
+            <Form.Label htmlFor="example-1">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos accusantium
+              similique explicabo cum nostrum odio suscipit. Voluptas quos atque modi minus, impedit
+              facere, mollitia excepturi doloremque porro ipsam dolore.
+            </Form.Label>
             <TextField width="full" id="example-1" placeholder="C множеством лейблов" />
           </Form.Field>
           <Form.Field>
