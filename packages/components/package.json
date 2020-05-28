@@ -31,6 +31,7 @@
     "@gpn-prototypes/vega-drag-and-drop": "^0.0.1",
     "@gpn-prototypes/vega-dropdown": "^1.1.0",
     "@gpn-prototypes/vega-file": "^0.1.4",
+    "@gpn-prototypes/vega-file-input": "^0.0.1",
     "@gpn-prototypes/vega-form": "^0.1.5",
     "@gpn-prototypes/vega-hooks": "^0.2.0",
     "@gpn-prototypes/vega-icons": "^0.1.4",

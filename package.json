@@ -76,6 +76,7 @@
     "packages/components/scale-panel",
     "packages/components/animation",
     "packages/components/sidebar",
+    "packages/components/file-input",
     "packages/components"
   ],
   "devDependencies": {

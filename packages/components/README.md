@@ -12,3 +12,4 @@
 - [ScalePanel](scale-panel)
 - [Animation](animation)
 - [Sidebar](sidebar)
+- [FileInput](file-input)
