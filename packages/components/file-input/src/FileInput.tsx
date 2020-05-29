@@ -28,9 +28,7 @@ export const FileInput: React.FC<FileInputProps> = (props) => {
           onChange={onChange}
           aria-label="File input"
         />
-        <Button role="button" as="div" {...buttonProps}>
-          {props.children}
-        </Button>
+        <Button role="button" as="div" {...buttonProps} />
       </label>
     </>
   );

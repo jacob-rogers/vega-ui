@@ -2,7 +2,8 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
 
-import { DragHandlers, ReactDragEventHandler } from './types/DragHandlers';
+import { DragHandlers, ReactDragEventHandler } from '../types';
+
 import { cnDragAndDrop } from './cn-dropzone';
 
 import './Dropzone.css';
