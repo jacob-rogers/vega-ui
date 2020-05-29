@@ -19,9 +19,8 @@
     left: 0;
     bottom: 0;
 
-    padding: calc(var(--space-2xl * 2));
-
     display: flex;
+    visibility: hidden;
     justify-content: center;
     align-items: center;
 
@@ -30,11 +29,17 @@
 
     background: var(--color-bg-tone);
     align-content: center;
+
+    &.is-visible {
+      visibility: visible;
+    }
   }
 
   &.is-fullscreen {
     position: relative;
     z-index: 101;
+
+    margin: calc(var(--space-2xl) * 2);
 
     width: 90%;
     height: 90%;

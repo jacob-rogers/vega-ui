@@ -1,3 +1,3 @@
 import block from 'bem-cn';
 
-export const cnDragAndDrop = block('VegaDragAndDrop');
+export const cnDragAndDrop = block('VegaDropzone');

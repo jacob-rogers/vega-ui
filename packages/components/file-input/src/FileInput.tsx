@@ -16,20 +16,18 @@ export interface FileInputProps extends ButtonProps {
 const cnFileInput = block('VegaFileInput');
 
 export const FileInput: React.FC<FileInputProps> = (props) => {
-  const { className, id, onChange, label, ...buttonProps } = props;
+  const { className, id, onChange, ...buttonProps } = props;
 
   return (
-    <>
-      <label aria-label={label} htmlFor={id} className={cnFileInput.mix(className)}>
-        <input
-          className={cnFileInput('Input')}
-          type="file"
-          id={id}
-          onChange={onChange}
-          aria-label="File input"
-        />
-        <Button role="button" as="div" {...buttonProps} />
-      </label>
-    </>
+    <label htmlFor={id} className={cnFileInput.mix(className)}>
+      <input
+        className={cnFileInput('Input')}
+        type="file"
+        id={id}
+        onChange={onChange}
+        aria-label="File input"
+      />
+      <Button role="button" as="div" {...buttonProps} />
+    </label>
   );
 };

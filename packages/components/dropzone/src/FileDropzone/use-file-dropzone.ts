@@ -60,7 +60,6 @@ export const useFileDropzone = (
 
   return {
     fullscreenVisible,
-    closeFullscreenVisible,
     handleDragOver,
     handleLoad,
     handleDragEnter,

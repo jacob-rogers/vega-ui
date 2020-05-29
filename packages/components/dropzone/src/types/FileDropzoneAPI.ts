@@ -5,7 +5,6 @@ type LoadEvent = ReactDivDragEvent | ReactInputChangeEvent;
 
 export type FileDropzoneAPI = {
   fullscreenVisible: boolean;
-  closeFullscreenVisible: VoidFunction;
   handleDragEnter: ReactDragEventHandler;
   handleDragLeave: ReactDragEventHandler;
   handleDragOver: ReactDragEventHandler;

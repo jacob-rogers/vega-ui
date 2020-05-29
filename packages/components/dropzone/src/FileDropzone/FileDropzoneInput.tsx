@@ -1,8 +1,8 @@
 import React from 'react';
-import { FileInput } from '@gpn-prototypes/vega-file-input';
+import { FileInput } from '@gpn-prototypes/vega-file-input/src';
 import { IconAttach } from '@gpn-prototypes/vega-icons';
 
-import { useFileDropzoneProvider } from './FileDropzoneProvider';
+import { useFileDropzoneProvider } from './use-file-dropzone-provider';
 
 type FileDropzoneInputProps = {
   className?: string;

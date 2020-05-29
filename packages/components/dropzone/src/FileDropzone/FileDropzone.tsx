@@ -3,7 +3,8 @@ import React from 'react';
 import { Dropzone } from '../Dropzone';
 
 import { FileDropzoneInput } from './FileDropzoneInput';
-import { useFileDropzoneProvider } from './FileDropzoneProvider';
+import { FileDropzoneProvider } from './FileDropzoneProvider';
+import { useFileDropzoneProvider } from './use-file-dropzone-provider';
 
 type FileDropzoneProps = {
   children: React.ReactNode;
@@ -15,6 +16,7 @@ type FileDropzoneProps = {
 type FileDropzone<T> = React.FC<T> & {
   Fullscreen: React.FC<FileDropzoneProps>;
   Input: typeof FileDropzoneInput;
+  Provider: typeof FileDropzoneProvider;
 };
 
 export const FileDropzone: FileDropzone<FileDropzoneProps> = (props) => {
@@ -49,3 +51,5 @@ const FileDropzoneFullscreen: React.FC<FileDropzoneProps> = (props) => {
 FileDropzone.Fullscreen = FileDropzoneFullscreen;
 
 FileDropzone.Input = FileDropzoneInput;
+
+FileDropzone.Provider = FileDropzoneProvider;
