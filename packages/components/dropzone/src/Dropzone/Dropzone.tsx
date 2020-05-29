@@ -3,11 +3,11 @@ import { createPortal } from 'react-dom';
 import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
 
 import { DragHandlers, ReactDragEventHandler } from './types/DragHandlers';
-import { cnDragAndDrop } from './cn-drag-and-drop';
+import { cnDragAndDrop } from './cn-dropzone';
 
-import './DragAndDrop.css';
+import './Dropzone.css';
 
-export type DragAndDropProps = {
+export type DropzoneProps = {
   className?: string;
   children?: React.ReactNode;
   show?: boolean;
@@ -24,7 +24,7 @@ type DragEventKey =
   | 'dragover'
   | 'dragstart';
 
-export const DragAndDrop: React.FC<DragAndDropProps> = (props) => {
+export const Dropzone: React.FC<DropzoneProps> = (props) => {
   const defaultDragHandler = (): void => {};
   const {
     className,
@@ -75,7 +75,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = (props) => {
     return null;
   }
 
-  const dragAndDropClassName = fullscreen ? cnDragAndDrop.state({ fullscreen }) : cnDragAndDrop;
+  const dropzoneClassName = fullscreen ? cnDragAndDrop.state({ fullscreen }) : cnDragAndDrop;
 
   const eventsProps = {
     onDragOver,
@@ -88,7 +88,7 @@ export const DragAndDrop: React.FC<DragAndDropProps> = (props) => {
   };
 
   const content = (
-    <div className={dragAndDropClassName.mix(className)} {...eventsProps}>
+    <div className={dropzoneClassName.mix(className)} {...eventsProps}>
       <div className={cnDragAndDrop('Description')}>{children}</div>
     </div>
   );

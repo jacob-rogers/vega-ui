@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
-import { DragAndDrop, DragAndDropProps } from './DragAndDrop';
+import { Dropzone, DropzoneProps } from './Dropzone';
 
-function renderComponent(props?: DragAndDropProps): RenderResult {
-  return render(<DragAndDrop {...props} />);
+function renderComponent(props?: DropzoneProps): RenderResult {
+  return render(<Dropzone {...props} />);
 }
 
 describe('DragAndDrop', () => {

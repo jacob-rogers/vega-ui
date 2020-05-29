@@ -4,7 +4,7 @@ import { Text } from '@gpn-design/uikit/Text';
 import { withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
-import { DragAndDrop } from './DragAndDrop';
+import { Dropzone } from './Dropzone';
 
 const Container = styled.div({
   width: '100%',
@@ -16,10 +16,10 @@ const DndContainer = styled.div({
   width: '500px',
 });
 
-storiesOf('ui/DragAndDrop', module)
+storiesOf('ui/Dropzone', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('DragAndDrop на полный экран', () => {
+  .add('Dropzone на полный экран', () => {
     const [showFullscreen, setShowFullscreen] = React.useState(false);
     const [text, setText] = React.useState('Перетащите файл для демонстрации');
 
@@ -47,7 +47,7 @@ storiesOf('ui/DragAndDrop', module)
         <Container>
           <Text>{text}</Text>
         </Container>
-        <DragAndDrop
+        <Dropzone
           onDragEnter={handleDragStart}
           onDragLeave={handleDragLeave}
           onDragEnd={handleDrop}
@@ -58,11 +58,11 @@ storiesOf('ui/DragAndDrop', module)
           show={showFullscreen}
         >
           Отпустите, чтобы загрузить файлы
-        </DragAndDrop>
+        </Dropzone>
       </>
     );
   })
-  .add('DragAndDrop не в полноэкранном режиме', () => {
+  .add('Dropzone не в полноэкранном режиме', () => {
     const [text, setText] = React.useState('Перетащите файл для демонстрации');
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>): void => {
@@ -80,14 +80,14 @@ storiesOf('ui/DragAndDrop', module)
 
     return (
       <DndContainer>
-        <DragAndDrop
+        <Dropzone
           onDragEnter={handleDragStart}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onDragOver={(e): void => e.preventDefault()}
         >
           {text}
-        </DragAndDrop>
+        </Dropzone>
       </DndContainer>
     );
   });

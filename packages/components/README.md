@@ -12,4 +12,5 @@
 - [ScalePanel](scale-panel)
 - [Animation](animation)
 - [Sidebar](sidebar)
+- [Dropzone](dropzone)
 - [FileInput](file-input)

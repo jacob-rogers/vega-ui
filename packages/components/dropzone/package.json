@@ -1,9 +1,9 @@
 {
-  "name": "@gpn-prototypes/vega-drag-and-drop",
+  "name": "@gpn-prototypes/vega-dropzone",
   "version": "0.0.1",
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
-  "types": "dist/components/drag-and-drop/src/index.d.ts",
+  "types": "dist/components/dropzone/src/index.d.ts",
   "author": "csssr",
   "files": [
     "dist"
@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/gpn-prototypes/vega-ui.git",
-    "directory": "packages/components/drag-and-drop"
+    "directory": "packages/components/dropzone"
   },
   "publishConfig": {
     "access": "public",
@@ -23,6 +23,7 @@
   "dependencies": {
     "bem-cn": "^3.0.1",
     "react-dom": "^16.13.1",
-    "@gpn-prototypes/vega-hooks": "0.0.8"
+    "@gpn-prototypes/vega-hooks": "0.0.8",
+    "@gpn-prototypes/vega-file-input": "0.0.1"
   }
 }
