@@ -6,7 +6,7 @@ import { FileDropzoneInput } from './FileDropzoneInput';
 import { FileDropzoneProvider } from './FileDropzoneProvider';
 import { useFileDropzoneProvider } from './use-file-dropzone-provider';
 
-type FileDropzoneProps = {
+export type FileDropzoneProps = {
   children: React.ReactNode;
   className?: string;
   show?: boolean;

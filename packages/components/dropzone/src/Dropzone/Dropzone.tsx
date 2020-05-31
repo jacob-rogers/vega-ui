@@ -4,7 +4,7 @@ import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
 
 import { DragHandlers } from '../types';
 
-import { cnDragAndDrop } from './cn-dropzone';
+import { cnDropzone } from './cn-dropzone';
 
 import './Dropzone.css';
 
@@ -47,7 +47,7 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     };
   });
 
-  const dropzoneClassName = fullscreen ? cnDragAndDrop.state({ fullscreen }) : cnDragAndDrop;
+  const dropzoneClassName = fullscreen ? cnDropzone.state({ fullscreen }) : cnDropzone;
 
   const eventsProps = {
     onDragOver,
@@ -61,13 +61,13 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
 
   const content = (
     <div className={dropzoneClassName.mix(className)} {...eventsProps} {...rest}>
-      <div className={cnDragAndDrop('Content')}>{children}</div>
+      <div className={cnDropzone('Content')}>{children}</div>
     </div>
   );
 
   if (portalNode && fullscreen) {
     return createPortal(
-      <div className={cnDragAndDrop('Overlay').state({ visible: show })}>{content}</div>,
+      <div className={cnDropzone('Overlay').state({ visible: show })}>{content}</div>,
       portalNode,
     );
   }

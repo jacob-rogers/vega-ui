@@ -7,7 +7,7 @@ function renderComponent(props?: DropzoneProps): RenderResult {
   return render(<Dropzone data-testid="test-dropzone" {...props} />);
 }
 
-describe('DragAndDrop', () => {
+describe('Dropzone', () => {
   test('рендерится без ошибок', () => {
     renderComponent();
   });

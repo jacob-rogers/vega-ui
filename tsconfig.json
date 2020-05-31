@@ -8,6 +8,8 @@
     "baseUrl": ".",
     "paths": {
       "@gpn-prototypes/vega-hooks": ["packages/hooks/src/index.ts"],
+      "@gpn-prototypes/vega-dropzone": ["packages/components/dropzone/src/index.ts"],
+      "@gpn-prototypes/vega-file-input": ["packages/components/file-input/src/index.ts"],
       "@gpn-prototypes/vega-avatar": ["packages/components/avatar/src/index.ts"],
       "@gpn-prototypes/vega-badge": ["packages/components/badge/src/index.ts"],
       "@gpn-prototypes/vega-button": ["packages/components/button/src/index.ts"],

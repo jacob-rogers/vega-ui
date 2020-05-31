@@ -28,7 +28,6 @@
     "@gpn-prototypes/vega-carousel": "^0.0.3",
     "@gpn-prototypes/vega-checkbox": "^0.1.4",
     "@gpn-prototypes/vega-choice-group": "^0.1.4",
-    "@gpn-prototypes/vega-drag-and-drop": "^0.0.1",
     "@gpn-prototypes/vega-dropdown": "^1.1.0",
     "@gpn-prototypes/vega-file": "^0.1.4",
     "@gpn-prototypes/vega-file-input": "^0.0.1",
@@ -53,6 +52,7 @@
     "@gpn-prototypes/vega-text-field": "^0.1.4",
     "@gpn-prototypes/vega-theme": "^0.0.2",
     "@gpn-prototypes/vega-timer": "^0.1.2",
-    "@gpn-prototypes/vega-user": "^0.1.4"
+    "@gpn-prototypes/vega-user": "^0.1.4",
+    "@gpn-prototypes/vega-dropzone": "^0.0.1"
   }
 }

@@ -1,4 +1,4 @@
-# @gpn-prototypes/vega-drag-and-drop
+# @gpn-prototypes/vega-dropzone
 
 Название компонента
 
@@ -7,25 +7,25 @@
 ### Установка
 
 ```
-yarn add @gpn-prototypes/vega-drag-and-drop
+yarn add @gpn-prototypes/vega-dropzone
 ```
 
 ### Примеры использования
 
 ```jsx
-import { DragAndDrop } from '@gpn-prototypes/vega-drag-and-drop';
+import { Dropzone } from '@gpn-prototypes/vega-dropzone';
 
 export const MyComponent = () => {
   const title = 'Title';
 
-  return <DragAndDrop title={title} />;
+  return <Dropzone title={title} />;
 };
 ```
 
 ### API
 
 ```ts
-type DragAndDropProps = {
+type DropzoneProps = {
   title?: string;
   className?: string;
 };
