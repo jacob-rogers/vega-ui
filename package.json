@@ -64,6 +64,10 @@
     "packages/components/page-footer",
     "packages/components/logo",
     "packages/components/form",
+    "packages/components/timer",
+    "packages/components/snack-bar",
+    "packages/components/progress-spin",
+    "packages/components/attach",
     "packages/components"
   ],
   "devDependencies": {
@@ -133,9 +137,6 @@
   },
   "dependencies": {
     "@bem-react/classname": "^1.5.8",
-    "@bem-react/classnames": "^1.3.9",
-    "@gpn-design/uikit": "^1.0.2",
-    "bem-cn": "^3.0.1",
-    "react": "^16.13.1"
+    "@bem-react/classnames": "^1.3.9"
   }
 }

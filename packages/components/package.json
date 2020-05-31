@@ -20,6 +20,10 @@
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "dependencies": {
+    "@gpn-prototypes/vega-attach": "^0.0.1",
+    "@gpn-prototypes/vega-progress-spin": "^0.0.1",
+    "@gpn-prototypes/vega-snack-bar": "^0.0.1",
+    "@gpn-prototypes/vega-timer": "^0.0.1",
     "@gpn-prototypes/vega-avatar": "^0.1.1",
     "@gpn-prototypes/vega-badge": "^0.1.1",
     "@gpn-prototypes/vega-button": "^0.1.1",

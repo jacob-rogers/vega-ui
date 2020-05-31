@@ -19,3 +19,7 @@ export * from '@gpn-prototypes/vega-text-field';
 export * from '@gpn-prototypes/vega-user';
 export * from '@gpn-prototypes/vega-dropdown';
 export * from '@gpn-prototypes/vega-page-banner';
+export * from '@gpn-prototypes/vega-timer';
+export * from '@gpn-prototypes/vega-snack-bar';
+export * from '@gpn-prototypes/vega-progress-spin';
+export * from '@gpn-prototypes/vega-attach';
