@@ -12,7 +12,7 @@ const ButtonContainer = styled.div({
 });
 
 const Container = styled.div({
-  width: '500px',
+  width: '300px',
 });
 
 storiesOf('ui/FileDropzone', module)

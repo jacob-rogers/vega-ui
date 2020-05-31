@@ -14,7 +14,8 @@ export type DropzoneProps = {
   show?: boolean;
   fullscreen?: boolean;
   portalSelector?: string;
-} & DragHandlers;
+} & DragHandlers &
+  JSX.IntrinsicElements['div'];
 
 export const Dropzone: React.FC<DropzoneProps> = (props) => {
   const defaultDragHandler = (): void => {};
@@ -31,12 +32,15 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     portalSelector = 'body',
     fullscreen = false,
     show = true,
+    ...rest
   } = props;
 
   const portalNode = usePortalDomNode(portalSelector);
 
   React.useEffect(() => {
-    document.addEventListener('dragenter', onDragEnter);
+    if (fullscreen) {
+      document.addEventListener('dragenter', onDragEnter);
+    }
 
     return (): void => {
       document.removeEventListener('dragenter', onDragEnter);
@@ -56,8 +60,8 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
   };
 
   const content = (
-    <div className={dropzoneClassName.mix(className)} {...eventsProps}>
-      <div className={cnDragAndDrop('Description')}>{children}</div>
+    <div className={dropzoneClassName.mix(className)} {...eventsProps} {...rest}>
+      <div className={cnDragAndDrop('Content')}>{children}</div>
     </div>
   );
 

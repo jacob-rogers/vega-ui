@@ -1,5 +1,5 @@
 .VegaDropzone {
-  padding: var(--space-xl) 0;
+  padding: var(--space-xl) calc(var(--space-xl) * 3);
 
   display: flex;
   justify-content: center;
@@ -10,6 +10,10 @@
   background-color: transparent;
   border: 2px dashed var(--color-bg-border);
   border-radius: calc(var(--control-radius) * 2);
+
+  &__Content {
+    max-width: 300px;
+  }
 
   &__Overlay {
     position: fixed;
@@ -40,6 +44,7 @@
     z-index: 101;
 
     margin: calc(var(--space-2xl) * 2);
+    padding: 0;
 
     width: 90%;
     height: 90%;
