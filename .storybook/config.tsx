@@ -1,6 +1,5 @@
 import React from 'react';
-import { cnTheme } from '@gpn-design/uikit/Theme';
-import { AppContainer, AppContainerManager } from '@gpn-prototypes/vega-app-container';
+import { PortalsRoot, usePortalsRoot } from '@gpn-prototypes/vega-portals-root';
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
 import { addDecorator, addParameters, configure } from '@storybook/react';
@@ -12,16 +11,6 @@ import { VegaThemeDecorator } from './with-themes';
 
 document.documentElement.lang = 'ru';
 
-const themes = cnTheme({
-  space: 'gpnDefault',
-  size: 'gpnDefault',
-  font: 'gpnDefault',
-  control: 'gpnDefault',
-});
-
-const defaultClassName = `Theme ${themes} Theme_color_gpnDefault`;
-
-document.body.className = defaultClassName;
 document.body.style.margin = '0px';
 
 const themes = [
@@ -46,22 +35,9 @@ addDecorator(withThemes);
 addDecorator(withKnobs);
 addDecorator(withPerformance);
 addDecorator(withA11y);
-const appContainerManager = new AppContainerManager('rootSelector', 'modalRoot');
-
-appContainerManager.createPortalRoot({ className: defaultClassName });
-
-const ThemeDecorator = ({
-  children,
-  theme = { class: 'Theme_color_gpnDefault' },
-}): React.ReactElement => {
-  const className = `Theme ${themes} ${theme.class}`;
-  document.body.className = className;
-  appContainerManager.updatePortalRootClassName(className);
-  return <div className={className}>{children}</div>;
-};
 
 addParameters({
-  themes: { list: getThemes(), Decorator: ThemeDecorator },
+  themes: { list: themes, Decorator: withThemes },
 });
 
 addDecorator(withKnobs);
@@ -74,9 +50,9 @@ addDecorator((story) => {
   };
 
   return (
-    <AppContainer appContainerManager={appContainerManager} style={appStyles}>
-      {story()}
-    </AppContainer>
+    <PortalsRoot containerId={portalContainerId} className={defaultClassName}>
+      <div style={appStyles}>{story()}</div>
+    </PortalsRoot>
   );
 });
 
