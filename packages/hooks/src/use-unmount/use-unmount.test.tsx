@@ -16,10 +16,10 @@ describe('useUnmount', () => {
     const handleUnmount = jest.fn();
     const { unmount } = render(<TestComponent onUnmount={handleUnmount} />);
 
-    expect(handleUnmount).not.toBeCalled();
+    expect(handleUnmount).toBeCalledTimes(0);
 
     unmount();
 
-    expect(handleUnmount).toBeCalled();
+    expect(handleUnmount).toBeCalledTimes(1);
   });
 });

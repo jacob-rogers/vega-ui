@@ -17,6 +17,6 @@ describe('useMount', () => {
 
     render(<TestComponent onMount={handleMount} />);
 
-    expect(handleMount).toBeCalled();
+    expect(handleMount).toBeCalledTimes(1);
   });
 });
