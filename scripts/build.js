@@ -25,10 +25,6 @@ function prepatePackageDist(packageDir /* ex. packages/components/dropdown */) {
 
   exec(`mv "${absoluteCompiledCodePath}" "${absolutePackagePath}"`);
 
-  // Windows: использовать баш, либо поставить пакет rimraf и использовать тут
-  exec(`rm -f "${path.join(absolutePackagePath, '**/*.stories.*')}"`);
-  exec(`rm -f "${path.join(absolutePackagePath, '**/*.test.*')}"`);
-
   /*
     ex. /Users/Vasya/Documents/vega-ui/packages/components/dropdown/src ->
         /Users/Vasya/Documents/vega-ui/packages/components/dropdown/dist/src
