@@ -45,6 +45,10 @@
       "@gpn-prototypes/vega-navigation-list": ["packages/components/navigation-list/src/index.ts"],
       "@gpn-prototypes/vega-page-footer": ["packages/components/page-footer/src/index.ts"],
       "@gpn-prototypes/vega-page-banner": ["packages/components/page-banner/src/index.ts"],
+      "@gpn-prototypes/vega-timer": ["packages/components/timer/src/index.ts"],
+      "@gpn-prototypes/vega-snack-bar": ["packages/components/snack-bar/src/index.ts"],
+      "@gpn-prototypes/vega-progress-spin": ["packages/components/progress-spin/src/index.ts"],
+      "@gpn-prototypes/vega-attach": ["packages/components/attach/src/index.ts"],
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }
   },
