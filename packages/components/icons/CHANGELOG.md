@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-icons@0.0.8...@gpn-prototypes/vega-icons@0.1.0) (2020-06-01)
+
+
+### Bug Fixes
+
+* **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
+
+
+### Features
+
+* **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
+
+
+
+
+
 ## [0.0.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-icons@0.0.7...@gpn-prototypes/vega-icons@0.0.8) (2020-05-22)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-icons

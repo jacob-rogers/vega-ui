@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-navigation-list@0.2.1...@gpn-prototypes/vega-navigation-list@0.3.0) (2020-06-01)
+
+
+### Bug Fixes
+
+* **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
+
+
+### Features
+
+* **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
+
+
+
+
+
 ## [0.2.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-navigation-list@0.2.0...@gpn-prototypes/vega-navigation-list@0.2.1) (2020-05-22)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-navigation-list
