@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { useMount } from '../use-mount';
 
 export function useUnmount(fn: Function): void {
-  useEffect(() => {
+  useMount(() => {
     return (): void => {
       fn();
     };
-  }, [fn]);
+  });
 }
