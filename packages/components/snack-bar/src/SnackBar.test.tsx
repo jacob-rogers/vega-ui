@@ -8,7 +8,7 @@ function renderComponent(props: SnackBarProps): RenderResult {
 }
 
 describe('SnackBar', () => {
-  test.skip('рендерится без ошибок', () => {
+  test('рендерится без ошибок', () => {
     const items = [{ key: 1, message: 'Сообщение' }];
 
     renderComponent({ items });

@@ -7,5 +7,11 @@ jest.mock('react-transition-group', () => {
   const FakeCSSTransition = jest.fn((props) =>
     props.in ? <FakeTransition>{props.children}</FakeTransition> : null,
   );
-  return { CSSTransition: FakeCSSTransition, Transition: FakeTransition };
+  const FakeTransitionGroup = jest.fn(({ children }) => <div>{children}</div>);
+
+  return {
+    Transition: FakeTransition,
+    CSSTransition: FakeCSSTransition,
+    TransitionGroup: FakeTransitionGroup,
+  };
 });
