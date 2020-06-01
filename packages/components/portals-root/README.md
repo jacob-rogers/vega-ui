@@ -1,6 +1,6 @@
 # @gpn-prototypes/vega-portals-root
 
-Компонент является корневым элементом, который рендерит корневые селекторы (селектор для всего приложения и его порталов) и прокидывает их с помощью контекста в дочерние элементы.
+Компонент является элементом, который рендерит корневой селектор для порталов и прокидывает его с помощью контекста в дочерние элементы.
 
 Компонент при монтировании создает ноду для порталов. При размонтировании удаляет ее.
 
@@ -15,13 +15,11 @@ yarn add @gpn-prototypes/vega-portals-root
 Для начала работы вам необходимо создать экземпляр класса [PortalsRootManager](PortalsRootManager.md).
 
 ```jsx
-import { PortalsRoot, PortalsRootManager } from '@gpn-prototypes/vega-portals-root';
+import { PortalsRoot } from '@gpn-prototypes/vega-portals-root';
 
 export const MyComponent = () => {
-  const PortalsRootManager = new PortalsRootManager('containerId', 'portalcontainerId'); // прокидываем id для корневого элемента и для корневого портала
-
   return (
-    <PortalsRoot PortalsRootManager={PortalsRootManager}>
+    <PortalsRoot containerId="id" className="className">
       <App />
     </PortalsRoot>
   );
@@ -32,12 +30,19 @@ export const MyComponent = () => {
 
 ```ts
 type PortalsRootProps = {
-  PortalsRootManager: PortalsRootManager;
   className?: string;
-  portalRootClassName?: string;
-} & JSX.IntrinsicElements['div'];
+  containerId?: string;
+};
 ```
 
-### API usePortalsRootManager
+### API usePortalsRoot
 
-Возвращает экземпляр PortalsRootManager для вашего приложения.
+Возвращает экземпляр PortalsRootAPI.
+
+```ts
+type PortalsRootAPI = {
+  containerId: string;
+  setClassName: (className: string) => void;
+  getContainer: () => HTMLElement | null;
+};
+```
