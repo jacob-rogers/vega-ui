@@ -26,7 +26,9 @@
     "@gpn-design/uikit": "^1.0.2",
     "@gpn-prototypes/vega-hooks": "^0.0.8",
     "bem-cn": "^3.0.1",
-    "react-transition-group": "^4.3.0"
+    "react-transition-group": "^4.3.0",
+    "@popperjs/core": "^2.4.0",
+    "react-popper": "^2.2.3"
   },
   "devDependencies": {
     "@types/react-transition-group": "^4.2.4"
