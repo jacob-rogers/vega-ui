@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.9.0...@gpn-prototypes/vega-ui@0.9.1) (2020-06-01)
+
+
+### Bug Fixes
+
+* **form:** добавлен компонент в tsconfig ([560a081](https://github.com/gpn-prototypes/vega-ui/commit/560a081e42291c4a7ef87a48b89deba33b4ec557))
+
+
+
+
+
 # [0.9.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.8.0...@gpn-prototypes/vega-ui@0.9.0) (2020-06-01)
 
 
