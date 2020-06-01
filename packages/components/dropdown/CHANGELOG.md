@@ -7,56 +7,33 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @gpn-prototypes/vega-dropdown
 
-
-
-
-
 # [0.1.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.0.10...@gpn-prototypes/vega-dropdown@0.1.0) (2020-06-01)
-
 
 ### Bug Fixes
 
-* **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
-
+- **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
 
 ### Features
 
-* **docs:** правки по доке ([ab5b3aa](https://github.com/gpn-prototypes/vega-ui/commit/ab5b3aac9820bba76b7470ea9f7235069b184924))
-* **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
-
-
-
-
+- **docs:** правки по доке ([ab5b3aa](https://github.com/gpn-prototypes/vega-ui/commit/ab5b3aac9820bba76b7470ea9f7235069b184924))
+- **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
 
 ## [0.0.10](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.0.9...@gpn-prototypes/vega-dropdown@0.0.10) (2020-05-22)
 
-
 ### Bug Fixes
 
-* **dropdown:** фикс бага с закрытием в портале ([513fbb9](https://github.com/gpn-prototypes/vega-ui/commit/513fbb95ab8005d31f5e345d86ebd484061ce02c))
-* **dropdown-modal:** исправление багов в модалке и дропдауне ([c639521](https://github.com/gpn-prototypes/vega-ui/commit/c639521f573cf052cc232913d7785b908c6ca43e))
-* **props:** удалил дефолт пропсы у DropdownItem ([4dfde93](https://github.com/gpn-prototypes/vega-ui/commit/4dfde937230265bbf2b6d5750d5b5a684a23d5e7))
-* **storybook:** правки по сторибуку ([1ff0a00](https://github.com/gpn-prototypes/vega-ui/commit/1ff0a000a7d8a1f0641a87c711e4356079bfc7a5))
-
-
-
-
+- **dropdown:** фикс бага с закрытием в портале ([513fbb9](https://github.com/gpn-prototypes/vega-ui/commit/513fbb95ab8005d31f5e345d86ebd484061ce02c))
+- **dropdown-modal:** исправление багов в модалке и дропдауне ([c639521](https://github.com/gpn-prototypes/vega-ui/commit/c639521f573cf052cc232913d7785b908c6ca43e))
+- **props:** удалил дефолт пропсы у DropdownItem ([4dfde93](https://github.com/gpn-prototypes/vega-ui/commit/4dfde937230265bbf2b6d5750d5b5a684a23d5e7))
+- **storybook:** правки по сторибуку ([1ff0a00](https://github.com/gpn-prototypes/vega-ui/commit/1ff0a000a7d8a1f0641a87c711e4356079bfc7a5))
 
 ## [0.0.9](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.0.8...@gpn-prototypes/vega-dropdown@0.0.9) (2020-05-22)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-dropdown
 
-
-
-
-
 ## [0.0.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.0.7...@gpn-prototypes/vega-dropdown@0.0.8) (2020-05-21)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-dropdown
-
-
-
-
 
 ## [0.0.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.0.6...@gpn-prototypes/vega-dropdown@0.0.7) (2020-05-18)
 

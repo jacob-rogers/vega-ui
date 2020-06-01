@@ -13,19 +13,17 @@
 
 ## Структура компонента
 
-```
-└── components
-    └── component-name
-        ├── static/ # директория для хранения статики компонента (пример: картинки)
-        ├── utils/ # вспомогательные функции, нужные только этому компоненту
-        ├── SubComponent/ # дочерний компонент
-        ├── ComponentName.stories.tsx
-        ├── ComponentName.test.tsx
-        ├── ComponentName.tsx
-        ├── cn-component-name.tsx // экспорт block из bem-cn
-        ├── ComponentName.css
-        └── index.js # все публичные экспорты компонента
-```
+    └── components
+        └── component-name
+            ├── static/ # директория для хранения статики компонента (пример: картинки)
+            ├── utils/ # вспомогательные функции, нужные только этому компоненту
+            ├── SubComponent/ # дочерний компонент
+            ├── ComponentName.stories.tsx
+            ├── ComponentName.test.tsx
+            ├── ComponentName.tsx
+            ├── cn-component-name.tsx // экспорт block из bem-cn
+            ├── ComponentName.css
+            └── index.js # все публичные экспорты компонента
 
 ## Прафила форматирования, которые не автоматизированы линтерами
 

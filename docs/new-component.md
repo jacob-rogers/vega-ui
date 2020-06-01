@@ -4,15 +4,11 @@
 
 ## Автоматическое добавление нового компонента
 
-```
-yarn hygen component new [name]
-```
+    yarn hygen component new [name]
 
 или
 
-```
-yarn nc [name]
-```
+    yarn nc [name]
 
 Для работы с шаблонами используется утилита [hygen](https://www.hygen.io/). Шаблон описан в директории: `_templates/component/new`.<br>
 Добавлен короткий синтаксис: `yarn nc [name]`

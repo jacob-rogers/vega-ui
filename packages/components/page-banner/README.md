@@ -6,9 +6,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-page-banner
-```
+    yarn add @gpn-prototypes/vega-page-banner
 
 ### Примеры использования
 

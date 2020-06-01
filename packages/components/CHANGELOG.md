@@ -5,122 +5,80 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [0.9.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.9.0...@gpn-prototypes/vega-ui@0.9.1) (2020-06-01)
 
-
 ### Bug Fixes
 
-* **form:** добавлен компонент в tsconfig ([560a081](https://github.com/gpn-prototypes/vega-ui/commit/560a081e42291c4a7ef87a48b89deba33b4ec557))
-
-
-
-
+- **form:** добавлен компонент в tsconfig ([560a081](https://github.com/gpn-prototypes/vega-ui/commit/560a081e42291c4a7ef87a48b89deba33b4ec557))
 
 # [0.9.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.8.0...@gpn-prototypes/vega-ui@0.9.0) (2020-06-01)
 
-
 ### Bug Fixes
 
-* **form:** поправлены пути до dist ([8fb1986](https://github.com/gpn-prototypes/vega-ui/commit/8fb1986c90033d2b0a5034f30a516eb4bdd5b71d))
-
+- **form:** поправлены пути до dist ([8fb1986](https://github.com/gpn-prototypes/vega-ui/commit/8fb1986c90033d2b0a5034f30a516eb4bdd5b71d))
 
 ### Features
 
-* **components:** добавить stories Form ([ce4ac23](https://github.com/gpn-prototypes/vega-ui/commit/ce4ac2354afc929af3542e843a0a2ae8b9c93ee2))
-* **components:** добавить компонент Form ([79a7bd4](https://github.com/gpn-prototypes/vega-ui/commit/79a7bd47372454922b326350e2f72ee14260c387))
-* **form:** добавить Legend ([0d17673](https://github.com/gpn-prototypes/vega-ui/commit/0d176739c808af9e8e7263953b1a4a07ace081ef))
-* **form:** добавить stories ([93387ef](https://github.com/gpn-prototypes/vega-ui/commit/93387ef38ef216bfae65cc31626a001593f39755))
-* **form:** обновить стили ([8495731](https://github.com/gpn-prototypes/vega-ui/commit/8495731bc5d6ae081101c716d7a86cf5fd381458))
-
-
-
-
+- **components:** добавить stories Form ([ce4ac23](https://github.com/gpn-prototypes/vega-ui/commit/ce4ac2354afc929af3542e843a0a2ae8b9c93ee2))
+- **components:** добавить компонент Form ([79a7bd4](https://github.com/gpn-prototypes/vega-ui/commit/79a7bd47372454922b326350e2f72ee14260c387))
+- **form:** добавить Legend ([0d17673](https://github.com/gpn-prototypes/vega-ui/commit/0d176739c808af9e8e7263953b1a4a07ace081ef))
+- **form:** добавить stories ([93387ef](https://github.com/gpn-prototypes/vega-ui/commit/93387ef38ef216bfae65cc31626a001593f39755))
+- **form:** обновить стили ([8495731](https://github.com/gpn-prototypes/vega-ui/commit/8495731bc5d6ae081101c716d7a86cf5fd381458))
 
 # [0.8.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.7.0...@gpn-prototypes/vega-ui@0.8.0) (2020-06-01)
 
-
 ### Features
 
-* **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
-
-
-
-
+- **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
 
 # [0.7.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.6.0...@gpn-prototypes/vega-ui@0.7.0) (2020-05-26)
 
-
 ### Bug Fixes
 
-* **components:** modal ([0ff392d](https://github.com/gpn-prototypes/vega-ui/commit/0ff392d5148dc7a3a0a2f9d58228f64080949df5))
-* **page-banner:** lint fix ([3d72c7c](https://github.com/gpn-prototypes/vega-ui/commit/3d72c7c6bf3f3c2bb7537c91a5067c28aade85bc))
-* **page-banner:** добавить градиент под текст, поправить тест ([78cd5b3](https://github.com/gpn-prototypes/vega-ui/commit/78cd5b3bbb4c9cca180080a0c0328919773f8c30))
-* **page-banner:** добавить строчный лимит отображения текста ([bcb420a](https://github.com/gpn-prototypes/vega-ui/commit/bcb420a4c94cac58ca929e4da42754c87363def0))
-* **page-banner:** исправить путь до типов ([eeefd9e](https://github.com/gpn-prototypes/vega-ui/commit/eeefd9ed88bcad444923160b48071213e26f3815))
-* **page-banner:** обновить типы и документацию ([76bd569](https://github.com/gpn-prototypes/vega-ui/commit/76bd5696e0c84b4c4e886718ed6c30a355e3bcf0))
-
+- **components:** modal ([0ff392d](https://github.com/gpn-prototypes/vega-ui/commit/0ff392d5148dc7a3a0a2f9d58228f64080949df5))
+- **page-banner:** lint fix ([3d72c7c](https://github.com/gpn-prototypes/vega-ui/commit/3d72c7c6bf3f3c2bb7537c91a5067c28aade85bc))
+- **page-banner:** добавить градиент под текст, поправить тест ([78cd5b3](https://github.com/gpn-prototypes/vega-ui/commit/78cd5b3bbb4c9cca180080a0c0328919773f8c30))
+- **page-banner:** добавить строчный лимит отображения текста ([bcb420a](https://github.com/gpn-prototypes/vega-ui/commit/bcb420a4c94cac58ca929e4da42754c87363def0))
+- **page-banner:** исправить путь до типов ([eeefd9e](https://github.com/gpn-prototypes/vega-ui/commit/eeefd9ed88bcad444923160b48071213e26f3815))
+- **page-banner:** обновить типы и документацию ([76bd569](https://github.com/gpn-prototypes/vega-ui/commit/76bd5696e0c84b4c4e886718ed6c30a355e3bcf0))
 
 ### Features
 
-* **components:** добавить компонент PageBanner ([b9afd34](https://github.com/gpn-prototypes/vega-ui/commit/b9afd343666c814cd98807bc69f07e7bf9f32573))
-
-
-
-
+- **components:** добавить компонент PageBanner ([b9afd34](https://github.com/gpn-prototypes/vega-ui/commit/b9afd343666c814cd98807bc69f07e7bf9f32573))
 
 # [0.6.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.5.2...@gpn-prototypes/vega-ui@0.6.0) (2020-05-26)
 
-
 ### Bug Fixes
 
-* **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
-
+- **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
 
 ### Features
 
-* **docs:** правки по доке ([ab5b3aa](https://github.com/gpn-prototypes/vega-ui/commit/ab5b3aac9820bba76b7470ea9f7235069b184924))
-* **linter:** добавление линтера для md ([fae089d](https://github.com/gpn-prototypes/vega-ui/commit/fae089d20df529ef8412b7fbc17f9b8df7479c9b))
-* **logo:** добавить meta данные для сторис ([df8f50d](https://github.com/gpn-prototypes/vega-ui/commit/df8f50dc721743659e959183b6d8ae47aa25fde6))
-* **logo:** обновить логотип ([66f28b3](https://github.com/gpn-prototypes/vega-ui/commit/66f28b32d51797e2baa5dfabe9c907601ac927f4))
-* **logo:** создать структуру ([3f86f6d](https://github.com/gpn-prototypes/vega-ui/commit/3f86f6de62a7659d8a60588ee44f2ecf772a019c))
-* **Logo:** добавить компонент ([8c70c61](https://github.com/gpn-prototypes/vega-ui/commit/8c70c613af0807d06d8c8563ed2a66b36386701e))
-
-
-
-
+- **docs:** правки по доке ([ab5b3aa](https://github.com/gpn-prototypes/vega-ui/commit/ab5b3aac9820bba76b7470ea9f7235069b184924))
+- **linter:** добавление линтера для md ([fae089d](https://github.com/gpn-prototypes/vega-ui/commit/fae089d20df529ef8412b7fbc17f9b8df7479c9b))
+- **logo:** добавить meta данные для сторис ([df8f50d](https://github.com/gpn-prototypes/vega-ui/commit/df8f50dc721743659e959183b6d8ae47aa25fde6))
+- **logo:** обновить логотип ([66f28b3](https://github.com/gpn-prototypes/vega-ui/commit/66f28b32d51797e2baa5dfabe9c907601ac927f4))
+- **logo:** создать структуру ([3f86f6d](https://github.com/gpn-prototypes/vega-ui/commit/3f86f6de62a7659d8a60588ee44f2ecf772a019c))
+- **Logo:** добавить компонент ([8c70c61](https://github.com/gpn-prototypes/vega-ui/commit/8c70c613af0807d06d8c8563ed2a66b36386701e))
 
 ## [0.5.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.5.1...@gpn-prototypes/vega-ui@0.5.2) (2020-05-22)
 
-
 ### Bug Fixes
 
-* **dropdown:** фикс бага с закрытием в портале ([513fbb9](https://github.com/gpn-prototypes/vega-ui/commit/513fbb95ab8005d31f5e345d86ebd484061ce02c))
-* **dropdown-modal:** исправление багов в модалке и дропдауне ([c639521](https://github.com/gpn-prototypes/vega-ui/commit/c639521f573cf052cc232913d7785b908c6ca43e))
-* **modal:** убрать ворнинг ([2eef48d](https://github.com/gpn-prototypes/vega-ui/commit/2eef48d0b899e6e3e21888de28ddd624ca39df74))
-* **props:** удалил дефолт пропсы у DropdownItem ([4dfde93](https://github.com/gpn-prototypes/vega-ui/commit/4dfde937230265bbf2b6d5750d5b5a684a23d5e7))
-* **storybook:** добавление групп ([c703090](https://github.com/gpn-prototypes/vega-ui/commit/c703090ae570506169173a21aeca5fb108a05a18))
-* **storybook:** правки по сторибуку ([1ff0a00](https://github.com/gpn-prototypes/vega-ui/commit/1ff0a000a7d8a1f0641a87c711e4356079bfc7a5))
-
-
-
-
+- **dropdown:** фикс бага с закрытием в портале ([513fbb9](https://github.com/gpn-prototypes/vega-ui/commit/513fbb95ab8005d31f5e345d86ebd484061ce02c))
+- **dropdown-modal:** исправление багов в модалке и дропдауне ([c639521](https://github.com/gpn-prototypes/vega-ui/commit/c639521f573cf052cc232913d7785b908c6ca43e))
+- **modal:** убрать ворнинг ([2eef48d](https://github.com/gpn-prototypes/vega-ui/commit/2eef48d0b899e6e3e21888de28ddd624ca39df74))
+- **props:** удалил дефолт пропсы у DropdownItem ([4dfde93](https://github.com/gpn-prototypes/vega-ui/commit/4dfde937230265bbf2b6d5750d5b5a684a23d5e7))
+- **storybook:** добавление групп ([c703090](https://github.com/gpn-prototypes/vega-ui/commit/c703090ae570506169173a21aeca5fb108a05a18))
+- **storybook:** правки по сторибуку ([1ff0a00](https://github.com/gpn-prototypes/vega-ui/commit/1ff0a000a7d8a1f0641a87c711e4356079bfc7a5))
 
 ## [0.5.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.5.0...@gpn-prototypes/vega-ui@0.5.1) (2020-05-22)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
 
-
-
-
-
 # [0.5.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.4.1...@gpn-prototypes/vega-ui@0.5.0) (2020-05-21)
-
 
 ### Features
 
-* **esm:** добавление esm модулей новым компонентам ([ca22b7a](https://github.com/gpn-prototypes/vega-ui/commit/ca22b7a8c4fee029991d1db9bf6454964600be23))
-
-
-
-
+- **esm:** добавление esm модулей новым компонентам ([ca22b7a](https://github.com/gpn-prototypes/vega-ui/commit/ca22b7a8c4fee029991d1db9bf6454964600be23))
 
 ## [0.4.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.4.0...@gpn-prototypes/vega-ui@0.4.1) (2020-05-20)
 

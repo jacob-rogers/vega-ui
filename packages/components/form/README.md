@@ -6,9 +6,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-form
-```
+    yarn add @gpn-prototypes/vega-form
 
 ### Пример использования
 

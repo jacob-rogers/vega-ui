@@ -7,57 +7,34 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @gpn-prototypes/vega-modal
 
-
-
-
-
 # [0.1.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.0.11...@gpn-prototypes/vega-modal@0.1.0) (2020-06-01)
-
 
 ### Bug Fixes
 
-* **components:** modal ([0ff392d](https://github.com/gpn-prototypes/vega-ui/commit/0ff392d5148dc7a3a0a2f9d58228f64080949df5))
-* **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
-
+- **components:** modal ([0ff392d](https://github.com/gpn-prototypes/vega-ui/commit/0ff392d5148dc7a3a0a2f9d58228f64080949df5))
+- **lint:** линтинг md файлов ([327aa5d](https://github.com/gpn-prototypes/vega-ui/commit/327aa5d3aa706f0e164a572ae1360d504e89979d))
 
 ### Features
 
-* **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
-* **linter:** добавление линтера для md ([fae089d](https://github.com/gpn-prototypes/vega-ui/commit/fae089d20df529ef8412b7fbc17f9b8df7479c9b))
-
-
-
-
+- **global:** новая сборка, в 20 раз быстрее старой ([64c15d6](https://github.com/gpn-prototypes/vega-ui/commit/64c15d6c8e5934386d2820e120b64bb7ed2391f3))
+- **linter:** добавление линтера для md ([fae089d](https://github.com/gpn-prototypes/vega-ui/commit/fae089d20df529ef8412b7fbc17f9b8df7479c9b))
 
 ## [0.0.11](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.0.10...@gpn-prototypes/vega-modal@0.0.11) (2020-05-22)
 
-
 ### Bug Fixes
 
-* **dropdown-modal:** исправление багов в модалке и дропдауне ([c639521](https://github.com/gpn-prototypes/vega-ui/commit/c639521f573cf052cc232913d7785b908c6ca43e))
-* **modal:** убрать ворнинг ([2eef48d](https://github.com/gpn-prototypes/vega-ui/commit/2eef48d0b899e6e3e21888de28ddd624ca39df74))
-* **storybook:** добавление групп ([c703090](https://github.com/gpn-prototypes/vega-ui/commit/c703090ae570506169173a21aeca5fb108a05a18))
-* **storybook:** правки по сторибуку ([1ff0a00](https://github.com/gpn-prototypes/vega-ui/commit/1ff0a000a7d8a1f0641a87c711e4356079bfc7a5))
-
-
-
-
+- **dropdown-modal:** исправление багов в модалке и дропдауне ([c639521](https://github.com/gpn-prototypes/vega-ui/commit/c639521f573cf052cc232913d7785b908c6ca43e))
+- **modal:** убрать ворнинг ([2eef48d](https://github.com/gpn-prototypes/vega-ui/commit/2eef48d0b899e6e3e21888de28ddd624ca39df74))
+- **storybook:** добавление групп ([c703090](https://github.com/gpn-prototypes/vega-ui/commit/c703090ae570506169173a21aeca5fb108a05a18))
+- **storybook:** правки по сторибуку ([1ff0a00](https://github.com/gpn-prototypes/vega-ui/commit/1ff0a000a7d8a1f0641a87c711e4356079bfc7a5))
 
 ## [0.0.10](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.0.9...@gpn-prototypes/vega-modal@0.0.10) (2020-05-22)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-modal
 
-
-
-
-
 ## [0.0.9](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.0.8...@gpn-prototypes/vega-modal@0.0.9) (2020-05-21)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-modal
-
-
-
-
 
 ## [0.0.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.0.7...@gpn-prototypes/vega-modal@0.0.8) (2020-05-20)
 
