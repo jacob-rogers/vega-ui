@@ -31,6 +31,7 @@
       "@gpn-prototypes/vega-checkbox": ["packages/components/checkbox/src/index.ts"],
       "@gpn-prototypes/vega-choice-group": ["packages/components/choice-group/src/index.ts"],
       "@gpn-prototypes/vega-file": ["packages/components/file/src/index.ts"],
+      "@gpn-prototypes/vega-form": ["packages/components/form/src/index.ts"],
       "@gpn-prototypes/vega-icons": ["packages/components/icons/src/index.ts"],
       "@gpn-prototypes/vega-informer": ["packages/components/informer/src/index.ts"],
       "@gpn-prototypes/vega-modal": ["packages/components/modal/src/index.ts"],
