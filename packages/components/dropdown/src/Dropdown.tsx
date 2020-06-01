@@ -1,7 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { usePopper } from 'react-popper';
 import { CSSTransition } from 'react-transition-group';
 import { PossibleCloseEvent, usePortalDomNode, useRootClose } from '@gpn-prototypes/vega-hooks';
+import { Placement } from 'popper.js';
 
 import { cnDropdown } from './helpers/cnDropdown';
 import { DropdownItem } from './DropdownItem';
@@ -20,6 +22,8 @@ export type DropdownProps = {
   className?: string;
   portalId?: string;
   portal?: boolean;
+  offset?: number[];
+  placement?: Placement;
 } & ElementsProps['div'];
 
 type Dropdown<T> = React.FC<T> & {
@@ -29,8 +33,34 @@ type Dropdown<T> = React.FC<T> & {
 };
 
 export const Dropdown: Dropdown<DropdownProps> = (props) => {
-  const { trigger, onClose, children, className, isOpen, portalId, portal, ...rest } = props;
+  const {
+    trigger,
+    onClose,
+    children,
+    className,
+    isOpen,
+    portalId,
+    portal,
+    placement = 'left',
+    ...rest
+  } = props;
   const dropdownRef = useRef(null);
+
+  const [innerRef, setInnerRef] = useState<HTMLDivElement | null>(null);
+
+  const offset = props.offset ? props.offset.map(Number) : [0, 0];
+
+  const { styles, attributes } = usePopper(dropdownRef.current, innerRef, {
+    placement,
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset,
+        },
+      },
+    ],
+  });
 
   const onDropdownClose = (e: PossibleCloseEvent): void => {
     const isKeyboardEvent = e instanceof KeyboardEvent;
@@ -61,7 +91,7 @@ export const Dropdown: Dropdown<DropdownProps> = (props) => {
   };
 
   const content = (
-    <div ref={dropdownRef}>
+    <div ref={dropdownRef} className={cnDropdown()}>
       {trigger}
       <CSSTransition
         timeout={300}
@@ -70,8 +100,8 @@ export const Dropdown: Dropdown<DropdownProps> = (props) => {
         mountOnEnter
         unmountOnExit
       >
-        <div {...rest} className={cnDropdown('Root').mix(className)}>
-          {children}
+        <div ref={setInnerRef} style={styles.popper} {...attributes.popper}>
+          <>{children}</>
         </div>
       </CSSTransition>
     </div>
