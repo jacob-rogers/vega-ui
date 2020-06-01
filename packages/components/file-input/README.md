@@ -1,6 +1,6 @@
 # @gpn-prototypes/vega-file-input
 
-Название компонента
+Компонент является оберткой над input типа file
 
 <img src="docs/pic-1.png" height="50">
 
@@ -15,10 +15,8 @@ yarn add @gpn-prototypes/vega-file-input
 ```jsx
 import { FileInput } from '@gpn-prototypes/vega-file-input';
 
-export const MyComponent = () => {
-  const title = 'Title';
-
-  return <FileInput title={title} />;
+export const MyComponent = (props) => {
+  <FileInput label="Инпут для загрузки" iconLeft={IconAttach} onChange={props.onChange} />;
 };
 ```
 
@@ -26,7 +24,9 @@ export const MyComponent = () => {
 
 ```ts
 type FileInputProps = {
-  title?: string;
+  id: string;
   className?: string;
+  label?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 ```
