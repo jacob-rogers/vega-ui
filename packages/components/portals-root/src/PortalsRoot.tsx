@@ -5,7 +5,6 @@ const defaultContainerId = 'portalRootSelector';
 
 type PortalsRootProps = {
   className?: string;
-  portalRootClassName?: string;
   containerId?: string;
 };
 
