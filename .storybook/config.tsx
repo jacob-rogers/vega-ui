@@ -42,14 +42,6 @@ addParameters({
 
 addDecorator(withKnobs);
 addDecorator(withPerformance);
-addDecorator((story) => {
-  return (
-    <PortalsRoot containerId={portalContainerId} className={defaultClassName}>
-      <div>{story()}</div>
-    </PortalsRoot>
-  );
-});
-
 addDecorator(withThemes);
 
 function loadStories(): void {
