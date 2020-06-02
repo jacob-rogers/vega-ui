@@ -68,6 +68,7 @@
     "packages/components/snack-bar",
     "packages/components/progress-spin",
     "packages/components/attach",
+    "packages/components/loader",
     "packages/components"
   ],
   "devDependencies": {
