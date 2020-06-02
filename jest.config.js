@@ -4,7 +4,7 @@ const path = require('path');
 const { pathsToModuleNameMapper } = require('ts-jest/utils');
 const tsConfig = require('./tsconfig.json');
 
-const setupTestFile = path.resolve('setup-tests.ts');
+const setupTestFile = path.resolve('setup-tests.tsx');
 const config = require('@gpn-prototypes/frontend-configs/jest/jest.config');
 
 module.exports = {
