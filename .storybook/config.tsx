@@ -29,8 +29,6 @@ const themes = [
 
 addParameters({ themes: { list: themes, Decorator: VegaRootDecorator } });
 addDecorator(withMetadata);
-addDecorator(withKnobs);
-addDecorator(withPerformance);
 addDecorator(withA11y);
 addDecorator(withKnobs);
 addDecorator(withPerformance);
