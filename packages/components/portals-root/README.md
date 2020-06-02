@@ -12,8 +12,6 @@ yarn add @gpn-prototypes/vega-portals-root
 
 ### Пример использования
 
-Для начала работы вам необходимо создать экземпляр класса [PortalsRootManager](PortalsRootManager.md).
-
 ```jsx
 import { PortalsRoot } from '@gpn-prototypes/vega-portals-root';
 

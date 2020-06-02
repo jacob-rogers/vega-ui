@@ -43,15 +43,9 @@ addParameters({
 addDecorator(withKnobs);
 addDecorator(withPerformance);
 addDecorator((story) => {
-  const appStyles = {
-    background: 'var(--color-bg-default)',
-    padding: 'var(--space-3xl)',
-    minHeight: '100vh',
-  };
-
   return (
     <PortalsRoot containerId={portalContainerId} className={defaultClassName}>
-      <div style={appStyles}>{story()}</div>
+      <div>{story()}</div>
     </PortalsRoot>
   );
 });
