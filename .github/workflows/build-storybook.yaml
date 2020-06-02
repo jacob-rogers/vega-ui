@@ -26,6 +26,8 @@ jobs:
           node-version: '12.x'
 
       - run: yarn install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         working-directory: ./vega-ui
 
       - run: yarn build
