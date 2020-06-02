@@ -14,7 +14,6 @@ type PortalsRootContext = {
 
 type PortalsRootAPI = {
   containerId: string;
-  setClassName: (className: string) => void;
   getContainer: () => HTMLElement | null;
 };
 
@@ -27,17 +26,9 @@ export const usePortalsRoot = (): PortalsRootAPI => {
 
   const getContainer = (): HTMLElement | null => document.getElementById(containerId);
 
-  const setClassName = (className: string): void => {
-    const container = getContainer();
-    if (container) {
-      container.className = className;
-    }
-  };
-
   return {
     getContainer,
     containerId,
-    setClassName,
   };
 };
 
@@ -46,27 +37,25 @@ export const PortalsRoot: React.FC<PortalsRootProps> = ({
   children,
   className,
 }) => {
-  const [container, setContainer] = React.useState(document.getElementById(containerId));
+  const containerRef = React.useRef<HTMLElement | null>(document.getElementById(containerId));
 
-  const createPortalRoot = (): void => {
-    if (container === null) {
+  const createPortalRoot = (): HTMLElement => {
+    if (containerRef.current === null) {
       const portalContainer = document.createElement('div');
       portalContainer.id = containerId;
       if (className) {
         portalContainer.className = className;
       }
       document.body.appendChild(portalContainer);
-      setContainer(portalContainer);
+      return portalContainer;
     }
+    return containerRef.current;
   };
 
   useMount(() => {
-    createPortalRoot();
+    const container = createPortalRoot();
+    containerRef.current = container;
   });
-
-  if (!container) {
-    return null;
-  }
 
   return (
     <PortalsRootContext.Provider value={{ containerId }}>{children}</PortalsRootContext.Provider>
