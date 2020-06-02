@@ -73,6 +73,7 @@
     "packages/components/attach",
     "packages/components/loader",
     "packages/components/theme",
+    "packages/components/scale-panel",
     "packages/components"
   ],
   "devDependencies": {

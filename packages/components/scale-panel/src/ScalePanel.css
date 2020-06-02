@@ -1,0 +1,9 @@
+.VegaScalePanel {
+  position: sticky;
+  z-index: 10;
+  bottom: 0;
+
+  padding: var(--space-m) var(--space-xl);
+
+  border-top: var(--control-border-width) solid var(--color-bg-border);
+}
