@@ -16,7 +16,8 @@ jobs:
       - name: Установка ноды
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: 12
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: Установка зависимостей
         run: yarn install --frozen-lockfile
