@@ -1,8 +1,3 @@
-const nested = require('postcss-nested');
+const config = require('@gpn-prototypes/frontend-configs/postcss.config');
 
-module.exports = function createPostcssConfig() {
-  return {
-    modules: false,
-    plugins: [nested()],
-  };
-};
+module.exports = config;

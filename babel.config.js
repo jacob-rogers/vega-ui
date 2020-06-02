@@ -1,5 +1,6 @@
 module.exports = {
-  presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
+  // eslint-disable-next-line global-require
+  ...require('@gpn-prototypes/frontend-configs/babel.config'),
   plugins: [
     [
       '@babel/plugin-transform-runtime',
