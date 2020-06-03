@@ -5,13 +5,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # 0.1.0 (2020-06-03)
 
-
 ### Bug Fixes
 
-* поднята версия @gpn-design/uikit ([c967f82](https://github.com/gpn-prototypes/vega-ui/commit/c967f82311880766aa19dfa0e67717eb0ca0068f))
-
+- поднята версия @gpn-design/uikit ([c967f82](https://github.com/gpn-prototypes/vega-ui/commit/c967f82311880766aa19dfa0e67717eb0ca0068f))
 
 ### Features
 
-* **components:** добавил обертки для компонентов из ДС-ГПН ([b71cc4d](https://github.com/gpn-prototypes/vega-ui/commit/b71cc4da5e178fff946c8786cf15c44ec9f761ed))
-* **components:** добавил совместимость с новой сборкой ([51c4501](https://github.com/gpn-prototypes/vega-ui/commit/51c450197935794d6d539116a40e450f2b54a261))
+- **components:** добавил обертки для компонентов из ДС-ГПН ([b71cc4d](https://github.com/gpn-prototypes/vega-ui/commit/b71cc4da5e178fff946c8786cf15c44ec9f761ed))
+- **components:** добавил совместимость с новой сборкой ([51c4501](https://github.com/gpn-prototypes/vega-ui/commit/51c450197935794d6d539116a40e450f2b54a261))

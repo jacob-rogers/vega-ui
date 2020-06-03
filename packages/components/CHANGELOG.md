@@ -5,29 +5,19 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [0.10.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.9.3...@gpn-prototypes/vega-ui@0.10.0) (2020-06-03)
 
-
 ### Bug Fixes
 
-* поднята версия @gpn-design/uikit ([c967f82](https://github.com/gpn-prototypes/vega-ui/commit/c967f82311880766aa19dfa0e67717eb0ca0068f))
-
+- поднята версия @gpn-design/uikit ([c967f82](https://github.com/gpn-prototypes/vega-ui/commit/c967f82311880766aa19dfa0e67717eb0ca0068f))
 
 ### Features
 
-* **components:** добавил обертки для компонентов из ДС-ГПН ([b71cc4d](https://github.com/gpn-prototypes/vega-ui/commit/b71cc4da5e178fff946c8786cf15c44ec9f761ed))
-* **components:** добавил совместимость с новой сборкой ([51c4501](https://github.com/gpn-prototypes/vega-ui/commit/51c450197935794d6d539116a40e450f2b54a261))
-* **Loader:** добавил компонент Loader ([192f18e](https://github.com/gpn-prototypes/vega-ui/commit/192f18e267d3647e069c2ff7ee8139e6f6787c5c))
-
-
-
-
+- **components:** добавил обертки для компонентов из ДС-ГПН ([b71cc4d](https://github.com/gpn-prototypes/vega-ui/commit/b71cc4da5e178fff946c8786cf15c44ec9f761ed))
+- **components:** добавил совместимость с новой сборкой ([51c4501](https://github.com/gpn-prototypes/vega-ui/commit/51c450197935794d6d539116a40e450f2b54a261))
+- **Loader:** добавил компонент Loader ([192f18e](https://github.com/gpn-prototypes/vega-ui/commit/192f18e267d3647e069c2ff7ee8139e6f6787c5c))
 
 ## [0.9.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.9.1...@gpn-prototypes/vega-ui@0.9.3) (2020-06-03)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
-
-
-
-
 
 ## [0.9.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.9.1...@gpn-prototypes/vega-ui@0.9.2) (2020-06-03)
 

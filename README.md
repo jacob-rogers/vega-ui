@@ -7,40 +7,80 @@
 ![yarn](https://img.shields.io/badge/yarn-%3E%3D%201.22.4-blue.svg)
 [![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](docs/contributors.md)
 
-> Библиотека компонентов для проекта Vega 2.0.
->
-> Использует в своей основе [Дизайн-систему ГПН](https://github.com/gpn-prototypes/ui-kit).
+Библиотека компонентов для проекта Vega 2.0.
+Дополняет [дизайн-систему ГПН](https://github.com/gpn-prototypes/ui-kit). Для взаимодействия с ней созданы компоненты-обертки, которые позволяют:
 
-## Компоненты
+- дополнять компоненты дизайн-системы новой функциональностью, не изменяя сам компонент;
+- обновлять только обертку при изменении API компонента дизайн-системы, не трогая зависимости.
 
-- [Storybook](http://master.vega-ui-storybook.csssr.cloud/)
-- [Компоненты](packages/components/README.md)
-- [React-хуки](packages/hooks/README.md)
+## Структура проекта
 
-### Использование компонентов из дизайн-системы ГПН
+    .
+    ├── packages
+    │   ├── components # директория для компонентов
+    │   ├── hooks # директория для react-хуков
+    │   ...
+    ├── scripts # скрипты для сборки
+    ├── types # типы внешних пакетов и глобальных объектов
+    ├── package.json
+    ├── yarn.lock
+    └── # конфиги
 
-Для взаимодействия с дизайн-системой написаны компоненты-обёртки. Они позволяют:
+## Зависимости
 
-- дополнять компоненты дизайн-системы новой функциональностью не изменяя сам компонент дизайн-системы;
-- при изменении API компонента дизайн-системы не обновлять все зависящие от него компоненеты, а только «обёртку».
+- node.js `^12.16.2`
+- yarn `^1.22.4`
+- Дизайн-система ГПН: [GPN UI kit](https://github.com/gpn-prototypes/ui-kit)
+
+Полный список зависимостей приведен в [package.json](package.json).
+
+## Компоненты Vega UI
+
+Полный список в [Readme компонентов](packages/components/README.md) и [Storybook](http://master.vega-ui-storybook.csssr.cloud/). Дополнительно разработаны [React-хуки](packages/hooks/README.md).
 
 ## Браузеры
 
-- Chromium (в т.ч. Chrome, Yandex) — две последние версии
-- Edge
+Две последние мажорные версии браузеров на Chromium (в т.ч. Chrome, Yandex, Edge).
 
-Не поддерживаем IE10-11. [Подробнее](docs/ie.md).
+Edge старше 81 версии и IE [в поддержку не входят](docs/ie.md).
 
-## Документация
+## Начало работы
 
-- [Начало работы](docs/getting-started.md)
-- [Договоренности по оформлению кода](docs/project-structure.md)
-- [Как добавить новый компонент](docs/new-component.md)
-- [Ведение Storybook'а](docs/storybook.md)
-- [Тестирование компонентов](docs/unit-tests.md)
-- [Работа с гитом и оформление коммитов](docs/git-flow.md)
-- [Ревью и контрибьютинг](docs/contributors.md)
-- [Паблишинг пакетов](docs/publishing.md)
+```bash
+# установка зависимостей
+$ yarn
+
+# сборка и связывание пакетов
+$ yarn build
+
+# запуск Storybook
+$ yarn storybook
+```
+
+Подробнее [об основных командах](docs/getting-started.md).
+
+## Справка
+
+- [Добавление нового компонента](docs/new-component.md)
+- [Тестовое покрытие компонентов](docs/unit-tests.md)
+- [Отправка PR на тестирование QA](docs/qa-flow.md)
+- [Отправка PR в мастер](docs/pr-merge.md)
+- [Публикация пакетов](docs/publishing.md)
+
+## Оформление
+
+- [Оформление кода: основные договоренности](docs/code-style.md)
+- [Оформление коммитов](docs/сommits-style.md)
+- [Ведение Storybook](docs/storybook.md)
+
+## Внешним разработчикам
+
+Основная команда разработки — CSSSR, но любые другие команды всегда приветствуются к участию в развитии библиотеки.
+
+- [Контрибьютинг](docs/contributors.md)
+- [Ревью](docs/review.md)
+- [Установка пакета](docs/package-installation.md)
+- [Получение обновлений и проблемы при обновлении](docs/receiving-updates.md)
 
 ## Мейнтейнеры
 
