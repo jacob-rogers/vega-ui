@@ -16,6 +16,10 @@ type Parameters = {
   status?: Status;
   author?: string;
   description?: string;
+  link?: {
+    href: string;
+    text: string;
+  };
 };
 
 const noStatus = 'Статус не указан';
@@ -32,7 +36,7 @@ export const withMetadata = makeDecorator({
   name: 'withMetadata',
   parameterName: 'metadata',
   wrapper: (getStory, context, { parameters = {} }) => {
-    const { status = noStatus, author = noAuthor, description } = parameters as Parameters;
+    const { status = noStatus, author = noAuthor, description, link } = parameters as Parameters;
 
     const statusSuccess = status === Status.Approved;
     const statusWarning = status === Status.Deprecated;
@@ -60,6 +64,18 @@ export const withMetadata = makeDecorator({
           >
             {author}
           </span>
+          {link && (
+            <span className={cnMetadata('tag')}>
+              <a
+                className={cnMetadata('link')}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {link.text}
+              </a>
+            </span>
+          )}
           {description && <span className={cnMetadata('description')}>{description}</span>}
         </div>
         <div className={cnMetadata('wrapper')}>{getStory(context)}</div>

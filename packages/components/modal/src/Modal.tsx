@@ -8,7 +8,7 @@ import {
 } from '@gpn-prototypes/vega-hooks';
 import { IconClose } from '@gpn-prototypes/vega-icons';
 
-import { cnModal } from './helpers/cn-modal';
+import { cnModal } from './cn-modal';
 import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalHeader } from './ModalHeader';

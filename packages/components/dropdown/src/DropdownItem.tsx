@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react';
 
-import { cnDropdown } from './helpers/cnDropdown';
+import { cnDropdown } from './cn-dropdown';
 
 import './Dropdown.css';
 

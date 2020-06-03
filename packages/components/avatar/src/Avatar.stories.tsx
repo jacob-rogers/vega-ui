@@ -1,16 +1,19 @@
 import React from 'react';
-import { select, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Avatar } from './Avatar';
 
-const defaultKnobs = (): Record<string, string> => ({
-  url: text('url', 'https://pbs.twimg.com/profile_images/896978374232600577/v2xEJoxM_400x400.jpg'),
-  size: select('size', ['s', 'm'], 'm'),
-  form: select('form', ['round', 'brick', 'default'], 'round'),
-});
-
 storiesOf('ui/Avatar', module)
-  .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'Дизайн-система ГПН', status: 'Approved' } })
-  .add('Avatar', () => <Avatar {...defaultKnobs()} />);
+  .addParameters({
+    metadata: {
+      author: 'Дизайн-система ГПН',
+      status: 'Approved',
+      link: {
+        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/ui-kit-avatar',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('по умолчанию', () => (
+    <Avatar url="https://pbs.twimg.com/profile_images/896978374232600577/v2xEJoxM_400x400.jpg" />
+  ));

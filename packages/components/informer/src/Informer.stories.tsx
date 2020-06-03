@@ -1,19 +1,17 @@
 import React from 'react';
-import { IconUser } from '@gpn-prototypes/vega-icons';
-import { select, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Informer } from './Informer';
 
-const defaultKnobs = (): Record<string, string> => ({
-  status: select('status', ['system', 'alert', 'warning', 'success'], 'system'),
-  title: text('title', 'Title'),
-  label: text('label', 'I am informer'),
-  view: select('view', ['filled', 'bordered'], 'filled'),
-});
-
 storiesOf('ui/Informer', module)
-  .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'Дизайн-система ГПН', status: 'Approved' } })
-  .add('С текстом', () => <Informer {...defaultKnobs()} />)
-  .add('С текстом и иконкой', () => <Informer icon={IconUser} {...defaultKnobs()} />);
+  .addParameters({
+    metadata: {
+      author: 'Дизайн-система ГПН',
+      status: 'Approved',
+      link: {
+        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/informer',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('по умолчанию', () => <Informer status="system" label="I am informer" view="filled" />);

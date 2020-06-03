@@ -42,6 +42,16 @@
     }
   }
 
+  &__link {
+    text-decoration: none;
+
+    color: rgb(30, 167, 253);
+
+    &:hover {
+      color: rgb(21, 103, 154);
+    }
+  }
+
   &__tag + &__tag {
     margin-left: 5px;
   }

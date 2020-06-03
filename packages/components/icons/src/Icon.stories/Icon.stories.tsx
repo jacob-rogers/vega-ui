@@ -1,5 +1,4 @@
 import React from 'react';
-import { select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import {
@@ -93,105 +92,104 @@ import {
 
 import { IconsItem } from './Item/Icons-Item';
 
-const defaultKnobs = (): Record<string, string> => ({
-  size: select('size', ['xs', 's', 'm'], 'm'),
-  view: select(
-    'view',
-    ['alert', 'brand', 'ghost', 'link', 'primary', 'secondary', 'success', 'warning'],
-    'primary',
-  ),
-});
-
-storiesOf('Icons', module)
-  .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'Дизайн-система ГПН', status: 'Approved' } })
-  .add('IconsNew', () => (
+storiesOf('icons/common', module)
+  .addParameters({
+    metadata: {
+      author: 'Дизайн-система ГПН',
+      status: 'Approved',
+      link: {
+        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/icons',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('по умлочанию', () => (
     <div className="tpl-grid tpl-grid_s-ratio_1-1-1-1-1 tpl-grid_row-gap_full">
-      <IconsItem name="IconAdd" icon={IconAdd} {...defaultKnobs()} />
-      <IconsItem name="IconAlert" icon={IconAlert} {...defaultKnobs()} />
-      <IconsItem name="IconAlignJustify" icon={IconAlignJustify} {...defaultKnobs()} />
-      <IconsItem name="IconAlignCenter" icon={IconAlignCenter} {...defaultKnobs()} />
-      <IconsItem name="IconAlignLeft" icon={IconAlignLeft} {...defaultKnobs()} />
-      <IconsItem name="IconAlignRight" icon={IconAlignRight} {...defaultKnobs()} />
-      <IconsItem name="IconArrowDown" icon={IconArrowDown} {...defaultKnobs()} />
-      <IconsItem name="IconArrowLeft" icon={IconArrowLeft} {...defaultKnobs()} />
-      <IconsItem name="IconArrowRight" icon={IconArrowRight} {...defaultKnobs()} />
-      <IconsItem name="IconArrowUp" icon={IconArrowUp} {...defaultKnobs()} />
-      <IconsItem name="IconAttach" icon={IconAttach} {...defaultKnobs()} />
-      <IconsItem name="IconBackward" icon={IconBackward} {...defaultKnobs()} />
-      <IconsItem name="IconBarrier" icon={IconBarrier} {...defaultKnobs()} />
-      <IconsItem name="IconBento" icon={IconBento} {...defaultKnobs()} />
-      <IconsItem name="IconBold" icon={IconBold} {...defaultKnobs()} />
-      <IconsItem name="IconBookmarkFilled" icon={IconBookmarkFilled} {...defaultKnobs()} />
-      <IconsItem name="IconBookmarkStroked" icon={IconBookmarkStroked} {...defaultKnobs()} />
-      <IconsItem name="IconCalendar" icon={IconCalendar} {...defaultKnobs()} />
-      <IconsItem name="IconCamera" icon={IconCamera} {...defaultKnobs()} />
-      <IconsItem name="IconCancel" icon={IconCancel} {...defaultKnobs()} />
-      <IconsItem name="IconChat" icon={IconChat} {...defaultKnobs()} />
-      <IconsItem name="IconCheck" icon={IconCheck} {...defaultKnobs()} />
-      <IconsItem name="IconClose" icon={IconClose} {...defaultKnobs()} />
-      <IconsItem name="IconCollapse" icon={IconCollapse} {...defaultKnobs()} />
-      <IconsItem name="IconColorText" icon={IconColorText} {...defaultKnobs()} />
-      <IconsItem name="IconColorFill" icon={IconColorFill} {...defaultKnobs()} />
-      <IconsItem name="IconColumns" icon={IconColumns} {...defaultKnobs()} />
-      <IconsItem name="IconComment" icon={IconComment} {...defaultKnobs()} />
-      <IconsItem name="IconConnection" icon={IconConnection} {...defaultKnobs()} />
-      <IconsItem name="IconCopy" icon={IconCopy} {...defaultKnobs()} />
-      <IconsItem name="IconCrown" icon={IconCrown} {...defaultKnobs()} />
-      <IconsItem name="IconDiamond" icon={IconDiamond} {...defaultKnobs()} />
-      <IconsItem name="IconDown" icon={IconDown} {...defaultKnobs()} />
-      <IconsItem name="IconDrag" icon={IconDrag} {...defaultKnobs()} />
-      <IconsItem name="IconDrop" icon={IconDrop} {...defaultKnobs()} />
-      <IconsItem name="IconEdit" icon={IconEdit} {...defaultKnobs()} />
-      <IconsItem name="IconExpand" icon={IconExpand} {...defaultKnobs()} />
-      <IconsItem name="IconEye" icon={IconEye} {...defaultKnobs()} />
-      <IconsItem name="IconFavorite" icon={IconFavorite} {...defaultKnobs()} />
-      <IconsItem name="IconFilter" icon={IconFilter} {...defaultKnobs()} />
-      <IconsItem name="IconForward" icon={IconForward} {...defaultKnobs()} />
-      <IconsItem name="IconFunnel" icon={IconFunnel} {...defaultKnobs()} />
-      <IconsItem name="IconGas" icon={IconGas} {...defaultKnobs()} />
-      <IconsItem name="IconHamburger" icon={IconHamburger} {...defaultKnobs()} />
-      <IconsItem name="IconItalic" icon={IconItalic} {...defaultKnobs()} />
-      <IconsItem name="IconKebab" icon={IconKebab} {...defaultKnobs()} />
-      <IconsItem name="IconLeaf" icon={IconLeaf} {...defaultKnobs()} />
-      <IconsItem name="IconLink" icon={IconLink} {...defaultKnobs()} />
-      <IconsItem name="IconList" icon={IconList} {...defaultKnobs()} />
-      <IconsItem name="IconListNumbered" icon={IconListNumbered} {...defaultKnobs()} />
-      <IconsItem name="IconLock" icon={IconLock} {...defaultKnobs()} />
-      <IconsItem name="IconMail" icon={IconMail} {...defaultKnobs()} />
-      <IconsItem name="IconMeatball" icon={IconMeatball} {...defaultKnobs()} />
-      <IconsItem name="IconOpenInNew" icon={IconOpenInNew} {...defaultKnobs()} />
-      <IconsItem name="IconPause" icon={IconPause} {...defaultKnobs()} />
-      <IconsItem name="IconPhoto" icon={IconPhoto} {...defaultKnobs()} />
-      <IconsItem name="IconPlay" icon={IconPlay} {...defaultKnobs()} />
-      <IconsItem name="IconProcessing" icon={IconProcessing} {...defaultKnobs()} />
-      <IconsItem name="IconQuestion" icon={IconQuestion} {...defaultKnobs()} />
-      <IconsItem name="IconQuote" icon={IconQuote} {...defaultKnobs()} />
-      <IconsItem name="IconRecord" icon={IconRecord} {...defaultKnobs()} />
-      <IconsItem name="IconRemove" icon={IconRemove} {...defaultKnobs()} />
-      <IconsItem name="IconRevert" icon={IconRevert} {...defaultKnobs()} />
-      <IconsItem name="IconRing" icon={IconRing} {...defaultKnobs()} />
-      <IconsItem name="IconRouble" icon={IconRouble} {...defaultKnobs()} />
-      <IconsItem name="IconSearch" icon={IconSearch} {...defaultKnobs()} />
-      <IconsItem name="IconSelect" icon={IconSelect} {...defaultKnobs()} />
-      <IconsItem name="IconSelectOpen" icon={IconSelectOpen} {...defaultKnobs()} />
-      <IconsItem name="IconSettings" icon={IconSettings} {...defaultKnobs()} />
-      <IconsItem name="IconShuffle" icon={IconShuffle} {...defaultKnobs()} />
-      <IconsItem name="IconSortDown" icon={IconSortDown} {...defaultKnobs()} />
-      <IconsItem name="IconSortDownCenter" icon={IconSortDownCenter} {...defaultKnobs()} />
-      <IconsItem name="IconSortUp" icon={IconSortUp} {...defaultKnobs()} />
-      <IconsItem name="IconSortUpCenter" icon={IconSortUpCenter} {...defaultKnobs()} />
-      <IconsItem name="IconStop" icon={IconStop} {...defaultKnobs()} />
-      <IconsItem name="IconStrikethrough" icon={IconStrikethrough} {...defaultKnobs()} />
-      <IconsItem name="IconTable" icon={IconTable} {...defaultKnobs()} />
-      <IconsItem name="IconTest" icon={IconTest} {...defaultKnobs()} />
-      <IconsItem name="IconThumbUp" icon={IconThumbUp} {...defaultKnobs()} />
-      <IconsItem name="IconTrash" icon={IconTrash} {...defaultKnobs()} />
-      <IconsItem name="IconTie" icon={IconTie} {...defaultKnobs()} />
-      <IconsItem name="IconTop" icon={IconTop} {...defaultKnobs()} />
-      <IconsItem name="IconType" icon={IconType} {...defaultKnobs()} />
-      <IconsItem name="IconUnderline" icon={IconUnderline} {...defaultKnobs()} />
-      <IconsItem name="IconUser" icon={IconUser} {...defaultKnobs()} />
-      <IconsItem name="IconWorld" icon={IconWorld} {...defaultKnobs()} />
+      <IconsItem name="IconAdd" icon={IconAdd} />
+      <IconsItem name="IconAlert" icon={IconAlert} />
+      <IconsItem name="IconAlignJustify" icon={IconAlignJustify} />
+      <IconsItem name="IconAlignCenter" icon={IconAlignCenter} />
+      <IconsItem name="IconAlignLeft" icon={IconAlignLeft} />
+      <IconsItem name="IconAlignRight" icon={IconAlignRight} />
+      <IconsItem name="IconArrowDown" icon={IconArrowDown} />
+      <IconsItem name="IconArrowLeft" icon={IconArrowLeft} />
+      <IconsItem name="IconArrowRight" icon={IconArrowRight} />
+      <IconsItem name="IconArrowUp" icon={IconArrowUp} />
+      <IconsItem name="IconAttach" icon={IconAttach} />
+      <IconsItem name="IconBackward" icon={IconBackward} />
+      <IconsItem name="IconBarrier" icon={IconBarrier} />
+      <IconsItem name="IconBento" icon={IconBento} />
+      <IconsItem name="IconBold" icon={IconBold} />
+      <IconsItem name="IconBookmarkFilled" icon={IconBookmarkFilled} />
+      <IconsItem name="IconBookmarkStroked" icon={IconBookmarkStroked} />
+      <IconsItem name="IconCalendar" icon={IconCalendar} />
+      <IconsItem name="IconCamera" icon={IconCamera} />
+      <IconsItem name="IconCancel" icon={IconCancel} />
+      <IconsItem name="IconChat" icon={IconChat} />
+      <IconsItem name="IconCheck" icon={IconCheck} />
+      <IconsItem name="IconClose" icon={IconClose} />
+      <IconsItem name="IconCollapse" icon={IconCollapse} />
+      <IconsItem name="IconColorText" icon={IconColorText} />
+      <IconsItem name="IconColorFill" icon={IconColorFill} />
+      <IconsItem name="IconColumns" icon={IconColumns} />
+      <IconsItem name="IconComment" icon={IconComment} />
+      <IconsItem name="IconConnection" icon={IconConnection} />
+      <IconsItem name="IconCopy" icon={IconCopy} />
+      <IconsItem name="IconCrown" icon={IconCrown} />
+      <IconsItem name="IconDiamond" icon={IconDiamond} />
+      <IconsItem name="IconDown" icon={IconDown} />
+      <IconsItem name="IconDrag" icon={IconDrag} />
+      <IconsItem name="IconDrop" icon={IconDrop} />
+      <IconsItem name="IconEdit" icon={IconEdit} />
+      <IconsItem name="IconExpand" icon={IconExpand} />
+      <IconsItem name="IconEye" icon={IconEye} />
+      <IconsItem name="IconFavorite" icon={IconFavorite} />
+      <IconsItem name="IconFilter" icon={IconFilter} />
+      <IconsItem name="IconForward" icon={IconForward} />
+      <IconsItem name="IconFunnel" icon={IconFunnel} />
+      <IconsItem name="IconGas" icon={IconGas} />
+      <IconsItem name="IconHamburger" icon={IconHamburger} />
+      <IconsItem name="IconItalic" icon={IconItalic} />
+      <IconsItem name="IconKebab" icon={IconKebab} />
+      <IconsItem name="IconLeaf" icon={IconLeaf} />
+      <IconsItem name="IconLink" icon={IconLink} />
+      <IconsItem name="IconList" icon={IconList} />
+      <IconsItem name="IconListNumbered" icon={IconListNumbered} />
+      <IconsItem name="IconLock" icon={IconLock} />
+      <IconsItem name="IconMail" icon={IconMail} />
+      <IconsItem name="IconMeatball" icon={IconMeatball} />
+      <IconsItem name="IconOpenInNew" icon={IconOpenInNew} />
+      <IconsItem name="IconPause" icon={IconPause} />
+      <IconsItem name="IconPhoto" icon={IconPhoto} />
+      <IconsItem name="IconPlay" icon={IconPlay} />
+      <IconsItem name="IconProcessing" icon={IconProcessing} />
+      <IconsItem name="IconQuestion" icon={IconQuestion} />
+      <IconsItem name="IconQuote" icon={IconQuote} />
+      <IconsItem name="IconRecord" icon={IconRecord} />
+      <IconsItem name="IconRemove" icon={IconRemove} />
+      <IconsItem name="IconRevert" icon={IconRevert} />
+      <IconsItem name="IconRing" icon={IconRing} />
+      <IconsItem name="IconRouble" icon={IconRouble} />
+      <IconsItem name="IconSearch" icon={IconSearch} />
+      <IconsItem name="IconSelect" icon={IconSelect} />
+      <IconsItem name="IconSelectOpen" icon={IconSelectOpen} />
+      <IconsItem name="IconSettings" icon={IconSettings} />
+      <IconsItem name="IconShuffle" icon={IconShuffle} />
+      <IconsItem name="IconSortDown" icon={IconSortDown} />
+      <IconsItem name="IconSortDownCenter" icon={IconSortDownCenter} />
+      <IconsItem name="IconSortUp" icon={IconSortUp} />
+      <IconsItem name="IconSortUpCenter" icon={IconSortUpCenter} />
+      <IconsItem name="IconStop" icon={IconStop} />
+      <IconsItem name="IconStrikethrough" icon={IconStrikethrough} />
+      <IconsItem name="IconTable" icon={IconTable} />
+      <IconsItem name="IconTest" icon={IconTest} />
+      <IconsItem name="IconThumbUp" icon={IconThumbUp} />
+      <IconsItem name="IconTrash" icon={IconTrash} />
+      <IconsItem name="IconTie" icon={IconTie} />
+      <IconsItem name="IconTop" icon={IconTop} />
+      <IconsItem name="IconType" icon={IconType} />
+      <IconsItem name="IconUnderline" icon={IconUnderline} />
+      <IconsItem name="IconUser" icon={IconUser} />
+      <IconsItem name="IconWorld" icon={IconWorld} />
     </div>
   ));

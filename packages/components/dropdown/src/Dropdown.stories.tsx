@@ -1,58 +1,112 @@
 import React from 'react';
 import { Button } from '@gpn-design/uikit/Button';
 import { Text } from '@gpn-design/uikit/Text';
-import { select, text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, select, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Dropdown } from './Dropdown';
+import { DropdownItemProps } from './DropdownItem';
 import { useDropdown } from './use-dropdown';
 
-const DropdownMenu: React.FC<{ onClick: () => void }> = ({ onClick }) => {
-  const firstItem = text('Текст первого элемента', 'First');
-  const secondItem = text('Текст второго элемента', 'Second');
-
-  const alignItem = select(
-    'Расположение элементов',
-    { start: 'start', center: 'center', end: 'end' },
-    'start',
-  );
-  return (
-    <Dropdown.Menu>
-      <Dropdown.Item align={alignItem} isActive onClick={onClick}>
-        <Text>{firstItem}</Text>
-      </Dropdown.Item>
-      <Dropdown.Item align={alignItem} onClick={onClick}>
-        <Text>{secondItem}</Text>
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  );
+const KNOB_GROUPS = {
+  item: 'Dropdown.Item',
 };
 
-storiesOf('ui/Dropdown', module)
-  .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('Рендер без портала', () => {
-    const { isOpen, close: handleClose, toggle: toggleDropdownOpen } = useDropdown();
+const dropdownItemKnobs = (): Partial<DropdownItemProps> => ({
+  align: select(
+    'align',
+    { start: 'start', center: 'center', end: 'end' },
+    'center',
+    KNOB_GROUPS.item,
+  ),
+  isActive: boolean('isActive', false, KNOB_GROUPS.item),
+});
 
-    const triggerNode = <Button label="Click Me" onClick={toggleDropdownOpen} />;
+const exampleKnobs = (): { text: string } => ({
+  text: text('Dropdown.Item | Первый пункт', 'Нулевой'),
+});
+
+const menuList = [
+  {
+    id: 'item-1',
+    text: 'Первый',
+  },
+  {
+    id: 'item-2',
+    text: 'Второй',
+  },
+  {
+    id: 'item-3',
+    text: 'Третий',
+  },
+  {
+    id: 'item-4',
+    text: 'Четвертый',
+  },
+];
+
+storiesOf('ui/Dropdown', module)
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/dropdown',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('по умолчанию', () => {
+    const { isOpen, close: handleClose, toggle: toggleDropdownOpen } = useDropdown();
+    const [activeItem, setActiveItem] = React.useState(menuList[0].id);
+    const example = exampleKnobs();
+
+    const triggerNode = <Button label="Открыть" onClick={toggleDropdownOpen} />;
 
     return (
       <Dropdown isOpen={isOpen} trigger={triggerNode} onClose={handleClose}>
-        <DropdownMenu onClick={handleClose} />
+        <Dropdown.Menu>
+          <Dropdown.Item {...dropdownItemKnobs()}>
+            <Text>{example.text}</Text>
+          </Dropdown.Item>
+          {menuList.map((item) => (
+            <Dropdown.Item
+              key={item.id}
+              isActive={activeItem === item.id}
+              onClick={(): void => setActiveItem(item.id)}
+            >
+              <Text>{item.text}</Text>
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
       </Dropdown>
     );
   })
-  .add('Рендер в портале', () => {
+  .add('рендер в портале', () => {
     const { isOpen, close: handleClose, toggle: toggleDropdownOpen } = useDropdown();
+    const [activeItem, setActiveItem] = React.useState(menuList[0].id);
 
     return (
-      <>
+      <div>
         <Dropdown.Trigger id="trigger">
-          <Button label="Click Me" onClick={toggleDropdownOpen} />
+          <Button label="Открыть" onClick={toggleDropdownOpen} />
         </Dropdown.Trigger>
         <Dropdown portalId="trigger" portal isOpen={isOpen} onClose={handleClose}>
-          <DropdownMenu onClick={handleClose} />
+          <Dropdown.Menu>
+            {menuList.map((item) => (
+              <Dropdown.Item
+                key={item.id}
+                isActive={activeItem === item.id}
+                onClick={(): void => {
+                  setActiveItem(item.id);
+                  handleClose();
+                }}
+              >
+                <Text>{item.text}</Text>
+              </Dropdown.Item>
+            ))}
+          </Dropdown.Menu>
         </Dropdown>
-      </>
+      </div>
     );
   });

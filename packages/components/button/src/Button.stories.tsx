@@ -1,13 +1,19 @@
 import React from 'react';
-import { text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Button } from './Button';
 
 storiesOf('ui/Button', module)
-  .addParameters({ metadata: { author: 'Дизайн-система ГПН', status: 'Approved' } })
-  .add('interactive', () => {
-    const label = text('label', 'Дефолтный текст');
-
-    return <Button size="m" view="primary" label={label} />;
+  .addParameters({
+    metadata: {
+      author: 'Дизайн-система ГПН',
+      status: 'Approved',
+      link: {
+        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/button',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('по умолчанию', () => {
+    return <Button size="m" view="primary" label="Дефолтный текст" />;
   });

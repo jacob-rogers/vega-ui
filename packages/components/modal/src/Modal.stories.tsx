@@ -1,66 +1,84 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { Button } from '@gpn-design/uikit/Button';
 import { Text } from '@gpn-design/uikit/Text';
-import { select, text, withKnobs } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { boolean, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
-import { Modal } from './Modal';
+import { Modal, ModalProps } from './Modal';
 import { useModal } from './use-modal';
 
-const ButtonContainer = styled.div<{ align: string }>(
-  {
-    display: 'flex',
-  },
-  (props) => ({
-    justifyContent: props.align,
-  }),
-);
-
 const KNOB_GROUPS = {
-  header: 'Modal.Header',
-  body: 'Modal.Body',
+  modal: 'Modal',
 };
 
+const modalKnobs = (): Partial<ModalProps> => ({
+  hasCloseButton: boolean('hasCloseButton', true, KNOB_GROUPS.modal),
+  hasOverlay: boolean('hasOverlay', true, KNOB_GROUPS.modal),
+});
+
+const exampleKnobs = (): { title: string; text: string } => ({
+  title: text('Modal.Header | Заголовок', 'Заголовок'),
+  text: text(
+    'Modal.Body | Пример наполнения',
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque gravida odio nunc, vitae ullamcorper erat volutpat nec. Morbi imperdiet erat fringilla nulla tempor, nec dignissim turpis auctor. Mauris et metus eget lacus facilisis imperdiet. Vivamus arcu ipsum, pellentesque vel mi ut, efficitur feugiat nulla. Phasellus feugiat viverra leo, vel fringilla risus aliquam a. Duis suscipit, ante eget commodo tincidunt, elit ex vestibulum risus, nec hendrerit justo nisi id urna. Nam vehicula luctus mi, eget pulvinar ex lacinia id.',
+  ),
+});
+
 storiesOf('ui/Modal', module)
-  .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('Базовая модалка', () => {
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/modal',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('по умолчанию', () => {
     const { isOpen, close: handleClose, open: handleOpen } = useModal({ initialOpen: true });
+    const example = exampleKnobs();
 
-    const buttonAlign = select(
-      'Расположение кнопки в футере',
-      { start: 'flex-start', center: 'center', end: 'flex-end' },
-      'flex-end',
-    );
-
-    const headerChildren = text('Текст в хедере', 'Тестовая модалочка', KNOB_GROUPS.header);
-    const bodyChildren = text(
-      'Текст в теле модалки',
-      `Тестовая модалка с ${'очень '.repeat(20)} большим текстом`,
-      KNOB_GROUPS.body,
-    );
+    const openAction = action('Modal opened');
+    const closeAction = action('Modal closed');
 
     return (
       <>
-        {!isOpen && <Button onClick={handleOpen} size="m" view="primary" label="Открыть модалку" />}
+        <Button
+          size="m"
+          view="primary"
+          label="Открыть модальное окно"
+          onClick={(e): void => {
+            openAction(e);
+            handleOpen();
+          }}
+        />
         <Modal
           rootSelector="#modalRoot"
-          hasOverlay
-          hasCloseButton
-          onClose={handleClose}
+          onClose={(e): void => {
+            closeAction(e);
+            handleClose();
+          }}
           isOpen={isOpen}
+          {...modalKnobs()}
         >
           <Modal.Header>
-            <Text size="xs">{headerChildren}</Text>
+            <Text size="xs">{example.title}</Text>
           </Modal.Header>
           <Modal.Body>
-            <Text>{bodyChildren}</Text>
+            <Text>{example.text}</Text>
           </Modal.Body>
           <Modal.Footer>
-            <ButtonContainer align={buttonAlign}>
-              <Button size="m" view="primary" label="Кнопочка" />
-            </ButtonContainer>
+            <Button
+              size="m"
+              view="primary"
+              label="Закрыть окно"
+              onClick={(e): void => {
+                closeAction(e);
+                handleClose();
+              }}
+            />
           </Modal.Footer>
         </Modal>
       </>

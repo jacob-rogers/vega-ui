@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import { PossibleCloseEvent, usePortalDomNode, useRootClose } from '@gpn-prototypes/vega-hooks';
 
-import { cnDropdown } from './helpers/cnDropdown';
+import { cnDropdown } from './cn-dropdown';
 import { DropdownItem } from './DropdownItem';
 import { DropdownMenu } from './DropdownMenu';
 import { DropdownTrigger } from './DropdownTrigger';
