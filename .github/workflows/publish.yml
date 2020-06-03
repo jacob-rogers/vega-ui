@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Скачивание репозитория
         uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.ADMIN_TOKEN }}
 
       - name: Скачивание всей git-истории (чтобы работал from-git)
         run: git fetch --prune --unshallow
@@ -44,4 +46,3 @@ jobs:
           git push origin master --follow-tags
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
