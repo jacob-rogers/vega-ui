@@ -37,6 +37,7 @@
       "@gpn-prototypes/vega-modal": ["packages/components/modal/src/index.ts"],
       "@gpn-prototypes/vega-radio": ["packages/components/radio/src/index.ts"],
       "@gpn-prototypes/vega-switch": ["packages/components/switch/src/index.ts"],
+      "@gpn-prototypes/vega-tabs": ["packages/components/tabs/src/index.ts"],
       "@gpn-prototypes/vega-text": ["packages/components/text/src/index.ts"],
       "@gpn-prototypes/vega-text-field": ["packages/components/text-field/src/index.ts"],
       "@gpn-prototypes/vega-user": ["packages/components/user/src/index.ts"],

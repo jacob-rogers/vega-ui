@@ -13,6 +13,7 @@ export * from '@gpn-prototypes/vega-navigation-list';
 export * from '@gpn-prototypes/vega-page-footer';
 export * from '@gpn-prototypes/vega-radio';
 export * from '@gpn-prototypes/vega-switch';
+export * from '@gpn-prototypes/vega-tabs';
 export * from '@gpn-prototypes/vega-text';
 export * from '@gpn-prototypes/vega-text-field';
 export * from '@gpn-prototypes/vega-user';

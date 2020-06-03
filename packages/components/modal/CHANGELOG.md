@@ -7,10 +7,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @gpn-prototypes/vega-modal
 
-
-
-
-
 ## [0.1.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.1.0...@gpn-prototypes/vega-modal@0.1.1) (2020-06-01)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-modal

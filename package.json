@@ -52,6 +52,7 @@
     "packages/components/file",
     "packages/components/radio",
     "packages/components/switch",
+    "packages/components/tabs",
     "packages/components/text",
     "packages/components/text-field",
     "packages/components/informer",

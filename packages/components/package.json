@@ -37,6 +37,7 @@
     "@gpn-prototypes/vega-page-footer": "^0.2.1",
     "@gpn-prototypes/vega-radio": "^0.1.1",
     "@gpn-prototypes/vega-switch": "^0.1.1",
+    "@gpn-prototypes/vega-tabs": "^0.0.1",
     "@gpn-prototypes/vega-text": "^0.1.1",
     "@gpn-prototypes/vega-text-field": "^0.1.1",
     "@gpn-prototypes/vega-user": "^0.1.1"
