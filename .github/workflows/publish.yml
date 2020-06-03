@@ -42,7 +42,7 @@ jobs:
 
       - name: Публикация релиза в Github-реджистри
         run: |
-          yarn lerna publish from-git --yes
+          yarn lerna publish from-package --yes
           git push origin master --follow-tags
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
