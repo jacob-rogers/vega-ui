@@ -38,8 +38,6 @@
 
 <img src="static/new-component/pic-1.png" height="300">
 
-## Указание автора и статуса
+## Оформление Storybook
 
-Для нового компонента в Storybook необходимо [указать его автора и статус c помощью декоратора `withMetadata`](storybook.md).
-
-<img src="static/with-metadata/pic-1.png" width="400">
+Stories нового компонента необходимо оформить [по правилам](storybook.md).
