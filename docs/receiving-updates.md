@@ -2,11 +2,11 @@
 
 Чтобы обновить библиотеку до последней версии, выполните:
 
-    yarn upgrage @gpn-prototypes/vega-ui
+    yarn upgrade @gpn-prototypes/vega-ui
 
 Если необходимо обновить отдельный пакет:
 
-    yarn upgrage @gpn-prototypes/[package-name]
+    yarn upgrade @gpn-prototypes/[package-name]
 
 Подробнее об [организации пакетов](publishing.md).
 

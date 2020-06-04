@@ -70,7 +70,7 @@ $ yarn storybook
 ## Оформление
 
 - [Оформление кода: основные договоренности](docs/code-style.md)
-- [Оформление коммитов](docs/сommits-style.md)
+- [Оформление коммитов](docs/commits-style.md)
 - [Ведение Storybook](docs/storybook.md)
 
 ## Внешним разработчикам

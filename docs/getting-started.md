@@ -8,7 +8,7 @@
 
     $ yarn nc <component-name>
 
-Cобрать и слинковать все пакеты
+Собрать и слинковать все пакеты
 
     $ yarn build # включает в себя:
     $ yarn build:ts # сборка typescript
@@ -41,7 +41,7 @@ lerna
 
     $ yarn storybook
 
-Собрать статику сторибука
+Собрать статику Storybook
 
     $ yarn storybook:build
 

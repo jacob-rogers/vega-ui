@@ -1,6 +1,6 @@
 # Как работает lerna
 
-Lerna смотрит на изменения в git у всех пакетов и [именование коммитов](сommits-style.md), в которых менялись пакеты. Именование коммитов проверяется на основе спецификации [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
+Lerna смотрит на изменения в git у всех пакетов и [именование коммитов](commits-style.md), в которых менялись пакеты. Именование коммитов проверяется на основе спецификации [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
 Примеры:
 
