@@ -60,6 +60,8 @@
     width: calc(var(--tab-font-size) * 1.4 + var(--space-xs) * 2);
     height: 100%;
 
+    cursor: pointer;
+
     color: var(--color-typo-secondary);
 
     background-color: transparent;
