@@ -13,6 +13,17 @@
       "registry": "https://npm.pkg.github.com/gpn-prototypes"
     }
   },
+  "changelog": {
+    "repo": "gpn-prototypes/vega-ui",
+    "cacheDir": ".changelog",
+    "labels": {
+      "feat": "Обновления",
+      "fix": "Фиксы",
+      "chore": "Изменения в зависимостях",
+      "build": "Правки в билде",
+      "refactoring": "Рефакторинг"
+    }
+  },
   "ignoreChanges": [
     "docs/**",
     "scripts/**",
