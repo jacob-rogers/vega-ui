@@ -2,7 +2,7 @@
 
 Компонент является элементом, который выпадает из trigger-элемента.
 
-![Дропдаун](docs/dropdown.png)
+<img src="docs/dropdown.png" height="200">
 
 ### Установка
 
@@ -46,12 +46,12 @@ export const MyComponent = () => {
 
 ```ts
 type DropdownProps = {
-  trigger?: React.ReactNode; // Компонент-триггер для дропдауна
-  onClose: (e?: MouseEvent | TouchEvent) => void; // Метод для закрытия дропдауна
+  trigger?: React.ReactNode; // компонент-триггер для дропдауна
+  onClose: (e?: MouseEvent | TouchEvent) => void; // метод для закрытия дропдауна
   children?: React.ReactNode;
-  isOpen: boolean; // Индикация того, что дропдаун открыт
+  isOpen: boolean; // открыт ли дропдаун
   className?: string;
-  portal?: boolean; // Должен ли компонент рендериться в портале
+  portal?: boolean; // должен ли компонент рендериться в портале
   portalId?: string; // id для контейнера-портала
 };
 

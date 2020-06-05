@@ -38,17 +38,17 @@ export const MyComponent = () => {
 
 ```ts
 type ModalProps = {
-  onClose: React.EventHandler<React.MouseEvent | React.KeyboardEvent>; // Метод для закрытия модального окна
-  isOpen?: boolean; // Индикация того, что модального окно открыто
-  hasCloseButton?: boolean; // Нужно ли рендерить крестик для закрытия
+  onClose: React.EventHandler<React.MouseEvent | React.KeyboardEvent>; // метод для закрытия модального окна
+  isOpen?: boolean; // индикация того, что модального окно открыто
+  hasCloseButton?: boolean; // нужно ли рендерить крестик для закрытия
   children?: React.ReactNode;
-  hasOverlay?: boolean; // Нужно ли рендерить оверлей
-  onOverlayClick?: (e: React.SyntheticEvent) => void; // Метод, который вызовется по клику на оверлей (по умолчанию onClose)
-  rootSelector?: string; // Селектор, в котором рендерить модальное окон (по умолчанию body)
+  hasOverlay?: boolean; // нужно ли рендерить оверлей
+  onOverlayClick?: (e: React.SyntheticEvent) => void; // метод, который вызовется по клику на оверлей (по умолчанию onClose)
+  rootSelector?: string; // селектор, в котором рендерить модальное окно (по умолчанию body)
 };
 ```
 
-`Modal.Header`, `Modal.Body` и `Modal.Footer` принимают пропсы `className` и `testId` для установки кастомного класса и айди для теста.
+`Modal.Header`, `Modal.Body` и `Modal.Footer` принимают пропсы `className` и `testId` для установки кастомного класса и ID для теста.
 
 ### API useModal
 
