@@ -6,9 +6,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-scale-panel
-```
+    yarn add @gpn-prototypes/vega-scale-panel
 
 ### Примеры использования
 
