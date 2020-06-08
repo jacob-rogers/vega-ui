@@ -46,7 +46,7 @@ stories.addDecorator((story) => {
   return <Container>{story()}</Container>;
 });
 
-stories.add('панель масштаба', () => {
+stories.add('Панель масштаба', () => {
   const props = useStoryProps();
   return <ScalePanel {...props} />;
 });
