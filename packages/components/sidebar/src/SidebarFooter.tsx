@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cnSidebar } from './helpers/cn-sidebar';
+import { cnSidebar } from './cn-sidebar';
 
 import './Sidebar.css';
 

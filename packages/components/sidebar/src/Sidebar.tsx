@@ -1,9 +1,9 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
+import { useKey, usePortalDomNode } from '@gpn-prototypes/vega-hooks';
 
-import { cnSidebar } from './helpers/cn-sidebar';
+import { cnSidebar } from './cn-sidebar';
 import { SidebarBody } from './SidebarBody';
 import { SidebarFooter } from './SidebarFooter';
 import { SidebarHeader } from './SidebarHeader';
@@ -14,7 +14,7 @@ export type SidebarProps = {
   isOpen?: boolean;
   align?: 'left' | 'right';
   hasOverlay?: boolean;
-  onOverlayClick?: (event: React.SyntheticEvent) => void;
+  onOverlayClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent) => void;
   portalContainerSelector?: string;
   isMinimized?: boolean;
   className?: string;
@@ -34,7 +34,7 @@ const cssTransitionClasses = {
 };
 
 export const Sidebar: Sidebar<SidebarProps> = ({
-  isOpen = true,
+  isOpen = false,
   align = 'right',
   hasOverlay = true,
   onOverlayClick,
@@ -46,11 +46,15 @@ export const Sidebar: Sidebar<SidebarProps> = ({
 }) => {
   const showOverlay = isOpen && hasOverlay && !isMinimized;
 
-  const handleOverlayClick = (event: React.SyntheticEvent): void => {
+  const handleOverlayClick = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent,
+  ): void => {
     if (onOverlayClick) {
       onOverlayClick(event);
     }
   };
+
+  useKey('Escape', handleOverlayClick);
 
   const Content = (
     <>
@@ -61,14 +65,18 @@ export const Sidebar: Sidebar<SidebarProps> = ({
         unmountOnExit
         classNames={cssTransitionClasses}
       >
-        <aside className={cnSidebar({ align, minimized: isMinimized }).mix(className)} {...rest}>
+        <aside
+          aria-label="Сайдбар"
+          className={cnSidebar({ align, minimized: isMinimized }).mix(className)}
+          {...rest}
+        >
           {children}
         </aside>
       </CSSTransition>
       {showOverlay && (
         <button
           type="button"
-          aria-label="Overlay"
+          aria-label="Оверлей"
           onClick={handleOverlayClick}
           className={cnSidebar('Overlay')}
         />

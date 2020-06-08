@@ -38,6 +38,7 @@
       "@gpn-prototypes/vega-scale-panel": ["packages/components/scale-panel/src/index.ts"],
       "@gpn-prototypes/vega-theme": ["packages/components/theme/src/index.ts"],
       "@gpn-prototypes/vega-animation": ["packages/components/animation/src/index.ts"],
+      "@gpn-prototypes/vega-sidebar": ["packages/components/sidebar/src/index.ts"],
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }
   },

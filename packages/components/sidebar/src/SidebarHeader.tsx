@@ -1,14 +1,15 @@
 import React from 'react';
+import { Button } from '@gpn-prototypes/vega-button';
 import { IconClose, IconRemove } from '@gpn-prototypes/vega-icons';
 
-import { cnSidebar } from './helpers/cn-sidebar';
+import { cnSidebar } from './cn-sidebar';
 
 import './Sidebar.css';
 
 export type SidebarHeaderProps = {
   hasMinimizeButton?: boolean;
-  onMinimize?: (event: React.SyntheticEvent) => void;
-  onClose?: (event: React.SyntheticEvent) => void;
+  onMinimize?: (event: React.MouseEvent) => void;
+  onClose?: (event: React.MouseEvent) => void;
   className?: string;
 };
 
@@ -20,13 +21,13 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   children,
   ...rest
 }) => {
-  const handleMinimize = (event: React.SyntheticEvent): void => {
+  const handleMinimize = (event: React.MouseEvent): void => {
     if (onMinimize) {
       onMinimize(event);
     }
   };
 
-  const handleClose = (event: React.SyntheticEvent): void => {
+  const handleClose = (event: React.MouseEvent): void => {
     if (onClose) {
       onClose(event);
     }
@@ -34,23 +35,28 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
 
   return (
     <header className={cnSidebar('Header')}>
-      <p className={cnSidebar('Header-title').mix(className)} {...rest}>
+      <div className={cnSidebar('Header-title').mix(className)} {...rest}>
         {children}
-      </p>
+      </div>
       <div className={cnSidebar('Header-buttons')}>
         {hasMinimizeButton && (
-          <button
+          <Button
             type="button"
-            aria-label=""
-            className={cnSidebar('Header-button')}
+            aria-label="Свернуть"
+            size="xs"
+            view="clear"
+            iconRight={IconRemove}
             onClick={handleMinimize}
-          >
-            <IconRemove size="xs" view="ghost" />
-          </button>
+          />
         )}
-        <button type="button" className={cnSidebar('Header-button')} onClick={handleClose}>
-          <IconClose size="xs" view="ghost" />
-        </button>
+        <Button
+          type="button"
+          aria-label="Закрыть"
+          size="xs"
+          view="clear"
+          iconRight={IconClose}
+          onClick={handleClose}
+        />
       </div>
     </header>
   );

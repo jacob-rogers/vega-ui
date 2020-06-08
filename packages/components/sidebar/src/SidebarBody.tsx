@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cnSidebar } from './helpers/cn-sidebar';
+import { cnSidebar } from './cn-sidebar';
 
 import './Sidebar.css';
 
@@ -9,7 +9,7 @@ export type SidebarBodyProps = {
 };
 
 export const SidebarBody: React.FC<SidebarBodyProps> = ({ className, children, ...rest }) => (
-  <main className={cnSidebar('Body').mix(className)} {...rest}>
+  <div aria-label="Основное содержимое" className={cnSidebar('Body').mix(className)} {...rest}>
     {children}
-  </main>
+  </div>
 );

@@ -10,7 +10,15 @@ type RenderComponentProps = {
 } & SidebarProps;
 
 const sidebarTestId = 'SidebarTestId';
-const overlayAriaLabel = 'Overlay';
+const overlayAriaLabel = 'Оверлей';
+
+const querySidebar = (): HTMLElement | null => {
+  return screen.queryByTestId(sidebarTestId);
+};
+
+const queryOverlay = (): HTMLElement | null => {
+  return screen.queryByLabelText(overlayAriaLabel);
+};
 
 function renderComponent(props: RenderComponentProps): RenderResult {
   const {
@@ -31,58 +39,65 @@ function renderComponent(props: RenderComponentProps): RenderResult {
 
 describe('Sidebar', () => {
   test('рендерится без ошибок', () => {
-    renderComponent({});
+    renderComponent({ isOpen: true });
   });
 
   describe('проверка props', () => {
     describe('isOpen', () => {
-      test('isOpen: true', () => {
+      test('Сайдбар рендерится открытым с isOpen = true', () => {
         renderComponent({ isOpen: true });
 
-        const element = screen.queryByTestId(sidebarTestId);
+        const element = querySidebar();
 
         expect(element).toBeInTheDocument();
       });
-      test('isOpen: false', () => {
+
+      test('Сайдбар рендерится закрытым с isOpen = false', () => {
         renderComponent({ isOpen: false });
 
-        const element = screen.queryByTestId(sidebarTestId);
+        const element = querySidebar();
 
         expect(element).not.toBeInTheDocument();
       });
     });
+
     describe('hasOverlay', () => {
-      test('hasOverlay: true', () => {
+      test('Оверлей рендерится с hasOverlay = true', () => {
         renderComponent({ isOpen: true, hasOverlay: true });
 
-        const element = screen.queryByLabelText(overlayAriaLabel);
+        const element = queryOverlay();
 
         expect(element).toBeInTheDocument();
       });
-      test('hasOverlay: false', () => {
+
+      test('Оверлей не рендерится с hasOverlay = false', () => {
         renderComponent({ isOpen: true, hasOverlay: false });
 
-        const element = screen.queryByLabelText(overlayAriaLabel);
+        const element = queryOverlay();
 
         expect(element).not.toBeInTheDocument();
       });
-      test('isOpen: false, hasOverlay: true', () => {
+
+      test('Оверлей не рендерится с закрытым Сайдбаром', () => {
         renderComponent({ isOpen: false, hasOverlay: true });
 
-        const element = screen.queryByLabelText(overlayAriaLabel);
+        const element = queryOverlay();
 
         expect(element).not.toBeInTheDocument();
       });
     });
+
     describe('onOverlayClick', () => {
-      test('call', () => {
+      test('Срабатывает обработчик при клике на Оверлей', () => {
         const onOverlayClick = jest.fn();
 
-        renderComponent({ onOverlayClick });
+        renderComponent({ isOpen: true, onOverlayClick });
 
-        const element = screen.getByLabelText(overlayAriaLabel);
+        const element = queryOverlay();
 
-        fireEvent.click(element);
+        if (element) {
+          fireEvent.click(element);
+        }
 
         expect(onOverlayClick).toBeCalled();
       });

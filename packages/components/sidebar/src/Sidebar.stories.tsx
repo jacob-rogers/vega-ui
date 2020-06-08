@@ -1,34 +1,39 @@
-/** @jsx jsx */
-
-import { Fragment, useState } from 'react';
-import { jsx } from '@emotion/core';
+import React from 'react';
+import { css } from '@emotion/core';
 import { Button } from '@gpn-prototypes/vega-button';
 import { boolean, select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Sidebar, SidebarProps } from './Sidebar';
+import { useSidebar } from './use-sidebar';
 
-const defaultKnobs = (): SidebarProps => ({
-  hasOverlay: boolean('hasOverlay', true),
-  align: select('align', { left: 'left', right: 'right' }, 'right'),
+const KNOB_GROUPS = {
+  sidebar: 'Sidebar',
+};
+
+const knobs = (): SidebarProps => ({
+  hasOverlay: boolean('hasOverlay', true, KNOB_GROUPS.sidebar),
+  align: select('align', { left: 'left', right: 'right' }, 'right', KNOB_GROUPS.sidebar),
 });
 
-const cssWrapper = {
-  display: 'flex',
-  justifyContent: 'flex-end',
-};
+const cssWrapper = css`
+  display: flex;
+  justify-content: flex-end;
+`;
 
-const cssButton = {
-  marginLeft: '8px',
-};
+const cssButton = css`
+  margin-left: var(--space-xs);
+`;
 
-const cssBlock = {
-  'padding': '8px',
-  'background': 'var(--color-bg-ghost)',
-  'fontSize': 'var(--size-text-s)',
-  'color': 'var(--color-typo-primary)',
-  '&:not(:first-of-type)': { marginTop: 'var(--space-xs)' },
-};
+const cssBlock = css`
+  padding: var(--space-xs);
+  background: var(--color-bg-ghost);
+  font-size: var(--size-text-s);
+  color: var(--color-typo-primary);
+  &:not(:first-of-type) {
+    margin-top: var(--space-xs);
+  }
+`;
 
 const cssBlockBig = {
   height: '660px',
@@ -38,15 +43,12 @@ storiesOf('ui/Sidebar', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
   .add('Обычный контент', () => {
-    const [isOpen, setIsOpen] = useState(true);
-    const handleOpen = (): void => setIsOpen(true);
-    const handleClose = (): void => setIsOpen(false);
+    const { isOpen, close: handleClose, open: handleOpen } = useSidebar({ initialState: true });
 
     return (
-      // eslint-disable-next-line react/jsx-fragments
-      <Fragment>
+      <>
         <Button view="primary" size="m" label="Открыть Сайдбар" onClick={handleOpen} />
-        <Sidebar isOpen={isOpen} onOverlayClick={handleClose} {...defaultKnobs()}>
+        <Sidebar isOpen={isOpen} onOverlayClick={handleClose} {...knobs()}>
           <Sidebar.Header onClose={handleClose}>Загрузка файлов</Sidebar.Header>
           <Sidebar.Body>
             <div css={cssBlock}>Блок 1</div>
@@ -60,23 +62,20 @@ storiesOf('ui/Sidebar', module)
             </div>
           </Sidebar.Footer>
         </Sidebar>
-      </Fragment>
+      </>
     );
   })
   .add('Большой контент', () => {
-    const [isOpen, setIsOpen] = useState(true);
-    const handleOpen = (): void => setIsOpen(true);
-    const handleClose = (): void => setIsOpen(false);
+    const { isOpen, close: handleClose, open: handleOpen } = useSidebar({ initialState: true });
 
     return (
-      // eslint-disable-next-line react/jsx-fragments
-      <Fragment>
+      <>
         <Button view="primary" size="m" label="Открыть Сайдбар" onClick={handleOpen} />
         <Sidebar
           isOpen={isOpen}
           onOverlayClick={handleClose}
           portalContainerSelector="#modalRoot"
-          {...defaultKnobs()}
+          {...knobs()}
         >
           <Sidebar.Header onClose={handleClose}>Загрузка файлов</Sidebar.Header>
           <Sidebar.Body>
@@ -91,19 +90,16 @@ storiesOf('ui/Sidebar', module)
             </div>
           </Sidebar.Footer>
         </Sidebar>
-      </Fragment>
+      </>
     );
   })
   .add('Свернутое окно', () => {
-    const [isOpen, setIsOpen] = useState(true);
-    const handleOpen = (): void => setIsOpen(true);
-    const handleClose = (): void => setIsOpen(false);
+    const { isOpen, close: handleClose, open: handleOpen } = useSidebar({ initialState: true });
 
     return (
-      // eslint-disable-next-line react/jsx-fragments
-      <Fragment>
+      <>
         <Button view="primary" size="m" label="Открыть Сайдбар" onClick={handleOpen} />
-        <Sidebar isOpen={isOpen} isMinimized {...defaultKnobs()}>
+        <Sidebar isOpen={isOpen} isMinimized {...knobs()}>
           <Sidebar.Header hasMinimizeButton={false} onClose={handleClose}>
             Загрузка файлов
           </Sidebar.Header>
@@ -111,6 +107,6 @@ storiesOf('ui/Sidebar', module)
             <div css={cssBlock}>Блок 1</div>
           </Sidebar.Body>
         </Sidebar>
-      </Fragment>
+      </>
     );
   });
