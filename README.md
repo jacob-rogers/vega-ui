@@ -66,6 +66,8 @@ $ yarn storybook
 - [Отправка PR на тестирование QA](docs/qa-flow.md)
 - [Отправка PR в мастер](docs/pr-merge.md)
 - [Публикация пакетов](docs/publishing.md)
+- [Настройка среды разработки](docs/environment.md)
+- [Особенности настройки проекта под Windows](docs/windows.md)
 
 ## Оформление
 
