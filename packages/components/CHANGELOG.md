@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.10.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.10.0...@gpn-prototypes/vega-ui@0.10.1) (2020-06-09)
+
+
+### Bug Fixes
+
+* **tabs:** изменить курсор на кнопке прокрутки ([a77f11a](https://github.com/gpn-prototypes/vega-ui/commit/a77f11a87f27360c11b390d716bf9284723eac6e))
+
+
+
+
+
 # [0.10.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@0.9.3...@gpn-prototypes/vega-ui@0.10.0) (2020-06-03)
 
 ### Bug Fixes
