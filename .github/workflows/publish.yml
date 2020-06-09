@@ -1,21 +1,23 @@
-name: Публикация новых версий пакетов
+name: Публикация новой версии
 on:
   push:
     branches: [master]
 
 jobs:
-  publish:
-    name: Публикация новых версий пакетов
+  build:
+    name: Сборка
     runs-on: ubuntu-latest
 
     steps:
       - name: Скачивание репозитория
         uses: actions/checkout@v2
+        if: "!contains(github.event.head_commit.message, 'skip ci')"
         with:
-          token: ${{ secrets.ADMIN_TOKEN }}
+          token: ${{ secrets.ADMIN_KEY }}
 
       - name: Скачивание всей git-истории (чтобы работал from-git)
         run: git fetch --prune --unshallow
+
 
       - name: Установка ноды
         uses: actions/setup-node@v1
@@ -25,8 +27,6 @@ jobs:
 
       - name: Установка зависимостей
         run: yarn install --frozen-lockfile
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Сборка пакетов
         run: yarn build
@@ -38,13 +38,43 @@ jobs:
 
       - name: Поднятие версий пакетов
         run: |
-          yarn lerna version --conventional-commits --allow-branch=master --no-commit-hooks --no-push --yes --create-release github
+          yarn lerna version --conventional-commits --no-commit-hooks --no-push --yes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Публикация релиза в Github-реджистри
+
+      - name: Публикация пакетов в Github-реджистри
         run: |
-          yarn lerna publish from-package --yes
+          yarn lerna publish from-git --yes
           git push origin master --follow-tags
+
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.ADMIN_KEY }}
+
+      - name: Генерация CHANGELOG
+        id: changelog
+        uses: hitmanet/vega-actions/generate-changelog@master
+        env:
+          GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Создание релиза на Github
+        uses: hitmanet/vega-actions/generate-gh-release@master
+        with:
+          changelog: ${{ steps.changelog.outputs.changelog }}
+          token: ${{ secrets.ADMIN_KEY }}
+          main_package: "@gpn-prototypes/vega-ui"
+
+
+      - name: Обновление CHANGELOG.md
+        uses: hitmanet/vega-actions/update-changelog@master
+        with:
+          changelog: ${{ steps.changelog.outputs.changelog }}
+
+      - name: Commit CHANGELOG.md
+        run: |
+          git add CHANGELOG.md
+          git commit -m "Add ${{ steps.tags.outputs.to }} to CHANGELOG.md [skip ci]" --no-verify --quiet
+          git push origin master
+
+

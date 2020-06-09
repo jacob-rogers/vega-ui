@@ -27,3 +27,5 @@ yarn-error.log*
 /.idea
 
 storybook-static/
+
+.changelog/
