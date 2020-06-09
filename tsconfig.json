@@ -3,6 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "importHelpers": true,
+    "declaration": true,
+    "declarationDir": "./dist",
     "baseUrl": ".",
     "paths": {
       "@gpn-prototypes/vega-hooks": ["packages/hooks/src/index.ts"],
