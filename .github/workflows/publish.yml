@@ -1,19 +1,20 @@
-name: Публикация новой версии
+name: Публикация новых версий пакетов
 on:
   push:
     branches: [master]
 
 jobs:
-  build:
-    name: Сборка
+  publish:
+    name: Публикация новых версий пакетов
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+
 
     steps:
       - name: Скачивание репозитория
         uses: actions/checkout@v2
-        if: "!contains(github.event.head_commit.message, 'skip ci')"
         with:
-          token: ${{ secrets.ADMIN_KEY }}
+          token: ${{ secrets.ADMIN_TOKEN }}
 
       - name: Скачивание всей git-истории (чтобы работал from-git)
         run: git fetch --prune --unshallow
@@ -27,6 +28,8 @@ jobs:
 
       - name: Установка зависимостей
         run: yarn install --frozen-lockfile
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Сборка пакетов
         run: yarn build
@@ -38,19 +41,19 @@ jobs:
 
       - name: Поднятие версий пакетов
         run: |
-          yarn lerna version --conventional-commits --no-commit-hooks --no-push --yes
+          yarn lerna version --conventional-commits --allow-branch=master --no-commit-hooks --no-push --yes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
       - name: Публикация пакетов в Github-реджистри
         run: |
-          yarn lerna publish from-git --yes
+          yarn lerna publish from-package --yes
           git push origin master --follow-tags
 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_TOKEN: ${{ secrets.ADMIN_KEY }}
+          GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
 
       - name: Генерация CHANGELOG
         id: changelog
