@@ -1,9 +1,9 @@
 {
   "name": "@gpn-prototypes/vega-file-input",
   "version": "0.0.1",
-  "main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/components/file-input/src/index.d.ts",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
   "author": "csssr",
   "files": [
     "dist"

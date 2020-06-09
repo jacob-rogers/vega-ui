@@ -18,6 +18,7 @@ export type DropzoneProps = {
   JSX.IntrinsicElements['div'];
 
 export const Dropzone: React.FC<DropzoneProps> = (props) => {
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const defaultDragHandler = (): void => {};
   const {
     className,
