@@ -2,7 +2,7 @@
 
 # FileDropzone
 
-Данный компнонент необходим для загрузки файлов через drag and drop зону.
+Компонент необходим для загрузки файлов через drag and drop зону.
 
 <img src="docs/pic-1.png">
 
@@ -47,14 +47,14 @@ export const MyComponent = () => {
 type FileDropzoneProps = {
   children: React.ReactNode;
   className?: string;
-  show?: boolean; // должна ли отображаться дропзона
+  show?: boolean; // должна ли отображаться Dropzone
   fullscreen?: boolean; // нужен ли рендер в полный экран
 };
 
 type FileDropzoneInputProps = {
   className?: string;
-  label?: string; // label для кнопки
-  id: string; // id для крепления лейбла к инпута
+  label?: string; // лейбл для кнопки
+  id: string; // id для крепления лейбла к инпуту
 };
 
 type FileDropzoneProviderProps = {
@@ -66,7 +66,7 @@ type FileDropzoneProviderProps = {
 
 # useFileDropzone
 
-Хук, который предоставляет необходимое апи для работы с `FileDropzone`.
+Хук, который предоставляет необходимый API для работы с `FileDropzone`.
 
 ### Пример использования
 
@@ -108,7 +108,7 @@ type FileDropzoneOptions = {
 
 ```ts
 export type FileDropzoneAPI = {
-  fullscreenVisible: boolean; // видимость Dropzone в режиме Fullscreen
+  fullscreenVisible: boolean; // видимость Dropzone в режиме fullscreen
   handleDragEnter: ReactDragEventHandler;
   handleDragLeave: ReactDragEventHandler;
   handleDragOver: ReactDragEventHandler;

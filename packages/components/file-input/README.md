@@ -1,6 +1,6 @@
 # @gpn-prototypes/vega-file-input
 
-Компонент является оберткой над input типа file
+Компонент является полем для ввода/загрузки файлов
 
 <img src="docs/pic-1.png" height="50">
 
@@ -15,7 +15,7 @@ yarn add @gpn-prototypes/vega-file-input
 ```jsx
 import { FileInput } from '@gpn-prototypes/vega-file-input';
 
-export const MyComponent = (props) => {
+export const MyComponent = props => {
   <FileInput label="Инпут для загрузки" iconLeft={IconAttach} onChange={props.onChange} />;
 };
 ```
