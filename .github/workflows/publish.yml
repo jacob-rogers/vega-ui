@@ -65,7 +65,7 @@ jobs:
         uses: hitmanet/vega-actions/generate-gh-release@master
         with:
           changelog: ${{ steps.changelog.outputs.changelog }}
-          token: ${{ secrets.ADMIN_KEY }}
+          token: ${{ secrets.ADMIN_TOKEN }}
           main_package: "@gpn-prototypes/vega-ui"
 
 
