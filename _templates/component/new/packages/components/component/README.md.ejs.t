@@ -1,6 +1,6 @@
 ---
 to: packages/components/<%= name %>/README.md
-sh: mkdir -p "packages/components/<%= name %>/docs/" && cp "_templates/component/new/packages/components/component/docs/pic-1.png" "packages/components/<%= name %>/docs/"
+sh: mkdir "packages/components/<%= name %>/docs/" && cp "_templates/component/new/packages/components/component/docs/pic-1.png" "packages/components/<%= name %>/docs/"
 ---
 # @gpn-prototypes/vega-<%= name %>
 
