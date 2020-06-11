@@ -7,6 +7,7 @@ export interface ScalePanelAPI {
   currentScale: number;
   zoomIn: () => void;
   zoomOut: () => void;
+  inputChange: (value: number) => void;
 }
 
 const noop = (): void => {
@@ -17,6 +18,7 @@ export const ScalePanelContext = React.createContext<ScalePanelAPI>({
   currentScale: 100,
   zoomIn: noop,
   zoomOut: noop,
+  inputChange: noop,
 });
 
 export function useScalePanel(): ScalePanelAPI {

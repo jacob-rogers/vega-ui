@@ -3,7 +3,7 @@ import { IconAdd } from '@gpn-design/uikit/IconAdd';
 import { IconDrag } from '@gpn-design/uikit/IconDrag';
 import { IconExpand } from '@gpn-design/uikit/IconExpand';
 import { IconRemove } from '@gpn-design/uikit/IconRemove';
-import { Button } from '@gpn-prototypes/vega-ui';
+import { Button, Text, TextField } from '@gpn-prototypes/vega-ui';
 
 import { b, useScalePanel } from './context';
 
@@ -11,35 +11,45 @@ import './ScalePanel.css';
 
 interface ScalePanelInnerProps {
   currentScale: number;
+  columnPanel: boolean;
   className?: string;
 }
 
 interface ScalePanelViewProps extends ScalePanelInnerProps {
   onZoomIn(): void;
   onZoomOut(): void;
+  inputChange(value: number): void;
 }
 
 export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
-  const { className, currentScale, onZoomIn, onZoomOut } = props;
+  const { className, currentScale, columnPanel, onZoomIn, onZoomOut, inputChange } = props;
+  const buttonSize = 'xs';
+
+  const handleChange = ({ value }: { value: string | null }): void => {
+    return Number(value) ? inputChange(Number(value)) : inputChange(Number(currentScale));
+  };
 
   return (
-    <div className={b.mix(className).toString()}>
+    <div
+      className={b.mix(className).toString()}
+      style={{ flexDirection: columnPanel ? 'column' : 'row' }}
+    >
       <Button
-        title="Хз что это"
+        title="Во весь экран"
         onlyIcon
         iconLeft={IconExpand}
         className={b('Expand').toString()}
-        size="l"
+        size={buttonSize}
         view="clear"
         // onClick={}
       />
       <Button
-        title="Выровнять по горизонтали"
+        title="Во всю ширину"
         /* TODO иконку заменить */
         onlyIcon
         iconLeft={IconDrag}
         className={b('Drag').toString()}
-        size="l"
+        size={buttonSize}
         view="clear"
         // onClick={}
       />
@@ -48,7 +58,7 @@ export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
         onlyIcon
         iconLeft={IconRemove}
         className={b('ZoomOut').toString()}
-        size="l"
+        size={buttonSize}
         view="clear"
         onClick={onZoomOut}
       />
@@ -57,23 +67,42 @@ export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
         onlyIcon
         iconLeft={IconAdd}
         className={b('ZoomIn').toString()}
-        size="l"
+        size={buttonSize}
         view="clear"
         onClick={onZoomIn}
       />
-      <Button
-        label={`${currentScale.toString()}%`}
-        title="Текущий масштаб"
-        className={b('CurrentScale').toString()}
-        size="l"
-        view="clear"
-        // onClick={}
-      />
+      {/* TODO второй вариант CurrentScale */}
+      {/* <Button */}
+      {/* label={`${currentScale.toString()}%`} */}
+      {/* title="Текущий масштаб" */}
+      {/* className={b('CurrentScale').toString()} */}
+      {/* size={buttonSize} */}
+      {/* view="clear" */}
+      {/* // onClick={} */}
+      {/* /> */}
+      <div>
+        {/* TODO в ТextField в gpn глубоко, глубоко зарыта пропса которая не используется(TextPropAlign) - возможно она нужна для позиционирования текста внутри компоненты */}
+        <TextField
+          title="Текущий масштаб"
+          className={b('CurrentScale').toString()}
+          size={buttonSize}
+          max={3}
+          view="clear"
+          value={currentScale.toString()}
+          onChange={handleChange}
+          style={{ maxWidth: '20px', justifyContent: 'center' }}
+        />
+        <Text display="inline" size={buttonSize}>
+          %
+        </Text>
+      </div>
     </div>
   );
 };
 
 export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
-  const { zoomIn, zoomOut } = useScalePanel();
-  return <ScalePanelView {...props} onZoomIn={zoomIn} onZoomOut={zoomOut} />;
+  const { zoomIn, zoomOut, inputChange } = useScalePanel();
+  return (
+    <ScalePanelView {...props} onZoomIn={zoomIn} onZoomOut={zoomOut} inputChange={inputChange} />
+  );
 };
