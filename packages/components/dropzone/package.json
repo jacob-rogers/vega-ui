@@ -23,7 +23,7 @@
   "dependencies": {
     "bem-cn": "^3.0.1",
     "react-dom": "^16.13.1",
-    "@gpn-prototypes/vega-hooks": "0.0.8",
-    "@gpn-prototypes/vega-file-input": "0.0.1"
+    "@gpn-prototypes/vega-file-input": "0.0.1",
+    "@gpn-prototypes/vega-hooks": "0.0.8"
   }
 }

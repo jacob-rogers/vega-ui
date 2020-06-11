@@ -7,18 +7,18 @@ import { storiesOf } from '@storybook/react';
 
 import { FileDropzone } from './FileDropzone';
 
-const MarginContainer = styled.div({
-  marginTop: '25px',
-});
+const MarginContainer = styled.div`
+  margin-top: 25px;
+`;
 
-const Container = styled.div({
-  width: '300px',
-});
+const Container = styled.div`
+  width: 300px;
+`;
 
-const FlexGroup = styled.div({
-  display: 'flex',
-  justifyContent: 'space-around',
-});
+const FlexGroup = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
 
 storiesOf('ui/FileDropzone', module)
   .addDecorator(withKnobs)

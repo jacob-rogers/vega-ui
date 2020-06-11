@@ -46,7 +46,7 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     return (): void => {
       document.removeEventListener('dragenter', onDragEnter);
     };
-  });
+  }, [fullscreen, onDragEnter]);
 
   const dropzoneClassName = fullscreen ? cnDropzone.state({ fullscreen }) : cnDropzone;
 
