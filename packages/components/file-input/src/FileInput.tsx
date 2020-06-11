@@ -4,30 +4,33 @@ import { block } from 'bem-cn';
 
 import './FileInput.css';
 
-type ButtonProps = Exclude<React.ComponentProps<typeof Button>, 'label'>;
+type ButtonProps = React.ComponentProps<typeof Button>;
 
-export interface FileInputProps extends ButtonProps {
-  id: string;
+export type FileInputProps = JSX.IntrinsicElements['input'] & {
   className?: string;
-  label?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}
+  id: string;
+  children?: (props: ButtonProps) => React.ReactNode | React.ReactNode;
+};
 
 const cnFileInput = block('VegaFileInput');
 
 export const FileInput: React.FC<FileInputProps> = (props) => {
-  const { className, id, onChange, ...buttonProps } = props;
+  const { className, id, onChange, children, ...inputProps } = props;
+
+  const content =
+    typeof children === 'function' ? children({ role: 'button', as: 'span' }) : children;
 
   return (
     <label htmlFor={id} className={cnFileInput.mix(className)}>
       <input
+        {...inputProps}
         className={cnFileInput('Input')}
         type="file"
         id={id}
         onChange={onChange}
         aria-label="File input"
       />
-      <Button role="button" as="span" {...buttonProps} />
+      {content}
     </label>
   );
 };
