@@ -1,13 +1,17 @@
 .VegaFileInput {
   position: relative;
-  overflow: hidden;
+
   display: inline-flex;
+  overflow: hidden;
+
   cursor: pointer;
 
   &__Input {
     position: absolute;
-    overflow: hidden;
     z-index: -1;
+
+    overflow: hidden;
+
     opacity: 0;
   }
 }
