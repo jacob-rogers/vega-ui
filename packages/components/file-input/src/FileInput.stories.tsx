@@ -20,7 +20,7 @@ storiesOf('ui/FileInput', module)
       label: text('title', 'Title'),
     };
     return (
-      <FileInput {...defaultKnobs()} accept="image/png" onChange={action('Файлы загружены')}>
+      <FileInput {...defaultKnobs()} accept="image/png" onChange={action('Файлы выбраны')}>
         {(props): React.ReactNode => <Button {...props} {...buttonProps} />}
       </FileInput>
     );

@@ -1,7 +1,7 @@
-import { ReactDivDragEvent, ReactDragEventHandler } from './DragHandlers';
+import { DropzoneDragEvent, ReactDragEventHandler } from './DragHandlers';
 
 type ReactInputChangeEvent = React.ChangeEvent<HTMLInputElement>;
-type LoadEvent = ReactDivDragEvent | ReactInputChangeEvent;
+type LoadEvent = DropzoneDragEvent | ReactInputChangeEvent;
 
 export type FileDropzoneAPI = {
   fullscreenVisible: boolean;

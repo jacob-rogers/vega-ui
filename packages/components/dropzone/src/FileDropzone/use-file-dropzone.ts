@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-import { DragHandlers, FileDropzoneAPI, ReactDivDragEvent, ReactDragEventHandler } from '../types';
+import { DragHandlers, DropzoneDragEvent, FileDropzoneAPI, ReactDragEventHandler } from '../types';
 
 type ReactInputChangeEvent = React.ChangeEvent<HTMLInputElement>;
-type LoadEvent = ReactDivDragEvent | ReactInputChangeEvent;
+type LoadEvent = DropzoneDragEvent | ReactInputChangeEvent;
 
 type FileDropzoneOptions = {
   withFullscreen?: boolean;
