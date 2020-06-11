@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { Dropzone } from '../Dropzone';
+import { DropzoneDragEvent } from '../types';
 
 import { FileDropzoneInput } from './FileDropzoneInput';
 import { FileDropzoneContext } from './FileDropzoneProvider';
@@ -13,9 +14,11 @@ export type FileDropzoneProps = {
   show?: boolean;
   fullscreen?: boolean;
   onDrop: (files: FileList | null) => void;
+  onDragEnter?: (e: DropzoneDragEvent) => void;
+  onDragLeave?: (e: DropzoneDragEvent) => void;
 };
 
-type FileDropzoneContentProps = Omit<FileDropzoneProps, 'onDrop'>;
+type FileDropzoneContentProps = Omit<FileDropzoneProps, 'onDrop' | 'onDragEnter' | 'onDragLeave'>;
 
 type FileDropzone<T> = React.FC<T> & {
   Fullscreen: React.FC<FileDropzoneContentProps>;
@@ -53,8 +56,14 @@ const FileDropzoneFullscreen: React.FC<React.ComponentProps<typeof FileDropzoneC
   return <FileDropzoneContent show={fullscreenVisible} fullscreen {...props} />;
 };
 
-export const FileDropzone: FileDropzone<FileDropzoneProps> = ({ onDrop, fullscreen, ...rest }) => {
-  const api = useFileDropzone(onDrop, { withFullscreen: fullscreen });
+export const FileDropzone: FileDropzone<FileDropzoneProps> = ({
+  onDrop,
+  onDragEnter,
+  onDragLeave,
+  fullscreen,
+  ...rest
+}) => {
+  const api = useFileDropzone({ onDrop, onDragEnter, onDragLeave }, { withFullscreen: fullscreen });
 
   return (
     <FileDropzoneContext.Provider value={api}>
