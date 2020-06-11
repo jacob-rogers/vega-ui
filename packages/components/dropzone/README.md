@@ -21,7 +21,7 @@ export const MyComponent = () => {
   const [text, setText] = React.useState('Перетащите, чтобы загрузить');
 
   const dropzoneApi = useFileDropzone(
-    { onLoad: () => setText('Файлы загружены') },
+    { onDrop: () => setText('Файлы загружены') },
     { withFullscreen: true },
   );
 
@@ -72,7 +72,7 @@ type FileDropzoneProviderProps = {
 
 ```tsx
 const dropzoneApi = useFileDropzone(
-  { onLoad: () => setText('Файлы загружены') },
+  { onDrop: () => setText('Файлы загружены') },
   { withFullscreen: true },
 );
 ```
@@ -96,7 +96,7 @@ export type DragHandlers = {
   onDragLeave?: ReactDragEventHandler;
   onDragExit?: ReactDragEventHandler;
   onDrop?: (e: DropzoneDragEvent | React.ChangeEvent<HTMLInputElement>) => void;
-  onLoad?: (e: LoadEvent) => void; // метод для загрузки файлов
+  onDrop?: (e: LoadEvent) => void; // метод для загрузки файлов
 };
 
 type FileDropzoneOptions = {
@@ -112,6 +112,6 @@ export type FileDropzoneAPI = {
   handleDragEnter: ReactDragEventHandler;
   handleDragLeave: ReactDragEventHandler;
   handleDragOver: ReactDragEventHandler;
-  handleLoad: (e: LoadEvent) => void;
+  handleDrop: (e: LoadEvent) => void;
 };
 ```

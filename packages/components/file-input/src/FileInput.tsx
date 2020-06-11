@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 import { block } from 'bem-cn';
 
@@ -9,6 +9,7 @@ type ButtonProps = React.ComponentProps<typeof Button>;
 export type FileInputProps = JSX.IntrinsicElements['input'] & {
   className?: string;
   id: string;
+  onChange?: (e: DragEvent | ChangeEvent) => void;
   children?: (props: ButtonProps) => React.ReactNode | React.ReactNode;
 };
 

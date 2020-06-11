@@ -11,5 +11,4 @@ export type DragHandlers = {
   onDragEnter?: ReactDragEventHandler;
   onDragLeave?: ReactDragEventHandler;
   onDragExit?: ReactDragEventHandler;
-  onDrop?: (e: DropzoneDragEvent | React.ChangeEvent<HTMLInputElement>) => void;
 };

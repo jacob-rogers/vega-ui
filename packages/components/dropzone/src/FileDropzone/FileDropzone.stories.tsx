@@ -2,11 +2,10 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Text } from '@gpn-design/uikit/Text';
 import { FileIconAvi, FileIconBmp, FileIconDoc, FileIconGif } from '@gpn-prototypes/vega-icons';
-import { withKnobs } from '@storybook/addon-knobs';
+import { text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { FileDropzone } from './FileDropzone';
-import { useFileDropzone } from './use-file-dropzone';
 
 const MarginContainer = styled.div({
   marginTop: '25px',
@@ -25,34 +24,27 @@ storiesOf('ui/FileDropzone', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
   .add('Демонстрация работы', () => {
-    const [text, setText] = React.useState('Перетащите, чтобы загрузить');
-
-    const dropzoneApi = useFileDropzone(
-      { onLoad: () => setText('Файлы загружены') },
-      { withFullscreen: true },
-    );
+    const [dropzoneText, setText] = React.useState('Перетащите, чтобы загрузить');
 
     return (
-      <FileDropzone.Provider api={dropzoneApi}>
-        <Container>
-          <FileDropzone>
-            <Text>{text}</Text>
-            <MarginContainer>
-              <FileDropzone.Input id="file-dropzone-id">Test</FileDropzone.Input>
-            </MarginContainer>
-          </FileDropzone>
-        </Container>
-        <FileDropzone.Fullscreen>
+      <Container>
+        <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
+          <Text>{dropzoneText}</Text>
           <MarginContainer>
-            <FlexGroup>
-              <FileIconBmp size="m" />
-              <FileIconAvi size="m" />
-              <FileIconDoc size="m" />
-              <FileIconGif size="m" />
-            </FlexGroup>
-            <Text>Отпустите, чтобы загрузить</Text>
+            <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Я инпут')} />
           </MarginContainer>
-        </FileDropzone.Fullscreen>
-      </FileDropzone.Provider>
+          <FileDropzone.Fullscreen>
+            <MarginContainer>
+              <FlexGroup>
+                <FileIconBmp size="m" />
+                <FileIconAvi size="m" />
+                <FileIconDoc size="m" />
+                <FileIconGif size="m" />
+              </FlexGroup>
+              <Text>Отпустите, чтобы загрузить</Text>
+            </MarginContainer>
+          </FileDropzone.Fullscreen>
+        </FileDropzone>
+      </Container>
     );
   });

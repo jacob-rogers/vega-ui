@@ -1,12 +1,11 @@
-import { DropzoneDragEvent, ReactDragEventHandler } from './DragHandlers';
+import { ChangeEvent } from 'react';
 
-type ReactInputChangeEvent = React.ChangeEvent<HTMLInputElement>;
-type LoadEvent = DropzoneDragEvent | ReactInputChangeEvent;
+import { DropzoneDragEvent, ReactDragEventHandler } from './DragHandlers';
 
 export type FileDropzoneAPI = {
   fullscreenVisible: boolean;
   handleDragEnter: ReactDragEventHandler;
   handleDragLeave: ReactDragEventHandler;
   handleDragOver: ReactDragEventHandler;
-  handleLoad: (e: LoadEvent) => void;
+  handleDrop: (e: DropzoneDragEvent | ChangeEvent) => void;
 };

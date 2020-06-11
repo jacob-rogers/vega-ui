@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
-import { DragHandlers, DropzoneDragEvent, FileDropzoneAPI, ReactDragEventHandler } from '../types';
-
-type ReactInputChangeEvent = React.ChangeEvent<HTMLInputElement>;
-type LoadEvent = DropzoneDragEvent | ReactInputChangeEvent;
+import { DropzoneDragEvent, FileDropzoneAPI, ReactDragEventHandler } from '../types';
 
 type FileDropzoneOptions = {
   withFullscreen?: boolean;
 };
 
-type Handlers = DragHandlers & {
-  onLoad?: (e: LoadEvent) => void;
-};
-
 export const useFileDropzone = (
-  handlers: Handlers = {},
+  onDrop: (files: FileList | null) => void,
   options: FileDropzoneOptions = {},
 ): FileDropzoneAPI => {
   const [fullscreenVisible, setFullscreenVisible] = useState(false);
@@ -30,38 +23,33 @@ export const useFileDropzone = (
     if (options.withFullscreen && !fullscreenVisible) {
       setFullscreenVisible(true);
     }
-    if (handlers.onDragEnter) {
-      handlers.onDragEnter(e);
-    }
   };
 
   const handleDragLeave: ReactDragEventHandler = (e) => {
     e.preventDefault();
     closeFullscreenVisible();
-    if (handlers.onDragLeave) {
-      handlers.onDragLeave(e);
-    }
   };
 
   const handleDragOver: ReactDragEventHandler = (e) => {
     e.preventDefault();
-    if (handlers.onDragOver) {
-      handlers.onDragOver(e);
-    }
   };
 
-  const handleLoad = (e: LoadEvent): void => {
+  const handleDrop = (e: DropzoneDragEvent | ChangeEvent): void => {
     e.preventDefault();
     closeFullscreenVisible();
-    if (handlers.onLoad) {
-      handlers.onLoad(e);
+    if (e.target instanceof HTMLInputElement) {
+      onDrop(e.target.files);
+    }
+
+    if ('dataTransfer' in e && e.dataTransfer) {
+      onDrop(e.dataTransfer.files);
     }
   };
 
   return {
     fullscreenVisible,
     handleDragOver,
-    handleLoad,
+    handleDrop,
     handleDragEnter,
     handleDragLeave,
   };

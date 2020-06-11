@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
-import { FileInput } from '@gpn-prototypes/vega-file-input';
+import { FileInput } from '@gpn-prototypes/vega-file-input/src';
 import { IconAttach } from '@gpn-prototypes/vega-icons';
 
 import { useFileDropzoneProvider } from './use-file-dropzone-provider';
@@ -11,10 +11,11 @@ export const FileDropzoneInput: React.FC<FileDropzoneInputProps> = ({
   className,
   label = 'Добавьте файл',
   id,
+  ...rest
 }) => {
-  const { handleLoad } = useFileDropzoneProvider();
+  const { handleDrop } = useFileDropzoneProvider();
   return (
-    <FileInput id={id} onChange={handleLoad} className={className}>
+    <FileInput {...rest} id={id} onChange={handleDrop} className={className}>
       {(buttonProps): React.ReactNode => (
         <Button
           size="s"
