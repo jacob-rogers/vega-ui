@@ -14,19 +14,21 @@ yarn add @gpn-prototypes/vega-file-input
 
 ```jsx
 import { FileInput } from '@gpn-prototypes/vega-file-input';
+import { Button } from '@gpn-prototypes/vega-button';
 
 export const MyComponent = props => {
-  <FileInput label="Инпут для загрузки" iconLeft={IconAttach} onChange={props.onChange} />;
+  const buttonProps = {
+    iconLeft: IconAttach,
+    label: text('title', 'Title'),
+  };
+  return (
+    <FileInput {...defaultKnobs()} accept="image/png" onChange={action('Файлы выбраны')}>
+      {(props): React.ReactNode => <Button {...props} {...buttonProps} />}
+    </FileInput>
+  );
 };
 ```
 
 ### API
 
-```ts
-type FileInputProps = {
-  id: string;
-  className?: string;
-  label?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
-```
+Принимает на вход пропсы инпута и метод `children`, который должен возвращать компонент `Button`, либо обычный `children`.

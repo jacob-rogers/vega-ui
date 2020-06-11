@@ -15,31 +15,34 @@ yarn add @gpn-prototypes/vega-dropzone
 ### Примеры использования
 
 ```jsx
-import { FileDropzone, useFileDropzone } from '@gpn-prototypes/vega-drag-and-drop';
+import { FileDropzone } from '@gpn-prototypes/vega-dropzone';
 
 export const MyComponent = () => {
-  const [text, setText] = React.useState('Перетащите, чтобы загрузить');
-
-  const dropzoneApi = useFileDropzone(
-    { onDrop: () => setText('Файлы загружены') },
-    { withFullscreen: true },
-  );
+  const [dropzoneText, setText] = React.useState('Перетащите, чтобы загрузить');
 
   return (
-    <FileDropzone.Provider api={dropzoneApi}>
-      <Container>
-        <FileDropzone>
-          {text}
-          <FileDropzone.Input id="file-dropzone-id">Test</FileDropzone.Input>
-        </FileDropzone>
-      </Container>
-      <FileDropzone.Fullscreen>Отпустите, чтобы загрузить</FileDropzone.Fullscreen>
-    </FileDropzone.Provider>
+    <Container>
+      <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
+        <Text>{dropzoneText}</Text>
+        <MarginContainer>
+          <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Я инпут')} />
+        </MarginContainer>
+        <FileDropzone.Fullscreen>
+          <MarginContainer>
+            <FlexGroup>
+              <FileIconBmp size="m" />
+              <FileIconAvi size="m" />
+              <FileIconDoc size="m" />
+              <FileIconGif size="m" />
+            </FlexGroup>
+            <Text>Отпустите, чтобы загрузить</Text>
+          </MarginContainer>
+        </FileDropzone.Fullscreen>
+      </FileDropzone>
+    </Container>
   );
 };
 ```
-
-Компонент обязательно должен быть обернут в `FileDropzone.Provider`, куда должно передаваться `api` из `useFileDropzone`.
 
 ### API
 
@@ -49,6 +52,9 @@ type FileDropzoneProps = {
   className?: string;
   show?: boolean; // должна ли отображаться Dropzone
   fullscreen?: boolean; // нужен ли рендер в полный экран
+  onDrop(files: FileList[]): void;
+  onDragEnter(e: DragEvent)?: void;
+  onDragLeave(e: DragEvent)?: void;
 };
 
 type FileDropzoneInputProps = {
@@ -56,62 +62,6 @@ type FileDropzoneInputProps = {
   label?: string; // лейбл для кнопки
   id: string; // id для крепления лейбла к инпуту
 };
-
-type FileDropzoneProviderProps = {
-  api: FileDropzoneAPI; // API для работы с FileDropzone. Описано ниже
-};
 ```
 
 Компонент `FileDropzone.Fullscreen` имеет те же пропсы, что и `FileDropzone`. `FileDropzone.Fullscreen` рендерится в портале.
-
-# useFileDropzone
-
-Хук, который предоставляет необходимый API для работы с `FileDropzone`.
-
-### Пример использования
-
-```tsx
-const dropzoneApi = useFileDropzone(
-  { onDrop: () => setText('Файлы загружены') },
-  { withFullscreen: true },
-);
-```
-
-### API
-
-Принимает на вход два аргумента: `ts handlers: DragHandlers` и `options: FileDropzoneOptions`
-
-```ts
-export type DropzoneDragEvent = DragEvent | React.DragEvent<HTMLDivElement>;
-
-export type ReactDragEventHandler = (e: DropzoneDragEvent) => void;
-
-type LoadEvent = DropzoneDragEvent | ReactInputChangeEvent;
-
-export type DragHandlers = {
-  onDragStart?: ReactDragEventHandler;
-  onDragEnd?: ReactDragEventHandler;
-  onDragOver?: ReactDragEventHandler;
-  onDragEnter?: ReactDragEventHandler;
-  onDragLeave?: ReactDragEventHandler;
-  onDragExit?: ReactDragEventHandler;
-  onDrop?: (e: DropzoneDragEvent | React.ChangeEvent<HTMLInputElement>) => void;
-  onDrop?: (e: LoadEvent) => void; // метод для загрузки файлов
-};
-
-type FileDropzoneOptions = {
-  withFullscreen?: boolean; // нужен ли рендер fullscreen
-};
-```
-
-Возвращает `FileDropzoneAPI`
-
-```ts
-export type FileDropzoneAPI = {
-  fullscreenVisible: boolean; // видимость Dropzone в режиме fullscreen
-  handleDragEnter: ReactDragEventHandler;
-  handleDragLeave: ReactDragEventHandler;
-  handleDragOver: ReactDragEventHandler;
-  handleDrop: (e: LoadEvent) => void;
-};
-```
