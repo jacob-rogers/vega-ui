@@ -1,8 +1,8 @@
 # @gpn-prototypes/vega-scale-panel
 
-Название компонента
+Компонент позволяет управлять масштабированием содержимого рабочего пространства
 
-<img src="docs/pic-1.png" height="50">
+![Панель управления масштабом](docs/scale-panel.png)
 
 ### Установка
 
@@ -14,17 +14,18 @@
 import { ScalePanel } from '@gpn-prototypes/vega-scale-panel';
 
 export const MyComponent = () => {
-  const title = 'Title';
+  const [currentScale, setCurrentScale] = React.useState(100);
 
-  return <ScalePanel title={title} />;
+  return <ScalePanel currentScale={currentScale} onChange={setCurrentScale} columnPanel />;
 };
 ```
 
-### API
+### API компонента
 
 ```ts
 type ScalePanelProps = {
-  title?: string;
-  className?: string;
+  currentScale: number; // текущее значение масштаба
+  columnPanel: boolean; // переключение режима типа панели(вертикальный/горизонтальный)
+  onChange(scale: number): void; // обработчик изменения масштаба
 };
 ```

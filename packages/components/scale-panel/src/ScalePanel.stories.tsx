@@ -36,20 +36,6 @@ function useStoryProps(): StoryProps {
   };
 }
 
-// const Container = styled.div`
-//   width: 100%;
-//   max-width: 200px;
-//   margin-left: auto;
-//   margin-right: auto;
-//   height: 100%;
-//   display: flex;
-//   align-items: center;
-// `;
-//
-// stories.addDecorator(story => {
-//   return <Container>{story()}</Container>;
-// });
-
 stories.addDecorator(withKnobs).add('Панель масштаба', () => {
   const props = useStoryProps();
   return <ScalePanel {...props} />;
