@@ -39,7 +39,7 @@ export const MyComponent = () => {
 ```ts
 type ModalProps = {
   onClose: React.EventHandler<React.MouseEvent | React.KeyboardEvent>; // метод для закрытия модального окна
-  isOpen?: boolean; // индикация того, что модального окно открыто
+  isOpen?: boolean; // открыто ли модальное окно
   hasCloseButton?: boolean; // нужно ли рендерить крестик для закрытия
   children?: React.ReactNode;
   hasOverlay?: boolean; // нужно ли рендерить оверлей
@@ -60,6 +60,6 @@ type ModalProps = {
 
 Возвращает
 
-    isOpen - индикация того, что модальное окно открыто
+    isOpen - индикация того, что модальное окно открыто / закрыто
     open - метод для открытия модального окна
     close - метод для закрытия модального окна
