@@ -1,89 +1,88 @@
-import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
-import { PossibleCloseEvent, usePortalDomNode, useRootClose } from '@gpn-prototypes/vega-hooks';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import React, { useCallback, useState } from 'react';
+import { usePopper } from 'react-popper';
+import { Placement } from 'popper.js';
 
-import { cnDropdown } from './cn-dropdown';
-import { DropdownItem } from './DropdownItem';
-import { DropdownMenu } from './DropdownMenu';
-import { DropdownTrigger } from './DropdownTrigger';
+import { DropdownMenu, DropdownTrigger } from './components';
+import { DropdownContext, DropdownContextValue } from './DropdownContext';
 
-import './Dropdown.css';
-
-type ElementsProps = JSX.IntrinsicElements;
+export type DropdownPlacement = Placement;
 
 export type DropdownProps = {
-  trigger?: React.ReactNode;
-  onClose: (e?: PossibleCloseEvent) => void;
+  isOpen?: boolean;
+  onToggle?(nextState: boolean, event: React.SyntheticEvent): void;
+  onClickOutside?(): void;
+  onClose?(): void;
+  onOpen?(): void;
   children?: React.ReactNode;
-  isOpen: boolean;
-  className?: string;
   portalId?: string;
-  portal?: boolean;
-} & ElementsProps['div'];
+  offset?: [number, number];
+  placement?: DropdownPlacement;
+};
 
-type Dropdown<T> = React.FC<T> & {
+const noop = (): void => {};
+
+export type Dropdown<T> = React.FC<T> & {
   Menu: typeof DropdownMenu;
-  Item: typeof DropdownItem;
   Trigger: typeof DropdownTrigger;
 };
 
 export const Dropdown: Dropdown<DropdownProps> = (props) => {
-  const { trigger, onClose, children, className, isOpen, portalId, portal, ...rest } = props;
-  const dropdownRef = useRef(null);
+  const {
+    placement = 'bottom',
+    children,
+    portalId,
+    onToggle = noop,
+    onClickOutside = noop,
+    offset,
+    isOpen = false,
+  } = props;
 
-  const onDropdownClose = (e: PossibleCloseEvent): void => {
-    const isKeyboardEvent = e instanceof KeyboardEvent;
-    const isClickByTrigger =
-      !isKeyboardEvent &&
-      e.target instanceof HTMLElement &&
-      e.target.parentElement?.id === portalId;
-
-    const canClose = isKeyboardEvent || !isClickByTrigger;
-    if (isOpen && canClose) {
-      onClose(e);
-    }
-  };
-
-  useRootClose(dropdownRef, onDropdownClose);
-
-  const portalNode = usePortalDomNode(`#${portalId}`);
-
-  if (!portalNode && !trigger) {
-    return null;
-  }
-
-  const cssTransitionClasses = {
-    enter: cnDropdown.state({ enter: true }).toString(),
-    enterActive: cnDropdown.state({ enterActive: true }).toString(),
-    exit: cnDropdown.state({ exit: true }).toString(),
-    exitActive: cnDropdown.state({ exitActive: true }).toString(),
-  };
-
-  const content = (
-    <div ref={dropdownRef}>
-      {trigger}
-      <CSSTransition
-        timeout={300}
-        classNames={cssTransitionClasses}
-        in={isOpen}
-        mountOnEnter
-        unmountOnExit
-      >
-        <div {...rest} className={cnDropdown('Root').mix(className)}>
-          {children}
-        </div>
-      </CSSTransition>
-    </div>
+  const toggle = useCallback(
+    (event) => {
+      onToggle(!isOpen, event);
+    },
+    [onToggle, isOpen],
   );
 
-  if (portalNode && portal) {
-    return createPortal(content, portalNode);
-  }
+  const clickOutside = useCallback(() => {
+    onClickOutside();
+  }, [onClickOutside]);
 
-  return content;
+  const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
+  const [menuElement, setMenuElement] = useState<HTMLElement | null>(null);
+
+  const { styles, attributes } = usePopper(triggerElement, menuElement, {
+    placement,
+    modifiers: [
+      {
+        name: 'offset',
+        options: {
+          offset,
+        },
+      },
+    ],
+  });
+
+  const value: DropdownContextValue = {
+    isOpen,
+    portalId,
+    toggle,
+    clickOutside,
+    triggerProps: {
+      triggerElement,
+      setTriggerElement,
+    },
+    menuProps: {
+      menuElement,
+      setMenuElement,
+      style: styles.popper,
+      attributes: attributes.popper,
+    },
+  };
+
+  return <DropdownContext.Provider value={value}>{children}</DropdownContext.Provider>;
 };
 
 Dropdown.Menu = DropdownMenu;
-Dropdown.Item = DropdownItem;
 Dropdown.Trigger = DropdownTrigger;
