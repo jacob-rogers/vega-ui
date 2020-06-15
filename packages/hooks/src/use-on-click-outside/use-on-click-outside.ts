@@ -27,18 +27,25 @@ const getEventListenerOptions = (event: HandledEventsType): Record<string, boole
 };
 
 type Args = {
-  ref: React.RefObject<HTMLElement>;
+  ref: React.RefObject<HTMLElement> | React.RefObject<HTMLElement>[];
   handler: Handler;
 };
 
 export function useOnClickOutside({ ref, handler }: Args): void {
   const handlerRef = usePreviousRef<Handler>(handler);
+  const refs = Array.isArray(ref) ? ref : [ref];
 
   useEffect(() => {
     // eslint-disable-next-line consistent-return
     function listener(event: PossibleEvent): void {
       if (handlerRef && handlerRef.current) {
-        if (!ref.current || !handlerRef.current || ref.current.contains(event.target as Node)) {
+        if (
+          refs.length === 0 ||
+          !handlerRef.current ||
+          refs.some(
+            (r) => r.current instanceof HTMLElement && r.current.contains(event.target as Node),
+          )
+        ) {
           return undefined;
         }
 
