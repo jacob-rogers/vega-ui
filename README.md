@@ -87,6 +87,7 @@ $ yarn storybook
 
 - [Оформление кода: основные договоренности](docs/code-style.md)
 - [Оформление коммитов](docs/commits-style.md)
+- [Оформление PR](docs/pr-style.md)
 - [Ведение Storybook](docs/storybook.md)
 
 ## Внешним разработчикам
