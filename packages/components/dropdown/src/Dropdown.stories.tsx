@@ -1,112 +1,135 @@
 import React from 'react';
-import { Button } from '@gpn-design/uikit/Button';
-import { Text } from '@gpn-design/uikit/Text';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import styled from '@emotion/styled';
+import { array, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
-import { Dropdown } from './Dropdown';
-import { DropdownItemProps } from './DropdownItem';
-import { useDropdown } from './use-dropdown';
+import { Dropdown, DropdownProps } from './Dropdown';
 
 const KNOB_GROUPS = {
-  item: 'Dropdown.Item',
+  dropdown: 'Dropdown',
 };
 
-const dropdownItemKnobs = (): Partial<DropdownItemProps> => ({
-  align: select(
-    'align',
-    { start: 'start', center: 'center', end: 'end' },
-    'center',
-    KNOB_GROUPS.item,
+const Container = styled.div`
+  display: flex;
+  position: absolute;
+  top: 200px;
+  left: 50%;
+`;
+
+const Menu = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 100px;
+  background-color: red;
+`;
+
+const dropdownKnobs = (): Partial<DropdownProps> => ({
+  placement: select(
+    'placement',
+    {
+      'top': 'top',
+      'top-start': 'top-start',
+      'top-end': 'top-end',
+      'bottom': 'bottom',
+      'bottom-start': 'bottom-start',
+      'bottom-end': 'bottom-end',
+      'left': 'left',
+      'left-start': 'left-start',
+      'left-end': 'left-end',
+      'right': 'right',
+      'right-start': 'right-start',
+      'right-end': 'right-end',
+    },
+    'top',
+    KNOB_GROUPS.dropdown,
   ),
-  isActive: boolean('isActive', false, KNOB_GROUPS.item),
+  offset: array('offset[x, y]', ['0', '0'], ',', KNOB_GROUPS.dropdown).map((o) => Number(o)),
 });
-
-const exampleKnobs = (): { text: string } => ({
-  text: text('Dropdown.Item | Первый пункт', 'Нулевой'),
-});
-
-const menuList = [
-  {
-    id: 'item-1',
-    text: 'Первый',
-  },
-  {
-    id: 'item-2',
-    text: 'Второй',
-  },
-  {
-    id: 'item-3',
-    text: 'Третий',
-  },
-  {
-    id: 'item-4',
-    text: 'Четвертый',
-  },
-];
 
 storiesOf('ui/Dropdown', module)
-  .addParameters({
-    metadata: {
-      author: 'CSSSR',
-      status: 'Approved',
-      link: {
-        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/dropdown',
-        text: 'Документация',
-      },
-    },
-  })
-  .add('по умолчанию', () => {
-    const { isOpen, close: handleClose, toggle: toggleDropdownOpen } = useDropdown();
-    const [activeItem, setActiveItem] = React.useState(menuList[0].id);
-    const example = exampleKnobs();
-
-    const triggerNode = <Button label="Открыть" onClick={toggleDropdownOpen} />;
+  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .add('базовый', () => {
+    const [isOpen, setIsOpen] = React.useState(false);
 
     return (
-      <Dropdown isOpen={isOpen} trigger={triggerNode} onClose={handleClose}>
-        <Dropdown.Menu>
-          <Dropdown.Item {...dropdownItemKnobs()}>
-            <Text>{example.text}</Text>
-          </Dropdown.Item>
-          {menuList.map((item) => (
-            <Dropdown.Item
-              key={item.id}
-              isActive={activeItem === item.id}
-              onClick={(): void => setActiveItem(item.id)}
-            >
-              <Text>{item.text}</Text>
-            </Dropdown.Item>
-          ))}
-        </Dropdown.Menu>
-      </Dropdown>
+      <Container>
+        <Dropdown
+          {...dropdownKnobs()}
+          isOpen={isOpen}
+          onToggle={(nextState): void => {
+            setIsOpen(nextState);
+          }}
+        >
+          <Dropdown.Trigger>
+            {({ toggle, props }): React.ReactNode => (
+              <button type="button" onClick={toggle} {...props}>
+                Клик
+              </button>
+            )}
+          </Dropdown.Trigger>
+          <Dropdown.Menu>
+            {({ props }): React.ReactNode => isOpen && <Menu {...props}>Выпадашка</Menu>}
+          </Dropdown.Menu>
+        </Dropdown>
+      </Container>
+    );
+  })
+  .add('с закрытием при клике вне', () => {
+    const [isOpen, setIsOpen] = React.useState(true);
+
+    return (
+      <Container>
+        <Dropdown
+          {...dropdownKnobs()}
+          isOpen={isOpen}
+          onToggle={(nextState): void => {
+            setIsOpen(nextState);
+          }}
+          onClickOutside={(): void => {
+            setIsOpen(false);
+          }}
+        >
+          <Dropdown.Trigger>
+            {({ toggle, props }): React.ReactNode => (
+              <button type="button" onClick={toggle} {...props}>
+                Клик
+              </button>
+            )}
+          </Dropdown.Trigger>
+          <Dropdown.Menu>
+            {({ props }): React.ReactNode => isOpen && <Menu {...props}>Выпадашка</Menu>}
+          </Dropdown.Menu>
+        </Dropdown>
+      </Container>
     );
   })
   .add('рендер в портале', () => {
-    const { isOpen, close: handleClose, toggle: toggleDropdownOpen } = useDropdown();
-    const [activeItem, setActiveItem] = React.useState(menuList[0].id);
+    const [isOpen, setIsOpen] = React.useState(false);
 
     return (
-      <div>
-        <Dropdown.Trigger id="trigger">
-          <Button label="Открыть" onClick={toggleDropdownOpen} />
-        </Dropdown.Trigger>
-        <Dropdown portalId="trigger" portal isOpen={isOpen} onClose={handleClose}>
+      <Container>
+        <Dropdown
+          {...dropdownKnobs()}
+          isOpen={isOpen}
+          onToggle={(nextState): void => {
+            setIsOpen(nextState);
+          }}
+          portalId="test-1"
+        >
+          <Dropdown.Trigger>
+            {({ toggle, props }): React.ReactNode => (
+              <button type="button" onClick={toggle} {...props}>
+                Клик
+              </button>
+            )}
+          </Dropdown.Trigger>
           <Dropdown.Menu>
-            {menuList.map((item) => (
-              <Dropdown.Item
-                key={item.id}
-                isActive={activeItem === item.id}
-                onClick={(): void => {
-                  setActiveItem(item.id);
-                  handleClose();
-                }}
-              >
-                <Text>{item.text}</Text>
-              </Dropdown.Item>
-            ))}
+            {({ props }): React.ReactNode => isOpen && <Menu {...props}>Выпадашка</Menu>}
           </Dropdown.Menu>
         </Dropdown>
-      </div>
+        <div id="test-1">Фактически я рендерюсь здесь</div>
+      </Container>
     );
   });
