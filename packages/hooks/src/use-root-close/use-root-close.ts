@@ -5,10 +5,9 @@ const escapeKeyCode = 'Escape';
 
 export type PossibleCloseEvent = MouseEvent | KeyboardEvent | TouchEvent;
 
-export function useRootClose(
-  ref: React.RefObject<HTMLElement>,
-  onRootClose: (e: PossibleCloseEvent) => void,
-): void {
+type Ref = React.MutableRefObject<HTMLElement | null>;
+
+export function useRootClose(ref: Ref | Ref[], onRootClose: (e: PossibleCloseEvent) => void): void {
   useOnClickOutside({ ref, handler: onRootClose });
   useKey(escapeKeyCode, onRootClose);
 }
