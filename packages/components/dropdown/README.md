@@ -14,16 +14,23 @@
 import { Dropdown, useDropdown } from '@gpn-prototypes/vega-dropdown';
 
 export const MyComponent = () => {
-  const { isOpen, open, close, toggle } = useDropdown();
-
-  const triggerNode = <Button label="Click Me" onClick={open} />;
+  const [isOpen, setIsOpen] = React.useState(false);
 
   return (
-    <Dropdown isOpen={isOpen} trigger={triggerNode} onClose={close}>
-      <Dropdown.Menu>
-        <Dropdown.Item>First</Dropdown.Item>
-        <Dropdown.Item>Second</Dropdown.Item>
-      </Dropdown.Menu>
+    <Dropdown
+      isOpen={isOpen}
+      onToggle={(nextState): void => {
+        setIsOpen(nextState);
+      }}
+    >
+      <Dropdown.Trigger>
+        {({ toggle, props }): React.ReactNode => (
+          <button type="button" onClick={toggle} {...props}>
+            Кнопка
+          </button>
+        )}
+      </Dropdown.Trigger>
+      <Dropdown.Menu>{({ props }): React.ReactNode => <Menu {...props}>Меню</Menu>}</Dropdown.Menu>
     </Dropdown>
   );
 };
@@ -33,60 +40,70 @@ export const MyComponent = () => {
 
 ```jsx
 <>
-  <Dropdown.Trigger id="trigger">
-    <Button label="Click Me" onClick={open} />
-  </Dropdown.Trigger>
-  <Dropdown portalId="trigger" portal isOpen={isOpen} onClose={close}>
-    <Dropdown.Menu />
+  <Dropdown
+    isOpen={isOpen}
+    portalId="portal-id"
+    onToggle={(nextState): void => {
+      setIsOpen(nextState);
+    }}
+  >
+    <Dropdown.Trigger>
+      {({ toggle, props }): React.ReactNode => (
+        <button type="button" onClick={toggle} {...props}>
+          Кнопка
+        </button>
+      )}
+    </Dropdown.Trigger>
+    <Dropdown.Menu>{({ props }): React.ReactNode => <Menu {...props}>Меню</Menu>}</Dropdown.Menu>
   </Dropdown>
+  <div id="portal-id" />
 </>
 ```
 
 ### API компонента
 
 ```ts
-type DropdownProps = {
-  trigger?: React.ReactNode; // компонент-триггер для дропдауна
-  onClose: (e?: MouseEvent | TouchEvent) => void; // метод для закрытия дропдауна
+type DropdownPlacement =
+  | 'auto-start'
+  | 'auto'
+  | 'auto-end'
+  | 'top-start'
+  | 'top'
+  | 'top-end'
+  | 'right-start'
+  | 'right'
+  | 'right-end'
+  | 'bottom-end'
+  | 'bottom'
+  | 'bottom-start'
+  | 'left-end'
+  | 'left'
+  | 'left-start';
+
+export type DropdownProps = {
+  isOpen?: boolean; // индикация того, что дропдаун открыт
+  onlyOpen?: boolean; // рендерить меню, если isOpen=true. Для большего контроля снаружи следует отключить, например, для добавления анимаций
+  onToggle?(nextState: boolean, event: React.SyntheticEvent): void; // обработчик переключения состояния дропдауна
+  onClickOutside?(): void; // обработчик клика вне дропдауна
   children?: React.ReactNode;
-  isOpen: boolean; // открыт ли дропдаун
-  className?: string;
-  portal?: boolean; // должен ли компонент рендериться в портале
   portalId?: string; // id для контейнера-портала
+  offset?: [number, number]; // отступ меню. Формат [skidding, distance]
+  placement?: DropdownPlacement; // расположение меню
 };
 
-type DropdownItemProps = {
-  className?: string;
-  children?: React.ReactNode;
-  onClick?: (e: MouseEvent) => void;
-  isActive?: boolean; // является ли эта ссылка активной
-  align?: 'center' | 'start' | 'end'; // расположение элемента относительно меню
+export type DropdownTriggerChildrenProps = {
+  toggle(event: React.SyntheticEvent): void;
+  isOpen: boolean;
+  props: {
+    ref: (ref: HTMLElement | null) => void;
+  };
 };
 
-type DropdownMenuProps = {
-  className?: string;
-  children?: React.ReactNode;
+export type DropdownMenuChildrenProps = {
+  isOpen: boolean;
+  props: {
+    ref: (ref: HTMLElement | null) => void;
+    style: React.CSSProperties;
+  };
 };
-
-type DropdownTriggerProps = {
-  id: string;
-  children?: React.ReactNode;
-  className?: string;
-};
-```
-
-Если передается проп `portal`, то проп `trigger` игнорируется. Для триггера используйте компонент `Dropdown.Trigger`.
-
-### API useDropdown
-
-Хук для упрощения работы с дропдауном.
-
-Возвращает:
-
-```ts
-isOpen: boolean - индикация того, что дропдаун открыт / закрыт
-toggle: () => void - метод для изменения состояния дропдауна
-close: () => void - метод для закрытия дропдауна
-open: () => void - метод для открытия дропдауна
-
 ```
