@@ -25,3 +25,4 @@ export * from '@gpn-prototypes/vega-progress-spin';
 export * from '@gpn-prototypes/vega-attach';
 export * from '@gpn-prototypes/vega-loader';
 export * from '@gpn-prototypes/vega-carousel';
+export * from '@gpn-prototypes/vega-logo';
