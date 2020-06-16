@@ -16,6 +16,19 @@ const Container = styled.div`
   left: 50%;
 `;
 
+const RenderBlock = styled.div`
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 20px;
+
+  width: 130px;
+  height: 50px;
+  background-color: blue;
+`;
+
 const Menu = styled.div`
   display: flex;
   align-items: center;
@@ -70,7 +83,7 @@ storiesOf('ui/Dropdown', module)
             )}
           </Dropdown.Trigger>
           <Dropdown.Menu>
-            {({ props }): React.ReactNode => isOpen && <Menu {...props}>Выпадашка</Menu>}
+            {({ props }): React.ReactNode => <Menu {...props}>Выпадашка</Menu>}
           </Dropdown.Menu>
         </Dropdown>
       </Container>
@@ -99,7 +112,7 @@ storiesOf('ui/Dropdown', module)
             )}
           </Dropdown.Trigger>
           <Dropdown.Menu>
-            {({ props }): React.ReactNode => isOpen && <Menu {...props}>Выпадашка</Menu>}
+            {({ props }): React.ReactNode => <Menu {...props}>Выпадашка</Menu>}
           </Dropdown.Menu>
         </Dropdown>
       </Container>
@@ -109,27 +122,30 @@ storiesOf('ui/Dropdown', module)
     const [isOpen, setIsOpen] = React.useState(false);
 
     return (
-      <Container>
-        <Dropdown
-          {...dropdownKnobs()}
-          isOpen={isOpen}
-          onToggle={(nextState): void => {
-            setIsOpen(nextState);
-          }}
-          portalId="test-1"
-        >
-          <Dropdown.Trigger>
-            {({ toggle, props }): React.ReactNode => (
-              <button type="button" onClick={toggle} {...props}>
-                Клик
-              </button>
-            )}
-          </Dropdown.Trigger>
-          <Dropdown.Menu>
-            {({ props }): React.ReactNode => isOpen && <Menu {...props}>Выпадашка</Menu>}
-          </Dropdown.Menu>
-        </Dropdown>
-        <div id="test-1">Фактически я рендерюсь здесь</div>
-      </Container>
+      <>
+        <Container>
+          <Dropdown
+            {...dropdownKnobs()}
+            isOpen={isOpen}
+            onToggle={(nextState): void => {
+              setIsOpen(nextState);
+            }}
+            onlyOpen={false}
+            portalId="test-1"
+          >
+            <Dropdown.Trigger>
+              {({ toggle, props }): React.ReactNode => (
+                <button type="button" onClick={toggle} {...props}>
+                  Клик
+                </button>
+              )}
+            </Dropdown.Trigger>
+            <Dropdown.Menu>
+              {({ props }): React.ReactNode => isOpen && <Menu {...props}>Выпадашка</Menu>}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Container>
+        <RenderBlock id="test-1">Рендер здесь</RenderBlock>
+      </>
     );
   });
