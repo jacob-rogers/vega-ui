@@ -46,6 +46,20 @@ Edge старше 81 версии и IE [в поддержку не входят
 
 ## Начало работы
 
+Чтобы установить пакеты, сначала необходимо авторизоваться в `github npm registry`. Для этого нужно сделать следующее:
+
+1. Сгенерировать токен: <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a> → Generate new token. Дополнительно нужно отметить `read:packages` и `write:packages`.
+2. Авторизоваться из текущей директории в Github-реджистри через npm:
+
+```bash
+$ npm login --registry=https://npm.pkg.github.com`
+> Username: USERNAME
+> Password: TOKEN
+> Email: PUBLIC-EMAIL-ADDRESS
+```
+
+Затем:
+
 ```bash
 # установка зависимостей
 $ yarn
