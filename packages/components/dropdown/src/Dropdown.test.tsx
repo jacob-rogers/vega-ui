@@ -1,92 +1,102 @@
 import React from 'react';
-import { render, RenderResult, screen } from '@testing-library/react';
+import { act, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 
 import { Dropdown, DropdownProps } from './Dropdown';
-import { DropdownItemProps } from './DropdownItem';
-import { DropdownMenuProps } from './DropdownMenu';
 
-const baseDropdownProps: DropdownProps = { onClose: jest.fn(), isOpen: true };
+type DropdownTestProps = Partial<Omit<DropdownProps, 'children'>>;
 
-type ComponentsProps = {
-  dropdownProps?: Partial<DropdownProps>;
-  menuProps?: Partial<DropdownMenuProps>;
-  itemProps?: Partial<DropdownItemProps>;
-};
-
-const renderComponent = (componentsProps: ComponentsProps = {}): RenderResult => {
-  const { dropdownProps, menuProps, itemProps } = componentsProps;
-  const trigger = <button type="button">click me</button>;
-  const props = {
-    dropdownProps: { ...baseDropdownProps, ...dropdownProps },
-    menuProps,
-    itemProps,
-  };
-
-  return render(
-    <Dropdown {...props.dropdownProps} trigger={trigger} data-testid="Dropdown:Root">
-      <Dropdown.Menu {...props.menuProps}>
-        <Dropdown.Item isActive {...props.itemProps} data-testid="Dropdown:Item">
-          TEST
-        </Dropdown.Item>
-        <Dropdown.Item>SECOND</Dropdown.Item>
+const Component = (props: DropdownTestProps = {}): React.ReactElement => (
+  <div data-testid="root">
+    <Dropdown {...props}>
+      <Dropdown.Trigger>
+        {({ toggle, props: triggerProps }): React.ReactNode => (
+          <button type="button" data-testid="trigger" onClick={toggle} {...triggerProps}>
+            Это тригер
+          </button>
+        )}
+      </Dropdown.Trigger>
+      <Dropdown.Menu>
+        {({ props: menuProps }): React.ReactNode => (
+          <div data-testid="menu" {...menuProps}>
+            Выпадающее меню
+          </div>
+        )}
       </Dropdown.Menu>
-    </Dropdown>,
-  );
-};
+    </Dropdown>
+    <div id="portal" data-testid="portal" />
+  </div>
+);
 
-const findItem = (testId = 'Dropdown:Item'): Element => {
-  return screen.getByTestId(testId);
-};
+const renderComponent = (props: DropdownTestProps = {}): RenderResult =>
+  render(<Component {...props} />);
+
+const findMenu = (): HTMLElement => screen.getByTestId('menu');
+const findTrigger = (): HTMLElement => screen.getByTestId('trigger');
+const findRoot = (): HTMLElement => screen.getByTestId('root');
+const findProtal = (): HTMLElement => screen.getByTestId('portal');
 
 describe('Dropdown', () => {
   test('рендерится без ошибок', () => {
-    renderComponent();
+    expect(renderComponent).not.toThrow();
   });
 
-  test('dropdown рендерится, если isOpen: true', () => {
-    renderComponent();
-
-    expect(screen.getByTestId('Dropdown:Root')).toBeInTheDocument();
-  });
-
-  test('dropdown не рендерится, если isOpen: false', () => {
-    renderComponent({ dropdownProps: { isOpen: false } });
-
-    const dropdownItem = screen.queryByText('TEST');
-
-    expect(dropdownItem).not.toBeInTheDocument();
-  });
-
-  describe('Рендер с использованием портала', () => {
-    test('корректно рендерится', () => {
-      render(
-        <>
-          <Dropdown.Trigger id="test-trigger">
-            <button type="button">Click me</button>
-          </Dropdown.Trigger>
-          <Dropdown
-            onClose={jest.fn()}
-            isOpen
-            portal
-            portalId="test-trigger"
-            data-testid="portal-dropdown"
-          >
-            test data
-          </Dropdown>
-        </>,
-      );
-
-      expect(screen.getByTestId('portal-dropdown')).toBeInTheDocument();
+  test('открытие/закрытие меню', async () => {
+    const { rerender } = render(<Component />);
+    expect(findMenu).toThrow();
+    await act(async () => {
+      await rerender(<Component isOpen />);
     });
+    expect(findMenu).not.toThrow();
   });
-});
 
-describe('DropdownItem', () => {
-  test('проставляется класс is-active для активного элемента', () => {
-    renderComponent();
+  test('меню рендерится всегда, если onlyOpen=false', async () => {
+    await act(async () => {
+      await renderComponent({ onlyOpen: false, isOpen: false });
+    });
 
-    const item = findItem();
+    expect(findMenu).not.toThrow();
+  });
 
-    expect(item.classList.contains('is-active')).toBe(true);
+  test('вызывается onToggle при клика на тригер', () => {
+    const handleToggle = jest.fn();
+    renderComponent({ onToggle: handleToggle });
+
+    const trigger = findTrigger();
+
+    fireEvent.click(trigger);
+    expect(handleToggle).toBeCalledTimes(1);
+  });
+
+  test('вызывается onClickOutside при клика вне дропдауна', () => {
+    const handleClickOutside = jest.fn();
+    renderComponent({ onClickOutside: handleClickOutside });
+
+    const root = findRoot();
+
+    fireEvent.click(root);
+    expect(handleClickOutside).toBeCalledTimes(1);
+  });
+
+  test('onToggle возвращает новое состояние дропдауна', () => {
+    const handleToggle = jest.fn();
+
+    renderComponent({ onToggle: handleToggle, isOpen: false });
+
+    const trigger = findTrigger();
+
+    fireEvent.click(trigger);
+
+    expect(handleToggle).toBeCalledWith(true, expect.any(Object));
+  });
+
+  it('рендерится в портале', async () => {
+    await act(async () => {
+      await renderComponent({ isOpen: true, portalId: 'portal' });
+    });
+
+    const portal = findProtal();
+    const menu = findMenu();
+
+    expect(portal).toContainElement(menu);
   });
 });
