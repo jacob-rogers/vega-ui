@@ -26,12 +26,12 @@ function useCallbackRef<T>(value: T): React.MutableRefObject<T> {
 export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const {
     isOpen,
+    onlyOpen,
     triggerProps: { triggerElement },
     menuProps,
     clickOutside,
     portalId,
   } = useDropdown();
-
   const { menuElement, setMenuElement, style, attributes } = menuProps;
 
   const menuRef = useCallbackRef(menuElement);
@@ -49,8 +49,16 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
   const portalNode = usePortalDomNode(`#${portalId}`);
 
   const refs = [menuRef, triggerRef];
-
   useRootClose(refs, clickOutside);
 
-  return <>{portalId && portalNode ? createPortal(children, portalNode) : children}</>;
+  let node = null;
+  const content = portalId && portalNode ? createPortal(children, portalNode) : children;
+
+  if (onlyOpen) {
+    node = <>{isOpen ? content : null}</>;
+  } else {
+    node = <>{content}</>;
+  }
+
+  return node;
 };

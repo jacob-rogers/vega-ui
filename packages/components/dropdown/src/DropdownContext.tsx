@@ -4,6 +4,7 @@ import React, { useContext } from 'react';
 export interface DropdownContextValue {
   portalId?: string;
   isOpen: boolean;
+  onlyOpen: boolean;
   toggle(event: React.SyntheticEvent): void;
   clickOutside(): void;
   triggerProps: {
@@ -21,6 +22,7 @@ export interface DropdownContextValue {
 const noop = (): void => {};
 
 export const DropdownContext = React.createContext<DropdownContextValue>({
+  onlyOpen: true,
   isOpen: false,
   portalId: undefined,
   toggle: noop,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import { usePopper } from 'react-popper';
 import { Placement } from 'popper.js';
 
@@ -10,10 +10,9 @@ export type DropdownPlacement = Placement;
 
 export type DropdownProps = {
   isOpen?: boolean;
+  onlyOpen?: boolean;
   onToggle?(nextState: boolean, event: React.SyntheticEvent): void;
   onClickOutside?(): void;
-  onClose?(): void;
-  onOpen?(): void;
   children?: React.ReactNode;
   portalId?: string;
   offset?: [number, number];
@@ -35,19 +34,13 @@ export const Dropdown: Dropdown<DropdownProps> = (props) => {
     onToggle = noop,
     onClickOutside = noop,
     offset,
+    onlyOpen = true,
     isOpen = false,
   } = props;
 
-  const toggle = useCallback(
-    (event) => {
-      onToggle(!isOpen, event);
-    },
-    [onToggle, isOpen],
-  );
-
-  const clickOutside = useCallback(() => {
-    onClickOutside();
-  }, [onClickOutside]);
+  const toggle = (event: React.SyntheticEvent): void => {
+    onToggle(!isOpen, event);
+  };
 
   const [triggerElement, setTriggerElement] = useState<HTMLElement | null>(null);
   const [menuElement, setMenuElement] = useState<HTMLElement | null>(null);
@@ -61,14 +54,21 @@ export const Dropdown: Dropdown<DropdownProps> = (props) => {
           offset,
         },
       },
+      {
+        name: 'flip',
+        options: {
+          fallbackPlacements: ['bottom', 'right', 'left', 'top'],
+        },
+      },
     ],
   });
 
   const value: DropdownContextValue = {
     isOpen,
+    onlyOpen,
     portalId,
     toggle,
-    clickOutside,
+    clickOutside: onClickOutside,
     triggerProps: {
       triggerElement,
       setTriggerElement,
