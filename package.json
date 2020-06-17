@@ -31,7 +31,8 @@
     "lint:md": "remark . -o",
     "lint": "yarn run lint:ts && yarn run lint:css && yarn run lint:md",
     "lint:fix": "yarn run lint:ts:fix && yarn run lint:css:fix && yarn run lint:md",
-    "nc": "hygen component new"
+    "nc": "hygen component new",
+    "size": "yarn build && size-limit"
   },
   "config": {
     "commitizen": {
@@ -79,6 +80,7 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@gpn-prototypes/frontend-configs": "0.1.1",
+    "@size-limit/preset-app": "^4.5.0",
     "@storybook/addon-a11y": "^5.3.18",
     "@storybook/addon-actions": "^5.3.17",
     "@storybook/addon-knobs": "^5.3.17",
@@ -106,6 +108,7 @@
     "remark-cli": "^8.0.0",
     "remark-lint": "^7.0.0",
     "remark-preset-lint-recommended": "^4.0.0",
+    "size-limit": "^4.5.0",
     "storybook-addon-performance": "^0.9.0",
     "storybook-addon-themes": "^5.2.0",
     "style-loader": "^1.1.4",
