@@ -11,14 +11,19 @@
   &__Item {
     padding: var(--space-xs) var(--space-s);
 
+    display: inline-block;
+
+    box-sizing: border-box;
+
     width: 100%;
 
     font-family: var(--font-primary);
-
     font-size: var(--size-text-m);
     line-height: var(--line-height-text-s);
 
     text-align: left;
+
+    text-decoration: none;
 
     cursor: pointer;
 

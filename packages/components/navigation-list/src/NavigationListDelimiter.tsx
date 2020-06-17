@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { cnNavigationList } from './helpers/cnNavigationList';
+import { cnNavigationList } from './cn-navigation-list';
 
 export type NavigationListDelimiterProps = {
   className?: string;

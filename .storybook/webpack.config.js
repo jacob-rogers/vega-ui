@@ -7,16 +7,20 @@ module.exports = ({ config }) => {
     enforce: 'pre',
     use: [
       {
-        loader: require.resolve('babel-loader'),
-        options: {
-          babelrc: false,
-          presets: [require.resolve('@babel/preset-react'), require.resolve('@babel/preset-env')],
-        },
-      },
-      {
         loader: 'ts-loader',
         options: {
           transpileOnly: true,
+        },
+      },
+      {
+        loader: require.resolve('babel-loader'),
+        options: {
+          babelrc: false,
+          presets: [
+            require.resolve('@babel/preset-react'),
+            require.resolve('@babel/preset-env'),
+            require.resolve('@emotion/babel-preset-css-prop'),
+          ],
         },
       },
     ],

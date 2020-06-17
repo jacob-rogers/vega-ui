@@ -1,151 +1,139 @@
-/** @jsx jsx */
-
-import { useState } from 'react';
-import { jsx } from '@emotion/core';
+import React, { useState } from 'react';
+import { css } from '@emotion/core';
 import { IconCheck } from '@gpn-prototypes/vega-icons';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { boolean } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { NavigationList, NavigationListProps } from './NavigationList';
 
-const cssWrapper = {
-  width: '302px',
-};
+const cssWrapper = css`
+  width: 302px;
+`;
 
-const cssWithIcon = {
-  display: 'flex',
-  justifyContent: 'flex-start',
-  alignItems: 'center',
-};
+const cssWithIcon = css`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+`;
 
-const cssIcon = {
-  marginLeft: 'auto',
+const cssIcon = css`
+  margin-left: auto;
+`;
+
+const KNOB_GROUPS = {
+  list: 'NavigationList',
 };
 
 const knobs = (): NavigationListProps => ({
-  ordered: boolean('ordered', false),
+  ordered: boolean('ordered', false, KNOB_GROUPS.list),
 });
 
 storiesOf('ui/NavigationList', module)
-  .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('Без иконки и разделителя', () => {
+  .add('без иконки и разделителя', () => {
     const [activeItem, setActiveItem] = useState('1');
+
+    const items = [
+      { value: '1', title: 'Описание проекта' },
+      { value: '2', title: 'Участники' },
+      { value: '3', title: 'Связанные документы и файлы' },
+    ];
 
     return (
       <div css={cssWrapper}>
         <NavigationList {...knobs()}>
-          <NavigationList.Item
-            active={activeItem === '1'}
-            onClick={(): void => {
-              setActiveItem('1');
-            }}
-          >
-            Описание проекта
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '2'}
-            onClick={(): void => {
-              setActiveItem('2');
-            }}
-          >
-            Участники
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '3'}
-            onClick={(): void => {
-              setActiveItem('3');
-            }}
-          >
-            Связанные документы и файлы
-          </NavigationList.Item>
+          {items.map(({ value, title }) => (
+            <NavigationList.Item key={value} active={value === activeItem}>
+              {(props): React.ReactNode => (
+                <a
+                  href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+                  onClick={(e: React.SyntheticEvent): void => {
+                    e.preventDefault();
+                    setActiveItem(value);
+                  }}
+                  {...props}
+                >
+                  {title}
+                </a>
+              )}
+            </NavigationList.Item>
+          ))}
         </NavigationList>
       </div>
     );
   })
-  .add('C иконкой', () => {
-    const [activeItem, setActiveItem] = useState('2');
+  .add('с иконкой', () => {
+    const [activeItem, setActiveItem] = useState('1');
+
+    const items = [
+      { value: '1', title: 'Описание проекта' },
+      {
+        value: '2',
+        title: 'Участники',
+        cssItem: cssWithIcon,
+        icon: <IconCheck size="s" view="success" css={cssIcon} />,
+      },
+      { value: '3', title: 'Связанные документы и файлы' },
+    ];
 
     return (
       <div css={cssWrapper}>
         <NavigationList {...knobs()}>
-          <NavigationList.Item
-            css={cssWithIcon}
-            active={activeItem === '1'}
-            onClick={(): void => {
-              setActiveItem('1');
-            }}
-          >
-            Описание проекта
-            <IconCheck size="s" view="success" css={cssIcon} />
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '2'}
-            onClick={(): void => {
-              setActiveItem('2');
-            }}
-          >
-            Участники
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '3'}
-            onClick={(): void => {
-              setActiveItem('3');
-            }}
-          >
-            Связанные документы и файлы
-          </NavigationList.Item>
+          {items.map(({ value, title, cssItem, icon }) => (
+            <NavigationList.Item key={value} active={value === activeItem}>
+              {(props): React.ReactNode => (
+                <button
+                  type="button"
+                  css={cssItem}
+                  onClick={(): void => setActiveItem(value)}
+                  {...props}
+                >
+                  {title}
+                  {icon}
+                </button>
+              )}
+            </NavigationList.Item>
+          ))}
         </NavigationList>
       </div>
     );
   })
-  .add('C разделителем внутри списка', () => {
+  .add('с разделителем внутри списка', () => {
     const [activeItem, setActiveItem] = useState('1');
+
+    const items1 = [
+      { value: '1', title: 'Описание проекта' },
+      { value: '2', title: 'Участники' },
+      { value: '3', title: 'Связанные документы и файлы' },
+    ];
+
+    const items2 = [
+      { value: '4', title: 'Похожие проекты' },
+      { value: '5', title: 'Описание' },
+    ];
 
     return (
       <div css={cssWrapper}>
         <NavigationList {...knobs()}>
-          <NavigationList.Item
-            active={activeItem === '1'}
-            onClick={(): void => {
-              setActiveItem('1');
-            }}
-          >
-            Описание проекта
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '2'}
-            onClick={(): void => {
-              setActiveItem('2');
-            }}
-          >
-            Участники
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '3'}
-            onClick={(): void => {
-              setActiveItem('3');
-            }}
-          >
-            Связанные документы и файлы
-          </NavigationList.Item>
+          {items1.map(({ value, title }) => (
+            <NavigationList.Item key={value} active={value === activeItem}>
+              {(props): React.ReactNode => (
+                <button type="button" onClick={(): void => setActiveItem(value)} {...props}>
+                  {title}
+                </button>
+              )}
+            </NavigationList.Item>
+          ))}
           <NavigationList.Delimiter />
-          <NavigationList.Item
-            active={activeItem === '4'}
-            onClick={(): void => {
-              setActiveItem('4');
-            }}
-          >
-            Похожие проекты
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '5'}
-            onClick={(): void => {
-              setActiveItem('5');
-            }}
-          >
-            Описание
-          </NavigationList.Item>
+          {items2.map(({ value, title }) => (
+            <NavigationList.Item key={value} active={value === activeItem}>
+              {(props): React.ReactNode => (
+                <button type="button" onClick={(): void => setActiveItem(value)} {...props}>
+                  {title}
+                </button>
+              )}
+            </NavigationList.Item>
+          ))}
         </NavigationList>
       </div>
     );
@@ -153,52 +141,41 @@ storiesOf('ui/NavigationList', module)
   .add('C разделителем между списками', () => {
     const [activeItem, setActiveItem] = useState('1');
 
+    const items1 = [
+      { value: '1', title: 'Описание проекта' },
+      { value: '2', title: 'Участники' },
+      { value: '3', title: 'Связанные документы и файлы' },
+    ];
+
+    const items2 = [
+      { value: '4', title: 'Похожие проекты' },
+      { value: '5', title: 'Описание' },
+    ];
+
     return (
       <div css={cssWrapper}>
         <NavigationList {...knobs()}>
-          <NavigationList.Item
-            active={activeItem === '1'}
-            onClick={(): void => {
-              setActiveItem('1');
-            }}
-          >
-            Описание проекта
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '2'}
-            onClick={(): void => {
-              setActiveItem('2');
-            }}
-          >
-            Участники
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '3'}
-            onClick={(): void => {
-              setActiveItem('3');
-            }}
-          >
-            Связанные документы и файлы
-          </NavigationList.Item>
+          {items1.map(({ value, title }) => (
+            <NavigationList.Item key={value} active={value === activeItem}>
+              {(props): React.ReactNode => (
+                <button type="button" onClick={(): void => setActiveItem(value)} {...props}>
+                  {title}
+                </button>
+              )}
+            </NavigationList.Item>
+          ))}
         </NavigationList>
         <NavigationList.Delimiter />
         <NavigationList {...knobs()}>
-          <NavigationList.Item
-            active={activeItem === '4'}
-            onClick={(): void => {
-              setActiveItem('4');
-            }}
-          >
-            Похожие проекты
-          </NavigationList.Item>
-          <NavigationList.Item
-            active={activeItem === '5'}
-            onClick={(): void => {
-              setActiveItem('5');
-            }}
-          >
-            Описание
-          </NavigationList.Item>
+          {items2.map(({ value, title }) => (
+            <NavigationList.Item key={value} active={value === activeItem}>
+              {(props): React.ReactNode => (
+                <button type="button" onClick={(): void => setActiveItem(value)} {...props}>
+                  {title}
+                </button>
+              )}
+            </NavigationList.Item>
+          ))}
         </NavigationList>
       </div>
     );

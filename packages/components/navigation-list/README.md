@@ -22,9 +22,27 @@ export const MyComponent = () => {
 
   return (
     <NavigationList>
-      <NavigationList.Item active={active}>Описание проекта</NavigationList.Item>
-      <NavigationList.Item>Участники</NavigationList.Item>
-      <NavigationList.Item>Связанные документы и файлы</NavigationList.Item>
+      <NavigationList.Item active={active}>
+        {(props) => (
+          <button type="button" {...props}>
+            Описание проекта
+          </button>
+        )}
+      </NavigationList.Item>
+      <NavigationList.Item>
+        {(props) => (
+          <button type="button" {...props}>
+            Участники
+          </button>
+        )}
+      </NavigationList.Item>
+      <NavigationList.Item>
+        {(props) => (
+          <button type="button" {...props}>
+            Связанные документы и файлы
+          </button>
+        )}
+      </NavigationList.Item>
     </NavigationList>
   );
 };
@@ -45,12 +63,28 @@ export const MyComponent = () => {
 
   return (
     <NavigationList>
-      <NavigationList.Item className="withIcon">
-        Описание проекта
-        <IconCheck size="s" view="success" className="icon" />
+      <NavigationList.Item active={active}>
+        {(props) => (
+          <button type="button" css="withIcon" {...props}>
+            Описание проекта
+            <IconCheck size="s" view="success" css="icon" />
+          </button>
+        )}
+      </NavigationList.Item>
+      <NavigationList.Item active={active}>
+        {(props) => (
+          <button type="button" {...props}>
+            Участники
+          </button>
+        )}
+      </NavigationList.Item>
       <NavigationList.Item>
-      <NavigationList.Item active={active}>Участники</NavigationList.Item>
-      <NavigationList.Item>Связанные документы и файлы</NavigationList.Item>
+        {(props) => (
+          <button type="button" {...props}>
+            Связанные документы и файлы
+          </button>
+        )}
+      </NavigationList.Item>
     </NavigationList>
   );
 };
@@ -80,12 +114,43 @@ export const MyComponent = () => {
 
   return (
     <NavigationList>
-      <NavigationList.Item active={active}>Описание проекта</NavigationList.Item>
-      <NavigationList.Item>Участники</NavigationList.Item>
+      <NavigationList.Item active={active}>
+        {(props) => (
+          <button type="button" {...props}>
+            Описание проекта
+          </button>
+        )}
+      </NavigationList.Item>
+      <NavigationList.Item>
+        {(props) => (
+          <button type="button" {...props}>
+            Участники
+          </button>
+        )}
+      </NavigationList.Item>
+      <NavigationList.Item>
+        {(props) => (
+          <button type="button" {...props}>
+            Связанные документы и файлы
+          </button>
+        )}
+      </NavigationList.Item>
       <NavigationList.Item>Связанные документы и файлы</NavigationList.Item>
       <NavigationList.Delimiter />
-      <NavigationList.Item>Похожие проекты</NavigationList.Item>
-      <NavigationList.Item>Описание</NavigationList.Item>
+      <NavigationList.Item>
+        {(props) => (
+          <button type="button" {...props}>
+            Похожие проекты
+          </button>
+        )}
+      </NavigationList.Item>
+      <NavigationList.Item>
+        {(props) => (
+          <button type="button" {...props}>
+            Описание
+          </button>
+        )}
+      </NavigationList.Item>
     </NavigationList>
   );
 };
@@ -99,10 +164,14 @@ type NavigationListProps = {
   className?: string;
 };
 
+type NavigationListItemChildrenProps = {
+  className: string;
+};
+
 type NavigationListItemProps = {
   active?: boolean; // Индикатор активного элемента
   className?: string;
-  onClick?: (event: React.SyntheticEvent) => void;
+  children(childrenProps: NavigationListItemChildrenProps): React.ReactNode;
 };
 
 type NavigationListDelimiterProps = {

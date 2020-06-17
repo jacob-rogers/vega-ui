@@ -1,36 +1,30 @@
 import React from 'react';
 
-import { cnNavigationList } from './helpers/cnNavigationList';
+import { cnNavigationList } from './cn-navigation-list';
+
+export type NavigationListItemChildrenProps = {
+  className: string;
+};
 
 export type NavigationListItemProps = {
   active?: boolean;
   className?: string;
-  onClick?: (event: React.SyntheticEvent) => void;
+  children(childrenProps: NavigationListItemChildrenProps): React.ReactNode;
 };
 
 export const NavigationListItem: React.FC<NavigationListItemProps> = ({
   active,
   className,
-  onClick,
   children,
   ...rest
 }) => {
-  const handleClick = (event: React.SyntheticEvent): void => {
-    if (onClick) {
-      onClick(event);
-    }
+  const childrenProps = {
+    className: cnNavigationList('Item', { active }).toString(),
   };
 
   return (
-    <li>
-      <button
-        type="button"
-        className={cnNavigationList('Item', { active }).mix(className)}
-        onClick={handleClick}
-        {...rest}
-      >
-        {children}
-      </button>
+    <li className={className} {...rest}>
+      {children(childrenProps)}
     </li>
   );
 };
