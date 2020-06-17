@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-navigation-list",
-  "version": "0.3.3",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",

@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-navigation-list@0.3.3...@gpn-prototypes/vega-navigation-list@1.0.0) (2020-06-17)
+
+
+* VEGA-88: Доработать компонент "Навигация" (#61) ([f5353ca](https://github.com/gpn-prototypes/vega-ui/commit/f5353cade8969afc80ef1d26b2084e86083a9dcc)), closes [#61](https://github.com/gpn-prototypes/vega-ui/issues/61)
+
+
+### BREAKING CHANGES
+
+* изменил формат передачи children на render props для NavigationListItem
+
+Jira issue: VEGA-88
+
+* fix(navigation-list): исправил замечания к PR
+
+Jira issue: VEGA-88
+
+
+
+
+
 ## [0.3.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-navigation-list@0.3.2...@gpn-prototypes/vega-navigation-list@0.3.3) (2020-06-16)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-navigation-list
