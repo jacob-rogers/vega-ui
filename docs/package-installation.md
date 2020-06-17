@@ -12,8 +12,8 @@ registry=https://registry.npmjs.org/
 Далее можно устанавливать зависимости, как обычно:
 
 - `yarn add @gpn-prototypes/vega-ui` — установить все компоненты
-- `yarn add @gpn-prototypes/vega-modal` — только один компонент
-- `yarn add @gpn-prototypes/vega-hooks` — все хуки
+- `yarn add @gpn-prototypes/vega-modal` — установить только один компонент
+- `yarn add @gpn-prototypes/vega-hooks` — установить хуки
 
 Использование:
 
