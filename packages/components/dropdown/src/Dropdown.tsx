@@ -24,7 +24,6 @@ const noop = (): void => {};
 export type Dropdown<T> = React.FC<T> & {
   Menu: typeof DropdownMenu;
   Trigger: typeof DropdownTrigger;
-  Delimeter: typeof DropdownDelimeter;
 };
 
 export const Dropdown: Dropdown<DropdownProps> = (props) => {
@@ -87,4 +86,3 @@ export const Dropdown: Dropdown<DropdownProps> = (props) => {
 
 Dropdown.Menu = DropdownMenu;
 Dropdown.Trigger = DropdownTrigger;
-Dropdown.Delimeter = DropdownDelimeter;
