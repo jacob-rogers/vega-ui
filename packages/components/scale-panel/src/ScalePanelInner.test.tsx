@@ -12,7 +12,7 @@ describe('ScalePanelInner', () => {
       onZoomOut = jest.fn(),
       inputChange = jest.fn(),
       currentScale = 100,
-      columnPanel = true,
+      orientation = 'horizontal',
       ...rest
     } = props;
     return tl.render(
@@ -22,7 +22,7 @@ describe('ScalePanelInner', () => {
         onZoomOut={onZoomOut}
         inputChange={inputChange}
         currentScale={currentScale}
-        columnPanel={columnPanel}
+        orientation={orientation}
         {...rest}
       />,
     );
@@ -55,15 +55,15 @@ describe('ScalePanelInner', () => {
     expect(onZoomIn).toBeCalledTimes(1);
   });
 
-  test('при передачи неактивным параметром columnPanel строится горизонтальная панель', () => {
-    const columnPanel = false;
-    render({ columnPanel });
+  test('при передаче параметра horizontal строится горизонтальная панель', () => {
+    const orientation = 'horizontal';
+    render({ orientation });
     expect(findScalePanelInner()!).toHaveStyle('flex-direction: row;');
   });
 
-  test('при передачи активным параметром columnPanel строится вертикальная панель', () => {
-    const columnPanel = true;
-    render({ columnPanel });
+  test('при передаче параметра vertical строится вертикальная панель', () => {
+    const orientation = 'vertical';
+    render({ orientation });
     expect(findScalePanelInner()!).toHaveStyle('flex-direction: column;');
   });
 

@@ -10,9 +10,8 @@ export interface ScalePanelAPI {
   inputChange: (value: number) => void;
 }
 
-const noop = (): void => {
-  // 'mock';
-};
+// eslint-disable-next-line @typescript-eslint/no-empty-function
+const noop = (): void => {};
 
 export const ScalePanelContext = React.createContext<ScalePanelAPI>({
   currentScale: 100,

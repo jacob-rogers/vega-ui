@@ -9,12 +9,13 @@ interface ScalePanelManagerProps {
 
 export const ScalePanelManager: React.FC<ScalePanelManagerProps> = (props) => {
   const { currentScale, children, onChange } = props;
+  const clamp = (min: number, max: number, n: number) => Math.min(max, Math.max(min, n));
 
   function zoomOut(): void {
-    return currentScale - 10 < 0 ? onChange(0) : onChange(currentScale - 10);
+    onChange(clamp(0, 100, currentScale - 10));
   }
   function zoomIn(): void {
-    return currentScale + 10 > 100 ? onChange(100) : onChange(currentScale + 10);
+    onChange(clamp(0, 100, currentScale + 10));
   }
 
   function inputChange(value: number): void {

@@ -13,11 +13,11 @@ describe('ScalePanel', () => {
   });
 
   function render(props: Props = {}): tl.RenderResult {
-    const { columnPanel = true, currentScale = 100, ...rest } = props;
+    const { orientation = 'horizontal', currentScale = 100, ...rest } = props;
 
     return tl.render(
       <ScalePanel
-        columnPanel={columnPanel}
+        orientation={orientation}
         currentScale={currentScale}
         onChange={onChange}
         data-testid="scalePanelTestId"

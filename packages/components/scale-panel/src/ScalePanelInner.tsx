@@ -1,17 +1,17 @@
 import React from 'react';
-import { IconAdd } from '@gpn-design/uikit/IconAdd';
-import { IconDrag } from '@gpn-design/uikit/IconDrag';
-import { IconExpand } from '@gpn-design/uikit/IconExpand';
-import { IconRemove } from '@gpn-design/uikit/IconRemove';
+import { IconAdd, IconDrag, IconExpand, IconRemove } from '@gpn-prototypes/vega-icons';
 import { Button, Text, TextField } from '@gpn-prototypes/vega-ui';
 
 import { b, useScalePanel } from './context';
 
 import './ScalePanel.css';
 
-interface ScalePanelInnerProps {
+export type OrientationProps = {
+  orientation: 'horizontal' | 'vertical';
+};
+
+interface ScalePanelInnerProps extends OrientationProps {
   currentScale: number;
-  columnPanel: boolean;
   className?: string;
 }
 
@@ -22,7 +22,7 @@ interface ScalePanelViewProps extends ScalePanelInnerProps {
 }
 
 export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
-  const { className, currentScale, columnPanel, onZoomIn, onZoomOut, inputChange } = props;
+  const { className, currentScale, orientation, onZoomIn, onZoomOut, inputChange } = props;
   const buttonSize = 'xs';
 
   const handleChange = ({ value }: { value: string | null }): void => {
@@ -32,10 +32,11 @@ export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
   return (
     <div
       className={b.mix(className).toString()}
-      style={{ flexDirection: columnPanel ? 'column' : 'row' }}
+      style={{ flexDirection: orientation === 'vertical' ? 'column' : 'row' }}
     >
       <Button
         title="Во весь экран"
+        aria-label="Кнопка для увеличения контента во весь экран"
         onlyIcon
         iconLeft={IconExpand}
         className={b('Expand').toString()}
@@ -45,6 +46,7 @@ export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
       />
       <Button
         title="Во всю ширину"
+        aria-label="Кнопка для увеличения контента во всю ширину"
         /* TODO иконку заменить */
         onlyIcon
         iconLeft={IconDrag}
@@ -55,6 +57,7 @@ export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
       />
       <Button
         title="Уменьшить"
+        aria-label="Кнопка для уменьшения контента"
         onlyIcon
         iconLeft={IconRemove}
         className={b('ZoomOut').toString()}
@@ -64,6 +67,7 @@ export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
       />
       <Button
         title="Увеличить"
+        aria-label="Кнопка для увеличения контента"
         onlyIcon
         iconLeft={IconAdd}
         className={b('ZoomIn').toString()}

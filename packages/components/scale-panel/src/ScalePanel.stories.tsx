@@ -2,18 +2,18 @@
 import React from 'react';
 import { jsx } from '@emotion/core';
 import { action } from '@storybook/addon-actions';
-import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { ScalePanel } from './ScalePanel';
+import { OrientationProps } from './ScalePanelInner';
 
 const stories = storiesOf('ui/ScalePanel', module).addParameters({
   metadata: { author: 'CSSSR', status: 'Approved' },
 });
 
-interface StoryProps {
+interface StoryProps extends OrientationProps {
   currentScale: number;
-  columnPanel: boolean;
   onChange(scale: number): void;
 }
 
@@ -22,7 +22,7 @@ function useStoryProps(): StoryProps {
 
   const onChange = action('onChange');
 
-  const columnPanel = boolean('columnPanel', false);
+  const orientation = select('orientation', ['vertical', 'horizontal'], 'horizontal');
 
   const handleChange = (scale: number): void => {
     setCurrentScale(scale);
@@ -30,7 +30,7 @@ function useStoryProps(): StoryProps {
   };
 
   return {
-    columnPanel,
+    orientation,
     currentScale,
     onChange: handleChange,
   };
