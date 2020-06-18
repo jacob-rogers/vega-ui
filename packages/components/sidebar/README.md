@@ -12,7 +12,7 @@ yarn add @gpn-prototypes/vega-sidebar
 
 ### Примеры использования
 
-#### Полное окно
+#### Сайдбар на всю высоту страницы
 
 ```jsx
 import { Sidebar } from '@gpn-prototypes/vega-sidebar';
@@ -42,7 +42,7 @@ export const MyComponent = () => {
 };
 ```
 
-#### Свернутое окно
+#### Свернутый садйбар
 
 <img src="docs/pic-2.png" width="300">
 
