@@ -7,19 +7,23 @@ describe('ScalePanel', () => {
   type Props = Partial<React.ComponentProps<typeof ScalePanel>>;
 
   let onChange = jest.fn();
+  let onChangeStep = jest.fn();
 
   beforeEach(() => {
     onChange = jest.fn();
+    onChangeStep = jest.fn();
   });
 
   function render(props: Props = {}): tl.RenderResult {
-    const { orientation = 'horizontal', currentScale = 100, ...rest } = props;
+    const { orientation = 'horizontal', stepScale = 10, currentScale = 100, ...rest } = props;
 
     return tl.render(
       <ScalePanel
         orientation={orientation}
+        stepScale={stepScale}
         currentScale={currentScale}
         onChange={onChange}
+        onChangeStep={onChangeStep}
         data-testid="scalePanelTestId"
         {...rest}
       />,
@@ -42,20 +46,22 @@ describe('ScalePanel', () => {
     expect(render).not.toThrow();
   });
 
-  test('вызывается onChange с шагом по клику кнопку "Увеличить"', () => {
+  test('вызывается onChange с шагом stepScale по клику кнопку "Увеличить"', () => {
     const currentScale = 50;
-    render({ onChange, currentScale });
+    const stepScale = 15;
+    render({ onChange, currentScale, stepScale });
 
     tl.fireEvent.click(findZoomIn());
-    expect(onChange).toBeCalledWith(60);
+    expect(onChange).toBeCalledWith(65);
   });
 
-  test('вызывается onChange с шагом по клику на кнопку "Уменьшить"', () => {
+  test('вызывается onChange с шагом stepScale по клику на кнопку "Уменьшить"', () => {
     const currentScale = 50;
-    render({ onChange, currentScale });
+    const stepScale = 15;
+    render({ onChange, currentScale, stepScale });
 
     tl.fireEvent.click(findZoomOut());
-    expect(onChange).toBeCalledWith(40);
+    expect(onChange).toBeCalledWith(35);
   });
 
   test('вызывается onChange с новым значением при вводе значения масштаба в текстовое поле', () => {

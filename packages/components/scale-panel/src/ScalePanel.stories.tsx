@@ -2,7 +2,7 @@
 import React from 'react';
 import { jsx } from '@emotion/core';
 import { action } from '@storybook/addon-actions';
-import { select, withKnobs } from '@storybook/addon-knobs';
+import { number, select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { ScalePanel } from './ScalePanel';
@@ -14,13 +14,27 @@ const stories = storiesOf('ui/ScalePanel', module).addParameters({
 
 interface StoryProps extends OrientationProps {
   currentScale: number;
+  stepScale: number;
   onChange(scale: number): void;
+  onChangeStep(step: number): void;
 }
 
 function useStoryProps(): StoryProps {
   const [currentScale, setCurrentScale] = React.useState(100);
-
+  const [stepScaleMock, setStepScale] = React.useState(10);
+  const stepScale = number(
+    'stepScale',
+    stepScaleMock,
+    {
+      min: 1,
+      max: 100,
+      range: true,
+      step: 1,
+    },
+    'stepScale',
+  );
   const onChange = action('onChange');
+  const onChangeStep = action('onChangeStep');
 
   const orientation = select('orientation', ['vertical', 'horizontal'], 'horizontal');
 
@@ -29,10 +43,17 @@ function useStoryProps(): StoryProps {
     onChange(scale);
   };
 
+  const handleChangeStep = (step: number): void => {
+    setStepScale(step);
+    onChangeStep(step);
+  };
+
   return {
     orientation,
     currentScale,
+    stepScale,
     onChange: handleChange,
+    onChangeStep: handleChangeStep,
   };
 }
 

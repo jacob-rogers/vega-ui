@@ -12,6 +12,7 @@ export type OrientationProps = {
 
 interface ScalePanelInnerProps extends OrientationProps {
   currentScale: number;
+  stepScale: number;
   className?: string;
 }
 

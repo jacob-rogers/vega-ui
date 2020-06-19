@@ -12,6 +12,7 @@ describe('ScalePanelInner', () => {
       onZoomOut = jest.fn(),
       inputChange = jest.fn(),
       currentScale = 100,
+      stepScale = 10,
       orientation = 'horizontal',
       ...rest
     } = props;
@@ -22,6 +23,7 @@ describe('ScalePanelInner', () => {
         onZoomOut={onZoomOut}
         inputChange={inputChange}
         currentScale={currentScale}
+        stepScale={stepScale}
         orientation={orientation}
         {...rest}
       />,
