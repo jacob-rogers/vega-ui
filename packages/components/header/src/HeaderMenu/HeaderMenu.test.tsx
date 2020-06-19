@@ -36,6 +36,26 @@ describe('Header', () => {
     });
   });
 
+  test('закрывается меню при клике вне меню', async () => {
+    const handleLogout = jest.fn();
+    const menu = await renderComponent({ ...defaultProps, onLogout: handleLogout });
+    const menuTrigger = await menu.getByTestId('Header:Menu:Trigger');
+
+    expect(menu.container.querySelector('.VegaMenu')).not.toBeTruthy();
+
+    fireEvent.click(menuTrigger);
+
+    await waitFor(() => {
+      expect(getMenuList()).toBeInTheDocument();
+    });
+
+    fireEvent.click(menu.getByText('Проект'));
+
+    await waitFor(() => {
+      expect(menu.container.querySelector('[role="menu"]')).toBe(null);
+    });
+  });
+
   test('вызывается callback функция', async () => {
     const menu = await renderComponent();
     const menuTrigger = await menu.getByTestId('Header:Menu:Trigger');

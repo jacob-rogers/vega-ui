@@ -47,13 +47,18 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = (propsHeader) => {
     }
   };
 
+  const handleClickOutside = (): void => {
+    setIsOpen(false);
+  };
+
   return (
-    <div role="menubar" aria-haspopup="true">
+    <div className={cnHeader('MenuWrap')} role="menubar" aria-haspopup="true">
       <Dropdown
         isOpen={isOpen}
         onToggle={(nextState): void => {
           setIsOpen(nextState);
         }}
+        onClickOutside={handleClickOutside}
         placement="bottom-start"
       >
         <Dropdown.Trigger>
@@ -72,9 +77,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = (propsHeader) => {
                 aria-expanded={isOpen}
                 aria-haspopup="true"
                 data-testid={testId.trigger}
-                className={cnHeader('MenuTriggerButton')}
               />
-              <Text className={cnHeader('MenuTriggerText').toString()}>{title}</Text>
             </div>
           )}
         </Dropdown.Trigger>
@@ -99,6 +102,7 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = (propsHeader) => {
           )}
         </Dropdown.Menu>
       </Dropdown>
+      <Text className={cnHeader('MenuTriggerText').toString()}>{title}</Text>
     </div>
   );
 };
