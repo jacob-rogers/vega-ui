@@ -1,34 +1,42 @@
 import React from 'react';
-import { act, fireEvent, render, RenderResult, screen } from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 
 import { Header } from './Header';
 
 type HeaderTestProps = React.ComponentProps<typeof Header>;
 
-const renderComponent = (props: HeaderTestProps): RenderResult => render(<Header {...props} />);
+const navItems = [
+  {
+    name: 'О проекте',
+    isActive: true,
+  },
+  {
+    name: 'Ресурсная база',
+  },
+  {
+    name: 'Геологические риски',
+  },
+];
+
+const menuItems = [
+  { name: 'Проекты', url: '' },
+  { name: 'Обучение', url: '' },
+  { name: 'Помощь', url: '' },
+];
+
+const renderComponent = (
+  props: HeaderTestProps = { navItems, menuItems, title: 'Шапка' },
+): RenderResult => render(<Header {...props} />);
 
 describe('Header', () => {
-  const navItems = [
-    {
-      name: 'Пайплайн',
-      isActive: true,
-    },
-    {
-      name: 'Ресурсная база',
-    },
-    {
-      name: 'Геологические риски',
-    },
-  ];
-
   test('рендерится без ошибок', () => {
     expect(renderComponent).not.toThrow();
   });
 
   test('рендерится навигация', async () => {
-    const header = renderComponent({ navItems, title: 'Шапка' });
+    const header = renderComponent();
 
     expect(header.container.querySelector('.VegaHeader__Delimiter')).toBeInTheDocument();
-    expect(header.getByText('Пайплайн')).toBeInTheDocument();
+    expect(header.getByText('О проекте')).toBeInTheDocument();
   });
 });

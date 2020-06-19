@@ -5,29 +5,30 @@ import { IconHamburger } from '@gpn-prototypes/vega-icons';
 import { Text } from '@gpn-prototypes/vega-text';
 
 import { cnHeader } from '../helpers/cn-header';
-
-interface MenuItem {
-  name: string;
-  onClick?: (e: MouseEvent | TouchEvent | React.SyntheticEvent) => void;
-}
+import { MenuItem } from '../types';
 
 interface HeaderMenuProps {
   onLogout?(): void;
   title: string;
+  menuItems: MenuItem[];
 }
 
+const testId = {
+  trigger: 'Header:Menu:Trigger',
+};
+
 export const HeaderMenu: React.FC<HeaderMenuProps> = (propsHeader) => {
-  const { title } = propsHeader;
+  const { title, menuItems, onLogout } = propsHeader;
   const [isOpen, setIsOpen] = useState(false);
 
-  const menuItems: MenuItem[] = [{ name: 'Проекты' }, { name: 'Обучение' }, { name: 'Помощь' }];
-
   const menu = menuItems.map((item) => (
-    <li className={cnHeader('MenuItem')} key={item.name}>
+    <li className={cnHeader('MenuItem')} key={item.name} role="menuitem">
       <a
-        href="."
+        href={item.url}
         onClick={(e): void => {
+          // istanbul ignore else path
           if (item.onClick) {
+            e.preventDefault();
             item.onClick(e);
           }
           setIsOpen(false);
@@ -39,47 +40,65 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = (propsHeader) => {
     </li>
   ));
 
+  const handleLogout = (): void => {
+    // istanbul ignore else path
+    if (onLogout) {
+      onLogout();
+    }
+  };
+
   return (
-    <Dropdown
-      isOpen={isOpen}
-      onToggle={(nextState): void => {
-        setIsOpen(nextState);
-      }}
-      placement="bottom-start"
-    >
-      <Dropdown.Trigger>
-        {({ toggle, props }): React.ReactNode => (
-          <div className={cnHeader('MenuTrigger')} {...props}>
-            <Button
-              size="m"
-              view="clear"
-              type="button"
-              onlyIcon
-              onClick={toggle}
-              iconLeft={IconHamburger}
-              iconSize="s"
-              form="brick"
-              className={cnHeader('MenuTriggerButton')}
-            />
-            <Text className={cnHeader('MenuTriggerText').toString()}>{title}</Text>
-          </div>
-        )}
-      </Dropdown.Trigger>
-      <Dropdown.Menu>
-        {({ props }): React.ReactNode => (
-          <div className={cnHeader('Dropdown')} {...props}>
-            <ul className={cnHeader('Menu')}>
-              {menu}
-              <li className={cnHeader('MenuDelimiter')} />
-              <li className={cnHeader('MenuItem')}>
-                <a href="." className={cnHeader('MenuLink')}>
-                  <Text>Выйти</Text>
-                </a>
-              </li>
-            </ul>
-          </div>
-        )}
-      </Dropdown.Menu>
-    </Dropdown>
+    <div role="menubar" aria-haspopup="true">
+      <Dropdown
+        isOpen={isOpen}
+        onToggle={(nextState): void => {
+          setIsOpen(nextState);
+        }}
+        placement="bottom-start"
+      >
+        <Dropdown.Trigger>
+          {({ toggle, props }): React.ReactNode => (
+            <div className={cnHeader('MenuTrigger')} {...props}>
+              <Button
+                id="headerMenuTrigger"
+                size="m"
+                view="clear"
+                type="button"
+                onlyIcon
+                onClick={toggle}
+                iconLeft={IconHamburger}
+                iconSize="s"
+                form="brick"
+                aria-expanded={isOpen}
+                aria-haspopup="true"
+                data-testid={testId.trigger}
+                className={cnHeader('MenuTriggerButton')}
+              />
+              <Text className={cnHeader('MenuTriggerText').toString()}>{title}</Text>
+            </div>
+          )}
+        </Dropdown.Trigger>
+        <Dropdown.Menu>
+          {({ props }): React.ReactNode => (
+            <div
+              className={cnHeader('Dropdown')}
+              {...props}
+              aria-hidden={!isOpen}
+              aria-labelledby="headerMenuTrigger"
+            >
+              <ul className={cnHeader('Menu')} role="menu">
+                {menu}
+                <li className={cnHeader('MenuDelimiter')} />
+                <li className={cnHeader('MenuItem')} role="menuitem">
+                  <a href="/" onClick={handleLogout} className={cnHeader('MenuLink')}>
+                    <Text>Выйти</Text>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          )}
+        </Dropdown.Menu>
+      </Dropdown>
+    </div>
   );
 };
