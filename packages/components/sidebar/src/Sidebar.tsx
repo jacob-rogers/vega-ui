@@ -12,11 +12,13 @@ import './Sidebar.css';
 
 export type SidebarProps = {
   isOpen?: boolean;
+  isMinimized?: boolean;
   align?: 'left' | 'right';
   hasOverlay?: boolean;
   onOverlayClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent) => void;
   portalContainerSelector?: string;
-  isMinimized?: boolean;
+  content: React.ReactNode;
+  minimizedContent: React.ReactNode;
   className?: string;
 };
 
@@ -35,13 +37,14 @@ const cssTransitionClasses = {
 
 export const Sidebar: Sidebar<SidebarProps> = ({
   isOpen = false,
+  isMinimized = false,
   align = 'right',
   hasOverlay = true,
   onOverlayClick,
   portalContainerSelector,
-  isMinimized = false,
+  content,
+  minimizedContent,
   className,
-  children,
   ...rest
 }) => {
   const showOverlay = isOpen && hasOverlay && !isMinimized;
@@ -67,10 +70,14 @@ export const Sidebar: Sidebar<SidebarProps> = ({
       >
         <aside
           aria-label="Сайдбар"
-          className={cnSidebar({ align, minimized: isMinimized }).mix(className)}
+          className={cnSidebar({
+            /* В свернутом состоянии окно находится всегда с правой стороны - требование дизайнера */
+            align: isMinimized ? 'right' : align,
+            minimized: isMinimized,
+          }).mix(className)}
           {...rest}
         >
-          {children}
+          {isMinimized ? minimizedContent : content}
         </aside>
       </CSSTransition>
       {showOverlay && (

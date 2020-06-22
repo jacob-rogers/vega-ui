@@ -2,7 +2,13 @@
 
 Компонент "Сайдбар"
 
+#### Сайдбар на всю высоту страницы
+
 <img src="docs/pic-1.png" width="400">
+
+#### Свернутый садйбар
+
+<img src="docs/pic-2.png" width="400">
 
 ### Установка
 
@@ -12,62 +18,44 @@ yarn add @gpn-prototypes/vega-sidebar
 
 ### Примеры использования
 
-#### Сайдбар на всю высоту страницы
-
 ```jsx
-import { Sidebar } from '@gpn-prototypes/vega-sidebar';
-import { Button } from '@gpn-prototypes/vega-button';
+import { Sidebar, useSidebar } from '@gpn-prototypes/vega-sidebar';
 
 export const MyComponent = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const handleOpen = (): void => setIsOpen(true);
-  const handleClose = (): void => setIsOpen(false);
-
-  const handlenMinimize = (): void => {
-    /* ... */
-  };
+  const {
+    state: { isOpen, isMinimized },
+    close: handleClose,
+    open: handleOpen,
+    maximize: handleMaximize,
+    minimize: handleMinimize,
+  } = useSidebar({
+    isOpen: true,
+    isMinimized: false,
+  });
 
   return (
     <>
-      <Button view="primary" size="m" label="Открыть Сайдбар" onClick={handleOpen} />
-      <Sidebar isOpen={isOpen} onOverlayClick={handleClose}>
-        <Sidebar.Header onMinimize={handlenMinimize} onClose={handleClose}>
-          Загрузка файлов
-        </Sidebar.Header>
-        <Sidebar.Body>// ...</Sidebar.Body>
-        <Sidebar.Footer>// ...</Sidebar.Footer>
-      </Sidebar>
-    </>
-  );
-};
-```
-
-#### Свернутый садйбар
-
-<img src="docs/pic-2.png" width="300">
-
-```jsx
-import { Sidebar } from '@gpn-prototypes/vega-sidebar';
-import { Button } from '@gpn-prototypes/vega-button';
-
-export const MyComponent = () => {
-  const [isOpen, setIsOpen] = useState(true);
-  const handleOpen = (): void => setIsOpen(true);
-  const handleClose = (): void => setIsOpen(false);
-
-  const handlenMinimize = (): void => {
-    /* ... */
-  };
-
-  return (
-    <>
-      <Button view="primary" size="m" label="Открыть Сайдбар" onClick={handleOpen} />
-      <Sidebar isOpen={isOpen} isMinimized>
-        <Sidebar.Header hasMinimizeButton={false} onClose={handleClose}>
-          Загрузка файлов
-        </Sidebar.Header>
-        <Sidebar.Body>// ...</Sidebar.Body>
-      </Sidebar>
+      <Sidebar
+        isOpen={isOpen}
+        isMinimized={isMinimized}
+        content={
+          <>
+            <Sidebar.Header onMinimize={handleMinimize} onClose={handleClose}>
+              // ...
+            </Sidebar.Header>
+            <Sidebar.Body>// ...</Sidebar.Body>
+            <Sidebar.Footer>// ...</Sidebar.Footer>
+          </>
+        }
+        minimizedContent={
+          <>
+            <Sidebar.Header hasMinimizeButton={false} onClose={handleClose}>
+              // ...
+            </Sidebar.Header>
+            <Sidebar.Body>// ...</Sidebar.Body>
+          </>
+        }
+      />
     </>
   );
 };
@@ -78,11 +66,13 @@ export const MyComponent = () => {
 ```ts
 type SidebarProps = {
   isOpen?: boolean;
+  isMinimized?: boolean;
   align?: 'left' | 'right';
   hasOverlay?: boolean;
-  onOverlayClick?: (event: React.SyntheticEvent) => void;
+  onOverlayClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent) => void;
   portalContainerSelector?: string;
-  isMinimized?: boolean;
+  content: React.ReactNode;
+  minimizedContent: React.ReactNode;
   className?: string;
 };
 ```
@@ -90,8 +80,8 @@ type SidebarProps = {
 ```ts
 type SidebarHeaderProps = {
   hasMinimizeButton?: boolean;
-  onMinimize?: (event: React.SyntheticEvent) => void;
-  onClose?: (event: React.SyntheticEvent) => void;
+  onMinimize?: (event: React.MouseEvent) => void;
+  onClose?: (event: React.MouseEvent) => void;
   className?: string;
 };
 ```
