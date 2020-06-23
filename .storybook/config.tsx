@@ -13,7 +13,7 @@ import '@gpn-design/uikit/__internal__/src/components/Theme/_color/Theme_color_g
 import '@gpn-design/uikit/__internal__/src/components/Theme/_color/Theme_color_gpnDisplay.css';
 import '@gpn-design/uikit/__internal__/src/components/Theme/_space/Theme_space_gpnDefault.css';
 import '@gpn-design/uikit/__internal__/src/components/Theme/_size/Theme_size_gpnDefault.css';
-import '@gpn-design/uikit/__internal__/src/components/Theme/_font/theme_font_gpnDefault.css';
+import '@gpn-design/uikit/__internal__/src/components/Theme/_font/Theme_font_gpnDefault.css';
 import '@gpn-design/uikit/__internal__/src/components/Theme/_control/Theme_control_gpnDefault.css';
 import '@gpn-design/uikit/__internal__/src/utils/whitepaper/whitepaper.css';
 

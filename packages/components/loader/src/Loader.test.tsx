@@ -7,7 +7,7 @@ function renderComponent(props: LoaderProps): RenderResult {
   return render(<Loader {...props} />);
 }
 
-describe('SnackBar', () => {
+describe('Loader', () => {
   test('рендерится без ошибок', () => {
     renderComponent({});
   });

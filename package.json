@@ -119,8 +119,7 @@
     "typescript": "^3.8.3",
     "webpack": "^4.42.1"
   },
-  "dependencies": {
-    "@bem-react/classname": "^1.5.8",
-    "@bem-react/classnames": "^1.3.9"
+  "resolutions": {
+    "tslib": "1.13.0"
   }
 }
