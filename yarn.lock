@@ -1541,17 +1541,16 @@
     webpack "^4.42.1"
     webpack-bundle-analyzer "^3.7.0"
 
-"@hitmanet808/lerna-changelog@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@hitmanet808/lerna-changelog/-/lerna-changelog-2.1.1.tgz#6f7f955827bb399c839acbf653a1bcf8b05a23c2"
-  integrity sha512-pVMNlb+x6zrVungc1nvGIWig2qrNOk4Eck/SNTn1LIdnfRjG/DiFCIktXlNLEXM9a8ublHF5js5LlhZ5LD5Txg==
+"@gpn-prototypes/vega-changelog@^3.2.4":
+  version "3.2.4"
+  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-changelog/3.2.4/4caa341242f63f8f6fc8989ae225d20bd4434b4ce28c9bab408a97a7e07edbf3#c955b80a785356ebfde63c0736c6ed2662214353"
+  integrity sha512-W+2IGwR/DcZRU4ItGnUOrxtMKthPzTYtbyyPLzgwa0JIevsDk5Gtw+NRiotO8kuxTAU9v8EP0PqQ4frrKXg/MQ==
   dependencies:
     chalk "^2.4.1"
     cli-highlight "^2.1.4"
     execa "^1.0.0"
     hosted-git-info "^3.0.4"
     make-fetch-happen "^7.1.1"
-    p-map "^3.0.0"
     progress "^2.0.0"
     yargs "^13.0.0"
 

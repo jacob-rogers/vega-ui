@@ -13,11 +13,6 @@
       "registry": "https://npm.pkg.github.com/gpn-prototypes"
     }
   },
-  "changelog": {
-    "mainPackage": "@gpn-prototypes/vega-ui",
-    "repo": "gpn-prototypes/vega-ui",
-    "cacheDir": ".changelog"
-  },
   "ignoreChanges": [
     "docs/**",
     "scripts/**",
