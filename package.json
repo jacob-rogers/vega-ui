@@ -86,6 +86,7 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.10.2",
+    "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@emotion/babel-preset-css-prop": "^10.0.27",
