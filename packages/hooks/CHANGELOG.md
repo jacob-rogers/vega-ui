@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.1.3...@gpn-prototypes/vega-hooks@0.2.0) (2020-06-24)
+
+
+### Features
+
+* **use-on-click-outside:** добавить возможность передать ref как массив ([1547bcd](https://github.com/gpn-prototypes/vega-ui/commit/1547bcd303d0f9c71130827c89bde8571d38dee0))
+
+
+
+
+
 ## [0.1.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.1.2...@gpn-prototypes/vega-hooks@0.1.3) (2020-06-09)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-hooks

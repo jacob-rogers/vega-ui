@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.1.6...@gpn-prototypes/vega-dropdown@1.0.0) (2020-06-24)
+
+
+### Features
+
+* **dropdown:** добавить onlyOpen ([4f3c2cf](https://github.com/gpn-prototypes/vega-ui/commit/4f3c2cfa2cc8ec39010af59809a9d93f68996dd7))
+* **dropdown:** изменить api dropdown ([53eed02](https://github.com/gpn-prototypes/vega-ui/commit/53eed02dbd3ad6cec79fd4831f9a398c8676a3f2))
+
+
+### BREAKING CHANGES
+
+* **dropdown:** изменено api для работы с dropdown
+
+Jira issue: VEGA-143
+
+
+
+
+
 ## [0.1.6](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.1.5...@gpn-prototypes/vega-dropdown@0.1.6) (2020-06-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-dropdown
