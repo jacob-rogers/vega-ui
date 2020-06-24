@@ -61,18 +61,6 @@
     background: transparent;
     border: 0;
 
-    &_align_start {
-      justify-content: flex-start;
-    }
-
-    &_align_center {
-      justify-content: center;
-    }
-
-    &_align_end {
-      justify-content: flex-end;
-    }
-
     &:focus-within,
     &:focus {
       background: var(--color-bg-stripe);
@@ -85,11 +73,11 @@
       }
 
       &_start {
-        justify-content: start;
+        justify-content: flex-start;
       }
 
       &_end {
-        justify-content: end;
+        justify-content: flex-end;
       }
     }
   }
