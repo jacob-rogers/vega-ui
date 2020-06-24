@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@1.0.2 (2020-06-24)
+
+* VEGA-149: Обновить темы и использовать пресеты тем [#81](https://github.com/gpn-prototypes/vega-ui/pull/81)
+  * Измененные пакеты: `components`
+   * Автор PR: [@c1n1k](https://github.com/c1n1k)
+
 ## @gpn-prototypes/vega-ui@1.0.1 (2020-06-23)
 
 * VEGA-108: Разобраться с peerDependencies из дизайн-системы [#82](https://github.com/gpn-prototypes/vega-ui/pull/82)
