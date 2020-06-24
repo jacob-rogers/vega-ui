@@ -72,6 +72,7 @@
     "packages/components/progress-spin",
     "packages/components/attach",
     "packages/components/loader",
+    "packages/components/theme",
     "packages/components"
   ],
   "devDependencies": {
@@ -95,6 +96,7 @@
     "@types/jest": "^25.2.1",
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.8",
     "babel-loader": "^8.1.0",
     "commitizen": "^4.0.4",
     "cpx": "^1.5.0",

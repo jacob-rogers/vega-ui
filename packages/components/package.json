@@ -46,6 +46,7 @@
     "@gpn-prototypes/vega-tabs": "^0.0.6",
     "@gpn-prototypes/vega-text": "^0.1.4",
     "@gpn-prototypes/vega-text-field": "^0.1.4",
+    "@gpn-prototypes/vega-theme": "^0.0.1",
     "@gpn-prototypes/vega-timer": "^0.1.2",
     "@gpn-prototypes/vega-user": "^0.1.4"
   }

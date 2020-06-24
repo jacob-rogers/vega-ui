@@ -8,3 +8,4 @@
 - [PageFooter](page-footer)
 - [Form](form)
 - [Tabs](tabs)
+- [Theme](theme)

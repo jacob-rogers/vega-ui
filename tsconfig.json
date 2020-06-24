@@ -35,6 +35,7 @@
       "@gpn-prototypes/vega-attach": ["packages/components/attach/src/index.ts"],
       "@gpn-prototypes/vega-loader": ["packages/components/loader/src/index.ts"],
       "@gpn-prototypes/vega-logo": ["packages/components/logo/src/index.ts"],
+      "@gpn-prototypes/vega-theme": ["packages/components/theme/src/index.ts"],
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }
   },
