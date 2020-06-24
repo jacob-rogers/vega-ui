@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.0.0 (2020-06-24)
+
+* VEGA-143: Доработать компонент Dropdown [#68](https://github.com/gpn-prototypes/vega-ui/pull/68)
+  * Измененные пакеты: `components`, `hooks`
+   * Автор PR: [@fixmylie](https://github.com/fixmylie)
+
 ## @gpn-prototypes/vega-ui@1.0.2 (2020-06-24)
 
 * VEGA-149: Обновить темы и использовать пресеты тем [#81](https://github.com/gpn-prototypes/vega-ui/pull/81)
