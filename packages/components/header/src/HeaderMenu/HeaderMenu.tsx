@@ -72,7 +72,6 @@ export const HeaderMenu: React.FC<HeaderMenuProps> = (propsHeader) => {
                 onlyIcon
                 onClick={toggle}
                 iconLeft={IconHamburger}
-                iconSize="s"
                 form="brick"
                 aria-expanded={isOpen}
                 aria-haspopup="true"

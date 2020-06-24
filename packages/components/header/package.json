@@ -23,10 +23,10 @@
     "bem-cn": "^3.0.1"
   },
   "dependencies": {
-    "@gpn-design/uikit": "^1.0.5",
+    "@gpn-design/uikit": "^1.1.2",
     "@gpn-prototypes/vega-dropdown": "0.0.1",
-    "@gpn-prototypes/vega-text": "0.0.1",
-    "@gpn-prototypes/vega-button": "0.0.1",
-    "@gpn-prototypes/vega-icons": "0.0.1"
+    "@gpn-prototypes/vega-text": "0.1.4",
+    "@gpn-prototypes/vega-button": "0.1.4",
+    "@gpn-prototypes/vega-icons": "0.1.4"
   }
 }
