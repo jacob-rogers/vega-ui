@@ -1,8 +1,10 @@
 import React from 'react';
+import { Button } from '@gpn-prototypes/vega-button';
 import { IconAdd, IconDrag, IconExpand, IconRemove } from '@gpn-prototypes/vega-icons';
-import { Button, Text, TextField } from '@gpn-prototypes/vega-ui';
+import { Text } from '@gpn-prototypes/vega-text';
+import { TextField } from '@gpn-prototypes/vega-text-field';
 
-import { b, useScalePanel } from './context';
+import { cnScalePanel } from './cn-scale-panel';
 
 import './ScalePanel.css';
 
@@ -14,16 +16,24 @@ interface ScalePanelInnerProps extends OrientationProps {
   currentScale: number;
   stepScale: number;
   className?: string;
-}
-
-interface ScalePanelViewProps extends ScalePanelInnerProps {
   onZoomIn(): void;
   onZoomOut(): void;
+  onExpand(): void;
+  onWidthMove(): void;
   inputChange(value: number): void;
 }
 
-export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
-  const { className, currentScale, orientation, onZoomIn, onZoomOut, inputChange } = props;
+export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
+  const {
+    className,
+    currentScale,
+    orientation,
+    onZoomIn,
+    onZoomOut,
+    onExpand,
+    onWidthMove,
+    inputChange,
+  } = props;
   const buttonSize = 'xs';
 
   const handleChange = ({ value }: { value: string | null }): void => {
@@ -31,83 +41,67 @@ export const ScalePanelView: React.FC<ScalePanelViewProps> = (props) => {
   };
 
   return (
-    <div
-      className={b.mix(className).toString()}
-      style={{ flexDirection: orientation === 'vertical' ? 'column' : 'row' }}
-    >
+    <div {...props} className={cnScalePanel({ orientation }).mix(className).toString()}>
       <Button
+        type="button"
         title="Во весь экран"
-        aria-label="Кнопка для увеличения контента во весь экран"
+        aria-label="Увеличить контент во весь экран"
         onlyIcon
         iconLeft={IconExpand}
-        className={b('Expand').toString()}
+        className={cnScalePanel('Expand').toString()}
         size={buttonSize}
         view="clear"
-        // onClick={}
+        onClick={onExpand}
       />
       <Button
+        type="button"
         title="Во всю ширину"
-        aria-label="Кнопка для увеличения контента во всю ширину"
+        aria-label="Увеличить контент во всю ширину"
         /* TODO иконку заменить */
         onlyIcon
         iconLeft={IconDrag}
-        className={b('Drag').toString()}
+        className={cnScalePanel('Drag').toString()}
         size={buttonSize}
         view="clear"
-        // onClick={}
+        onClick={onWidthMove}
       />
       <Button
+        type="button"
         title="Уменьшить"
-        aria-label="Кнопка для уменьшения контента"
+        aria-label="Уменьшить масштаб"
         onlyIcon
         iconLeft={IconRemove}
-        className={b('ZoomOut').toString()}
+        className={cnScalePanel('ZoomOut').toString()}
         size={buttonSize}
         view="clear"
         onClick={onZoomOut}
       />
       <Button
+        type="button"
         title="Увеличить"
-        aria-label="Кнопка для увеличения контента"
+        aria-label="Увеличить масштаб"
         onlyIcon
         iconLeft={IconAdd}
-        className={b('ZoomIn').toString()}
+        className={cnScalePanel('ZoomIn').toString()}
         size={buttonSize}
         view="clear"
         onClick={onZoomIn}
       />
-      {/* TODO второй вариант CurrentScale */}
-      {/* <Button */}
-      {/* label={`${currentScale.toString()}%`} */}
-      {/* title="Текущий масштаб" */}
-      {/* className={b('CurrentScale').toString()} */}
-      {/* size={buttonSize} */}
-      {/* view="clear" */}
-      {/* // onClick={} */}
-      {/* /> */}
       <div>
         {/* TODO в ТextField в gpn глубоко, глубоко зарыта пропса которая не используется(TextPropAlign) - возможно она нужна для позиционирования текста внутри компоненты */}
         <TextField
           title="Текущий масштаб"
-          className={b('CurrentScale').toString()}
+          className={cnScalePanel('CurrentScale').mix('cssExtraClass1').toString()}
           size={buttonSize}
           max={3}
           view="clear"
           value={currentScale.toString()}
           onChange={handleChange}
-          style={{ maxWidth: '20px', justifyContent: 'center' }}
         />
         <Text display="inline" size={buttonSize}>
           %
         </Text>
       </div>
     </div>
-  );
-};
-
-export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
-  const { zoomIn, zoomOut, inputChange } = useScalePanel();
-  return (
-    <ScalePanelView {...props} onZoomIn={zoomIn} onZoomOut={zoomOut} inputChange={inputChange} />
   );
 };

@@ -7,11 +7,9 @@ describe('ScalePanel', () => {
   type Props = Partial<React.ComponentProps<typeof ScalePanel>>;
 
   let onChange = jest.fn();
-  let onChangeStep = jest.fn();
 
   beforeEach(() => {
     onChange = jest.fn();
-    onChangeStep = jest.fn();
   });
 
   function render(props: Props = {}): tl.RenderResult {
@@ -23,7 +21,6 @@ describe('ScalePanel', () => {
         stepScale={stepScale}
         currentScale={currentScale}
         onChange={onChange}
-        onChangeStep={onChangeStep}
         data-testid="scalePanelTestId"
         {...rest}
       />,
@@ -38,7 +35,7 @@ describe('ScalePanel', () => {
     return tl.screen.getByTitle('Увеличить');
   }
 
-  function findInputChange(): HTMLElement | null {
+  function findInput(): HTMLElement | null {
     return tl.screen.getByTitle('Текущий масштаб').querySelector('input');
   }
 
@@ -55,6 +52,15 @@ describe('ScalePanel', () => {
     expect(onChange).toBeCalledWith(65);
   });
 
+  test('С шагом stepScale большим чем текущее значение масштаба по клику на кнопку "Увеличить" значение устанавливается 100', () => {
+    const currentScale = 95;
+    const stepScale = 15;
+    render({ onChange, currentScale, stepScale });
+
+    tl.fireEvent.click(findZoomIn());
+    expect(onChange).toBeCalledWith(100);
+  });
+
   test('вызывается onChange с шагом stepScale по клику на кнопку "Уменьшить"', () => {
     const currentScale = 50;
     const stepScale = 15;
@@ -64,12 +70,21 @@ describe('ScalePanel', () => {
     expect(onChange).toBeCalledWith(35);
   });
 
+  test('С шагом stepScale большим чем текущее значение масштаба по клику на кнопку "Уменьшить" значение устанавливается 0', () => {
+    const currentScale = 10;
+    const stepScale = 15;
+    render({ onChange, currentScale, stepScale });
+
+    tl.fireEvent.click(findZoomOut());
+    expect(onChange).toBeCalledWith(0);
+  });
+
   test('вызывается onChange с новым значением при вводе значения масштаба в текстовое поле', () => {
     const currentScale = 50;
 
     render({ onChange, currentScale });
 
-    tl.fireEvent.change(findInputChange()!, {
+    tl.fireEvent.change(findInput()!, {
       target: { value: '20' },
     });
     expect(onChange).toBeCalledWith(20);

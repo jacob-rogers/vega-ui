@@ -16,36 +16,28 @@ interface StoryProps extends OrientationProps {
   currentScale: number;
   stepScale: number;
   onChange(scale: number): void;
-  onChangeStep(step: number): void;
 }
 
 function useStoryProps(): StoryProps {
   const [currentScale, setCurrentScale] = React.useState(100);
-  const [stepScaleMock, setStepScale] = React.useState(10);
   const stepScale = number(
     'stepScale',
-    stepScaleMock,
+    10,
     {
       min: 1,
       max: 100,
       range: true,
       step: 1,
     },
-    'stepScale',
+    'ScalePanel',
   );
   const onChange = action('onChange');
-  const onChangeStep = action('onChangeStep');
 
-  const orientation = select('orientation', ['vertical', 'horizontal'], 'horizontal');
+  const orientation = select('orientation', ['vertical', 'horizontal'], 'horizontal', 'ScalePanel');
 
   const handleChange = (scale: number): void => {
     setCurrentScale(scale);
     onChange(scale);
-  };
-
-  const handleChangeStep = (step: number): void => {
-    setStepScale(step);
-    onChangeStep(step);
   };
 
   return {
@@ -53,11 +45,10 @@ function useStoryProps(): StoryProps {
     currentScale,
     stepScale,
     onChange: handleChange,
-    onChangeStep: handleChangeStep,
   };
 }
 
-stories.addDecorator(withKnobs).add('Панель масштаба', () => {
+stories.addDecorator(withKnobs).add('по умолчанию', () => {
   const props = useStoryProps();
   return <ScalePanel {...props} />;
 });

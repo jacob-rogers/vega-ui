@@ -9,3 +9,4 @@
 - [Form](form)
 - [Tabs](tabs)
 - [Theme](theme)
+- [ScalePanel](scale-panel)

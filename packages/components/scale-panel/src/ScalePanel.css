@@ -14,4 +14,18 @@
 
   border-radius: var(--control-radius);
   box-shadow: 0 4px 16px rgba(0, 32, 51, 0.18), 0 2px 2px rgba(0, 0, 0, 0.04);
+
+  &_orientation_vertical {
+    flex-direction: column;
+  }
+
+  &_orientation_horizontal {
+    flex-direction: row;
+  }
+}
+
+.cssExtraClass1 {
+  justify-content: center;
+
+  max-width: 20px;
 }
