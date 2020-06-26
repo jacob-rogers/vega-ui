@@ -1,5 +1,5 @@
 {
-  "name": "@gpn-prototypes/vega-portals-root",
+  "name": "@gpn-prototypes/vega-root",
   "version": "0.0.1",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
@@ -11,7 +11,7 @@
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/gpn-prototypes/vega-ui.git",
-    "directory": "packages/components/portals-root"
+    "directory": "packages/components/root"
   },
   "publishConfig": {
     "access": "public",
@@ -21,7 +21,8 @@
     "react": "^16"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-hooks": "0.1.1"
+    "@gpn-prototypes/vega-hooks": "0.1.1",
+    "@gpn-prototypes/vega-theme": "0.0.2"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.3"
