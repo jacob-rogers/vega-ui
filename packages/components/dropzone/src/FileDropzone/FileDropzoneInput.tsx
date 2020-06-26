@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
-import { FileInput } from '@gpn-prototypes/vega-file-input/src';
+import { FileInput } from '@gpn-prototypes/vega-file-input';
 import { IconAttach } from '@gpn-prototypes/vega-icons';
 
 import { useFileDropzoneProvider } from './FileDropzoneContext';

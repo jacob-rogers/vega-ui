@@ -21,25 +21,17 @@ export const MyComponent = () => {
   const [dropzoneText, setText] = React.useState('Перетащите, чтобы загрузить');
 
   return (
-    <Container>
-      <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
-        <Text>{dropzoneText}</Text>
-        <MarginContainer>
-          <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Я инпут')} />
-        </MarginContainer>
-        <FileDropzone.Fullscreen>
-          <MarginContainer>
-            <FlexGroup>
-              <FileIconBmp size="m" />
-              <FileIconAvi size="m" />
-              <FileIconDoc size="m" />
-              <FileIconGif size="m" />
-            </FlexGroup>
-            <Text>Отпустите, чтобы загрузить</Text>
-          </MarginContainer>
-        </FileDropzone.Fullscreen>
-      </FileDropzone>
-    </Container>
+    <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
+      <Text>{dropzoneText}</Text>
+      <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Я инпут')} />
+      <FileDropzone.Fullscreen>
+        <FileIconBmp size="m" />
+        <FileIconAvi size="m" />
+        <FileIconDoc size="m" />
+        <FileIconGif size="m" />
+        <Text>Отпустите, чтобы загрузить</Text>
+      </FileDropzone.Fullscreen>
+    </FileDropzone>
   );
 };
 ```
@@ -51,7 +43,7 @@ type FileDropzoneProps = {
   children: React.ReactNode;
   className?: string;
   show?: boolean; // должна ли отображаться Dropzone
-  fullscreen?: boolean; // нужен ли рендер в полный экран
+  fullscreen?: boolean; // нужен ли рендер в режиме fullscreen
   onDrop(files: FileList[]): void;
   onDragEnter(e: DragEvent)?: void;
   onDragLeave(e: DragEvent)?: void;
