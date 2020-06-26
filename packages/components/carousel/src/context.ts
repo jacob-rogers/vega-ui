@@ -24,7 +24,6 @@ export interface CarouselAPI {
   prev: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop = (): void => {};
 
 export const CarouselContext = React.createContext<CarouselAPI>({

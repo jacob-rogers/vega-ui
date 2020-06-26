@@ -3,7 +3,7 @@ import { Button } from '@gpn-prototypes/vega-button';
 import { FileInput } from '@gpn-prototypes/vega-file-input/src';
 import { IconAttach } from '@gpn-prototypes/vega-icons';
 
-import { useFileDropzoneProvider } from './use-file-dropzone-provider';
+import { useFileDropzoneProvider } from './FileDropzoneContext';
 
 type FileDropzoneInputProps = React.ComponentProps<typeof FileInput> & { label: string };
 

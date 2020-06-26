@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import React, { useContext } from 'react';
 
 export interface DropdownContextValue {

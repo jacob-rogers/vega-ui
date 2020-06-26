@@ -23,7 +23,21 @@ const FlexGroup = styled.div`
 storiesOf('ui/FileDropzone', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('Демонстрация работы', () => {
+  .add('По умолчанию', () => {
+    const [dropzoneText, setText] = React.useState('Перетащите, чтобы загрузить');
+
+    return (
+      <Container>
+        <FileDropzone onDrop={(): void => setText('Файлы выбраны')}>
+          <Text>{dropzoneText}</Text>
+          <MarginContainer>
+            <FileDropzone.Input id="dropzone-id" label={text('label', 'Я инпут')} />
+          </MarginContainer>
+        </FileDropzone>
+      </Container>
+    );
+  })
+  .add('Демонстрация работы с fullscreen', () => {
     const [dropzoneText, setText] = React.useState('Перетащите, чтобы загрузить');
 
     return (

@@ -5,6 +5,7 @@ import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
 import { DragHandlers } from '../types';
 
 import { cnDropzone } from './cn-dropzone';
+import { useDropzoneContext } from './DropzoneContext';
 
 import './Dropzone.css';
 
@@ -18,7 +19,6 @@ export type DropzoneProps = {
   JSX.IntrinsicElements['div'];
 
 export const Dropzone: React.FC<DropzoneProps> = (props) => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   const defaultDragHandler = (): void => {};
   const {
     className,
@@ -30,11 +30,12 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     onDragEnter = defaultDragHandler,
     onDragLeave = defaultDragHandler,
     onDrop = defaultDragHandler,
-    portalSelector = '#modalRoot',
     fullscreen = false,
     show = true,
     ...rest
   } = props;
+
+  const { portalSelector } = useDropzoneContext();
 
   const portalNode = usePortalDomNode(portalSelector);
 
