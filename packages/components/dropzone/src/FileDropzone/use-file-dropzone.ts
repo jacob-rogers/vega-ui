@@ -26,6 +26,7 @@ export const useFileDropzone = (
 
   const handleDragEnter: ReactDragEventHandler = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (options.withFullscreen && !fullscreenVisible) {
       setFullscreenVisible(true);
     }
@@ -36,6 +37,7 @@ export const useFileDropzone = (
 
   const handleDragLeave: ReactDragEventHandler = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     closeFullscreenVisible();
     if (handlers.onDragLeave) {
       handlers.onDragLeave(e);
@@ -44,10 +46,15 @@ export const useFileDropzone = (
 
   const handleDragOver: ReactDragEventHandler = (e) => {
     e.preventDefault();
+    e.stopPropagation();
+    if (e.dataTransfer) {
+      e.dataTransfer.dropEffect = 'copy';
+    }
   };
 
   const handleDrop = (e: DropzoneDragEvent | ChangeEvent): void => {
     e.preventDefault();
+    e.stopPropagation();
     closeFullscreenVisible();
     if (e.target instanceof HTMLInputElement) {
       handlers.onDrop(e.target.files);

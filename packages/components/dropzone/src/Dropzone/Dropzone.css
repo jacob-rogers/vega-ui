@@ -50,5 +50,9 @@
     height: 90%;
 
     color: var(--color-typo-secondary);
+
+    .VegaDropzone__Content {
+      pointer-events: none;
+    }
   }
 }

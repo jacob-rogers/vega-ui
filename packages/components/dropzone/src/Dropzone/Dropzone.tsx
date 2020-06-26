@@ -30,7 +30,7 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     onDragEnter = defaultDragHandler,
     onDragLeave = defaultDragHandler,
     onDrop = defaultDragHandler,
-    portalSelector = 'body',
+    portalSelector = '#modalRoot',
     fullscreen = false,
     show = true,
     ...rest
