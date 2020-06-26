@@ -1,5 +1,3 @@
-import React from 'react';
-import { PortalsRoot, usePortalsRoot } from '@gpn-prototypes/vega-portals-root';
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
 import { addDecorator, addParameters, configure } from '@storybook/react';
@@ -7,7 +5,7 @@ import { withPerformance } from 'storybook-addon-performance';
 import { withThemes } from 'storybook-addon-themes';
 
 import { withMetadata } from './with-metadata';
-import { VegaThemeDecorator } from './with-themes';
+import { VegaRootDecorator } from './with-root';
 
 document.documentElement.lang = 'ru';
 
@@ -29,17 +27,11 @@ const themes = [
   },
 ];
 
-addParameters({ themes: { list: themes, Decorator: VegaThemeDecorator } });
+addParameters({ themes: { list: themes, Decorator: VegaRootDecorator } });
 addDecorator(withMetadata);
-addDecorator(withThemes);
 addDecorator(withKnobs);
 addDecorator(withPerformance);
 addDecorator(withA11y);
-
-addParameters({
-  themes: { list: themes, Decorator: withThemes },
-});
-
 addDecorator(withKnobs);
 addDecorator(withPerformance);
 addDecorator(withThemes);
