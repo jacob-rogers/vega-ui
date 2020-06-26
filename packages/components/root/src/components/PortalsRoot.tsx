@@ -1,15 +1,15 @@
 import React, { createContext, Dispatch, useContext, useReducer } from 'react';
-import { useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
+import { useUnmount } from '@gpn-prototypes/vega-hooks';
 
-type Portal = { name: string; id: string };
+type Portal = { id: string };
 
 type State = {
   portals: Portal[];
+  rootId: string;
 };
 
 export type PortalParams = {
   className?: string;
-  name: string;
   id: string;
 };
 
@@ -17,7 +17,7 @@ type ActionReducer =
   | { type: 'add'; params: PortalParams }
   | { type: 'remove'; params: { id: string } };
 
-const createElement = (params: PortalParams): void => {
+const createElement = (params: PortalParams, rootId: string): void => {
   const portal = document.getElementById(params.id);
   if (portal) {
     return;
@@ -28,35 +28,43 @@ const createElement = (params: PortalParams): void => {
     newPortal.className = params.className;
   }
   newPortal.id = params.id;
-  document.body.appendChild(newPortal);
+
+  const root = document.getElementById(rootId);
+  if (root) {
+    root.appendChild(newPortal);
+  }
 };
 
-const removeElement = (params: { id: string }): void => {
+const removeElement = (params: { id: string }, rootId: string): void => {
   const portal = document.getElementById(params.id);
+  const root = document.getElementById(rootId);
 
-  if (portal) {
-    document.body.removeChild(portal);
+  if (portal && root) {
+    root.removeChild(portal);
   }
 };
 
 const initialState: State = {
   portals: [],
+  rootId: '',
 };
 
 function portalsReducer(state: State, action: ActionReducer): State {
   const { type } = action;
   const { id } = action.params;
 
-  if (type === 'add' && 'name' in action.params) {
-    createElement(action.params);
+  if (type === 'add') {
+    createElement(action.params, state.rootId);
     return {
-      portals: [...state.portals, { id: action.params.id, name: action.params.name }],
+      ...state,
+      portals: [...state.portals, { id: action.params.id }],
     };
   }
 
   if (type === 'remove') {
-    removeElement(action.params);
+    removeElement(action.params, state.rootId);
     return {
+      ...state,
       portals: state.portals.filter((p) => p.id !== id),
     };
   }
@@ -79,28 +87,28 @@ export const usePortals = (): PortalContextProps => useContext(PortalsContext);
 type PortalsRootProps = {
   initialPortals?: PortalParams[];
   children: React.ReactNode;
+  rootId: string;
 };
 
 export const PortalsRoot: React.FC<PortalsRootProps> = (props) => {
-  const [portalsState, updatePortals] = useReducer(portalsReducer, initialState);
-  const { initialPortals = [], children } = props;
+  const { initialPortals = [], children, rootId } = props;
 
-  useMount(() => {
-    if (typeof document !== 'undefined') {
-      initialPortals.forEach((portalParams: PortalParams) => {
-        updatePortals({ type: 'add', params: portalParams });
-      });
-    }
+  const [portalsState, updatePortals] = useReducer(portalsReducer, {
+    portals: [...initialPortals],
+    rootId,
   });
 
   useUnmount(() => {
-    portalsState.portals.forEach((portal: Portal) => {
-      updatePortals({ type: 'remove', params: { id: portal.id } });
+    portalsState.portals.forEach((portal) => {
+      updatePortals({ type: 'remove', params: portal });
     });
   });
 
   return (
     <PortalsContext.Provider value={{ portalsState, updatePortals }}>
+      {portalsState.portals.map((value: PortalParams) => (
+        <div id={value.id} />
+      ))}
       {children}
     </PortalsContext.Provider>
   );
