@@ -9,7 +9,7 @@ import {
   useTheme,
 } from './components';
 
-type RootProps = {
+export type RootProps = {
   initialPortals?: PortalParams[];
   initialTheme?: ThemeName;
   rootId: string;
@@ -17,26 +17,24 @@ type RootProps = {
 };
 
 type RootContextProps = {
-  usePortals: typeof usePortals;
-  useTheme: typeof useTheme;
   rootId?: string;
 };
 
-const RootContext = createContext<RootContextProps>({ usePortals, useTheme });
+const RootContext = createContext<RootContextProps>({});
 
-export const useRoot = (): RootContextProps => useContext(RootContext);
+const useRoot = (): RootContextProps => useContext(RootContext);
 
-export const Root: React.FC<RootProps> = (props) => {
+const Root: React.FC<RootProps> = (props) => {
   const { rootId, initialPortals, initialTheme, children } = props;
   return (
     <div id={rootId}>
-      <RootContext.Provider value={{ usePortals, useTheme, rootId }}>
+      <RootContext.Provider value={{ rootId }}>
         <ThemeRoot themeName={initialTheme}>
-          <PortalsRoot rootId={rootId} initialPortals={initialPortals}>
-            {children}
-          </PortalsRoot>
+          <PortalsRoot initialPortals={initialPortals}>{children}</PortalsRoot>
         </ThemeRoot>
       </RootContext.Provider>
     </div>
   );
 };
+
+export { Root, useTheme, usePortals, useRoot };
