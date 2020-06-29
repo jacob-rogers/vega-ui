@@ -29,25 +29,11 @@ function renderComponent(props: RenderComponentProps): RenderResult {
   } = props;
 
   return render(
-    <Sidebar
-      data-testid={sidebarTestId}
-      content={
-        // eslint-disable-next-line react/jsx-wrap-multilines
-        <>
-          <Sidebar.Header>{headerContent}</Sidebar.Header>
-          <Sidebar.Body>{bodyContent}</Sidebar.Body>
-          <Sidebar.Footer>{footerContent}</Sidebar.Footer>
-        </>
-      }
-      minimizedContent={
-        // eslint-disable-next-line react/jsx-wrap-multilines
-        <>
-          <Sidebar.Header>{headerContent}</Sidebar.Header>
-          <Sidebar.Body>{bodyContent}</Sidebar.Body>
-        </>
-      }
-      {...rest}
-    />,
+    <Sidebar data-testid={sidebarTestId} {...rest}>
+      <Sidebar.Header>{headerContent}</Sidebar.Header>
+      <Sidebar.Body>{bodyContent}</Sidebar.Body>
+      <Sidebar.Footer>{footerContent}</Sidebar.Footer>
+    </Sidebar>,
   );
 }
 

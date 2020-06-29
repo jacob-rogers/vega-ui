@@ -17,8 +17,6 @@ export type SidebarProps = {
   hasOverlay?: boolean;
   onOverlayClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent) => void;
   portalContainerSelector?: string;
-  content: React.ReactNode;
-  minimizedContent: React.ReactNode;
   className?: string;
 };
 
@@ -42,9 +40,8 @@ export const Sidebar: Sidebar<SidebarProps> = ({
   hasOverlay = true,
   onOverlayClick,
   portalContainerSelector,
-  content,
-  minimizedContent,
   className,
+  children,
   ...rest
 }) => {
   const showOverlay = isOpen && hasOverlay && !isMinimized;
@@ -77,7 +74,7 @@ export const Sidebar: Sidebar<SidebarProps> = ({
           }).mix(className)}
           {...rest}
         >
-          {isMinimized ? minimizedContent : content}
+          {children}
         </aside>
       </CSSTransition>
       {showOverlay && (

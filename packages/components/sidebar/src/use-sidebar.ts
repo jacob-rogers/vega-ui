@@ -1,12 +1,19 @@
-import { useReducer } from 'react';
+import { useMemo, useReducer } from 'react';
 
 type State = {
   isOpen: boolean;
   isMinimized: boolean;
 };
 
+enum ActionType {
+  open,
+  close,
+  maximize,
+  minimize,
+}
+
 type Action = {
-  type: string;
+  type: ActionType;
 };
 
 type SidebarAPI = {
@@ -19,31 +26,31 @@ type SidebarAPI = {
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'open':
+    case ActionType.open:
       return { ...state, isOpen: true };
-    case 'close':
+    case ActionType.close:
       return { ...state, isOpen: false };
-    case 'maximize':
+    case ActionType.maximize:
       return { ...state, isMinimized: false };
-    case 'minimize':
+    case ActionType.minimize:
       return { ...state, isMinimized: true };
     default:
-      throw new Error('Unknown action type');
+      throw new Error(`Unknown action type: ${action.type}`);
   }
 }
 
 export function useSidebar(initialState = { isOpen: true, isMinimized: false }): SidebarAPI {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const open = (): void => dispatch({ type: 'open' });
-  const close = (): void => dispatch({ type: 'close' });
-  const maximize = (): void => dispatch({ type: 'maximize' });
-  const minimize = (): void => dispatch({ type: 'minimize' });
 
-  return {
-    state,
-    open,
-    close,
-    maximize,
-    minimize,
-  };
+  const callbacks = useMemo(
+    () => ({
+      open: (): void => dispatch({ type: ActionType.open }),
+      close: (): void => dispatch({ type: ActionType.close }),
+      maximize: (): void => dispatch({ type: ActionType.maximize }),
+      minimize: (): void => dispatch({ type: ActionType.minimize }),
+    }),
+    [],
+  );
+
+  return useMemo(() => ({ state, ...callbacks }), [state, callbacks]);
 }

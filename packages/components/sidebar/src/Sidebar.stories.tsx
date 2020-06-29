@@ -87,8 +87,17 @@ storiesOf('ui/Sidebar', module)
           isMinimized={isMinimized}
           onOverlayClick={handleClose}
           {...restKnobs}
-          content={
-            // eslint-disable-next-line react/jsx-wrap-multilines
+        >
+          {isMinimized ? (
+            <>
+              <Sidebar.Header hasMinimizeButton={false} onClose={handleClose}>
+                Загрузка файлов
+              </Sidebar.Header>
+              <Sidebar.Body>
+                <Block height="auto">Блок 1</Block>
+              </Sidebar.Body>
+            </>
+          ) : (
             <>
               <Sidebar.Header onMinimize={handleMinimize} onClose={handleClose}>
                 Загрузка файлов
@@ -105,19 +114,8 @@ storiesOf('ui/Sidebar', module)
                 </Wrapper>
               </Sidebar.Footer>
             </>
-          }
-          minimizedContent={
-            // eslint-disable-next-line react/jsx-wrap-multilines
-            <>
-              <Sidebar.Header hasMinimizeButton={false} onClose={handleClose}>
-                Загрузка файлов
-              </Sidebar.Header>
-              <Sidebar.Body>
-                <Block height="auto">Блок 1</Block>
-              </Sidebar.Body>
-            </>
-          }
-        />
+          )}
+        </Sidebar>
       </>
     );
   });
