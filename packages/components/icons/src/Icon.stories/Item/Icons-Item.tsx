@@ -1,12 +1,12 @@
 import React from 'react';
-import { IIcon } from '@gpn-design/uikit/Icon';
+import { IconProps } from '@gpn-design/uikit/Icon';
 
-export type IIconsItem = {
-  icon: React.FC<IIcon>;
+export type IconPropssItem = {
+  icon: React.FC<IconProps>;
   name: string;
-} & IIcon;
+} & IconProps;
 
-export const IconsItem: React.FC<IIconsItem> = ({ icon, name, size, view }) => {
+export const IconsItem: React.FC<IconPropssItem> = ({ icon, name, size, view }) => {
   const Icon = icon;
   return (
     <div className="tpl-grid__fraction text text_align_center">
