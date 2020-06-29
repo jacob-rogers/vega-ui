@@ -83,6 +83,7 @@ export const Modal: Modal<ModalProps> = (props) => {
             aria-label="Кнопка закрытия модального окна"
             className={cnModal('CloseButton').toString()}
             view="ghost"
+            type="button"
             onClick={onCloseModal}
             onlyIcon
             iconLeft={IconClose}

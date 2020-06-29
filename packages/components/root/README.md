@@ -1,25 +1,26 @@
-# @gpn-prototypes/vega-portals-root
+# @gpn-prototypes/vega-root
 
-Компонент является элементом, который рендерит корневой селектор для порталов и прокидывает его с помощью контекста в дочерние элементы.
+Компонент является корневом селектором для вашего приложения и предоставляет средства для управления:
 
-Компонент при монтировании создает ноду для порталов. При размонтировании удаляет ее.
+- Темизацией
+- Порталами
 
 ### Установка
 
 ```
-yarn add @gpn-prototypes/vega-portals-root
+yarn add @gpn-prototypes/vega-root
 ```
 
 ### Пример использования
 
 ```jsx
-import { PortalsRoot } from '@gpn-prototypes/vega-portals-root';
+import { Root as VegaRoot } from '@gpn-prototypes/vega-root';
 
 export const MyComponent = () => {
   return (
-    <PortalsRoot containerId="id" className="className">
+    <VegaRoot rootId="id" initialPortal={[{ id: 'modalRoot' }]} initialTheme="gpnDefault">
       <App />
-    </PortalsRoot>
+    </VegaRoot>
   );
 };
 ```
@@ -27,20 +28,73 @@ export const MyComponent = () => {
 ### API компонента
 
 ```ts
-type PortalsRootProps = {
+type PortalParams = {
   className?: string;
-  containerId?: string;
+  id: string;
+} & DivProps;
+
+type RootProps = {
+  initialPortals?: PortalParams[]; // начальные порталы для рендера
+  initialTheme?: 'gpnDefault' | 'gpnDark' | 'gpnDisplay'; // начальная тема
+  rootId: string; // id для корневого элемента
+  children: React.ReactNode;
 };
 ```
 
-### API usePortalsRoot
+### API useRoot
 
-Возвращает экземпляр PortalsRootAPI.
+Возвращает `ts { rootId: string }`.
+
+### API usePortals
+
+Возвращает текущие портала и метод для его изменения.
+
+Пример использования:
+
+```tsx
+import { usePortals } from '@gpn-prototypes/vega-root';
+
+const MyComponent = () => {
+  const { portalsState, updatePortals } = usePortals();
+
+  return (
+    <button type="button" onClick={() => updatePortals({ type: 'add', params: { id: 'test' } })}>
+      Добавить портал
+    </button>
+  );
+};
+```
 
 ```ts
-type PortalsRootAPI = {
-  containerId: string;
-  setClassName: (className: string) => void;
-  getContainer: () => HTMLElement | null;
+type PortalsAPI = {
+  portalsState: { portals: PortalParams[] }; // состояние порталов
+  updatePortals: ({ type: 'add' | 'remove', params: PortalParams }) => void; // метод для обновления порталов
+}
+```
+
+### API useTheme
+
+Хук возвращает текущую тему и метод для установки новой.
+
+Пример использования:
+
+```tsx
+import { useTheme } from '@gpn-prototypes/vega-root';
+
+const MyComponent = () => {
+  const { theme, setTheme } = useTheme();
+
+  return (
+    <button type="button" onClick={() => setTheme('gpnDark')}>
+      Установить новую тему
+    </button>
+  );
+};
+```
+
+```ts
+type ThemeAPI = {
+  theme: 'gpnDark' | 'gpnDefault' | 'gpnDisplay'; // текущая тема приложения
+  setTheme: (theme) => void; // метод для установки темы
 };
 ```
