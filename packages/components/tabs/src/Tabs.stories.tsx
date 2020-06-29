@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { IIcon } from '@gpn-design/uikit/Icon';
+import { IconProps } from '@gpn-design/uikit/Icon';
 import { IconCamera, IconPhoto, IconRing } from '@gpn-prototypes/vega-icons';
 import { boolean, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Tabs } from './Tabs';
 
-type IconElement = (props: IIcon) => JSX.Element;
+type IconElement = (props: IconProps) => JSX.Element;
 
 type Item = {
   name: string;
