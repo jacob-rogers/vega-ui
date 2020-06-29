@@ -15,7 +15,7 @@ export type SidebarProps = {
   isMinimized?: boolean;
   align?: 'left' | 'right';
   hasOverlay?: boolean;
-  onOverlayClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent) => void;
+  onOverlayClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent) => void;
   portalContainerSelector?: string;
   content: React.ReactNode;
   minimizedContent: React.ReactNode;
@@ -50,7 +50,7 @@ export const Sidebar: Sidebar<SidebarProps> = ({
   const showOverlay = isOpen && hasOverlay && !isMinimized;
 
   const handleOverlayClick = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent,
+    event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent,
   ): void => {
     if (onOverlayClick) {
       onOverlayClick(event);
@@ -81,8 +81,8 @@ export const Sidebar: Sidebar<SidebarProps> = ({
         </aside>
       </CSSTransition>
       {showOverlay && (
-        <button
-          type="button"
+        <div
+          tabIndex={-1}
           aria-label="Оверлей"
           onClick={handleOverlayClick}
           className={cnSidebar('Overlay')}
