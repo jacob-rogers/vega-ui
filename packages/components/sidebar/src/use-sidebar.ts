@@ -9,7 +9,7 @@ type Action = {
   type: string;
 };
 
-type Result = {
+type SidebarAPI = {
   state: State;
   open: () => void;
   close: () => void;
@@ -32,7 +32,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-export function useSidebar(initialState = { isOpen: true, isMinimized: false }): Result {
+export function useSidebar(initialState = { isOpen: true, isMinimized: false }): SidebarAPI {
   const [state, dispatch] = useReducer(reducer, initialState);
   const open = (): void => dispatch({ type: 'open' });
   const close = (): void => dispatch({ type: 'close' });
