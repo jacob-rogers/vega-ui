@@ -1,6 +1,7 @@
 import React from 'react';
 import * as tl from '@testing-library/react';
 
+import { cnScalePanel } from './cn-scale-panel';
 import { ScalePanel } from './ScalePanel';
 
 describe('ScalePanel', () => {
@@ -27,6 +28,10 @@ describe('ScalePanel', () => {
     );
   }
 
+  function findScalePanel(): HTMLElement {
+    return tl.screen.getByTestId('scalePanelTestId');
+  }
+
   function findZoomOut(): HTMLElement {
     return tl.screen.getByTitle('Уменьшить');
   }
@@ -35,11 +40,27 @@ describe('ScalePanel', () => {
     return tl.screen.getByTitle('Увеличить');
   }
 
+  function findInput(): HTMLElement | null {
+    return tl.screen.getByTitle('Текущий масштаб').querySelector('input');
+  }
+
   test('рендерится без ошибок', () => {
     expect(render).not.toThrow();
   });
 
-  test('вызывается onChange с шагом stepScale по клику кнопку "Увеличить"', () => {
+  test('при передаче параметра horizontal строится горизонтальная панель', () => {
+    const orientation = 'horizontal';
+    render({ orientation });
+    expect(findScalePanel()).toHaveClass(cnScalePanel({ orientation }).toString());
+  });
+
+  test('при передаче параметра vertical строится вертикальная панель', () => {
+    const orientation = 'vertical';
+    render({ orientation });
+    expect(findScalePanel()).toHaveClass(cnScalePanel({ orientation }).toString());
+  });
+
+  test('вызывается onChange с заданным шагом по клику кнопку "Увеличить"', () => {
     const scale = 50;
     const step = 15;
     render({ onChange, scale, step });
@@ -48,12 +69,26 @@ describe('ScalePanel', () => {
     expect(onChange).toBeCalledWith(65);
   });
 
-  test('вызывается onChange с шагом stepScale по клику на кнопку "Уменьшить"', () => {
+  test('вызывается onChange с заданным шагом по клику на кнопку "Уменьшить"', () => {
     const scale = 50;
     const step = 15;
     render({ onChange, scale, step });
 
     tl.fireEvent.click(findZoomOut());
     expect(onChange).toBeCalledWith(35);
+  });
+
+  test('вызывает inputChange при вводе значения', () => {
+    render({ onChange });
+
+    const input = findInput();
+
+    if (input) {
+      tl.fireEvent.change(input, {
+        target: { value: '50' },
+      });
+    }
+
+    expect(onChange).toBeCalledWith(50);
   });
 });

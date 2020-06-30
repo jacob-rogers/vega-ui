@@ -12,16 +12,13 @@ export type OrientationProps = {
   orientation: 'horizontal' | 'vertical';
 };
 
-type DivProps = JSX.IntrinsicElements['div'];
-
-interface ScalePanelInnerProps extends OrientationProps, DivProps {
+interface ScalePanelInnerProps extends OrientationProps {
   scale: number;
-  step: number;
   className?: string;
   onZoomIn(): void;
   onZoomOut(): void;
   onExpand?: () => void;
-  onWidthMove?: () => void;
+  onFullWidth?: () => void;
   onInputValueChange(value: number): void;
 }
 
@@ -33,7 +30,7 @@ export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
     onZoomIn,
     onZoomOut,
     onExpand,
-    onWidthMove,
+    onFullWidth,
     onInputValueChange,
     ...rest
   } = props;
@@ -49,28 +46,24 @@ export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
     {
       title: 'Во весь экран',
       label: 'Увеличить контент во весь экран',
-      className: 'Expand',
       icon: IconExpand,
       onClick: onExpand,
     },
     {
       title: 'Во всю ширину',
       label: 'Увеличить контент во всю ширину',
-      className: 'Drag',
       icon: IconDrag,
-      onClick: onWidthMove,
+      onClick: onFullWidth,
     },
     {
       title: 'Уменьшить',
       label: 'Уменьшить масштаб',
-      className: 'ZoomOut',
       icon: IconRemove,
       onClick: onZoomOut,
     },
     {
       title: 'Увеличить',
       label: 'Увеличить масштаб',
-      className: 'ZoomIn',
       icon: IconAdd,
       onClick: onZoomIn,
     },
@@ -86,7 +79,6 @@ export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
           aria-label={button.label}
           onlyIcon
           iconLeft={button.icon}
-          className={cnScalePanel(button.className).toString()}
           size={buttonSize}
           view="clear"
           onClick={button.onClick}

@@ -1,6 +1,4 @@
-/** @jsx jsx */
 import React from 'react';
-import { jsx } from '@emotion/core';
 import { action } from '@storybook/addon-actions';
 import { number, select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';

@@ -35,5 +35,7 @@ type ScalePanelProps = {
   step: number; // текущее значение шага масштабирования
   orientation: 'vertical' | 'horizontal'; // переключение режима типа панели(вертикальный/горизонтальный)
   onChange(scale: number): void; // обработчик изменения масштаба
+  onFullWidth(): void; // обработчик нажатия на кнопку "во всю ширину"
+  onExpand(): void; // обработчик нажатия на кнопку "во весь экран!
 };
 ```
