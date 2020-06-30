@@ -1,14 +1,10 @@
 import React from 'react';
 
-import { HeaderMenu } from './HeaderMenu/HeaderMenu';
-import { HeaderNav } from './HeaderNav/HeaderNav';
 import { cnHeader } from './cn-header';
+import { HeaderMenu } from './HeaderMenu';
+import { HeaderNav } from './HeaderNav';
 
 import './Header.css';
-
-type NavLink = {
-  name: string;
-};
 
 type HeaderProps = {
   children: React.ReactNode;

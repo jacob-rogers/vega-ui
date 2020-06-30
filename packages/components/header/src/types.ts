@@ -3,3 +3,8 @@ export type MenuItem = {
   url: string;
   onClick?: (e: MouseEvent | TouchEvent | React.SyntheticEvent) => void;
 };
+
+export type NavItem = {
+  name: string;
+  isActive?: boolean;
+};

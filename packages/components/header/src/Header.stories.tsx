@@ -1,7 +1,9 @@
 import React from 'react';
+import { Text } from '@gpn-prototypes/vega-text';
 import { storiesOf } from '@storybook/react';
 
 import { Header } from './Header';
+import { NavItem } from './types';
 
 storiesOf('ui/Header', module)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
@@ -39,14 +41,36 @@ storiesOf('ui/Header', module)
       { name: 'Помощь', url: '' },
     ];
 
+    const [activeItem, setActiveItem] = React.useState(navItems.filter((ni) => ni.isActive));
+
+    const handleChangeActive = (item: NavItem[]): void => {
+      setActiveItem(item);
+    };
+
     return (
-      <Header
-        navItems={navItems}
-        menuItems={menuItems}
-        title="Очень длинное название проекта длинное"
-        // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        onLogout={(): void => {}}
-      />
+      <Header>
+        <Header.Menu title="Очень-очень длинное название прое...">
+          {menuItems.map((menuItem) => (
+            <Header.Menu.Item key={menuItem.name}>
+              {(menuItemProps): React.ReactNode => (
+                <a {...menuItemProps} href={menuItem.url}>
+                  <Text>{menuItem.name}</Text>
+                </a>
+              )}
+            </Header.Menu.Item>
+          ))}
+          <Header.Menu.Delimiter />
+          <Header.Menu.Item>
+            {(menuItemProps): React.ReactNode => (
+              <a {...menuItemProps} href="/">
+                <Text>Выйти</Text>
+              </a>
+            )}
+          </Header.Menu.Item>
+        </Header.Menu>
+        <Header.Nav navItems={navItems} activeItem={activeItem} onChangeItem={handleChangeActive}>
+          <Header.Nav.Tabs />
+        </Header.Nav>
+      </Header>
     );
   });
