@@ -19,13 +19,13 @@
     flex-direction: column;
   }
 
+  &__CurrentScale {
+    justify-content: center;
+
+    max-width: 20px;
+  }
+
   &_orientation_horizontal {
     flex-direction: row;
   }
-}
-
-.cssExtraClass1 {
-  justify-content: center;
-
-  max-width: 20px;
 }

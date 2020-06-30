@@ -12,38 +12,30 @@ const stories = storiesOf('ui/ScalePanel', module).addParameters({
   metadata: { author: 'CSSSR', status: 'Approved' },
 });
 
-interface StoryProps extends OrientationProps {
-  currentScale: number;
-  stepScale: number;
-  onChange(scale: number): void;
-}
+type StoryProps = OrientationProps & React.ComponentProps<typeof ScalePanel>;
 
 function useStoryProps(): StoryProps {
-  const [currentScale, setCurrentScale] = React.useState(100);
-  const stepScale = number(
-    'stepScale',
-    10,
-    {
-      min: 1,
-      max: 100,
-      range: true,
-      step: 1,
-    },
-    'ScalePanel',
-  );
+  const [scale, setCurrentScale] = React.useState(100);
+  const step = number('step', 10, {
+    min: 1,
+    max: 100,
+    range: true,
+    step: 1,
+  });
   const onChange = action('onChange');
 
-  const orientation = select('orientation', ['vertical', 'horizontal'], 'horizontal', 'ScalePanel');
+  const orientation = select('orientation', ['vertical', 'horizontal'], 'horizontal');
 
-  const handleChange = (scale: number): void => {
-    setCurrentScale(scale);
-    onChange(scale);
+  const handleChange = (newScale: number): void => {
+    if (newScale > 100 && newScale < 0) return;
+    setCurrentScale(newScale);
+    onChange(newScale);
   };
 
   return {
     orientation,
-    currentScale,
-    stepScale,
+    scale,
+    step,
     onChange: handleChange,
   };
 }
