@@ -12,7 +12,9 @@ export type OrientationProps = {
   orientation: 'horizontal' | 'vertical';
 };
 
-interface ScalePanelInnerProps extends OrientationProps {
+type DivProps = JSX.IntrinsicElements['div'];
+
+interface ScalePanelInnerProps extends OrientationProps, DivProps {
   scale: number;
   step: number;
   className?: string;
@@ -33,6 +35,7 @@ export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
     onExpand,
     onWidthMove,
     onInputValueChange,
+    ...rest
   } = props;
   const buttonSize = 'xs';
 
@@ -74,9 +77,10 @@ export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
   ];
 
   return (
-    <div className={cnScalePanel({ orientation }).mix(className).toString()}>
+    <div {...rest} className={cnScalePanel({ orientation }).mix(className).toString()}>
       {buttons.map((button) => (
         <Button
+          key={button.title}
           type="button"
           title={button.title}
           aria-label={button.label}
@@ -89,7 +93,6 @@ export const ScalePanelInner: React.FC<ScalePanelInnerProps> = (props) => {
         />
       ))}
       <div>
-        {/* TODO в ТextField в gpn глубоко, глубоко зарыта пропса которая не используется(TextPropAlign) - возможно она нужна для позиционирования текста внутри компоненты */}
         <TextField
           title="Текущий масштаб"
           className={cnScalePanel('CurrentScale').toString()}

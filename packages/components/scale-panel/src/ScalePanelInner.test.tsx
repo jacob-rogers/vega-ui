@@ -11,11 +11,11 @@ describe('ScalePanelInner', () => {
     const {
       onZoomIn = jest.fn(),
       onZoomOut = jest.fn(),
-      inputChange = jest.fn(),
+      onInputValueChange = jest.fn(),
       onExpand = jest.fn(),
       onWidthMove = jest.fn(),
-      currentScale = 100,
-      stepScale = 10,
+      scale = 100,
+      step = 10,
       orientation = 'horizontal',
       ...rest
     } = props;
@@ -26,9 +26,9 @@ describe('ScalePanelInner', () => {
         onZoomOut={onZoomOut}
         onExpand={onExpand}
         onWidthMove={onWidthMove}
-        inputChange={inputChange}
-        currentScale={currentScale}
-        stepScale={stepScale}
+        onInputValueChange={onInputValueChange}
+        step={step}
+        scale={scale}
         orientation={orientation}
         {...rest}
       />,
@@ -82,13 +82,18 @@ describe('ScalePanelInner', () => {
   });
 
   test('вызывает inputChange при вводе значения', () => {
-    const inputChange = jest.fn();
+    const onInputValueChange = jest.fn();
 
-    render({ inputChange });
+    render({ onInputValueChange });
 
-    tl.fireEvent.change(findInput()!, {
-      target: { value: '50' },
-    });
-    expect(inputChange).toBeCalledWith(50);
+    const input = findInput();
+
+    if (input) {
+      tl.fireEvent.change(input, {
+        target: { value: '50' },
+      });
+    }
+
+    expect(onInputValueChange).toBeCalledWith(50);
   });
 });
