@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs } from '@gpn-prototypes/vega-tabs';
 
-import { cnHeader } from '../helpers/cn-header';
+import { cnHeader } from '../cn-header';
 
 type NavItem = {
   name: string;
@@ -10,24 +10,22 @@ type NavItem = {
 
 type HeaderNavProps = {
   navItems: NavItem[];
+  activeItem: NavItem[];
+  onChangeItem: (item: NavItem[] | null) => void;
 };
 
 export const HeaderNav: React.FC<HeaderNavProps> = (props) => {
-  const { navItems } = props;
-  const activeItem = navItems.filter((item) => item.isActive);
-  const [valueTab, setValueTab] = useState<NavItem[] | null>(activeItem);
+  const { navItems, activeItem, onChangeItem } = props;
 
   return (
     <div className={cnHeader('Nav')}>
-      <div>
-        <Tabs<NavItem>
-          items={navItems}
-          value={valueTab}
-          getItemKey={(item): string => item.name}
-          getItemLabel={(item): string => item.name}
-          onChange={({ value }): void => setValueTab(value)}
-        />
-      </div>
+      <Tabs<NavItem>
+        items={navItems}
+        value={activeItem}
+        getItemKey={(item): string => item.name}
+        getItemLabel={(item): string => item.name}
+        onChange={({ value }): void => onChangeItem(value)}
+      />
     </div>
   );
 };

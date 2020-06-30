@@ -2,8 +2,7 @@ import React from 'react';
 
 import { HeaderMenu } from './HeaderMenu/HeaderMenu';
 import { HeaderNav } from './HeaderNav/HeaderNav';
-import { cnHeader } from './helpers/cn-header';
-import { MenuItem } from './types';
+import { cnHeader } from './cn-header';
 
 import './Header.css';
 
@@ -12,23 +11,18 @@ type NavLink = {
 };
 
 type HeaderProps = {
-  navItems?: NavLink[];
-  menuItems: MenuItem[];
-  title: string;
-  onLogout?(): void;
+  children: React.ReactNode;
 };
 
-export const Header: React.FC<HeaderProps> = (props): React.ReactElement => {
-  const { navItems, title, menuItems, onLogout } = props;
-  return (
-    <header className={cnHeader()}>
-      <HeaderMenu title={title} menuItems={menuItems} onLogout={onLogout} />
-      {navItems && (
-        <>
-          <div className={cnHeader('Delimiter')} />
-          <HeaderNav navItems={navItems} />
-        </>
-      )}
-    </header>
-  );
+type Header = React.FC<HeaderProps> & {
+  Menu: typeof HeaderMenu;
+  Nav: typeof HeaderNav;
 };
+
+export const Header: Header = (props) => {
+  const { children } = props;
+  return <header className={cnHeader()}>{children}</header>;
+};
+
+Header.Menu = HeaderMenu;
+Header.Nav = HeaderNav;
