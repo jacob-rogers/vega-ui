@@ -66,6 +66,7 @@ export const useFileDropzone = (
   };
 
   return {
+    withFullscreen: options.withFullscreen,
     fullscreenVisible,
     handleDragOver,
     handleDrop,

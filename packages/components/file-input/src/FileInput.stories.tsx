@@ -14,9 +14,10 @@ const defaultKnobs = (): FileInputProps => ({
 storiesOf('ui/FileInput', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('FileInput', () => {
+  .add('по умолчанию', () => {
     const buttonProps = {
       iconLeft: IconAttach,
+      iconSize: 'xs',
       label: text('title', 'Title'),
     };
     return (
