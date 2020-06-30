@@ -5,8 +5,12 @@ import { HeaderNav } from './HeaderNav';
 
 type HeaderNavTestProps = React.ComponentProps<typeof HeaderNav>;
 
-const renderComponent = (props: HeaderNavTestProps): RenderResult =>
-  render(<HeaderNav {...props} />);
+const renderComponent = (props: Omit<HeaderNavTestProps, 'children'>): RenderResult =>
+  render(
+    <HeaderNav {...props}>
+      <HeaderNav.Tabs />
+    </HeaderNav>,
+  );
 
 describe('Header', () => {
   const navItems = [
@@ -23,15 +27,17 @@ describe('Header', () => {
   ];
 
   test('рендерится без ошибок', async () => {
-    const nav = await renderComponent({ navItems });
-    expect((await nav.findAllByRole('tab')).length).toBe(3);
+    const nav = renderComponent({ navItems, onChangeItem: jest.fn() });
+    const tabs = await nav.findAllByRole('tab');
+    expect(tabs.length).toBe(3);
   });
 
-  test('переключается навигация', async () => {
-    const nav = renderComponent({ navItems });
+  test('вызывается onChangeItem', () => {
+    const onChangeItem = jest.fn();
+    const nav = renderComponent({ navItems, onChangeItem });
 
     fireEvent.click(nav.getByText('Геологические риски'));
 
-    expect(nav.getByText('Геологические риски')).toHaveClass('Tabs-Tab_active');
+    expect(onChangeItem).toBeCalled();
   });
 });
