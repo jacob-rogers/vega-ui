@@ -18,8 +18,8 @@ export const MyComponent = () => {
 
   return (
     <ScalePanel
-      currentScale={currentScale}
-      stepScale={10}
+      scale={currentScale}
+      step={10}
       onChange={setCurrentScale}
       orientation="horizontal"
     />
@@ -31,8 +31,8 @@ export const MyComponent = () => {
 
 ```ts
 type ScalePanelProps = {
-  currentScale: number; // текущее значение масштаба
-  stepScale: number; // текущее значение шага масштабирования
+  scale: number; // текущее значение масштаба
+  step: number; // текущее значение шага масштабирования
   orientation: 'vertical' | 'horizontal'; // переключение режима типа панели(вертикальный/горизонтальный)
   onChange(scale: number): void; // обработчик изменения масштаба
 };
