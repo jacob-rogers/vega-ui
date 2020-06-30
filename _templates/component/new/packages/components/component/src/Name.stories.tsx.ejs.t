@@ -14,4 +14,4 @@ const defaultKnobs = (): <%= h.changeCase.pascal(name) %>Props => ({
 storiesOf('ui/<%= h.changeCase.pascal(name) %>', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('<%= h.changeCase.pascal(name) %>', () => <<%= h.changeCase.pascal(name) %> {...defaultKnobs()} />);
+  .add('по умолчанию', () => <<%= h.changeCase.pascal(name) %> {...defaultKnobs()} />);
