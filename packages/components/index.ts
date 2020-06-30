@@ -32,3 +32,4 @@ export * from '@gpn-prototypes/vega-animation';
 export * from '@gpn-prototypes/vega-sidebar';
 export * from '@gpn-prototypes/vega-dropzone';
 export * from '@gpn-prototypes/vega-file-input';
+export * from '@gpn-prototypes/vega-layout';

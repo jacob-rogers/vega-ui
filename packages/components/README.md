@@ -14,3 +14,4 @@
 - [Sidebar](sidebar)
 - [Dropzone](dropzone)
 - [FileInput](file-input)
+- [Layout](layout)

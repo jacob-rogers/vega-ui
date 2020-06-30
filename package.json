@@ -78,6 +78,7 @@
     "packages/components/sidebar",
     "packages/components/dropzone",
     "packages/components/file-input",
+    "packages/components/layout",
     "packages/components"
   ],
   "devDependencies": {

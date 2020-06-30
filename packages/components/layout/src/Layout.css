@@ -1,0 +1,45 @@
+.VegaLayout {
+  position: relative;
+
+  display: grid;
+
+  box-sizing: border-box;
+  height: 100%;
+  grid-template-rows: 100%;
+  grid-template-columns: 100%;
+
+  &__Header {
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+
+    display: flex;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+
+    border-bottom: 1px solid var(--color-bg-secondary);
+  }
+
+  &__Window {
+    display: flex;
+    flex-direction: column;
+
+    box-sizing: border-box;
+    height: 100%;
+
+    color: var(--color-typo-primary);
+    border: 1px solid var(--color-bg-secondary);
+
+    .VegaLayout {
+      border: none;
+    }
+  }
+
+  &__Body {
+    overflow: auto;
+
+    height: 100%;
+  }
+}
