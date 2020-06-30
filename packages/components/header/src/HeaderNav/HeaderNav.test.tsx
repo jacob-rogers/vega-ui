@@ -6,11 +6,7 @@ import { HeaderNav } from './HeaderNav';
 type HeaderNavTestProps = React.ComponentProps<typeof HeaderNav>;
 
 const renderComponent = (props: Omit<HeaderNavTestProps, 'children'>): RenderResult =>
-  render(
-    <HeaderNav {...props}>
-      <HeaderNav.Tabs />
-    </HeaderNav>,
-  );
+  render(<HeaderNav {...props} />);
 
 describe('Header', () => {
   const navItems = [

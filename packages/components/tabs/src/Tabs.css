@@ -51,7 +51,7 @@
   }
 
   &__ScrollButton {
-    padding: 0;
+    padding: var(--space-s);
 
     display: flex;
     justify-content: center;

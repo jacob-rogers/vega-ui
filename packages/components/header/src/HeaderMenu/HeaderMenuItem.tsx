@@ -5,24 +5,24 @@ import { cnHeader } from '../cn-header';
 import { useHeaderMenuContext } from './HeaderMenuContext';
 
 type ItemRenderProps = {
-  onClick?: (e: MouseEvent | TouchEvent | React.SyntheticEvent) => void;
+  closeMenu?: (e: MouseEvent | TouchEvent | React.SyntheticEvent) => void;
   className: string;
 };
 
 type HeaderMenuItemProps = {
-  children: (props: ItemRenderProps) => React.ReactNode | React.ReactNode;
+  children: (props: ItemRenderProps) => React.ReactNode;
   className?: string;
 };
 
 export const HeaderMenuItem: React.FC<HeaderMenuItemProps> = (props) => {
   const { children, className } = props;
 
-  const { onClick } = useHeaderMenuContext();
+  const { closeMenu } = useHeaderMenuContext();
 
   const content =
     typeof children === 'function'
       ? children({
-          onClick,
+          closeMenu,
           className: cnHeader('MenuLink').toString(),
         })
       : children;

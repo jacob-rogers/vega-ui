@@ -39,8 +39,8 @@ export const Tabs: BaseTabsComponent = (props) => {
         <div className={cnTabs('InnerContent')} {...draggableTab.getWrapperProps()}>
           <BaseTabs
             style={{ width: draggableTab.tabListWidth }}
+            className={cnTabs('Native').toString()}
             {...props}
-            className={cnTabs('Native')}
           />
         </div>
       </div>

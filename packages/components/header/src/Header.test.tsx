@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, RenderResult, screen } from '@testing-library/react';
+import { render, RenderResult } from '@testing-library/react';
 
 import { Header } from './Header';
 
@@ -44,9 +44,7 @@ const renderComponent = (): RenderResult =>
           )}
         </Header.Menu.Item>
       </Header.Menu>
-      <Header.Nav navItems={navItems} activeItem={[navItems[0]]} onChangeItem={jest.fn()}>
-        <Header.Nav.Tabs />
-      </Header.Nav>
+      <Header.Nav navItems={navItems} activeItem={[navItems[0]]} onChangeItem={jest.fn()} />
     </Header>,
   );
 

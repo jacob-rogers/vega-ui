@@ -13,8 +13,9 @@ yarn add @gpn-prototypes/vega-header
 
 ### Пример использования
 
-```jsx
-import { Header } from '@gpn-prototypes/vega-header';
+```tsx
+import React from 'react';
+import { Header, NavItem } from '@gpn-prototypes/vega-header';
 
 export const MyComponent = () => {
   const navItems = [
@@ -41,10 +42,30 @@ export const MyComponent = () => {
     { name: 'Помощь', url: '/help' },
   ];
 
+  const [activeItem, setActiveItem] = React.useState(navItems.filter(ni => ni.isActive));
+
+  const handleChangeActive = (item: NavItem[]): void => {
+    setActiveItem(item);
+  };
+
   return (
-    <>
-      <Header title="Раздел" menuItems={menuItems} navItems={navItems} />
-    </>
+    <Header>
+      <Header.Menu title="Очень-очень длинное название прое...">
+        {menuItems.map(menuItem => (
+          <Header.Menu.Item key={menuItem.name}>
+            {(menuItemProps): React.ReactNode => (
+              <a {...menuItemProps} href={menuItem.url}>
+                {menuItem.name}
+              </a>
+            )}
+          </Header.Menu.Item>
+        ))}
+        <Header.Menu.Delimiter />
+      </Header.Menu>
+      <Header.Nav navItems={navItems} activeItem={activeItem} onChangeItem={handleChangeActive}>
+        <Header.Nav.Tabs />
+      </Header.Nav>
+    </Header>
   );
 };
 ```
@@ -52,17 +73,26 @@ export const MyComponent = () => {
 ### API компонента
 
 ```ts
-type TabsProps = {
-  title: string;
-  menuItems: menuItem[];
-  navItems: NavItem[];
-  onLogout?(): void;
+type HeaderMenuProps = {
+  title: string; // отображаемая в меню надпись
+  children: React.ReactNode;
 };
 
-type MenuItem = {
-  name: string;
-  url: string;
+type ItemRenderProps = {
   onClick?: (e: MouseEvent | TouchEvent | React.SyntheticEvent) => void;
+  className: string;
+};
+
+type HeaderMenuItemProps = {
+  children: (props: ItemRenderProps) => React.ReactNode | React.ReactNode; // метод для рендера Item
+  className?: string;
+};
+
+type HeaderNavProps = {
+  children: React.ReactNode;
+  onChangeItem: (item: NavItem[]) => void;
+  navItems: NavItem[];
+  activeItem?: NavItem[];
 };
 
 type NavItem = {

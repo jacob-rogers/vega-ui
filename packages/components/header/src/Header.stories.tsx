@@ -7,7 +7,7 @@ import { NavItem } from './types';
 
 storiesOf('ui/Header', module)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('Header', () => {
+  .add('по умолчанию', () => {
     const navItems = [
       {
         name: 'Пайплайн',
@@ -49,11 +49,15 @@ storiesOf('ui/Header', module)
 
     return (
       <Header>
-        <Header.Menu title="Очень-очень длинное название прое...">
+        <Header.Menu title="Очень-очень длинное длинное название проекта">
           {menuItems.map((menuItem) => (
             <Header.Menu.Item key={menuItem.name}>
               {(menuItemProps): React.ReactNode => (
-                <a {...menuItemProps} href={menuItem.url}>
+                <a
+                  onClick={menuItemProps.closeMenu}
+                  className={menuItemProps.className}
+                  href={menuItem.url}
+                >
                   <Text>{menuItem.name}</Text>
                 </a>
               )}
@@ -62,15 +66,13 @@ storiesOf('ui/Header', module)
           <Header.Menu.Delimiter />
           <Header.Menu.Item>
             {(menuItemProps): React.ReactNode => (
-              <a {...menuItemProps} href="/">
+              <a onClick={menuItemProps.closeMenu} className={menuItemProps.className} href="/">
                 <Text>Выйти</Text>
               </a>
             )}
           </Header.Menu.Item>
         </Header.Menu>
-        <Header.Nav navItems={navItems} activeItem={activeItem} onChangeItem={handleChangeActive}>
-          <Header.Nav.Tabs />
-        </Header.Nav>
+        <Header.Nav navItems={navItems} activeItem={activeItem} onChangeItem={handleChangeActive} />
       </Header>
     );
   });

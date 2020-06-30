@@ -35,10 +35,14 @@ export const HeaderMenu: HeaderMenu = (props) => {
   };
 
   return (
-    <HeaderMenuContext.Provider value={{ onClick: handleCloseMenu }}>
+    <HeaderMenuContext.Provider value={{ closeMenu: handleCloseMenu }}>
       <div className={cnHeader('MenuWrap')} role="menubar" aria-haspopup="true">
         <Dropdown
           isOpen={isOpen}
+          aria-expanded={isOpen}
+          aria-hidden={!isOpen}
+          aria-haspopup="true"
+          aria-labelledby="headerMenuTrigger"
           onToggle={(nextState): void => {
             setIsOpen(nextState);
           }}
@@ -57,8 +61,6 @@ export const HeaderMenu: HeaderMenu = (props) => {
                   onClick={toggle}
                   iconLeft={IconHamburger}
                   form="brick"
-                  aria-expanded={isOpen}
-                  aria-haspopup="true"
                   data-testid={testId.trigger}
                 />
               </div>
@@ -66,12 +68,7 @@ export const HeaderMenu: HeaderMenu = (props) => {
           </Dropdown.Trigger>
           <Dropdown.Menu>
             {({ props: menuProps }): React.ReactNode => (
-              <div
-                className={cnHeader('Dropdown')}
-                {...menuProps}
-                aria-hidden={!isOpen}
-                aria-labelledby="headerMenuTrigger"
-              >
+              <div className={cnHeader('Dropdown')} {...menuProps}>
                 <ul className={cnHeader('Menu')} role="menu">
                   {children}
                 </ul>

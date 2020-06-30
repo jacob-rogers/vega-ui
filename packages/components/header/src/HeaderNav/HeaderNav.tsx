@@ -1,22 +1,17 @@
 import React from 'react';
+import { Tabs } from '@gpn-prototypes/vega-tabs';
 
 import { cnHeader } from '../cn-header';
 import { NavItem } from '../types';
 
-import { HeaderNavContext, HeaderNavContextProps } from './HeaderNavContext';
-import { HeaderNavTabs } from './HeaderNavTabs';
-
-type HeaderNavProps = Omit<HeaderNavContextProps, 'onChangeItem'> & {
-  children: React.ReactNode;
+type HeaderNavProps = {
+  navItems: NavItem[];
+  activeItem?: NavItem[];
   onChangeItem: (item: NavItem[]) => void;
 };
 
-type HeaderNav = React.FC<HeaderNavProps> & {
-  Tabs: typeof HeaderNavTabs;
-};
-
-export const HeaderNav: HeaderNav = (props) => {
-  const { navItems, activeItem, onChangeItem, children } = props;
+export const HeaderNav: React.FC<HeaderNavProps> = (props) => {
+  const { navItems, activeItem, onChangeItem } = props;
 
   const handleChangeItem = (item: NavItem[] | null): void => {
     if (item !== null) {
@@ -25,10 +20,14 @@ export const HeaderNav: HeaderNav = (props) => {
   };
 
   return (
-    <HeaderNavContext.Provider value={{ navItems, activeItem, onChangeItem: handleChangeItem }}>
-      <nav className={cnHeader('Nav')}>{children}</nav>
-    </HeaderNavContext.Provider>
+    <nav className={cnHeader('Nav')}>
+      <Tabs<NavItem>
+        items={navItems}
+        value={activeItem}
+        getItemKey={(item): string => item.name}
+        getItemLabel={(item): string => item.name}
+        onChange={({ value }): void => handleChangeItem(value)}
+      />
+    </nav>
   );
 };
-
-HeaderNav.Tabs = HeaderNavTabs;

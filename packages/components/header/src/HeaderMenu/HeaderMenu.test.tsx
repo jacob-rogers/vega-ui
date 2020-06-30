@@ -1,8 +1,6 @@
 import React from 'react';
 import { fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
 
-import { MenuItem } from '../types';
-
 import { HeaderMenu } from './HeaderMenu';
 
 type HeaderNavTestProps = React.ComponentProps<typeof HeaderMenu>;
@@ -24,7 +22,7 @@ const renderComponent = (
       {menuItems.map((mi) => (
         <HeaderMenu.Item key={mi.name}>
           {(itemProps): React.ReactNode => (
-            <a {...itemProps} href={mi.url}>
+            <a onClick={itemProps.closeMenu} href={mi.url}>
               {mi.name}
             </a>
           )}
