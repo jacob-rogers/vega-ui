@@ -37,5 +37,6 @@ type ScalePanelProps = {
   onChange(scale: number): void; // обработчик изменения масштаба
   onFullWidth(): void; // обработчик нажатия на кнопку "во всю ширину"
   onExpand(): void; // обработчик нажатия на кнопку "во весь экран!
+  max: number; // верхняя граница масштаба
 };
 ```

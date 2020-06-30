@@ -1,6 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { number, select, withKnobs } from '@storybook/addon-knobs';
+import { number, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { ScalePanel } from './ScalePanel';
@@ -38,7 +38,7 @@ function useStoryProps(): StoryProps {
   };
 }
 
-stories.addDecorator(withKnobs).add('по умолчанию', () => {
+stories.add('по умолчанию', () => {
   const props = useStoryProps();
   return <ScalePanel {...props} />;
 });
