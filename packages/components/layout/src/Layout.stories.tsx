@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { Button } from '@gpn-prototypes/vega-button';
-import { IconKebab, IconSelect } from '@gpn-prototypes/vega-icons';
+import { IconSelect } from '@gpn-prototypes/vega-icons';
+import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 
 import { Layout } from './Layout';
@@ -20,6 +21,7 @@ export const Box = styled.div`
   background-color: deepskyblue;
 `;
 
+const onLayoutChange = action('onLayoutChange');
 export interface HeaderExampleProps {
   label?: string;
 }
@@ -29,8 +31,7 @@ export const LayoutHeaderExample: React.FC<HeaderExampleProps> = ({
   <Layout.Header>
     {/* TBD тут будет https://jira.csssr.io/browse/VEGA-129 */}
     <Button label={label} size="xs" view="clear" iconRight={IconSelect} iconSize="s" form="brick" />
-    {/* TBD тут будет https://jira.csssr.io/browse/VEGA-126 */}
-    <Button onlyIcon size="xs" view="clear" iconLeft={IconKebab} iconSize="s" form="brick" />
+    <Layout.Options onLayoutChange={onLayoutChange} />
   </Layout.Header>
 );
 

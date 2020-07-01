@@ -3,6 +3,7 @@ import React from 'react';
 import { cnLayout } from './cn-layout';
 import { LayoutBody } from './LayoutBody';
 import { LayoutHeader } from './LayoutHeader';
+import { LayoutOptions } from './LayoutOptions';
 import { LayoutWindow } from './LayoutWindow';
 
 import './Layout.css';
@@ -18,6 +19,7 @@ export interface LayoutProps extends DivProps {
 interface LayoutComponent<P> extends React.FC<P> {
   Header: typeof LayoutHeader;
   Window: typeof LayoutWindow;
+  Options: typeof LayoutOptions;
   Body: typeof LayoutBody;
 }
 
@@ -52,3 +54,4 @@ export const Layout: LayoutComponent<LayoutProps> = (props) => {
 Layout.Header = LayoutHeader;
 Layout.Window = LayoutWindow;
 Layout.Body = LayoutBody;
+Layout.Options = LayoutOptions;

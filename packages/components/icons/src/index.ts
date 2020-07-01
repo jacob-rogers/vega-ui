@@ -108,3 +108,4 @@ export { FileIconUndefined } from '@gpn-design/uikit/FileIconUndefined';
 export { FileIconWav } from '@gpn-design/uikit/FileIconWav';
 export { FileIconXls } from '@gpn-design/uikit/FileIconXls';
 export { FileIconZip } from '@gpn-design/uikit/FileIconZip';
+export { IIcon } from '@gpn-design/uikit/Icon';
