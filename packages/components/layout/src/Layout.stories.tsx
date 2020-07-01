@@ -8,7 +8,7 @@ import { Layout } from './Layout';
 
 const Container = styled.div`
   width: 1000px;
-  height: 500px;
+  height: 800px;
   box-sizing: border-box;
 `;
 
@@ -48,11 +48,11 @@ const stories = storiesOf('layout/Layout', module)
 stories.add('горизонтальное разделение окон', () => {
   return (
     <Layout style={{ gridTemplateRows: '70% 30%' }}>
-      <Layout.Window>
+      <Layout.Window resize="horizontal">
         <LayoutHeaderExample />
       </Layout.Window>
 
-      <Layout.Window>
+      <Layout.Window resize="horizontal">
         <LayoutHeaderExample />
       </Layout.Window>
     </Layout>
@@ -62,11 +62,11 @@ stories.add('горизонтальное разделение окон', () => 
 stories.add('вертикальное разделение окон', () => {
   return (
     <Layout style={{ gridTemplateColumns: '30% 70%' }}>
-      <Layout.Window>
+      <Layout.Window resize="vertical">
         <LayoutHeaderExample />
       </Layout.Window>
 
-      <Layout.Window>
+      <Layout.Window resize="vertical">
         <LayoutHeaderExample />
       </Layout.Window>
     </Layout>
@@ -75,29 +75,41 @@ stories.add('вертикальное разделение окон', () => {
 
 stories.add('вложенные окошки', () => {
   return (
-    <Layout style={{ gridTemplateColumns: '40% 60%' }}>
-      <Layout.Window>
+    <Layout style={{ gridTemplateColumns: '60% 40%' }}>
+      <Layout.Window resize="vertical">
         <Layout style={{ gridTemplateColumns: '50% 50%' }}>
-          <Layout.Window>
-            <LayoutHeaderExample />
-            <Layout.Body />
+          <Layout.Window resize="vertical">
+            <Layout style={{ gridTemplateRows: '65% 35%' }}>
+              <Layout.Window resize="horizontal">
+                <LayoutHeaderExample />
+                <Layout.Body>
+                  <Box />
+                </Layout.Body>
+              </Layout.Window>
+
+              <Layout.Window resize="vertical">
+                <LayoutHeaderExample />
+              </Layout.Window>
+            </Layout>
           </Layout.Window>
 
-          <Layout.Window>
+          <Layout.Window resize="vertical">
             <LayoutHeaderExample />
             <Layout.Body />
           </Layout.Window>
         </Layout>
       </Layout.Window>
 
-      <Layout.Window>
-        <Layout style={{ gridTemplateRows: '60% 40%' }}>
-          <Layout.Window>
+      <Layout.Window resize="vertical">
+        <Layout style={{ gridTemplateRows: '55% 45%' }}>
+          <Layout.Window resize="horizontal">
             <LayoutHeaderExample />
-            <Layout.Body />
+            <Layout.Body>
+              <Box style={{ width: 300, height: 550 }} />
+            </Layout.Body>
           </Layout.Window>
 
-          <Layout.Window>
+          <Layout.Window resize="horizontal">
             <LayoutHeaderExample />
             <Layout.Body />
           </Layout.Window>
