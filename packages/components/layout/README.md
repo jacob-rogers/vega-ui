@@ -67,10 +67,17 @@ yarn add @gpn-prototypes/vega-layout
 import { Layout } from '@gpn-prototypes/vega-layout';
 
 export const MyLayout = () => {
+
+  const handleLayoutChange = (action) => {
+    console.log(action);
+  };
+
   return (
     <Layout>
       <Layout.Window>
-        <Layout.Header />
+        <Layout.Header>
+          <Layout.Options onLayoutChange={handleLayoutChange}>
+        </Layout.Header>
         <Layout.Body />
       </Layout.Window>
     </Layout>
@@ -149,4 +156,13 @@ type LayoutProps = {
   rows?: [number, number]; — размеры строк в %
   columns?: [number, number]; — размеры колонок в %
 };
+```
+
+### Layout.Options
+
+Компонент рендерит список опций для взаимодействия с Layout.
+
+<img src="docs/pic-2.png" height="50">
+
+```ts
 ```
