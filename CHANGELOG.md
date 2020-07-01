@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.1.0 (2020-07-01)
+
+* VEGA-146 Создать компонент "Панель управления масштабом" [#79](https://github.com/gpn-prototypes/vega-ui/pull/79)
+  * Измененные пакеты: `components`
+   * Автор PR: [@Davs777](https://github.com/Davs777)
+
 ## @gpn-prototypes/vega-ui@2.0.0 (2020-06-24)
 
 * VEGA-143: Доработать компонент Dropdown [#68](https://github.com/gpn-prototypes/vega-ui/pull/68)
