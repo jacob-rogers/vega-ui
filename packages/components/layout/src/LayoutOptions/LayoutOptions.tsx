@@ -21,6 +21,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
   return (
     <Dropdown
       placement="bottom-end"
+      portalId="modalRoot"
       isOpen={isOpen}
       onClickOutside={closeDropdown}
       onToggle={(nextState): void => {
