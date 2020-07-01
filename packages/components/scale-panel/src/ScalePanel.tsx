@@ -13,19 +13,28 @@ interface ScalePanelProps extends OrientationProps, Omit<DivProps, 'onChange'> {
   onChange: (scale: number) => void;
   onExpand?: () => void;
   onFullWidth?: () => void;
-  max?: number;
+  maxScale?: number;
 }
 
 const clamp = (min: number, max: number, n: number): number => Math.min(max, Math.max(min, n));
 
 export const ScalePanel: React.FC<ScalePanelProps> = (props) => {
-  const { onChange, scale, step, orientation, onExpand, onFullWidth, max = 100, ...rest } = props;
+  const {
+    onChange,
+    scale,
+    step,
+    orientation,
+    onExpand,
+    onFullWidth,
+    maxScale = 100,
+    ...rest
+  } = props;
 
   function handleZoomOut(): void {
-    onChange(clamp(0, max, scale - step));
+    onChange(clamp(0, maxScale, scale - step));
   }
   function handleZoomIn(): void {
-    onChange(clamp(0, max, scale + step));
+    onChange(clamp(0, maxScale, scale + step));
   }
 
   return (
