@@ -42,7 +42,7 @@ const LayoutHeaderExample: typeof Layout.Header = () => (
 );
 
 const stories = storiesOf('layout/Layout', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
   .addDecorator((story) => <Container>{story()}</Container>);
 
 stories.add('горизонтальное разделение окон', () => {
@@ -108,7 +108,7 @@ stories.add('вложенные окошки', () => {
 });
 
 const storiesHeader = storiesOf('layout/LayoutHeader', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
   .addDecorator((story) => <Container>{story()}</Container>);
 
 storiesHeader.add('по умолчанию', () => {
@@ -122,7 +122,7 @@ storiesHeader.add('по умолчанию', () => {
 });
 
 const storiesWindow = storiesOf('layout/LayoutWindow', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
   .addDecorator((story) => <Container>{story()}</Container>);
 
 storiesWindow.add('пустое окно', () => {
@@ -147,7 +147,7 @@ storiesWindow.add('окно с шапкой и контентом', () => {
 });
 
 const storiesBody = storiesOf('layout/LayoutBody', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
   .addDecorator((story) => <Container>{story()}</Container>);
 
 storiesBody.add('скролл горизонтальный', () => {
