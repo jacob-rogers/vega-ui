@@ -8,7 +8,7 @@ import { Layout } from './Layout';
 
 const Container = styled.div`
   width: 1000px;
-  height: 800px;
+  height: 400px;
   box-sizing: border-box;
 `;
 
@@ -25,17 +25,10 @@ const Box = styled.div`
   background-color: deepskyblue;
 `;
 
-const LayoutHeaderExample: typeof Layout.Header = () => (
+const LayoutHeaderExample: typeof Layout.Header = ({ label = 'Структура проекта' }) => (
   <Layout.Header>
     {/* TBD тут будет https://jira.csssr.io/browse/VEGA-129 */}
-    <Button
-      label="Структура проекта"
-      size="xs"
-      view="clear"
-      iconRight={IconSelect}
-      iconSize="s"
-      form="brick"
-    />
+    <Button label={label} size="xs" view="clear" iconRight={IconSelect} iconSize="s" form="brick" />
     {/* TBD тут будет https://jira.csssr.io/browse/VEGA-126 */}
     <Button onlyIcon size="xs" view="clear" iconLeft={IconKebab} iconSize="s" form="brick" />
   </Layout.Header>
@@ -135,21 +128,13 @@ storiesHeader.add('по умолчанию', () => {
 
 storiesHeader.add('горизонтальный скроллбар в шапке', () => {
   return (
-    <Layout style={{ gridTemplateColumns: '15% 55% 15% 15%' }}>
+    <Layout style={{ gridTemplateColumns: '50% 50%' }}>
       <Layout.Window resize="vertical">
         <LayoutHeaderExample />
       </Layout.Window>
 
       <Layout.Window resize="vertical">
-        <LayoutHeaderExample />
-      </Layout.Window>
-
-      <Layout.Window resize="vertical">
-        <LayoutHeaderExample />
-      </Layout.Window>
-
-      <Layout.Window resize="vertical">
-        <LayoutHeaderExample />
+        <LayoutHeaderExample label="Придумайте длинный заголовок шапки собака спит и храпит, скорее бы пойти гулять и еще кушать" />
       </Layout.Window>
     </Layout>
   );
