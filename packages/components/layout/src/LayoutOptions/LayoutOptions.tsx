@@ -12,15 +12,17 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
 
   const { onLayoutChange } = props;
 
+  const closeDropdown = (): void => {
+    if (isOpen) {
+      setIsOpen(false);
+    }
+  };
+
   return (
     <Dropdown
       placement="bottom-end"
       isOpen={isOpen}
-      onClickOutside={(): void => {
-        if (isOpen) {
-          setIsOpen(false);
-        }
-      }}
+      onClickOutside={closeDropdown}
       onToggle={(nextState): void => {
         setIsOpen(nextState);
       }}
@@ -45,7 +47,12 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
       <Dropdown.Menu>
         {({ props: menuProps }): React.ReactNode => (
           <div {...menuProps}>
-            <LayoutOptionsList onLayoutChange={onLayoutChange} />
+            <LayoutOptionsList
+              onLayoutChange={(action): void => {
+                onLayoutChange(action);
+                closeDropdown();
+              }}
+            />
           </div>
         )}
       </Dropdown.Menu>

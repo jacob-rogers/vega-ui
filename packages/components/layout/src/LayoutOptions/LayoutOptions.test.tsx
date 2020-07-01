@@ -32,6 +32,24 @@ describe('LayoutOptions', () => {
     expect(container.querySelector('.VegaLayout__Options')).toBeInTheDocument();
   });
 
+  test('закрывается по клику на опцию', async () => {
+    const { container } = renderComponent();
+
+    const trigger = await findTrigger();
+
+    act(() => {
+      fireEvent.click(trigger);
+    });
+
+    const option = await screen.findByLabelText(labels[0][0]);
+
+    act(() => {
+      fireEvent.click(option);
+    });
+
+    expect(container.querySelector('.VegaLayout__Options')).not.toBeInTheDocument();
+  });
+
   test.each(labels)('рендерит опцию "%s"', async (label) => {
     renderComponent();
 
