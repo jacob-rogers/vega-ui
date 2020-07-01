@@ -1,3 +1,9 @@
+:root {
+  --layout-resizer-size: 2px;
+  --layout-z-resizer: 1;
+  --layout-z-header: calc(var(--layout-z-resizer) + 1);
+}
+
 .VegaLayout {
   position: relative;
 
@@ -9,10 +15,13 @@
   grid-template-columns: 100%;
 
   &__Header {
+    z-index: var(--layout-z-header);
     position: sticky;
     top: 0;
     right: 0;
     left: 0;
+    margin-left: var(--layout-resizer-size);
+    margin-top: var(--layout-resizer-size);
 
     display: flex;
     justify-content: space-between;
@@ -22,7 +31,41 @@
     border-bottom: 1px solid var(--color-bg-secondary);
   }
 
+  &__Resizer {
+    z-index: var(--layout-z-resizer);
+    padding: 0;
+    position: absolute;
+    border: none;
+    background-color: var(--color-bg-secondary);
+
+    &:hover {
+      background-color: var(--color-control-bg-primary);
+      z-index: var(--layout-z-header);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &_resize_vertical {
+      width: var(--layout-resizer-size);
+      height: 100%;
+      right: 0;
+      margin-right: calc(var(--layout-resizer-size) * -1);
+      cursor: ew-resize;
+    }
+
+    &_resize_horizontal {
+      height: var(--layout-resizer-size);
+      width: 100%;
+      bottom: 0;
+      margin-bottom: calc(var(--layout-resizer-size) * -1);
+      cursor: ns-resize;
+    }
+  }
+
   &__Window {
+    position: relative;
     display: flex;
     flex-direction: column;
 
@@ -30,11 +73,10 @@
     height: 100%;
 
     color: var(--color-typo-primary);
-    border: 1px solid var(--color-bg-secondary);
+  }
 
-    .VegaLayout {
-      border: none;
-    }
+  &__Window:last-child > &__Resizer {
+    display: none;
   }
 
   &__Body {
