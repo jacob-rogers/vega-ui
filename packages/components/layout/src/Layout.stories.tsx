@@ -77,7 +77,7 @@ stories.add('вложенные окошки', () => {
   return (
     <Layout style={{ gridTemplateColumns: '60% 40%' }}>
       <Layout.Window resize="vertical">
-        <Layout style={{ gridTemplateColumns: '50% 50%' }}>
+        <Layout style={{ gridTemplateColumns: '20% 80%' }}>
           <Layout.Window resize="vertical">
             <Layout style={{ gridTemplateRows: '65% 35%' }}>
               <Layout.Window resize="horizontal">
@@ -127,6 +127,28 @@ storiesHeader.add('по умолчанию', () => {
   return (
     <Layout>
       <Layout.Window>
+        <LayoutHeaderExample />
+      </Layout.Window>
+    </Layout>
+  );
+});
+
+storiesHeader.add('горизонтальный скроллбар в шапке', () => {
+  return (
+    <Layout style={{ gridTemplateColumns: '15% 55% 15% 15%' }}>
+      <Layout.Window resize="vertical">
+        <LayoutHeaderExample />
+      </Layout.Window>
+
+      <Layout.Window resize="vertical">
+        <LayoutHeaderExample />
+      </Layout.Window>
+
+      <Layout.Window resize="vertical">
+        <LayoutHeaderExample />
+      </Layout.Window>
+
+      <Layout.Window resize="vertical">
         <LayoutHeaderExample />
       </Layout.Window>
     </Layout>
