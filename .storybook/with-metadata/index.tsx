@@ -40,6 +40,7 @@ export const withMetadata = makeDecorator({
 
     const statusSuccess = status === Status.Approved;
     const statusWarning = status === Status.Deprecated;
+    const statusDraft = status === Status.Draft;
     const statusAlert = status === noStatus;
     const authorAlert = author === noAuthor;
 
@@ -49,9 +50,9 @@ export const withMetadata = makeDecorator({
           <span
             title={tagsDescriptions[status] || tagsDescriptions.NoStatus}
             className={cnMetadata('tag', {
-              success: statusSuccess,
-              warning: statusWarning,
               alert: statusAlert,
+              success: statusSuccess,
+              warning: statusWarning || statusDraft,
             })}
           >
             {status}
