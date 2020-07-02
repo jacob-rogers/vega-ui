@@ -160,7 +160,7 @@ type LayoutProps = {
 
 Компонент рендерит список опций для взаимодействия с Layout.
 
-<img src="docs/pic-2.png" height="50">
+<img src="docs/pic-3.png" height="50">
 
 ```ts
 ```
