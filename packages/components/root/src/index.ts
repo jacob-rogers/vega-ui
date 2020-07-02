@@ -1,1 +1,1 @@
-export { Root, usePortals, useRoot, useTheme } from './Root';
+export { Root, usePortals, usePortal, useTheme } from './Root';
