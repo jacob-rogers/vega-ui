@@ -11,7 +11,7 @@ import {
 
 export type RootProps = {
   initialPortals?: PortalParams[];
-  initialTheme?: ThemeName;
+  defaultTheme?: ThemeName;
   rootId: string;
   children: React.ReactNode;
 };
@@ -25,14 +25,12 @@ const RootContext = createContext<RootContextProps>({});
 const useRoot = (): RootContextProps => useContext(RootContext);
 
 const Root: React.FC<RootProps> = (props) => {
-  const { rootId, initialPortals, initialTheme, children } = props;
+  const { rootId, initialPortals, defaultTheme, children } = props;
   return (
     <div id={rootId}>
-      <RootContext.Provider value={{ rootId }}>
-        <ThemeRoot themeName={initialTheme}>
-          <PortalsRoot initialPortals={initialPortals}>{children}</PortalsRoot>
-        </ThemeRoot>
-      </RootContext.Provider>
+      <ThemeRoot themeName={defaultTheme}>
+        <PortalsRoot initialPortals={initialPortals}>{children}</PortalsRoot>
+      </ThemeRoot>
     </div>
   );
 };

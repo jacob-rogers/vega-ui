@@ -1,8 +1,1 @@
-export {
-  Theme,
-  presetGpnDark,
-  presetGpnDefault,
-  presetGpnDisplay,
-  useTheme,
-  ThemePreset,
-} from './Theme';
+export { Theme, presetGpnDark, presetGpnDefault, presetGpnDisplay, ThemePreset } from './Theme';

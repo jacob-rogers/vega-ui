@@ -6,7 +6,6 @@ import {
   Theme as BaseTheme,
   ThemePreset,
   ThemeProps,
-  useTheme,
 } from '@gpn-design/uikit/Theme';
 
 export type VegaThemeProps = {
@@ -22,4 +21,4 @@ const Theme: React.FC<ThemeProps> = ({ children, preset, ...restProps }) => {
   );
 };
 
-export { Theme, presetGpnDark, presetGpnDefault, presetGpnDisplay, useTheme, ThemePreset };
+export { Theme, presetGpnDark, presetGpnDefault, presetGpnDisplay, ThemePreset };

@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useContext,
-  useState,
-} from 'react';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 import {
   presetGpnDark,
   presetGpnDefault,
@@ -14,7 +7,7 @@ import {
   ThemePreset,
 } from '@gpn-prototypes/vega-theme';
 
-export type ThemeName = 'gpnDefault' | 'gpnDark' | 'gpnDisplay';
+export type ThemeName = 'default' | 'dark' | 'display';
 
 type ThemeProps = {
   themeName?: ThemeName;
@@ -23,27 +16,27 @@ type ThemeProps = {
 
 function getThemeByName(themeName: ThemeName): ThemePreset {
   const obj = {
-    gpnDefault: presetGpnDefault,
-    gpnDark: presetGpnDark,
-    gpnDisplay: presetGpnDisplay,
+    default: presetGpnDefault,
+    dark: presetGpnDark,
+    display: presetGpnDisplay,
   };
   return obj[themeName] || presetGpnDefault;
 }
 
 type ThemeContextProps = {
   theme: ThemeName;
-  setTheme: Dispatch<SetStateAction<ThemeName>>;
+  setTheme(theme: ThemeName): void;
 };
 
 const ThemeContext = createContext<ThemeContextProps>({
-  theme: 'gpnDefault',
+  theme: 'default',
   setTheme: () => {},
 });
 
 export const useTheme = (): ThemeContextProps => useContext(ThemeContext);
 
 export const ThemeRoot: React.FC<ThemeProps> = (props) => {
-  const { themeName = 'gpnDefault', children } = props;
+  const { themeName = 'default', children } = props;
   const [theme, setTheme] = useState(themeName);
 
   const preset = getThemeByName(themeName);

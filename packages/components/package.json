@@ -45,6 +45,7 @@
     "@gpn-prototypes/vega-page-footer": "^0.2.6",
     "@gpn-prototypes/vega-progress-spin": "^0.1.2",
     "@gpn-prototypes/vega-radio": "^0.1.4",
+    "@gpn-prototypes/vega-root": "^0.0.1",
     "@gpn-prototypes/vega-scale-panel": "^0.1.0",
     "@gpn-prototypes/vega-sidebar": "^0.1.0",
     "@gpn-prototypes/vega-snack-bar": "^0.1.2",

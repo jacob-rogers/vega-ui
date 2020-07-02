@@ -16,10 +16,10 @@ yarn add @gpn-prototypes/vega-root
 ```jsx
 import { Root as VegaRoot } from '@gpn-prototypes/vega-root';
 
-export const MyComponent = () => {
+export const App = () => {
   return (
-    <VegaRoot rootId="id" initialPortal={[{ id: 'modalRoot' }]} initialTheme="gpnDefault">
-      <App />
+    <VegaRoot rootId="id" initialPortals={[{ id: 'modalRoot' }]} defaultTheme="default">
+      {/* код приложения */}
     </VegaRoot>
   );
 };
@@ -35,7 +35,7 @@ type PortalParams = {
 
 type RootProps = {
   initialPortals?: PortalParams[]; // начальные порталы для рендера
-  initialTheme?: 'gpnDefault' | 'gpnDark' | 'gpnDisplay'; // начальная тема
+  defaultTheme?: 'default' | 'dark' | 'display'; // начальная тема
   rootId: string; // id для корневого элемента
   children: React.ReactNode;
 };
@@ -45,6 +45,10 @@ type RootProps = {
 
 Возвращает `ts { rootId: string }`.
 
+### API usePortal
+
+Принимает на вход id портала и возвращает контейнер.
+
 ### API usePortals
 
 Возвращает текущие портала и метод для его изменения.
@@ -52,16 +56,13 @@ type RootProps = {
 Пример использования:
 
 ```tsx
-import { usePortals } from '@gpn-prototypes/vega-root';
+import { usePortal } from '@gpn-prototypes/vega-root';
+import { Modal } from './Modal';
 
 const MyComponent = () => {
-  const { portalsState, updatePortals } = usePortals();
+  const portal = usePortal('portalId');
 
-  return (
-    <button type="button" onClick={() => updatePortals({ type: 'add', params: { id: 'test' } })}>
-      Добавить портал
-    </button>
-  );
+  return <Modal portalID={portal.id}>{/* some code */}</Modal>;
 };
 ```
 
@@ -85,7 +86,7 @@ const MyComponent = () => {
   const { theme, setTheme } = useTheme();
 
   return (
-    <button type="button" onClick={() => setTheme('gpnDark')}>
+    <button type="button" onClick={() => setTheme('dark')}>
       Установить новую тему
     </button>
   );
@@ -94,7 +95,7 @@ const MyComponent = () => {
 
 ```ts
 type ThemeAPI = {
-  theme: 'gpnDark' | 'gpnDefault' | 'gpnDisplay'; // текущая тема приложения
+  theme: 'dark' | 'default' | 'display'; // текущая тема приложения
   setTheme: (theme) => void; // метод для установки темы
 };
 ```
