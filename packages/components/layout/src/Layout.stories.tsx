@@ -6,18 +6,13 @@ import { storiesOf } from '@storybook/react';
 
 import { Layout } from './Layout';
 
-const Container = styled.div`
+export const Container = styled.div`
   width: 1000px;
   height: 400px;
   box-sizing: border-box;
 `;
 
-const Content = styled.div`
-  font-size: 30px;
-  padding: 20px;
-`;
-
-const Box = styled.div`
+export const Box = styled.div`
   width: 1050px;
   height: 100px;
   display: inline-block;
@@ -28,7 +23,9 @@ const Box = styled.div`
 export interface HeaderExampleProps {
   label?: string;
 }
-const LayoutHeaderExample: React.FC<HeaderExampleProps> = ({ label = 'Структура проекта' }) => (
+export const LayoutHeaderExample: React.FC<HeaderExampleProps> = ({
+  label = 'Структура проекта',
+}) => (
   <Layout.Header>
     {/* TBD тут будет https://jira.csssr.io/browse/VEGA-129 */}
     <Button label={label} size="xs" view="clear" iconRight={IconSelect} iconSize="s" form="brick" />
@@ -109,107 +106,6 @@ stories.add('вложенные окошки', () => {
             <Layout.Body />
           </Layout.Window>
         </Layout>
-      </Layout.Window>
-    </Layout>
-  );
-});
-
-const storiesHeader = storiesOf('layout/LayoutHeader', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
-  .addDecorator((story) => <Container>{story()}</Container>);
-
-storiesHeader.add('по умолчанию', () => {
-  return (
-    <Layout>
-      <Layout.Window>
-        <LayoutHeaderExample />
-      </Layout.Window>
-    </Layout>
-  );
-});
-
-storiesHeader.add('горизонтальный скроллбар в шапке', () => {
-  return (
-    <Layout columns={[50, 50]}>
-      <Layout.Window>
-        <LayoutHeaderExample />
-      </Layout.Window>
-
-      <Layout.Window>
-        <LayoutHeaderExample label="Придумайте длинный заголовок шапки собака спит и храпит, скорее бы пойти гулять и еще кушать" />
-      </Layout.Window>
-    </Layout>
-  );
-});
-
-const storiesWindow = storiesOf('layout/LayoutWindow', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
-  .addDecorator((story) => <Container>{story()}</Container>);
-
-storiesWindow.add('пустое окно', () => {
-  return (
-    <Layout>
-      <Layout.Window />
-    </Layout>
-  );
-});
-
-storiesWindow.add('окно с шапкой и контентом', () => {
-  return (
-    <Layout>
-      <Layout.Window>
-        <LayoutHeaderExample />
-        <Layout.Body>
-          <Content>Ку-ку</Content>
-        </Layout.Body>
-      </Layout.Window>
-    </Layout>
-  );
-});
-
-const storiesBody = storiesOf('layout/LayoutBody', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
-  .addDecorator((story) => <Container>{story()}</Container>);
-
-storiesBody.add('скролл горизонтальный', () => {
-  return (
-    <Layout>
-      <Layout.Window>
-        <LayoutHeaderExample />
-        <Layout.Body>
-          <Box />
-        </Layout.Body>
-      </Layout.Window>
-    </Layout>
-  );
-});
-
-storiesBody.add('скролл вертикальный', () => {
-  return (
-    <Layout>
-      <Layout.Window>
-        <LayoutHeaderExample />
-        <Layout.Body>
-          <Box style={{ width: 300, height: 550 }} />
-        </Layout.Body>
-      </Layout.Window>
-    </Layout>
-  );
-});
-
-storiesBody.add('скролл горизонтальный и вертикальный', () => {
-  const boxes = new Array(5).fill(1);
-
-  return (
-    <Layout>
-      <Layout.Window>
-        <LayoutHeaderExample />
-        <Layout.Body>
-          {boxes.map((_, i) => (
-            // eslint-disable-next-line react/no-array-index-key
-            <Box key={i} />
-          ))}
-        </Layout.Body>
       </Layout.Window>
     </Layout>
   );
