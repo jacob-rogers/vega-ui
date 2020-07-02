@@ -11,8 +11,8 @@ type div = JSX.IntrinsicElements['div'];
 export interface LayoutProps extends div {
   children?: React.ReactNode;
   className?: string;
-  rows?: [number, number];
-  columns?: [number, number];
+  splitDirection?: 'vertical' | 'horizontal';
+  sizes?: [number, number];
 }
 
 interface LayoutComponent<P> extends React.FC<P> {
@@ -24,10 +24,11 @@ interface LayoutComponent<P> extends React.FC<P> {
 const getChildTypeName = (el: any): string => el.type.name;
 
 export const Layout: LayoutComponent<LayoutProps> = (props) => {
-  const { className, columns, rows, ...rest } = props;
+  const { className, splitDirection = 'vertical', sizes = [50, 50], ...rest } = props;
+  const gridsSizes = `${sizes[0]}% ${sizes[1]}%`;
   const style = {
-    gridTemplateColumns: columns ? `${columns[0]}% ${columns[1]}%` : undefined,
-    gridTemplateRows: rows ? `${rows[0]}% ${rows[1]}%` : undefined,
+    gridTemplateColumns: splitDirection === 'vertical' ? gridsSizes : undefined,
+    gridTemplateRows: splitDirection === 'horizontal' ? gridsSizes : undefined,
   };
 
   const children = React.Children.map(props.children, (child) => {
@@ -36,7 +37,7 @@ export const Layout: LayoutComponent<LayoutProps> = (props) => {
       : false;
 
     return React.isValidElement(child) && isLayoutWindow
-      ? React.cloneElement(child, { resizeDirection: columns ? 'vertical' : 'horizontal' })
+      ? React.cloneElement(child, { resizeDirection: splitDirection })
       : child;
   });
 
