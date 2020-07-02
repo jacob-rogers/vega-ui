@@ -31,7 +31,7 @@ export const LayoutWindow: React.FC<LayoutWindowProps> = ({
   resizeDirection,
   ...rest
 }) => {
-  const cn = cnLayout('Window').mix(className);
+  const cn = cnLayout('Window', { direction: resizeDirection }).mix(className);
 
   return (
     <div className={cn} {...rest}>

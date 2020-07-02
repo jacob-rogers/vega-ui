@@ -20,11 +20,12 @@
     top: 0;
     right: 0;
     left: 0;
+    height: 25px;
 
-    margin-top: var(--layout-resizer-size);
     margin-left: var(--layout-resizer-size);
 
     display: flex;
+    overflow-y: hidden;
     overflow-x: auto;
     justify-content: space-between;
 
@@ -91,6 +92,20 @@
     height: 100%;
 
     color: var(--color-typo-primary);
+  }
+
+  /*
+    не должно быть отступа у шапок в окнах, разделенных по вертикали
+    и у первых шапок внутри окон, разделенных по горизонтали
+  */
+
+  &__Window_direction_vertical &__Header,
+  &__Window_direction_vertical &__Window_direction_horizontal:first-child &__Header {
+    margin-top: 0;
+  }
+
+  &__Window_direction_horizontal &__Header {
+    margin-top: 2px;
   }
 
   &__Window:last-child > &__Resizer {
