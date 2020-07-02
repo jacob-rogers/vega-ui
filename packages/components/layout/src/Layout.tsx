@@ -11,6 +11,8 @@ type div = JSX.IntrinsicElements['div'];
 export interface LayoutProps extends div {
   children?: React.ReactNode;
   className?: string;
+  rows?: [number, number];
+  columns?: [number, number];
 }
 
 interface LayoutComponent<P> extends React.FC<P> {
@@ -19,9 +21,27 @@ interface LayoutComponent<P> extends React.FC<P> {
   Body: typeof LayoutBody;
 }
 
-export const Layout: LayoutComponent<LayoutProps> = ({ children, className, ...rest }) => {
+const getChildTypeName = (el: any): string => el.type.name;
+
+export const Layout: LayoutComponent<LayoutProps> = (props) => {
+  const { className, columns, rows, ...rest } = props;
+  const style = {
+    gridTemplateColumns: columns ? `${columns[0]}% ${columns[1]}%` : undefined,
+    gridTemplateRows: rows ? `${rows[0]}% ${rows[1]}%` : undefined,
+  };
+
+  const children = React.Children.map(props.children, (child) => {
+    const isLayoutWindow = React.isValidElement(child)
+      ? getChildTypeName(child) === LayoutWindow.name
+      : false;
+
+    return React.isValidElement(child) && isLayoutWindow
+      ? React.cloneElement(child, { resize: columns ? 'vertical' : 'horizontal' })
+      : child;
+  });
+
   return (
-    <div className={cnLayout.mix(className)} {...rest}>
+    <div className={cnLayout.mix(className)} style={style} {...rest}>
       {children}
     </div>
   );

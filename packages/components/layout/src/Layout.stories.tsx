@@ -25,7 +25,10 @@ const Box = styled.div`
   background-color: deepskyblue;
 `;
 
-const LayoutHeaderExample: typeof Layout.Header = ({ label = 'Структура проекта' }) => (
+export interface HeaderExampleProps {
+  label?: string;
+}
+const LayoutHeaderExample: React.FC<HeaderExampleProps> = ({ label = 'Структура проекта' }) => (
   <Layout.Header>
     {/* TBD тут будет https://jira.csssr.io/browse/VEGA-129 */}
     <Button label={label} size="xs" view="clear" iconRight={IconSelect} iconSize="s" form="brick" />
@@ -40,12 +43,11 @@ const stories = storiesOf('layout/Layout', module)
 
 stories.add('горизонтальное разделение окон', () => {
   return (
-    <Layout style={{ gridTemplateRows: '70% 30%' }}>
-      <Layout.Window resize="horizontal">
+    <Layout rows={[70, 30]}>
+      <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
-
-      <Layout.Window resize="horizontal">
+      <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
     </Layout>
@@ -54,12 +56,12 @@ stories.add('горизонтальное разделение окон', () => 
 
 stories.add('вертикальное разделение окон', () => {
   return (
-    <Layout style={{ gridTemplateColumns: '30% 70%' }}>
-      <Layout.Window resize="vertical">
+    <Layout columns={[30, 70]}>
+      <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
 
-      <Layout.Window resize="vertical">
+      <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
     </Layout>
@@ -68,41 +70,41 @@ stories.add('вертикальное разделение окон', () => {
 
 stories.add('вложенные окошки', () => {
   return (
-    <Layout style={{ gridTemplateColumns: '60% 40%' }}>
-      <Layout.Window resize="vertical">
-        <Layout style={{ gridTemplateColumns: '20% 80%' }}>
-          <Layout.Window resize="vertical">
-            <Layout style={{ gridTemplateRows: '65% 35%' }}>
-              <Layout.Window resize="horizontal">
+    <Layout columns={[60, 40]}>
+      <Layout.Window>
+        <Layout columns={[20, 80]}>
+          <Layout.Window>
+            <Layout rows={[65, 35]}>
+              <Layout.Window>
                 <LayoutHeaderExample />
                 <Layout.Body>
                   <Box />
                 </Layout.Body>
               </Layout.Window>
 
-              <Layout.Window resize="vertical">
+              <Layout.Window>
                 <LayoutHeaderExample />
               </Layout.Window>
             </Layout>
           </Layout.Window>
 
-          <Layout.Window resize="vertical">
+          <Layout.Window>
             <LayoutHeaderExample />
             <Layout.Body />
           </Layout.Window>
         </Layout>
       </Layout.Window>
 
-      <Layout.Window resize="vertical">
-        <Layout style={{ gridTemplateRows: '55% 45%' }}>
-          <Layout.Window resize="horizontal">
+      <Layout.Window>
+        <Layout rows={[55, 45]}>
+          <Layout.Window>
             <LayoutHeaderExample />
             <Layout.Body>
               <Box style={{ width: 300, height: 550 }} />
             </Layout.Body>
           </Layout.Window>
 
-          <Layout.Window resize="horizontal">
+          <Layout.Window>
             <LayoutHeaderExample />
             <Layout.Body />
           </Layout.Window>
@@ -128,12 +130,12 @@ storiesHeader.add('по умолчанию', () => {
 
 storiesHeader.add('горизонтальный скроллбар в шапке', () => {
   return (
-    <Layout style={{ gridTemplateColumns: '50% 50%' }}>
-      <Layout.Window resize="vertical">
+    <Layout columns={[50, 50]}>
+      <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
 
-      <Layout.Window resize="vertical">
+      <Layout.Window>
         <LayoutHeaderExample label="Придумайте длинный заголовок шапки собака спит и храпит, скорее бы пойти гулять и еще кушать" />
       </Layout.Window>
     </Layout>
