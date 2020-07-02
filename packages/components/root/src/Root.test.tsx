@@ -2,11 +2,9 @@ import React from 'react';
 import { fireEvent, render, RenderResult, screen } from '@testing-library/react';
 
 import { PortalParams } from './components';
-import { Root, RootProps, usePortals, useRoot, useTheme } from './Root';
+import { Root, RootProps, usePortals, useTheme } from './Root';
 
 const TestComponent = (): React.ReactElement => {
-  const { rootId } = useRoot();
-
   const { portalsState, updatePortals } = usePortals();
 
   const { theme, setTheme } = useTheme();
@@ -24,7 +22,6 @@ const TestComponent = (): React.ReactElement => {
 
   return (
     <div>
-      <span aria-label="Root id">{rootId}</span>
       <span aria-label="Current theme">{theme}</span>
       <span aria-label="Portals length">{portalsState.portals.length}</span>
       <button type="button" aria-label="Add portal" onClick={addPortal}>
@@ -39,10 +36,6 @@ const TestComponent = (): React.ReactElement => {
     </div>
   );
 };
-
-function findRootId(): HTMLElement {
-  return screen.getByLabelText('Root id');
-}
 
 function findPortalsCount(): HTMLElement {
   return screen.getByLabelText('Portals length');
@@ -75,14 +68,6 @@ function renderComponent(props?: Omit<RootProps, 'children' | 'rootId'>): Render
 describe('Root', () => {
   test('рендерится без ошибок', () => {
     expect(renderComponent).not.toThrow();
-  });
-
-  test('прокидывается корректный rootId', () => {
-    renderComponent();
-
-    const rootIdSpan = findRootId();
-
-    expect(rootIdSpan.innerHTML).toBe('rootId');
   });
 
   describe('Portals', () => {
@@ -133,7 +118,7 @@ describe('Root', () => {
 
       fireEvent.click(findUpdateThemeButton());
 
-      expect(findThemeName().innerHTML).toBe('gpnDark');
+      expect(findThemeName().innerHTML).toBe('dark');
     });
   });
 });

@@ -1,10 +1,11 @@
-import React, { createContext, useContext } from 'react';
+import React from 'react';
 
 import {
   PortalParams,
   PortalsRoot,
   ThemeName,
   ThemeRoot,
+  usePortal,
   usePortals,
   useTheme,
 } from './components';
@@ -15,14 +16,6 @@ export type RootProps = {
   rootId: string;
   children: React.ReactNode;
 };
-
-type RootContextProps = {
-  rootId?: string;
-};
-
-const RootContext = createContext<RootContextProps>({});
-
-const useRoot = (): RootContextProps => useContext(RootContext);
 
 const Root: React.FC<RootProps> = (props) => {
   const { rootId, initialPortals, defaultTheme, children } = props;
@@ -35,4 +28,4 @@ const Root: React.FC<RootProps> = (props) => {
   );
 };
 
-export { Root, useTheme, usePortals, useRoot };
+export { Root, useTheme, usePortals, usePortal };
