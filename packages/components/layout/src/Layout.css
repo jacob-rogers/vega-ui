@@ -1,7 +1,11 @@
-.VegaLayout {
+:root {
   --layout-resizer-size: 2px;
   --layout-z-resizer: 1;
   --layout-z-header: calc(var(--layout-z-resizer) + 1);
+  --layout-z-portal: calc(var(--layout-z-header) + 1);
+}
+
+.VegaLayout {
   position: relative;
 
   display: grid;
@@ -34,25 +38,6 @@
     &::-webkit-scrollbar {
       width: 2px;
       height: 2px;
-    }
-
-    &:focus,
-    &:focus:hover {
-      outline: none;
-      box-shadow: 0 0 0 3px var(--color-control-bg-focus);
-
-      animation: buttonFocusAnimation 0.5s ease-in;
-    }
-
-    .Button:focus,
-    .Button:focus:hover {
-      box-shadow: inset 0 0 0 2px var(--color-control-bg-focus);
-
-      animation: none;
-    }
-
-    .Button_size_xs {
-      height: calc(var(--control-height-xs) - 2px);
     }
   }
 
@@ -150,7 +135,13 @@
     height: 100%;
   }
 
+  &__Menu {
+    z-index: var(--layout-z-portal);
+  }
+
   &__Options {
+    z-index: var(--layout-z-portal);
+
     padding-top: calc(var(--space-m) + 2px);
     padding-bottom: calc(var(--space-m) + 2px);
 
@@ -181,6 +172,7 @@
     height: var(--control-border-width);
   }
 }
+<<<<<<< HEAD
 
 @keyframes buttonFocusAnimation {
   from {
@@ -191,3 +183,5 @@
     box-shadow: 0 0 0 3px var(--color-control-bg-focus), 0 0 0 6px transparent;
   }
 }
+=======
+>>>>>>> 142dc6c... fix(portal): правильный рендер в порталах
