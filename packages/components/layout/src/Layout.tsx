@@ -7,8 +7,8 @@ import { LayoutWindow } from './LayoutWindow';
 
 import './Layout.css';
 
-type div = JSX.IntrinsicElements['div'];
-export interface LayoutProps extends div {
+type DivProps = JSX.IntrinsicElements['div'];
+export interface LayoutProps extends DivProps {
   children?: React.ReactNode;
   className?: string;
   splitDirection?: 'vertical' | 'horizontal';

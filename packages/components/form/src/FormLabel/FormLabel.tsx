@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type label = JSX.IntrinsicElements['label'];
-export interface FormLabelProps extends label {
+type LabelProps = JSX.IntrinsicElements['label'];
+export interface FormLabelProps extends LabelProps {
   className?: string;
   space?: '2xs' | 'xs' | 's' | 'none';
   size?: 's' | 'l';

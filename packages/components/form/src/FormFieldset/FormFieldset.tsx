@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type fieldset = JSX.IntrinsicElements['fieldset'];
-export interface FormFieldsetProps extends fieldset {
+type FieldsetProps = JSX.IntrinsicElements['fieldset'];
+export interface FormFieldsetProps extends FieldsetProps {
   className?: string;
   children?: React.ReactNode;
   disabled?: boolean;

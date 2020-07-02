@@ -4,8 +4,8 @@ import { cnLayout } from '../cn-layout';
 
 export type ResizeDirection = 'vertical' | 'horizontal';
 
-type button = JSX.IntrinsicElements['button'];
-export interface LayoutResizerProps extends button {
+type ButtonProps = JSX.IntrinsicElements['button'];
+export interface LayoutResizerProps extends ButtonProps {
   direction?: ResizeDirection;
 }
 
@@ -18,8 +18,8 @@ const LayoutResizer: React.FC<LayoutResizerProps> = ({ direction }) => (
   />
 );
 
-type div = JSX.IntrinsicElements['div'];
-export interface LayoutWindowProps extends div {
+type DivProps = JSX.IntrinsicElements['div'];
+export interface LayoutWindowProps extends DivProps {
   className?: string;
   children?: React.ReactNode;
   resizeDirection?: ResizeDirection;

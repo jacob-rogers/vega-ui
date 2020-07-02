@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cnLayout } from '../cn-layout';
 
-type div = JSX.IntrinsicElements['div'];
-export interface LayoutBodyProps extends div {
+type DivProps = JSX.IntrinsicElements['div'];
+export interface LayoutBodyProps extends DivProps {
   className?: string;
   children?: React.ReactNode;
 }

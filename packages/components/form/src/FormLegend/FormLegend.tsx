@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type legend = JSX.IntrinsicElements['legend'];
-export interface FormLegendProps extends legend {
+type LegendProps = JSX.IntrinsicElements['legend'];
+export interface FormLegendProps extends LegendProps {
   className?: string;
   space?: '2xs' | 'xs' | 's' | 'none';
   size?: 's' | 'l';
