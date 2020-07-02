@@ -20,16 +20,16 @@
     top: 0;
     right: 0;
     left: 0;
-    height: 25px;
 
     margin-left: var(--layout-resizer-size);
 
     display: flex;
-    overflow-y: hidden;
     overflow-x: auto;
+    overflow-y: hidden;
     justify-content: space-between;
 
     box-sizing: border-box;
+    height: 25px;
 
     border-bottom: 1px solid var(--color-bg-secondary);
     flex-shrink: 0;
@@ -48,6 +48,16 @@
 
     background-color: var(--color-bg-secondary);
     border: none;
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 0;
+      right: -1px;
+      left: -1px;
+      bottom: 0;
+    }
 
     &:hover {
       z-index: var(--layout-z-header);
@@ -115,11 +125,12 @@
   }
 
   &__Body {
+    margin-left: var(--layout-resizer-size);
+
     overflow: auto;
 
-    height: 100%;
-
-    margin-left: var(--layout-resizer-size);
     box-sizing: border-box;
+
+    height: 100%;
   }
 }
