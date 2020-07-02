@@ -21,6 +21,7 @@ interface LayoutComponent<P> extends React.FC<P> {
   Body: typeof LayoutBody;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getChildTypeName = (el: any): string => el.type.name;
 
 export const Layout: LayoutComponent<LayoutProps> = (props) => {
