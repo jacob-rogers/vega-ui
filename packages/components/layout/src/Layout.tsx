@@ -36,7 +36,7 @@ export const Layout: LayoutComponent<LayoutProps> = (props) => {
       : false;
 
     return React.isValidElement(child) && isLayoutWindow
-      ? React.cloneElement(child, { resize: columns ? 'vertical' : 'horizontal' })
+      ? React.cloneElement(child, { resizeDirection: columns ? 'vertical' : 'horizontal' })
       : child;
   });
 
