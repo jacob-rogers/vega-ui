@@ -3,6 +3,9 @@ import { Button } from '@gpn-prototypes/vega-button';
 import { Dropdown } from '@gpn-prototypes/vega-dropdown';
 import { IconKebab } from '@gpn-prototypes/vega-icons';
 
+import { cnLayout } from '../cn-layout';
+import { PORTAL_LAYOUT_ID } from '../constants';
+
 import { LayoutOptionsList } from './LayoutOptionsList';
 
 export type LayoutOptionsProps = React.ComponentProps<typeof LayoutOptionsList>;
@@ -21,7 +24,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
   return (
     <Dropdown
       placement="bottom-end"
-      portalId="modalRoot"
+      portalId={PORTAL_LAYOUT_ID}
       isOpen={isOpen}
       onClickOutside={closeDropdown}
       onToggle={(nextState): void => {
@@ -47,7 +50,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
       </Dropdown.Trigger>
       <Dropdown.Menu>
         {({ props: menuProps }): React.ReactNode => (
-          <div {...menuProps}>
+          <div className={cnLayout('Menu')} {...menuProps}>
             <LayoutOptionsList
               onLayoutChange={(action): void => {
                 onLayoutChange(action);
