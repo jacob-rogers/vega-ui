@@ -7,7 +7,7 @@ import { ScalePanel } from './ScalePanel';
 import { OrientationProps } from './ScalePanelInner';
 
 const stories = storiesOf('ui/ScalePanel', module).addParameters({
-  metadata: { author: 'CSSSR', status: 'Approved' },
+  metadata: { author: 'ГПН', status: 'Draft' },
 });
 
 type StoryProps = OrientationProps & React.ComponentProps<typeof ScalePanel>;
