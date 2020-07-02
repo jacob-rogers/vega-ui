@@ -25,6 +25,8 @@
     "@gpn-prototypes/vega-dropdown": "^1.0.0",
     "@gpn-prototypes/vega-navigation-list": "^1.0.1",
     "@gpn-prototypes/vega-button": "^0.1.4",
-    "@gpn-prototypes/vega-icons": "^0.1.4"
+    "@gpn-prototypes/vega-icons": "^0.1.4",
+    "@gpn-prototypes/vega-root": "^0.0.1",
+    "@gpn-prototypes/vega-hooks": "^0.2.0"
   }
 }
