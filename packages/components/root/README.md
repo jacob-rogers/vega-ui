@@ -52,13 +52,31 @@ type RootProps = {
 Пример использования:
 
 ```tsx
+<<<<<<< HEAD
 import { usePortal } from '@gpn-prototypes/vega-root';
+=======
+<<<<<<< HEAD
+import { usePortals } from '@gpn-prototypes/vega-root';
+>>>>>>> 0927ae2... fix(theme): убрал лишний экспорт
 import { Modal } from './Modal';
 
 const MyComponent = () => {
   const portal = usePortal();
 
+<<<<<<< HEAD
   return <Modal portalID={portal.current.id}>{/* some code */}</Modal>;
+=======
+  return <Modal portalID={portal.current[0].id}>{/* some code */}</Modal>;
+=======
+import { usePortal } from '@gpn-prototypes/vega-root';
+import { Modal } from './Modal';
+
+const MyComponent = () => {
+  const portal = usePortal('portalId');
+
+  return <Modal portalID={portal.id}>{/* some code */}</Modal>;
+>>>>>>> 197337d... fix(theme): убрал лишний экспорт
+>>>>>>> 0927ae2... fix(theme): убрал лишний экспорт
 };
 ```
 
