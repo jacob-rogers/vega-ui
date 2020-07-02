@@ -6,6 +6,7 @@ type FieldsetProps = JSX.IntrinsicElements['fieldset'];
 export interface FormFieldsetProps extends FieldsetProps {
   disabled?: boolean;
   className?: string;
+  children?: React.ReactNode;
 }
 
 export const FormFieldset: React.FC<FormFieldsetProps> = ({

@@ -2,8 +2,8 @@ import React from 'react';
 
 import { cnLayout } from '../cn-layout';
 
-type header = JSX.IntrinsicElements['header'];
-export interface LayoutHeaderProps extends header {
+type HeaderProps = JSX.IntrinsicElements['header'];
+export interface LayoutHeaderProps extends HeaderProps {
   className?: string;
   children?: React.ReactNode;
 }
