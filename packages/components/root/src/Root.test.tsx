@@ -33,11 +33,7 @@ const TestComponent = (): React.ReactElement => {
       <button type="button" aria-label="Remove portal" onClick={removePortal}>
         Удалить портал
       </button>
-      <button
-        aria-label="Set gpn-dark theme"
-        type="button"
-        onClick={(): void => setTheme('gpnDark')}
-      >
+      <button aria-label="Set gpn-dark theme" type="button" onClick={(): void => setTheme('dark')}>
         Установить другую тему
       </button>
     </div>
@@ -124,16 +120,16 @@ describe('Root', () => {
   });
 
   describe('Theme', () => {
-    const initialTheme = 'gpnDefault';
+    const defaultTheme = 'default';
 
     test('прокидывается тема', () => {
-      renderComponent({ initialTheme });
+      renderComponent({ defaultTheme });
 
-      expect(findThemeName().innerHTML).toBe(initialTheme);
+      expect(findThemeName().innerHTML).toBe(defaultTheme);
     });
 
     test('обновляется тема', () => {
-      renderComponent({ initialTheme });
+      renderComponent({ defaultTheme });
 
       fireEvent.click(findUpdateThemeButton());
 

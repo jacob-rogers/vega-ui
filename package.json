@@ -65,6 +65,7 @@
     "packages/components/navigation-list",
     "packages/components/page-banner",
     "packages/components/page-footer",
+    "packages/components/root",
     "packages/components/logo",
     "packages/components/form",
     "packages/components/timer",
@@ -121,7 +122,6 @@
     "storybook-addon-themes": "^5.2.0",
     "style-loader": "^1.1.4",
     "ts-loader": "^7.0.1",
-    "tsconfig-paths-webpack-plugin": "^3.2.0",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1"
   },

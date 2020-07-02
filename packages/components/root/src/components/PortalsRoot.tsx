@@ -1,5 +1,4 @@
-import React, { createContext, Dispatch, useContext, useReducer } from 'react';
-import { useUnmount } from '@gpn-prototypes/vega-hooks';
+import React, { createContext, Dispatch, useContext, useReducer, useRef } from 'react';
 
 type Portal = { id: string };
 
@@ -27,6 +26,10 @@ function portalsReducer(state: State, action: ActionReducer): State {
   const { id } = action.params;
 
   if (type === 'add') {
+    if (state.portals.find((p) => p.id === id)) {
+      return state;
+    }
+
     return {
       ...state,
       portals: [...state.portals, { ...action.params }],
@@ -55,6 +58,24 @@ const PortalsContext = createContext<PortalContextProps>({
 
 export const usePortals = (): PortalContextProps => useContext(PortalsContext);
 
+export const usePortal = (id: string, params?: Omit<PortalParams, 'id'>): HTMLElement => {
+  const ref = useRef<HTMLElement | null>(null);
+
+  const { portalsState, updatePortals } = usePortals();
+
+  const portal = portalsState.portals.find((p) => p.id === id);
+
+  if (!portal) {
+    updatePortals({ type: 'add', params: { id, ...params } });
+  }
+
+  if (ref.current === null) {
+    ref.current = document.getElementById(id);
+  }
+
+  return ref.current as HTMLElement;
+};
+
 type PortalsRootProps = {
   initialPortals?: PortalParams[];
   children: React.ReactNode;
@@ -67,18 +88,12 @@ export const PortalsRoot: React.FC<PortalsRootProps> = (props) => {
     portals: [...initialPortals],
   });
 
-  useUnmount(() => {
-    portalsState.portals.forEach((portal) => {
-      updatePortals({ type: 'remove', params: portal });
-    });
-  });
-
   return (
     <PortalsContext.Provider value={{ portalsState, updatePortals }}>
+      {children}
       {portalsState.portals.map(({ id, ...rest }: PortalParams) => (
         <div {...rest} key={id} id={id} />
       ))}
-      {children}
     </PortalsContext.Provider>
   );
 };

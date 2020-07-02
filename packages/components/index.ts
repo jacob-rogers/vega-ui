@@ -26,6 +26,7 @@ export * from '@gpn-prototypes/vega-attach';
 export * from '@gpn-prototypes/vega-loader';
 export * from '@gpn-prototypes/vega-carousel';
 export * from '@gpn-prototypes/vega-logo';
+export * from '@gpn-prototypes/vega-root';
 export * from '@gpn-prototypes/vega-theme';
 export * from '@gpn-prototypes/vega-scale-panel';
 export * from '@gpn-prototypes/vega-animation';
