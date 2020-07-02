@@ -58,22 +58,10 @@ const PortalsContext = createContext<PortalContextProps>({
 
 export const usePortals = (): PortalContextProps => useContext(PortalsContext);
 
-export const usePortal = (id: string, params?: Omit<PortalParams, 'id'>): HTMLElement => {
+export const usePortal = (id: string): HTMLElement | null => {
   const ref = useRef<HTMLElement | null>(null);
-
-  const { portalsState, updatePortals } = usePortals();
-
-  const portal = portalsState.portals.find((p) => p.id === id);
-
-  if (!portal) {
-    updatePortals({ type: 'add', params: { id, ...params } });
-  }
-
-  if (ref.current === null) {
-    ref.current = document.getElementById(id);
-  }
-
-  return ref.current as HTMLElement;
+  ref.current = document.getElementById(id);
+  return ref.current;
 };
 
 type PortalsRootProps = {

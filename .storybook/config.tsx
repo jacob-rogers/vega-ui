@@ -13,16 +13,16 @@ document.body.style.margin = '0px';
 
 const themes = [
   {
-    name: 'gpnDefault',
+    name: 'default',
     color: '#fff',
   },
   {
-    name: 'gpnDark',
+    name: 'dark',
     default: true,
     color: '#22272b',
   },
   {
-    name: 'gpnDisplay',
+    name: 'display',
     color: '#002033',
   },
 ];

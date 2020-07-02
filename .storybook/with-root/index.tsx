@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Root } from '../../packages/components/root/src';
 
-type ThemeName = 'gpnDefault' | 'gpnDark' | 'gpnDisplay';
+type ThemeName = 'default' | 'dark' | 'display';
 
 type VegaThemeDecoratorProps = {
   themeName: ThemeName;
@@ -13,7 +13,7 @@ export const VegaRootDecorator: React.FC<VegaThemeDecoratorProps> = (props) => {
   const { children, themeName } = props;
 
   return (
-    <Root rootId="root" initialPortals={[{ id: 'modalRoot' }]} initialTheme={themeName}>
+    <Root rootId="root" initialPortals={[{ id: 'modalRoot' }]} defaultTheme={themeName}>
       {children}
     </Root>
   );
