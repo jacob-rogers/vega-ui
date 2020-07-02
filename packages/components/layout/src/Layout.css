@@ -95,17 +95,19 @@
   }
 
   /*
-    не должно быть отступа у шапок в окнах, разделенных по вертикали
-    и у первых шапок внутри окон, разделенных по горизонтали
+    не должно быть отступа у шапок в самом верху иерархии:
+      - у всех шапок к окнах разделенных горизонтально
+      - только у первой, в разделенном вертикальн окне
   */
 
-  &__Window_direction_vertical &__Header,
-  &__Window_direction_vertical &__Window_direction_horizontal:first-child &__Header {
+  &:first-child > &__Window_direction_vertical &__Window_direction_horizontal:first-child &__Header,
+  &:first-child > &__Window_direction_horizontal &__Header {
     margin-top: 0;
   }
 
-  &__Window_direction_horizontal &__Header {
-    margin-top: 2px;
+  /* шапка в любом последнем (т.е. втором) горизонтальном окне — всегда должна иметь отступ */
+  &__Window_direction_horizontal:last-child &__Header {
+    margin-top: 2px !important;
   }
 
   &__Window:last-child > &__Resizer {
@@ -116,5 +118,8 @@
     overflow: auto;
 
     height: 100%;
+
+    margin-left: var(--layout-resizer-size);
+    box-sizing: border-box;
   }
 }

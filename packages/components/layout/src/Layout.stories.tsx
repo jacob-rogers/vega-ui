@@ -86,8 +86,30 @@ stories.add('вложенные окошки', () => {
           </Layout.Window>
 
           <Layout.Window>
-            <LayoutHeaderExample />
-            <Layout.Body />
+            <Layout rows={[55, 45]}>
+              <Layout.Window>
+                <LayoutHeaderExample />
+                <Layout.Body>
+                  <Box style={{ width: 300, height: 550 }} />
+                </Layout.Body>
+              </Layout.Window>
+
+              <Layout.Window>
+                <Layout rows={[55, 45]}>
+                  <Layout.Window>
+                    <LayoutHeaderExample />
+                    <Layout.Body>
+                      <Box style={{ width: 300, height: 550 }} />
+                    </Layout.Body>
+                  </Layout.Window>
+
+                  <Layout.Window>
+                    <LayoutHeaderExample />
+                    <Layout.Body />
+                  </Layout.Window>
+                </Layout>
+              </Layout.Window>
+            </Layout>
           </Layout.Window>
         </Layout>
       </Layout.Window>
@@ -95,10 +117,30 @@ stories.add('вложенные окошки', () => {
       <Layout.Window>
         <Layout rows={[55, 45]}>
           <Layout.Window>
-            <LayoutHeaderExample />
-            <Layout.Body>
-              <Box style={{ width: 300, height: 550 }} />
-            </Layout.Body>
+            <Layout rows={[55, 45]}>
+              <Layout.Window>
+                <LayoutHeaderExample />
+                <Layout.Body>
+                  <Box style={{ width: 300, height: 550 }} />
+                </Layout.Body>
+              </Layout.Window>
+
+              <Layout.Window>
+                <Layout columns={[55, 45]}>
+                  <Layout.Window>
+                    <LayoutHeaderExample />
+                    <Layout.Body>
+                      <Box style={{ width: 300, height: 550 }} />
+                    </Layout.Body>
+                  </Layout.Window>
+
+                  <Layout.Window>
+                    <LayoutHeaderExample />
+                    <Layout.Body />
+                  </Layout.Window>
+                </Layout>
+              </Layout.Window>
+            </Layout>
           </Layout.Window>
 
           <Layout.Window>
