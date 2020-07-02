@@ -40,7 +40,7 @@ const stories = storiesOf('layout/Layout', module)
 
 stories.add('горизонтальное разделение окон', () => {
   return (
-    <Layout rows={[70, 30]}>
+    <Layout splitDirection="horizontal" sizes={[70, 30]}>
       <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
@@ -53,7 +53,7 @@ stories.add('горизонтальное разделение окон', () => 
 
 stories.add('вертикальное разделение окон', () => {
   return (
-    <Layout columns={[30, 70]}>
+    <Layout sizes={[30, 70]}>
       <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
@@ -67,11 +67,11 @@ stories.add('вертикальное разделение окон', () => {
 
 stories.add('вложенные окошки', () => {
   return (
-    <Layout columns={[60, 40]}>
+    <Layout sizes={[60, 40]}>
       <Layout.Window>
-        <Layout columns={[20, 80]}>
+        <Layout sizes={[20, 80]}>
           <Layout.Window>
-            <Layout rows={[65, 35]}>
+            <Layout splitDirection="horizontal" sizes={[65, 35]}>
               <Layout.Window>
                 <LayoutHeaderExample />
                 <Layout.Body>
@@ -86,7 +86,7 @@ stories.add('вложенные окошки', () => {
           </Layout.Window>
 
           <Layout.Window>
-            <Layout rows={[55, 45]}>
+            <Layout splitDirection="horizontal" sizes={[55, 45]}>
               <Layout.Window>
                 <LayoutHeaderExample />
                 <Layout.Body>
@@ -95,7 +95,7 @@ stories.add('вложенные окошки', () => {
               </Layout.Window>
 
               <Layout.Window>
-                <Layout rows={[55, 45]}>
+                <Layout splitDirection="horizontal" sizes={[55, 45]}>
                   <Layout.Window>
                     <LayoutHeaderExample />
                     <Layout.Body>
@@ -115,9 +115,9 @@ stories.add('вложенные окошки', () => {
       </Layout.Window>
 
       <Layout.Window>
-        <Layout rows={[55, 45]}>
+        <Layout splitDirection="horizontal" sizes={[55, 45]}>
           <Layout.Window>
-            <Layout rows={[55, 45]}>
+            <Layout splitDirection="horizontal" sizes={[55, 45]}>
               <Layout.Window>
                 <LayoutHeaderExample />
                 <Layout.Body>
@@ -126,7 +126,7 @@ stories.add('вложенные окошки', () => {
               </Layout.Window>
 
               <Layout.Window>
-                <Layout columns={[55, 45]}>
+                <Layout sizes={[55, 45]}>
                   <Layout.Window>
                     <LayoutHeaderExample />
                     <Layout.Body>

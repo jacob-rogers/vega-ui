@@ -20,7 +20,7 @@ stories.add('по умолчанию', () => {
 
 stories.add('горизонтальный скроллбар в шапке', () => {
   return (
-    <Layout columns={[50, 50]}>
+    <Layout sizes={[50, 50]}>
       <Layout.Window>
         <LayoutHeaderExample />
       </Layout.Window>
