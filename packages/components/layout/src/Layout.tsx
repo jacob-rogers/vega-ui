@@ -1,4 +1,6 @@
 import React from 'react';
+import { useMount } from '@gpn-prototypes/vega-hooks';
+import { usePortals } from '@gpn-prototypes/vega-root';
 
 import { cnLayout } from './cn-layout';
 import { LayoutBody } from './LayoutBody';
@@ -25,10 +27,20 @@ interface LayoutComponent<P> extends React.FC<P> {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getChildTypeName = (el: any): string => el.type.name;
+const PORTAL_LAYOUT_ID = 'portalLayout';
 
 export const Layout: LayoutComponent<LayoutProps> = (props) => {
   const { className, splitDirection = 'vertical', sizes = [50, 50], ...rest } = props;
   const gridsSizes = `${sizes[0]}% ${sizes[1]}%`;
+  const { portalsState, updatePortals } = usePortals();
+
+  useMount(() => {
+    const portalLayout = portalsState.portals.find((p) => p.id === PORTAL_LAYOUT_ID);
+    if (portalLayout === undefined) {
+      updatePortals({ type: 'add', params: { id: PORTAL_LAYOUT_ID } });
+    }
+  });
+
   const style = {
     gridTemplateColumns: splitDirection === 'vertical' ? gridsSizes : undefined,
     gridTemplateRows: splitDirection === 'horizontal' ? gridsSizes : undefined,
