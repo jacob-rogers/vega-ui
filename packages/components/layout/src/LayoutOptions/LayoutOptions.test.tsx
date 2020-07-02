@@ -1,10 +1,17 @@
 import React from 'react';
+import { Root } from '@gpn-prototypes/vega-root';
 import { act, fireEvent, render, RenderResult, screen } from '@testing-library/react';
+
+import { PORTAL_LAYOUT_ID } from '../constants';
 
 import { LayoutOptions, LayoutOptionsProps } from './LayoutOptions';
 
 function renderComponent(props: LayoutOptionsProps = { onLayoutChange: jest.fn() }): RenderResult {
-  return render(<LayoutOptions {...props} />);
+  return render(
+    <Root rootId="rootId" initialPortals={[{ id: PORTAL_LAYOUT_ID }]}>
+      <LayoutOptions {...props} />
+    </Root>,
+  );
 }
 
 const labels = [
