@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-ui",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "",
   "author": "CSSSR",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-animation": "^0.0.1",
+    "@gpn-prototypes/vega-animation": "^0.0.2",
     "@gpn-prototypes/vega-attach": "^0.1.2",
     "@gpn-prototypes/vega-avatar": "^0.1.4",
     "@gpn-prototypes/vega-badge": "^0.1.4",
@@ -39,7 +39,7 @@
     "@gpn-prototypes/vega-modal": "^0.1.7",
     "@gpn-prototypes/vega-navigation-list": "^1.0.1",
     "@gpn-prototypes/vega-page-banner": "^0.2.2",
-    "@gpn-prototypes/vega-page-footer": "^0.2.4",
+    "@gpn-prototypes/vega-page-footer": "^0.2.5",
     "@gpn-prototypes/vega-progress-spin": "^0.1.2",
     "@gpn-prototypes/vega-radio": "^0.1.4",
     "@gpn-prototypes/vega-scale-panel": "^0.1.0",
