@@ -50,7 +50,7 @@ const LayoutOptionItem: React.FC<{ option: LayoutOption }> = ({ option }) => {
 export const LayoutOptionsList: React.FC<LayoutOptionsListProps> = (props) => {
   const { onLayoutChange } = props;
 
-  const cn = cnLayout('Options');
+  const cn = cnLayout('List');
 
   const options: LayoutOption[] = [
     { action: 'right', icon: IconArrowRight, title: 'Добавить панель справа' },

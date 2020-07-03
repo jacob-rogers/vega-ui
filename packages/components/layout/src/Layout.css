@@ -60,7 +60,7 @@
     }
   }
 
- &__MenuWrapper {
+  &__MenuWrapper {
     z-index: var(--layout-z-portal);
   }
 
@@ -76,7 +76,7 @@
     }
   }
 
-  &__Options {
+  &__List {
     z-index: var(--layout-z-portal);
 
     padding-top: calc(var(--space-m) + 2px);
@@ -102,9 +102,9 @@
       text-align: left;
     }
   }
+
   &__Delimiter {
     margin: var(--space-s);
-
     height: var(--control-border-width);
   }
 
@@ -206,6 +206,8 @@
 @keyframes buttonFocusAnimation {
   from {
     box-shadow: 0 0 0 0 var(--color-control-bg-focus), 0 0 0 0 var(--color-control-bg-active);
+  }
+
 
   to {
     box-shadow: 0 0 0 3px var(--color-control-bg-focus), 0 0 0 6px transparent;
