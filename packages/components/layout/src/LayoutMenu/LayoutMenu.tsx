@@ -1,11 +1,9 @@
 import React from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
-import { Dropdown } from '@gpn-prototypes/vega-dropdown';
-import { useClose } from '@gpn-prototypes/vega-hooks';
 import { IconSelect } from '@gpn-prototypes/vega-icons';
 
 import { cnLayout } from '../cn-layout';
-import { PORTAL_LAYOUT_ID } from '../constants';
+import { LayoutDropdown } from '../LayoutDropdown';
 
 type MenuItem = {
   value: string;
@@ -21,18 +19,11 @@ type LayoutMenuProps = {
 export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
   const { activeItem, items, onChange } = props;
 
-  const { isOpen, setIsOpen, close: closeDropdown } = useClose();
-
   return (
-    <Dropdown
+    <LayoutDropdown
       placement="bottom-start"
-      isOpen={isOpen}
-      onClickOutside={closeDropdown}
-      portalId={PORTAL_LAYOUT_ID}
-      onToggle={setIsOpen}
-    >
-      <Dropdown.Trigger>
-        {({ toggle, props: { ref, ...triggerProps } }): React.ReactNode => (
+      trigger={({ toggle, isOpen, props: { ref, ...triggerProps } }): React.ReactNode => {
+        return (
           <Button
             innerRef={ref}
             onClick={toggle}
@@ -47,15 +38,11 @@ export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
             view="clear"
             {...triggerProps}
           />
-        )}
-      </Dropdown.Trigger>
-      <Dropdown.Menu>
-        {({ props: menuProps }): React.ReactNode => (
-          <div className={cnLayout('Menu')} {...menuProps}>
-            {activeItem.label}
-          </div>
-        )}
-      </Dropdown.Menu>
-    </Dropdown>
+        );
+      }}
+      menu={({ closeMenu }): React.ReactNode => {
+        return <div>{activeItem.label}</div>;
+      }}
+    />
   );
 };
