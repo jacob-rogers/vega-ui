@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 
+import { MenuItem } from './LayoutMenu/LayoutMenuList';
 import { Layout } from './Layout';
 
 export const Container = styled.div`
@@ -19,19 +20,40 @@ export const Box = styled.div`
   background-color: deepskyblue;
 `;
 
-const onChange = action('onChange');
-const onLayoutChange = action('onLayoutChange');
+const items: MenuItem[] = [
+  { value: 'projectStructure', label: 'Структура проекта' },
+  { value: 'value2', label: 'Еще один пункт' },
+  { value: 'value3', label: 'Еще один длииииинный пункт' },
+  { value: 'value4', label: 'Еще один оооооочень длииииинный пункт' },
+];
+
 export interface HeaderExampleProps {
-  label?: string;
+  activeValue: string;
+  onChange: (value: string) => void;
 }
-export const LayoutHeaderExample: React.FC<HeaderExampleProps> = ({
-  label = 'Структура проекта',
-}) => (
-  <Layout.Header>
-    <Layout.Menu onChange={onChange} items={[]} activeItem={{ label, value: 'structure' }} />
-    <Layout.Options onLayoutChange={onLayoutChange} />
-  </Layout.Header>
-);
+
+const useLayoutMenu = (): HeaderExampleProps => {
+  const [activeValue, setActiveValue] = React.useState(items[0].value);
+
+  const onChange = (value: string): void => {
+    if (value !== activeValue) {
+      setActiveValue(value);
+    }
+  };
+
+  return { activeValue, onChange };
+};
+
+const onLayoutChange = action('onLayoutChange');
+
+export const LayoutHeaderExample: React.FC<HeaderExampleProps> = (props) => {
+  return (
+    <Layout.Header>
+      <Layout.Menu {...props} items={items} />
+      <Layout.Options onLayoutChange={onLayoutChange} />
+    </Layout.Header>
+  );
+};
 
 const stories = storiesOf('layout/Layout', module)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Draft' } })
@@ -41,10 +63,10 @@ stories.add('горизонтальное разделение окон', () => 
   return (
     <Layout splitDirection="horizontal" sizes={[70, 30]}>
       <Layout.Window>
-        <LayoutHeaderExample />
+        <LayoutHeaderExample {...useLayoutMenu()} />
       </Layout.Window>
       <Layout.Window>
-        <LayoutHeaderExample />
+        <LayoutHeaderExample {...useLayoutMenu()} />
       </Layout.Window>
     </Layout>
   );
@@ -54,11 +76,11 @@ stories.add('вертикальное разделение окон', () => {
   return (
     <Layout sizes={[30, 70]}>
       <Layout.Window>
-        <LayoutHeaderExample />
+        <LayoutHeaderExample {...useLayoutMenu()} />
       </Layout.Window>
 
       <Layout.Window>
-        <LayoutHeaderExample />
+        <LayoutHeaderExample {...useLayoutMenu()} />
       </Layout.Window>
     </Layout>
   );
@@ -72,14 +94,14 @@ stories.add('вложенные окошки', () => {
           <Layout.Window>
             <Layout splitDirection="horizontal" sizes={[65, 35]}>
               <Layout.Window>
-                <LayoutHeaderExample />
+                <LayoutHeaderExample {...useLayoutMenu()} />
                 <Layout.Body>
                   <Box />
                 </Layout.Body>
               </Layout.Window>
 
               <Layout.Window>
-                <LayoutHeaderExample />
+                <LayoutHeaderExample {...useLayoutMenu()} />
               </Layout.Window>
             </Layout>
           </Layout.Window>
@@ -143,7 +165,7 @@ stories.add('вложенные окошки', () => {
           </Layout.Window>
 
           <Layout.Window>
-            <LayoutHeaderExample />
+            <LayoutHeaderExample {...useLayoutMenu()} />
             <Layout.Body />
           </Layout.Window>
         </Layout>

@@ -14,7 +14,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
   return (
     <LayoutDropdown
       placement="bottom-end"
-      trigger={({ toggle, props: { ref, ...triggerProps}}): React.ReactNode => {
+      trigger={({ toggle, props: { ref, ...triggerProps } }): React.ReactNode => {
         return (
           <Button
             innerRef={ref}
