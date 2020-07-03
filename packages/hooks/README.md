@@ -7,3 +7,4 @@
 -   [useKey](src/use-key)
 -   [useMount](src/use-mount)
 -   [useUnmout](src/use-unmount)
+-   [useClose](src/use-close)
