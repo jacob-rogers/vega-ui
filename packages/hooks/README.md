@@ -7,3 +7,4 @@
 - [useKey](src/use-key/README.md)
 - [useMount](src/use-mount/README.md)
 - [useUnmout](src/use-unmount/README.md)
+- [useClose](src/use-close)
