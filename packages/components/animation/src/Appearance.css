@@ -1,0 +1,75 @@
+/* Left */
+.is-left-enter {
+  transform: translateX(-100%);
+}
+
+.is-left-enter-active {
+  transition: transform var(--transition-duration-enter) ease;
+  transform: translateX(0);
+}
+
+.is-left-exit {
+  transform: translateX(0);
+}
+
+.is-left-exit-active {
+  transition: transform var(--transition-duration-exit) ease;
+  transform: translateX(-100%);
+}
+
+/* Right */
+.is-right-enter {
+  transform: translateX(100%);
+}
+
+.is-right-enter-active {
+  transition: transform var(--transition-duration-enter) ease;
+  transform: translateX(0);
+}
+
+.is-right-exit {
+  transform: translateX(0);
+}
+
+.is-right-exit-active {
+  transition: transform var(--transition-duration-exit) ease;
+  transform: translateX(100%);
+}
+
+/* Top */
+.is-top-enter {
+  transform: translateY(-100%);
+}
+
+.is-top-enter-active {
+  transition: transform var(--transition-duration-enter) ease;
+  transform: translateY(0);
+}
+
+.is-top-exit {
+  transform: translateY(0);
+}
+
+.is-top-exit-active {
+  transition: transform var(--transition-duration-exit) ease;
+  transform: translateY(-100%);
+}
+
+/* Bottom */
+.is-bottom-enter {
+  transform: translateY(100%);
+}
+
+.is-bottom-enter-active {
+  transition: transform var(--transition-duration-enter) ease;
+  transform: translateY(0);
+}
+
+.is-bottom-exit {
+  transform: translateY(0);
+}
+
+.is-bottom-exit-active {
+  transition: transform var(--transition-duration-exit) ease;
+  transform: translateY(100%);
+}

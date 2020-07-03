@@ -1,7 +1,6 @@
 {
-  "name": "@gpn-prototypes/vega-page-footer",
-  "version": "0.2.4",
-  "description": "",
+  "name": "@gpn-prototypes/vega-animation",
+  "version": "0.0.1",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -12,21 +11,16 @@
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/gpn-prototypes/vega-ui.git",
-    "directory": "packages/components/page-footer"
+    "directory": "packages/components/animation"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "peerDependencies": {
-    "react": "^16"
-  },
-  "devDependencies": {
-    "@emotion/core": "^10.0.28",
-    "@gpn-prototypes/vega-button": "^0.1.4",
-    "@gpn-prototypes/vega-animation": "0.0.1"
+    "react": "^16.8.0"
   },
   "dependencies": {
-    "bem-cn": "^3.0.1"
+    "react-transition-group": "^4.4.1"
   }
 }

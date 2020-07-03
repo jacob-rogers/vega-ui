@@ -10,3 +10,4 @@
 - [Tabs](tabs)
 - [Theme](theme)
 - [ScalePanel](scale-panel)
+- [Animation](animation)

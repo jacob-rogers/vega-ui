@@ -45,12 +45,8 @@ import { Button } from '@gpn-prototypes/vega-button';
 export const MyComponent = () => {
   return (
     <PageFooter className="footer">
-      <div>
-        <Button size="m" view="primary" label="Кнопка" />
-      </div>
-      <div>
-        <Button size="m" view="primary" label="Кнопка" />
-      </div>
+      <Button size="m" view="primary" label="Кнопка" />
+      <Button size="m" view="primary" label="Кнопка" />
     </PageFooter>
   );
 };
