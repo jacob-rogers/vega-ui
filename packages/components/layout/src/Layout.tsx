@@ -34,7 +34,7 @@ export const Layout: LayoutComponent<LayoutProps> = (props) => {
   const gridsSizes = `${sizes[0]}% ${sizes[1]}%`;
   const { updatePortals } = usePortals();
 
-  const { current: isMounted } = useMount(() => {
+  const isMounted = useMount(() => {
     updatePortals({
       type: 'add',
       params: { id: PORTAL_LAYOUT_ID },
