@@ -3,6 +3,7 @@ import React from 'react';
 import { cnLayout } from './cn-layout';
 import { LayoutBody } from './LayoutBody';
 import { LayoutHeader } from './LayoutHeader';
+import { LayoutMenu } from './LayoutMenu';
 import { LayoutOptions } from './LayoutOptions';
 import { LayoutWindow } from './LayoutWindow';
 
@@ -21,6 +22,7 @@ interface LayoutComponent<P> extends React.FC<P> {
   Window: typeof LayoutWindow;
   Options: typeof LayoutOptions;
   Body: typeof LayoutBody;
+  Menu: typeof LayoutMenu;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -56,3 +58,4 @@ Layout.Header = LayoutHeader;
 Layout.Window = LayoutWindow;
 Layout.Body = LayoutBody;
 Layout.Options = LayoutOptions;
+Layout.Menu = LayoutMenu;

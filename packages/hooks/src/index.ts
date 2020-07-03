@@ -6,3 +6,4 @@ export * from './use-root-close';
 export * from './use-draggable-container';
 export * from './use-mount';
 export * from './use-unmount';
+export * from './use-close';

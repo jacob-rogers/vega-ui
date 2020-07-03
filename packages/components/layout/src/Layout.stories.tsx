@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Button } from '@gpn-prototypes/vega-button';
-import { IconSelect } from '@gpn-prototypes/vega-icons';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 
@@ -21,6 +19,7 @@ export const Box = styled.div`
   background-color: deepskyblue;
 `;
 
+const onChange = action('onChange');
 const onLayoutChange = action('onLayoutChange');
 export interface HeaderExampleProps {
   label?: string;
@@ -29,8 +28,7 @@ export const LayoutHeaderExample: React.FC<HeaderExampleProps> = ({
   label = 'Структура проекта',
 }) => (
   <Layout.Header>
-    {/* TBD тут будет https://jira.csssr.io/browse/VEGA-129 */}
-    <Button label={label} size="xs" view="clear" iconRight={IconSelect} iconSize="s" form="brick" />
+    <Layout.Menu onChange={onChange} items={[]} activeItem={{ label, value: 'structure' }} />
     <Layout.Options onLayoutChange={onLayoutChange} />
   </Layout.Header>
 );
