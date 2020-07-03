@@ -60,11 +60,25 @@
     }
   }
 
-  &__Menu {
+ &__MenuWrapper {
     z-index: var(--layout-z-portal);
   }
 
+  &__MenuTrigger {
+    > .Icon {
+      transition: transform 0.1s ease;
+    }
+
+    &_isMenuOpen {
+      > .Icon {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
   &__Options {
+    z-index: var(--layout-z-portal);
+
     padding-top: calc(var(--space-m) + 2px);
     padding-bottom: calc(var(--space-m) + 2px);
 
@@ -88,7 +102,6 @@
       text-align: left;
     }
   }
-
   &__Delimiter {
     margin: var(--space-s);
 
@@ -193,7 +206,6 @@
 @keyframes buttonFocusAnimation {
   from {
     box-shadow: 0 0 0 0 var(--color-control-bg-focus), 0 0 0 0 var(--color-control-bg-active);
-  }
 
   to {
     box-shadow: 0 0 0 3px var(--color-control-bg-focus), 0 0 0 6px transparent;
