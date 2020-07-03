@@ -1,1 +1,1 @@
-export { DropdownTrigger } from './DropdownTrigger';
+export { DropdownTrigger, DropdownTriggerChildrenProps } from './DropdownTrigger';

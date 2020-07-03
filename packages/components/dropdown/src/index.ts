@@ -1,2 +1,2 @@
-export { Dropdown } from './Dropdown';
+export { Dropdown, DropdownPlacement } from './Dropdown';
 export * from './components';
