@@ -5,19 +5,17 @@ import { IconSelect } from '@gpn-prototypes/vega-icons';
 import { cnLayout } from '../cn-layout';
 import { LayoutDropdown } from '../LayoutDropdown';
 
-type MenuItem = {
-  value: string;
-  label: string;
-};
+import { LayoutMenuList, LayoutMenuListProps } from './LayoutMenuList';
 
-type LayoutMenuProps = {
-  activeItem: MenuItem;
-  items: MenuItem[];
-  onChange: (item: MenuItem) => void;
-};
+type LayoutMenuProps = LayoutMenuListProps;
 
 export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
-  const { activeItem, items, onChange } = props;
+  const { activeValue, items, onChange } = props;
+
+  const activeItem = React.useMemo(() => items.find((item) => activeValue === item.value), [
+    activeValue,
+    items,
+  ]);
 
   return (
     <LayoutDropdown
@@ -27,7 +25,7 @@ export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
           <Button
             innerRef={ref}
             onClick={toggle}
-            label={activeItem.label}
+            label={activeItem?.label}
             aria-label="Триггер для меню layout"
             iconRight={IconSelect}
             size="xs"
@@ -40,8 +38,17 @@ export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
           />
         );
       }}
-      menu={({ closeMenu }): React.ReactNode => {
-        return <div>{activeItem.label}</div>;
+      menu={({ closeDropdown }): React.ReactNode => {
+        return (
+          <LayoutMenuList
+            items={items}
+            activeValue={activeValue}
+            onChange={(value: string): void => {
+              onChange(value);
+              closeDropdown();
+            }}
+          />
+        );
       }}
     />
   );
