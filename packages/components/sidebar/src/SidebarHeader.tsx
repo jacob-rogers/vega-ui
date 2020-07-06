@@ -5,8 +5,6 @@ import { IconClose, IconRemove } from '@gpn-prototypes/vega-icons';
 import { cnSidebar } from './cn-sidebar';
 import { useSidebarContext } from './use-sidebar-context';
 
-import './Sidebar.css';
-
 export type SidebarHeaderProps = {
   hasMinimizeButton?: boolean;
   className?: string;

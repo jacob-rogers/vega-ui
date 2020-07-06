@@ -2,8 +2,6 @@ import React from 'react';
 
 import { cnSidebar } from './cn-sidebar';
 
-import './Sidebar.css';
-
 export type SidebarFooterProps = {
   className?: string;
 };
