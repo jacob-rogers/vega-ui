@@ -55,7 +55,7 @@ storiesOf('ui/Modal', module)
           }}
         />
         <Modal
-          rootSelector="#modalRoot"
+          rootSelector="#portalRoot"
           onClose={(e): void => {
             closeAction(e);
             handleClose();

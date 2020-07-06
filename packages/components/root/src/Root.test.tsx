@@ -16,14 +16,6 @@ const TestComponent = (): React.ReactElement => {
   );
 };
 
-function findPortalsSize(): HTMLElement {
-  return screen.getByLabelText('Portals size');
-}
-
-function findPortalId(): HTMLElement {
-  return screen.getByLabelText('Portal id');
-}
-
 function findThemeName(): HTMLElement {
   return screen.getByLabelText('Current theme');
 }

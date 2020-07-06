@@ -1,29 +1,20 @@
 import React from 'react';
 
-import {
-  PortalParams,
-  PortalsRoot,
-  ThemeName,
-  ThemeRoot,
-  usePortals,
-  useTheme,
-} from './components';
+import { PortalsRoot, ThemeName, ThemeRoot, usePortal, useTheme } from './components';
 
 export type RootProps = {
   defaultTheme?: ThemeName;
   children: React.ReactNode;
-  portalParams?: PortalParams[];
 };
 
 const Root: React.FC<RootProps> = (props) => {
-  const { defaultTheme, children, portalParams } = props;
+  const { defaultTheme, children } = props;
   return (
-    <div>
-      <ThemeRoot themeName={defaultTheme}>
-        <PortalsRoot portalParams={portalParams}>{children}</PortalsRoot>
-      </ThemeRoot>
-    </div>
+    <ThemeRoot themeName={defaultTheme}>
+      <PortalsRoot id="portalRoot" />
+      {children}
+    </ThemeRoot>
   );
 };
 
-export { Root, useTheme, usePortals };
+export { Root, useTheme, usePortal };
