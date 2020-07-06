@@ -8,9 +8,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-dropzone
-```
+    yarn add @gpn-prototypes/vega-dropzone
 
 ### Примеры использования
 

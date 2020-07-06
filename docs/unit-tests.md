@@ -14,29 +14,29 @@ Unit-тестами необходимо покрывать компоненты
 
 Актуализировать тесты необходимо:
 
-- Если в компоненте был найден баг. Тесты помогут удостовериться, что баги были исправлены и в будущем снова не возникнут.
+-   Если в компоненте был найден баг. Тесты помогут удостовериться, что баги были исправлены и в будущем снова не возникнут.
 
-- Если компонент дополнен новой функциональностью.
+-   Если компонент дополнен новой функциональностью.
 
 ## Тестовое покрытие
 
 Тесты должны покрывать:
 
-- Кейсы, которые составляются аналитиком для бизнеса. Они должны быть протестированы в первую очередь.
-- Код. Процент тестового покрытия кода можно проверить, выполнив команду `yarn coverage`.
-- Публичный API компонента.
+-   Кейсы, которые составляются аналитиком для бизнеса. Они должны быть протестированы в первую очередь.
+-   Код. Процент тестового покрытия кода можно проверить, выполнив команду `yarn coverage`.
+-   Публичный API компонента.
 
 ## Инструменты для тестирования
 
 На данный момент в библиотеке используются:
 
-- [react-testing-library](https://github.com/testing-library/react-testing-library)
-- [jest](https://jestjs.io/)
-- [jest-dom](https://github.com/testing-library/jest-dom)
+-   [react-testing-library](https://github.com/testing-library/react-testing-library)
+-   [jest](https://jestjs.io/)
+-   [jest-dom](https://github.com/testing-library/jest-dom)
 
 ## Полезные ссылки
 
-- [Серия видео про unit-тесты от mpj](https://www.youtube.com/playlist?list=PL0zVEGEvSaeF_zoW9o66wa_UCNE3a7BEr)
-- [Примеры документаций React-компонентов](https://react-testing-examples.com)
-- [Туториал по тестированию React-компонентов](https://blog.bitsrc.io/testing-react-applications-with-react-testing-library-da66aaef740a)
-- [Гайд по Unit-тестированию в JS](https://github.com/mawrkus/js-unit-testing-guide)
+-   [Серия видео про unit-тесты от mpj](https://www.youtube.com/playlist?list=PL0zVEGEvSaeF_zoW9o66wa_UCNE3a7BEr)
+-   [Примеры документаций React-компонентов](https://react-testing-examples.com)
+-   [Туториал по тестированию React-компонентов](https://blog.bitsrc.io/testing-react-applications-with-react-testing-library-da66aaef740a)
+-   [Гайд по Unit-тестированию в JS](https://github.com/mawrkus/js-unit-testing-guide)

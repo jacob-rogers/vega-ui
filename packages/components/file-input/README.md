@@ -6,9 +6,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-file-input
-```
+    yarn add @gpn-prototypes/vega-file-input
 
 ### Примеры использования
 

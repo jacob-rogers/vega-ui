@@ -4,9 +4,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-animation
-```
+    yarn add @gpn-prototypes/vega-animation
 
 ## Набор анимаций
 

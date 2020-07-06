@@ -4,9 +4,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-theme
-```
+    yarn add @gpn-prototypes/vega-theme
 
 ### Примеры использования
 

@@ -12,9 +12,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-sidebar
-```
+    yarn add @gpn-prototypes/vega-sidebar
 
 ### Примеры использования
 

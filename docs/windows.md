@@ -14,14 +14,12 @@
 
 Эту оболочку можно интегрировать в [Windows Terminal](https://github.com/microsoft/terminal). Для этого внесите в настройки терминала:
 
-```
-{
-  "commandline" : "%Путь до Git for Windows%\\Git\\bin\\bash.exe",
-  "icon" : "%Путь до Git for Windows%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-  "name" : "Git Bash",
-  "startingDirectory" : "%HOMEDRIVE%%HOMEPATH%"
-}
-```
+    {
+      "commandline" : "%Путь до Git for Windows%\\Git\\bin\\bash.exe",
+      "icon" : "%Путь до Git for Windows%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+      "name" : "Git Bash",
+      "startingDirectory" : "%HOMEDRIVE%%HOMEPATH%"
+    }
 
 Так же можно использовать эмулятор консоли [Cmder](https://cmder.net/) c git for windows. Он позволяет запускать разные оболочки, в том числе bash, вкладки, деление экрана. [Статья по настройке](https://isqua.ru/blog/2016/11/05/nastroika-tierminala-cmder-v-windows/)
 
@@ -29,8 +27,8 @@
 
 После установки Git нужно ввести свои имя и адрес электронной почты. Для этого выполните в терминале следующие команды:
 
-- `git config --global user.name` "ваше имя"
-- `git config --global user.email` "ваш email адрес"
+-   `git config --global user.name` "ваше имя"
+-   `git config --global user.email` "ваш email адрес"
 
 Обратите внимание, что в командах, указанных выше, есть опция `--global`. Это значит, что такие данные будут сохранены для всех ваших действий в Git и вводить их больше не надо. Если вы используете разную информацию о себе для разных проектов, то в директории проекта выполните эти команды без опции `--global`.
 

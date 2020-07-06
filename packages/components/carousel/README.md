@@ -6,9 +6,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-carousel
-```
+    yarn add @gpn-prototypes/vega-carousel
 
 ### Пример использования
 
