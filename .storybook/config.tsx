@@ -22,7 +22,7 @@ const themes = [
     color: '#22272b',
   },
   {
-    name: 'display',
+    name: 'display ',
     color: '#002033',
   },
 ];
