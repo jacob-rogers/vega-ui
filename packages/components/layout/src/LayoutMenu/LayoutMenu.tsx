@@ -7,7 +7,7 @@ import { LayoutDropdown } from '../LayoutDropdown';
 
 import { LayoutMenuList, LayoutMenuListProps } from './LayoutMenuList';
 
-type LayoutMenuProps = LayoutMenuListProps;
+export type LayoutMenuProps = LayoutMenuListProps;
 
 export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
   const { activeValue, items, onChange } = props;
