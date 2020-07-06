@@ -1,10 +1,7 @@
-:root {
+.VegaLayout {
   --layout-resizer-size: 2px;
   --layout-z-resizer: 1;
   --layout-z-header: calc(var(--layout-z-resizer) + 1);
-}
-
-.VegaLayout {
   position: relative;
 
   display: grid;
