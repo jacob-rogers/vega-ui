@@ -1,10 +1,11 @@
-import React, { createContext, Dispatch, useContext, useReducer, useRef } from 'react';
-
-type Portal = { id: string };
-
-type State = {
-  portals: Portal[];
-};
+import React, {
+  createContext,
+  MutableRefObject,
+  RefObject,
+  useContext,
+  useRef,
+  useState,
+} from 'react';
 
 type DivProps = JSX.IntrinsicElements['div'];
 
@@ -13,74 +14,35 @@ export type PortalParams = {
   id: string;
 } & DivProps;
 
-type ActionReducer =
-  | { type: 'add'; params: PortalParams }
-  | { type: 'remove'; params: { id: string } };
-
-const initialState: State = {
-  portals: [],
-};
-
-function portalsReducer(state: State, action: ActionReducer): State {
-  const { type } = action;
-  const { id } = action.params;
-
-  if (type === 'add') {
-    if (state.portals.find((p) => p.id === id)) {
-      return state;
-    }
-
-    return {
-      ...state,
-      portals: [...state.portals, { ...action.params }],
-    };
-  }
-
-  if (type === 'remove') {
-    return {
-      ...state,
-      portals: state.portals.filter((p) => p.id !== id),
-    };
-  }
-
-  return state;
-}
+type Portal = {
+  ref: string | ((instance: HTMLDivElement | null) => void) | RefObject<HTMLDivElement> | null;
+} & PortalParams;
 
 type PortalContextProps = {
-  portalsState: State;
-  updatePortals: Dispatch<ActionReducer>;
+  portals: MutableRefObject<(HTMLDivElement | null)[]>;
 };
 
 const PortalsContext = createContext<PortalContextProps>({
-  portalsState: initialState,
-  updatePortals: () => {},
+  portals: { current: [] },
 });
 
 export const usePortals = (): PortalContextProps => useContext(PortalsContext);
 
-export const usePortal = (id: string): HTMLElement | null => {
-  const ref = useRef<HTMLElement | null>(null);
-  ref.current = document.getElementById(id);
-  return ref.current;
-};
-
 type PortalsRootProps = {
-  initialPortals?: PortalParams[];
   children: React.ReactNode;
+  portalParams?: PortalParams[];
 };
 
 export const PortalsRoot: React.FC<PortalsRootProps> = (props) => {
-  const { initialPortals = [], children } = props;
+  const { children, portalParams = [] } = props;
 
-  const [portalsState, updatePortals] = useReducer(portalsReducer, {
-    portals: [...initialPortals],
-  });
+  const refs = useRef<(HTMLDivElement | null)[]>([]);
 
   return (
-    <PortalsContext.Provider value={{ portalsState, updatePortals }}>
+    <PortalsContext.Provider value={{ portals: refs }}>
       {children}
-      {portalsState.portals.map(({ id, ...rest }: PortalParams) => (
-        <div {...rest} key={id} id={id} />
+      {portalParams.map(({ id, ...rest }) => (
+        <div {...rest} key={id} ref={(ref): number => refs.current.push(ref)} />
       ))}
     </PortalsContext.Provider>
   );

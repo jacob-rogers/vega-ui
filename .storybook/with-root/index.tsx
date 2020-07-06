@@ -13,7 +13,7 @@ export const VegaRootDecorator: React.FC<VegaThemeDecoratorProps> = (props) => {
   const { children, themeName } = props;
 
   return (
-    <Root rootId="root" initialPortals={[{ id: 'modalRoot' }]} defaultTheme={themeName}>
+    <Root portalParams={[{ id: 'modalRoot' }]} defaultTheme={themeName}>
       {children}
     </Root>
   );
