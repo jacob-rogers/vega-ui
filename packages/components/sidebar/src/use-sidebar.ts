@@ -24,6 +24,12 @@ type SidebarAPI = {
   minimize: () => void;
 };
 
+class UnreachableCaseError extends Error {
+  constructor(val: never) {
+    super(`Unreachable case: ${val}`);
+  }
+}
+
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case ActionType.open:
@@ -35,7 +41,7 @@ function reducer(state: State, action: Action): State {
     case ActionType.minimize:
       return { ...state, isMinimized: true };
     default:
-      throw new Error(`Unknown action type: ${action.type}`);
+      throw new UnreachableCaseError(action.type);
   }
 }
 
