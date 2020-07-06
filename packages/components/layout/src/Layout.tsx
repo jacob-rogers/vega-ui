@@ -1,9 +1,6 @@
 import React from 'react';
-import { useMount } from '@gpn-prototypes/vega-hooks';
-import { usePortals } from '@gpn-prototypes/vega-root';
 
 import { cnLayout } from './cn-layout';
-import { PORTAL_LAYOUT_ID } from './constants';
 import { LayoutBody } from './LayoutBody';
 import { LayoutHeader } from './LayoutHeader';
 import { LayoutOptions } from './LayoutOptions';
@@ -32,14 +29,6 @@ const getChildTypeName = (el: any): string => el.type.name;
 export const Layout: LayoutComponent<LayoutProps> = (props) => {
   const { className, splitDirection = 'vertical', sizes = [50, 50], ...rest } = props;
   const gridsSizes = `${sizes[0]}% ${sizes[1]}%`;
-  const { updatePortals } = usePortals();
-
-  const isMounted = useMount(() => {
-    updatePortals({
-      type: 'add',
-      params: { id: PORTAL_LAYOUT_ID },
-    });
-  });
 
   const style = {
     gridTemplateColumns: splitDirection === 'vertical' ? gridsSizes : undefined,
@@ -56,11 +45,11 @@ export const Layout: LayoutComponent<LayoutProps> = (props) => {
       : child;
   });
 
-  return isMounted ? (
+  return (
     <div className={cnLayout.mix(className)} style={style} {...rest}>
       {children}
     </div>
-  ) : null;
+  );
 };
 
 Layout.Header = LayoutHeader;
