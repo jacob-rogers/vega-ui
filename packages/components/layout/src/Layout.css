@@ -64,7 +64,13 @@
     z-index: var(--layout-z-portal);
   }
 
+ &__MenuWrapper {
+    z-index: var(--layout-z-portal);
+  }
+
   &__MenuTrigger {
+    max-width: unset;
+
     > .Icon {
       transition: transform 0.1s ease;
     }
@@ -207,7 +213,6 @@
   from {
     box-shadow: 0 0 0 0 var(--color-control-bg-focus), 0 0 0 0 var(--color-control-bg-active);
   }
-
 
   to {
     box-shadow: 0 0 0 3px var(--color-control-bg-focus), 0 0 0 6px transparent;
