@@ -109,7 +109,7 @@ stories.add('вложенные окошки', () => {
           <Layout.Window>
             <Layout splitDirection="horizontal" sizes={[55, 45]}>
               <Layout.Window>
-                <LayoutHeaderExample />
+                <LayoutHeaderExample {...useLayoutMenu()} />
                 <Layout.Body>
                   <Box style={{ width: 300, height: 550 }} />
                 </Layout.Body>
@@ -118,14 +118,14 @@ stories.add('вложенные окошки', () => {
               <Layout.Window>
                 <Layout splitDirection="horizontal" sizes={[55, 45]}>
                   <Layout.Window>
-                    <LayoutHeaderExample />
+                    <LayoutHeaderExample {...useLayoutMenu()} />
                     <Layout.Body>
                       <Box style={{ width: 300, height: 550 }} />
                     </Layout.Body>
                   </Layout.Window>
 
                   <Layout.Window>
-                    <LayoutHeaderExample />
+                    <LayoutHeaderExample {...useLayoutMenu()} />
                     <Layout.Body />
                   </Layout.Window>
                 </Layout>
@@ -140,7 +140,7 @@ stories.add('вложенные окошки', () => {
           <Layout.Window>
             <Layout splitDirection="horizontal" sizes={[55, 45]}>
               <Layout.Window>
-                <LayoutHeaderExample />
+                <LayoutHeaderExample {...useLayoutMenu()} />
                 <Layout.Body>
                   <Box style={{ width: 300, height: 550 }} />
                 </Layout.Body>
@@ -149,14 +149,14 @@ stories.add('вложенные окошки', () => {
               <Layout.Window>
                 <Layout sizes={[55, 45]}>
                   <Layout.Window>
-                    <LayoutHeaderExample />
+                    <LayoutHeaderExample {...useLayoutMenu()} />
                     <Layout.Body>
                       <Box style={{ width: 300, height: 550 }} />
                     </Layout.Body>
                   </Layout.Window>
 
                   <Layout.Window>
-                    <LayoutHeaderExample />
+                    <LayoutHeaderExample {...useLayoutMenu()} />
                     <Layout.Body />
                   </Layout.Window>
                 </Layout>
