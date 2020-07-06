@@ -38,6 +38,25 @@
       width: 2px;
       height: 2px;
     }
+
+    &:focus,
+    &:focus:hover {
+      outline: none;
+      box-shadow: 0 0 0 3px var(--color-control-bg-focus);
+
+      animation: buttonFocusAnimation 0.5s ease-in;
+    }
+
+    .Button:focus,
+    .Button:focus:hover {
+      box-shadow: inset 0 0 0 2px var(--color-control-bg-focus);
+
+      animation: none;
+    }
+
+    .Button_size_xs {
+      height: calc(var(--control-height-xs) - 2px);
+    }
   }
 
   &__Resizer {
@@ -132,5 +151,15 @@
     box-sizing: border-box;
 
     height: 100%;
+  }
+}
+
+@keyframes buttonFocusAnimation {
+  from {
+    box-shadow: 0 0 0 0 var(--color-control-bg-focus), 0 0 0 0 var(--color-control-bg-active);
+  }
+
+  to {
+    box-shadow: 0 0 0 3px var(--color-control-bg-focus), 0 0 0 6px transparent;
   }
 }
