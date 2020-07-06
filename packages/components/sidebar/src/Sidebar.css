@@ -21,8 +21,6 @@
   }
 
   &_minimized {
-    bottom: 64px;
-
     width: 300px;
     height: auto;
 
@@ -52,12 +50,16 @@
     flex: none;
 
     &-title {
-      flex: auto;
+      overflow: hidden;
 
       font-size: var(--size-text-xs);
       line-height: var(--line-height-text-s);
 
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
       color: var(--color-typo-primary);
+      flex: auto;
     }
 
     &-buttons {
@@ -138,5 +140,24 @@
   &_align_right.is-exit-active {
     transition: transform 300ms ease;
     transform: translateX(100%);
+  }
+
+  /* Right Minimized */
+  &_minimized&_align_right.is-enter {
+    transform: translateY(100%);
+  }
+
+  &_minimized&_align_right.is-enter-active {
+    transition: transform 300ms ease;
+    transform: translateY(0);
+  }
+
+  &_minimized&_align_right.is-exit {
+    transform: translateY(0);
+  }
+
+  &_minimized&_align_right.is-exit-active {
+    transition: transform 300ms ease;
+    transform: translateY(100%);
   }
 }

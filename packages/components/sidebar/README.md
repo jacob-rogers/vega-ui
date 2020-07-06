@@ -35,19 +35,20 @@ export const MyComponent = () => {
 
   return (
     <>
-      <Sidebar isOpen={isOpen} isMinimized={isMinimized}>
+      <Sidebar
+        isOpen={isOpen}
+        isMinimized={isMinimized}
+        onMinimize={handleMinimize}
+        onClose={handleClose}
+      >
         {isMinimized ? (
           <>
-            <Sidebar.Header hasMinimizeButton={false} onClose={handleClose}>
-              // ...
-            </Sidebar.Header>
+            <Sidebar.Header hasMinimizeButton={false}>// ...</Sidebar.Header>
             <Sidebar.Body>// ...</Sidebar.Body>
           </>
         ) : (
           <>
-            <Sidebar.Header onMinimize={handleMinimize} onClose={handleClose}>
-              // ...
-            </Sidebar.Header>
+            <Sidebar.Header>// ...</Sidebar.Header>
             <Sidebar.Body>// ...</Sidebar.Body>
             <Sidebar.Footer>// ...</Sidebar.Footer>
           </>
@@ -68,6 +69,8 @@ type SidebarProps = {
   hasOverlay?: boolean;
   onOverlayClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent) => void;
   portalContainerSelector?: string;
+  onMinimize?: (event: React.MouseEvent) => void;
+  onClose?: (event: React.MouseEvent) => void;
   className?: string;
 };
 ```
@@ -75,8 +78,6 @@ type SidebarProps = {
 ```ts
 type SidebarHeaderProps = {
   hasMinimizeButton?: boolean;
-  onMinimize?: (event: React.MouseEvent) => void;
-  onClose?: (event: React.MouseEvent) => void;
   className?: string;
 };
 ```

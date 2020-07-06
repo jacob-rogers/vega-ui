@@ -17,6 +17,7 @@ jest.mock('react-transition-group', () => {
   return {
     Transition: FakeTransition,
     CSSTransition: FakeCSSTransition,
+    SwitchTransition: FakeTransition,
     TransitionGroup: FakeTransitionGroup,
   };
 });

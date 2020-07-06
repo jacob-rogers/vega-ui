@@ -39,7 +39,7 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-export function useSidebar(initialState = { isOpen: true, isMinimized: false }): SidebarAPI {
+export function useSidebar(initialState = { isOpen: false, isMinimized: false }): SidebarAPI {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const callbacks = useMemo(

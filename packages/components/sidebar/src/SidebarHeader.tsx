@@ -3,24 +3,23 @@ import { Button } from '@gpn-prototypes/vega-button';
 import { IconClose, IconRemove } from '@gpn-prototypes/vega-icons';
 
 import { cnSidebar } from './cn-sidebar';
+import { useSidebarContext } from './use-sidebar-context';
 
 import './Sidebar.css';
 
 export type SidebarHeaderProps = {
   hasMinimizeButton?: boolean;
-  onMinimize?: (event: React.MouseEvent) => void;
-  onClose?: (event: React.MouseEvent) => void;
   className?: string;
 };
 
 export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
   hasMinimizeButton = true,
-  onMinimize,
-  onClose,
   className,
   children,
   ...rest
 }) => {
+  const { onMinimize, onClose } = useSidebarContext();
+
   const handleMinimize = (event: React.MouseEvent): void => {
     if (onMinimize) {
       onMinimize(event);
@@ -45,6 +44,8 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
             aria-label="Свернуть"
             size="xs"
             view="clear"
+            form="brick"
+            onlyIcon
             iconRight={IconRemove}
             onClick={handleMinimize}
           />
@@ -54,6 +55,8 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           aria-label="Закрыть"
           size="xs"
           view="clear"
+          form="brick"
+          onlyIcon
           iconRight={IconClose}
           onClick={handleClose}
         />

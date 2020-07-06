@@ -86,22 +86,20 @@ storiesOf('ui/Sidebar', module)
           isOpen={isOpen}
           isMinimized={isMinimized}
           onOverlayClick={handleClose}
+          onMinimize={handleMinimize}
+          onClose={handleClose}
           {...restKnobs}
         >
           {isMinimized ? (
             <>
-              <Sidebar.Header hasMinimizeButton={false} onClose={handleClose}>
-                Загрузка файлов
-              </Sidebar.Header>
+              <Sidebar.Header hasMinimizeButton={false}>Загрузка файлов</Sidebar.Header>
               <Sidebar.Body>
                 <Block height="auto">Блок 1</Block>
               </Sidebar.Body>
             </>
           ) : (
             <>
-              <Sidebar.Header onMinimize={handleMinimize} onClose={handleClose}>
-                Загрузка файлов
-              </Sidebar.Header>
+              <Sidebar.Header>Загрузка файлов</Sidebar.Header>
               <Sidebar.Body>
                 <Block height={blockHeight}>Блок 1</Block>
                 <Block height={blockHeight}>Блок 2</Block>

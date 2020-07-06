@@ -1,12 +1,13 @@
 import React from 'react';
 import { createPortal } from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
+import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import { useKey, usePortalDomNode } from '@gpn-prototypes/vega-hooks';
 
 import { cnSidebar } from './cn-sidebar';
 import { SidebarBody } from './SidebarBody';
 import { SidebarFooter } from './SidebarFooter';
 import { SidebarHeader } from './SidebarHeader';
+import { SidebarContext } from './use-sidebar-context';
 
 import './Sidebar.css';
 
@@ -17,6 +18,8 @@ export type SidebarProps = {
   hasOverlay?: boolean;
   onOverlayClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent) => void;
   portalContainerSelector?: string;
+  onMinimize?: (event: React.MouseEvent) => void;
+  onClose?: (event: React.MouseEvent) => void;
   className?: string;
 };
 
@@ -40,6 +43,8 @@ export const Sidebar: Sidebar<SidebarProps> = ({
   hasOverlay = true,
   onOverlayClick,
   portalContainerSelector,
+  onMinimize,
+  onClose,
   className,
   children,
   ...rest
@@ -56,33 +61,41 @@ export const Sidebar: Sidebar<SidebarProps> = ({
 
   useKey('Escape', handleOverlayClick);
 
+  const cssTransitionProps = {
+    timeout: 300,
+    mountOnEnter: true,
+    unmountOnExit: true,
+    classNames: cssTransitionClasses,
+  };
+
   const Content = (
     <>
-      <CSSTransition
-        in={isOpen}
-        timeout={300}
-        mountOnEnter
-        unmountOnExit
-        classNames={cssTransitionClasses}
-      >
-        <aside
-          aria-label="Сайдбар"
-          className={cnSidebar({
-            /* В свернутом состоянии окно находится всегда с правой стороны - требование дизайнера */
-            align: isMinimized ? 'right' : align,
-            minimized: isMinimized,
-          }).mix(className)}
-          {...rest}
-        >
-          {children}
-        </aside>
+      <CSSTransition in={isOpen} {...cssTransitionProps}>
+        <SwitchTransition mode="out-in">
+          <CSSTransition key={String(isMinimized)} {...cssTransitionProps}>
+            <SidebarContext.Provider value={{ onMinimize, onClose }}>
+              <aside
+                aria-label="Сайдбар"
+                className={cnSidebar({
+                  /* В свернутом состоянии окно находится всегда с правой стороны - требование дизайнера */
+                  align: isMinimized ? 'right' : align,
+                  minimized: isMinimized,
+                }).mix(className)}
+                {...rest}
+              >
+                {children}
+              </aside>
+            </SidebarContext.Provider>
+          </CSSTransition>
+        </SwitchTransition>
       </CSSTransition>
       {showOverlay && (
+        // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
         <div
           tabIndex={-1}
           aria-label="Оверлей"
-          onClick={handleOverlayClick}
           className={cnSidebar('Overlay')}
+          onClick={handleOverlayClick}
         />
       )}
     </>
