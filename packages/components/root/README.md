@@ -18,7 +18,7 @@ import { Root as VegaRoot } from '@gpn-prototypes/vega-root';
 
 export const App = () => {
   return (
-    <VegaRoot rootId="id" initialPortals={[{ id: 'modalRoot' }]} defaultTheme="default">
+    <VegaRoot initialPortals={[{ id: 'modalRoot' }]} defaultTheme="default">
       {/* код приложения */}
     </VegaRoot>
   );
@@ -45,32 +45,21 @@ type RootProps = {
 
 Возвращает `ts { rootId: string }`.
 
-### API usePortal
-
-Принимает на вход id портала и возвращает контейнер.
-
 ### API usePortals
 
-Возвращает текущие портала и метод для его изменения.
+Возвращает текущие порталы и метод для его изменения.
 
 Пример использования:
 
 ```tsx
-import { usePortal } from '@gpn-prototypes/vega-root';
+import { usePortals } from '@gpn-prototypes/vega-root';
 import { Modal } from './Modal';
 
 const MyComponent = () => {
-  const portal = usePortal('portalId');
+  const { portals } = usePortals();
 
-  return <Modal portalID={portal.id}>{/* some code */}</Modal>;
+  return <Modal portalID={portal.current[0].id}>{/* some code */}</Modal>;
 };
-```
-
-```ts
-type PortalsAPI = {
-  portalsState: { portals: PortalParams[] }; // состояние порталов
-  updatePortals: ({ type: 'add' | 'remove', params: PortalParams }) => void; // метод для обновления порталов
-}
 ```
 
 ### API useTheme
