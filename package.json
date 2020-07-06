@@ -29,9 +29,10 @@
     "lint:ts:fix": "eslint --ext=.ts,.tsx . --fix",
     "lint:css": "stylelint ./packages ./.storybook",
     "lint:css:fix": "stylelint ./packages ./.storybook --fix",
-    "lint:md": "remark . -o",
+    "lint:md": "remark . --frail",
+    "lint:md:fix": "remark . -o",
     "lint": "yarn run lint:ts && yarn run lint:css && yarn run lint:md",
-    "lint:fix": "yarn run lint:ts:fix && yarn run lint:css:fix && yarn run lint:md",
+    "lint:fix": "yarn run lint:ts:fix && yarn run lint:css:fix && yarn run lint:md:fix",
     "nc": "hygen component new",
     "size": "yarn build && size-limit"
   },
