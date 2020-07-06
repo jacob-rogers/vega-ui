@@ -45,20 +45,20 @@ type RootProps = {
 
 Возвращает `ts { rootId: string }`.
 
-### API usePortals
+### API usePortal
 
-Возвращает текущие порталы и метод для его изменения.
+Возвращает корневой портал
 
 Пример использования:
 
 ```tsx
-import { usePortals } from '@gpn-prototypes/vega-root';
+import { usePortal } from '@gpn-prototypes/vega-root';
 import { Modal } from './Modal';
 
 const MyComponent = () => {
-  const { portals } = usePortals();
+  const portal = usePortal();
 
-  return <Modal portalID={portal.current[0].id}>{/* some code */}</Modal>;
+  return <Modal portalID={portal.current.id}>{/* some code */}</Modal>;
 };
 ```
 

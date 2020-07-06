@@ -47,3 +47,5 @@ export const ThemeRoot: React.FC<ThemeProps> = (props) => {
     </ThemeContext.Provider>
   );
 };
+
+export { Theme, getThemeByName };
