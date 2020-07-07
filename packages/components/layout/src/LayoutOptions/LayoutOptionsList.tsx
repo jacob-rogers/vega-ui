@@ -37,6 +37,7 @@ const LayoutOptionItem: React.FC<{ option: LayoutOption }> = ({ option }) => {
           aria-label={option.title}
           onClick={(): void => onLayoutChange(option.action)}
           view="clear"
+          form="brick"
           size="m"
           iconSize="s"
           iconLeft={option.icon}

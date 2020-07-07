@@ -10,13 +10,13 @@ export type MenuItem = {
 };
 
 export type LayoutMenuListProps = {
-  activeValue: string;
+  activeValue?: string;
   items: MenuItem[];
   onChange: (value: string) => void;
 };
 
 export const LayoutMenuList: React.FC<LayoutMenuListProps> = (props) => {
-  const { activeValue, items, onChange } = props;
+  const { activeValue = '', items, onChange } = props;
 
   const cn = cnLayout('List');
 
@@ -30,6 +30,7 @@ export const LayoutMenuList: React.FC<LayoutMenuListProps> = (props) => {
               aria-label={item.label}
               onClick={(): void => onChange(item.value)}
               size="m"
+              form="brick"
               view="clear"
               className={cnLayout('Option').mix(itemProps.className).toString()}
             />
