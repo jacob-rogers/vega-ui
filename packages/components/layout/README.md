@@ -53,6 +53,32 @@
 
 Тело окна, где располагается контентная часть. Обертка, принимает любой контент.
 
+### Layout.Options
+
+Компонент рендерит список опций для взаимодействия с Layout.
+
+<img src="docs/pic-3.png" height="200">
+
+```ts
+type Props = {
+  onLayoutChange: (action: 'left' | 'right' | 'top' | 'bottom') => void; // метод, который вызовется по клику на одну из опций
+};
+```
+
+#### Layout.Menu
+
+Компонент, который рендерит меню для взаимодействие с Layout.
+
+<img src="docs/pic-4.png" height="200">
+
+```ts
+type Props = {
+  activeValue?: string; // текущее активное значение в меню
+  items: { value: string; label: string }[]; // массив элементов меню
+  onChange: (value: string) => void; // метод, который вызывается по клику на элемент меню
+};
+```
+
 ### Установка
 
 ```
@@ -64,11 +90,22 @@ yarn add @gpn-prototypes/vega-layout
 #### Пустой лейаут
 
 ```jsx
+import { useState } from 'react';
 import { Layout } from '@gpn-prototypes/vega-layout';
 
-export const MyLayout = () => {
+const items = [
+  { value: 'value1', label: 'label1' },
+  { value: 'value2', label: 'label2' },
+];
 
-  const handleLayoutChange = (action) => {
+export const MyLayout = () => {
+  const [activeValue, setActiveValue] = useState(items[0].value);
+
+  const handleMenuChange = value => {
+    setActiveValue(value);
+  };
+
+  const handleLayoutChange = action => {
     console.log(action);
   };
 
@@ -76,7 +113,8 @@ export const MyLayout = () => {
     <Layout>
       <Layout.Window>
         <Layout.Header>
-          <Layout.Options onLayoutChange={handleLayoutChange}>
+          <Layout.Menu activeValue={activeValue} onChange={handleMenuChange} items={items} />
+          <Layout.Options onLayoutChange={handleLayoutChange} />
         </Layout.Header>
         <Layout.Body />
       </Layout.Window>
@@ -156,13 +194,4 @@ type LayoutProps = {
   rows?: [number, number]; — размеры строк в %
   columns?: [number, number]; — размеры колонок в %
 };
-```
-
-### Layout.Options
-
-Компонент рендерит список опций для взаимодействия с Layout.
-
-<img src="docs/pic-3.png" height="50">
-
-```ts
 ```
