@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 import { Dropdown } from '@gpn-prototypes/vega-dropdown';
 import { IconKebab } from '@gpn-prototypes/vega-icons';
-import { usePortals } from '@gpn-prototypes/vega-root';
+import { usePortal } from '@gpn-prototypes/vega-root';
 
 import { cnLayout } from '../cn-layout';
 
@@ -13,9 +13,9 @@ export type LayoutOptionsProps = React.ComponentProps<typeof LayoutOptionsList>;
 export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
 
-  const { onLayoutChange } = props;
+  const portal = usePortal();
 
-  const { portals } = usePortals();
+  const { onLayoutChange } = props;
 
   const closeDropdown = (): void => {
     if (isOpen) {
@@ -26,7 +26,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
   return (
     <Dropdown
       placement="bottom-end"
-      portalId={portals.current[0]?.id}
+      portalId={portal.current?.default?.id}
       isOpen={isOpen}
       onClickOutside={closeDropdown}
       onToggle={(nextState): void => {
