@@ -21,7 +21,7 @@ describe('Layout', () => {
 
   test('корректно определяются resizeDirection у Layout.Window', () => {
     render(
-      <Layout columns={[60, 40]}>
+      <Layout sizes={[60, 40]}>
         <Layout.Window />
       </Layout>,
     );
