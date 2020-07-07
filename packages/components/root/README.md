@@ -62,7 +62,7 @@ import { Modal } from './Modal';
 const MyComponent = () => {
   const portal = usePortal();
 
-  return <Modal portalID={portal.current.default.id}>{/* some code */}</Modal>;
+  return <Modal portalID={portal.id}>{/* some code */}</Modal>;
 };
 ```
 

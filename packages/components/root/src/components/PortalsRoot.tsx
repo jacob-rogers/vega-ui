@@ -3,7 +3,9 @@ import { createPortal } from 'react-dom';
 
 import { getThemeByName, Theme, useTheme } from './ThemeRoot';
 
-export type PortalRef = RefObject<{ default: HTMLDivElement | null }>;
+type PortalNames = 'default';
+
+export type PortalRef = RefObject<Record<PortalNames, HTMLDivElement | null>>;
 
 type DivProps = JSX.IntrinsicElements['div'];
 
@@ -17,7 +19,15 @@ type PortalContextProps = PortalRef;
 
 export const PortalsContext = createContext<PortalContextProps>({ current: null });
 
-export const usePortal = (): PortalContextProps => useContext(PortalsContext);
+export const usePortal = (name: PortalNames = 'default'): HTMLDivElement | null => {
+  const portals = useContext(PortalsContext);
+
+  if (portals.current !== null && name in portals.current) {
+    return portals.current[name];
+  }
+
+  return null;
+};
 
 export const PortalsRoot: React.FC<PortalParams> = (props) => {
   const { id, innerRef, ...rest } = props;
