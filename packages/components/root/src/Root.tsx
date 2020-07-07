@@ -1,6 +1,14 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
-import { PortalsRoot, ThemeName, ThemeRoot, usePortal, useTheme } from './components';
+import {
+  PortalRef,
+  PortalsContext,
+  PortalsRoot,
+  ThemeName,
+  ThemeRoot,
+  usePortal,
+  useTheme,
+} from './components';
 
 export type RootProps = {
   defaultTheme?: ThemeName;
@@ -9,10 +17,13 @@ export type RootProps = {
 
 const Root: React.FC<RootProps> = (props) => {
   const { defaultTheme, children } = props;
+
+  const ref: PortalRef = useRef({ default: null });
+
   return (
     <ThemeRoot themeName={defaultTheme}>
-      <PortalsRoot id="portalRoot" />
-      {children}
+      <PortalsRoot innerRef={ref} id="portalRoot" />
+      <PortalsContext.Provider value={ref}>{children}</PortalsContext.Provider>
     </ThemeRoot>
   );
 };

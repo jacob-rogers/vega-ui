@@ -47,7 +47,11 @@ type RootProps = {
 
 ### API usePortal
 
-Возвращает корневой портал
+Возвращает реф с порталами.
+
+На данный момент доступен только default портал, который создается для проекта по умолчанию.
+
+В разработке находится создание многоуровневых порталов.
 
 Пример использования:
 
@@ -58,7 +62,7 @@ import { Modal } from './Modal';
 const MyComponent = () => {
   const portal = usePortal();
 
-  return <Modal portalID={portal.current.id}>{/* some code */}</Modal>;
+  return <Modal portalID={portal.current.default.id}>{/* some code */}</Modal>;
 };
 ```
 

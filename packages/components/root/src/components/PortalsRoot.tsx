@@ -1,33 +1,38 @@
-import React, { createContext, MutableRefObject, useContext, useRef } from 'react';
+import React, { createContext, RefObject, useContext } from 'react';
 import { createPortal } from 'react-dom';
 
 import { getThemeByName, Theme, useTheme } from './ThemeRoot';
+
+export type PortalRef = RefObject<{ default: HTMLDivElement | null }>;
 
 type DivProps = JSX.IntrinsicElements['div'];
 
 export type PortalParams = {
   className?: string;
   id: string;
+  innerRef: PortalRef;
 } & DivProps;
 
-type PortalContextProps = MutableRefObject<HTMLDivElement | null>;
+type PortalContextProps = PortalRef;
 
-const PortalsContext = createContext<PortalContextProps>({ current: null });
+export const PortalsContext = createContext<PortalContextProps>({ current: null });
 
 export const usePortal = (): PortalContextProps => useContext(PortalsContext);
 
 export const PortalsRoot: React.FC<PortalParams> = (props) => {
-  const { id, ...rest } = props;
+  const { id, innerRef, ...rest } = props;
 
   const { theme } = useTheme();
 
-  const ref = useRef<HTMLDivElement | null>(null);
+  const setRef = (el: HTMLDivElement | null): void => {
+    if (el !== null && innerRef.current) {
+      innerRef.current.default = el;
+    }
+  };
 
   const content = (
     <Theme preset={getThemeByName(theme)}>
-      <PortalsContext.Provider value={ref}>
-        <div {...rest} id={id} />
-      </PortalsContext.Provider>
+      <div {...rest} ref={setRef} id={id} />
     </Theme>
   );
 
