@@ -52,7 +52,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
       </Dropdown.Trigger>
       <Dropdown.Menu>
         {({ props: menuProps }): React.ReactNode => (
-          <div className={cnLayout('Menu')} {...menuProps}>
+          <div aria-label="Меню с опциями для Layout" className={cnLayout('Menu')} {...menuProps}>
             <LayoutOptionsList
               onLayoutChange={(action): void => {
                 onLayoutChange(action);

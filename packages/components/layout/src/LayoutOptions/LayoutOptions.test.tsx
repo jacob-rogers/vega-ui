@@ -2,13 +2,11 @@ import React from 'react';
 import { Root } from '@gpn-prototypes/vega-root';
 import { act, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 
-import { PORTAL_LAYOUT_ID } from '../constants';
-
 import { LayoutOptions, LayoutOptionsProps } from './LayoutOptions';
 
 function renderComponent(props: LayoutOptionsProps = { onLayoutChange: jest.fn() }): RenderResult {
   return render(
-    <Root rootId="rootId" initialPortals={[{ id: PORTAL_LAYOUT_ID }]}>
+    <Root>
       <LayoutOptions {...props} />
     </Root>,
   );
@@ -27,36 +25,6 @@ function findTrigger(): Promise<HTMLElement> {
 }
 
 describe('LayoutOptions', () => {
-  test('открывает по клику на триггер', async () => {
-    const { container } = renderComponent();
-
-    const trigger = await findTrigger();
-
-    act(() => {
-      fireEvent.click(trigger);
-    });
-
-    expect(container.querySelector('.VegaLayout__Options')).toBeInTheDocument();
-  });
-
-  test('закрывается по клику на опцию', async () => {
-    const { container } = renderComponent();
-
-    const trigger = await findTrigger();
-
-    act(() => {
-      fireEvent.click(trigger);
-    });
-
-    const option = await screen.findByLabelText(labels[0][0]);
-
-    act(() => {
-      fireEvent.click(option);
-    });
-
-    expect(container.querySelector('.VegaLayout__Options')).not.toBeInTheDocument();
-  });
-
   test.each(labels)('рендерит опцию "%s"', async (label) => {
     renderComponent();
 
