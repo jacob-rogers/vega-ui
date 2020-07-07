@@ -64,10 +64,6 @@
     z-index: var(--layout-z-portal);
   }
 
- &__MenuWrapper {
-    z-index: var(--layout-z-portal);
-  }
-
   &__MenuTrigger {
     max-width: unset;
 
@@ -103,14 +99,16 @@
 
     display: flex;
 
+    font-size: var(--size-text-s);
+
     .Button-Label {
-      font-size: var(--size-text-s);
       text-align: left;
     }
   }
 
   &__Delimiter {
     margin: var(--space-s);
+
     height: var(--control-border-width);
   }
 
