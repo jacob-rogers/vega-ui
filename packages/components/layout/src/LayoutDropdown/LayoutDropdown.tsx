@@ -5,9 +5,9 @@ import {
   DropdownTriggerChildrenProps,
 } from '@gpn-prototypes/vega-dropdown';
 import { useClose } from '@gpn-prototypes/vega-hooks';
+import { usePortal } from '@gpn-prototypes/vega-root';
 
 import { cnLayout } from '../cn-layout';
-import { PORTAL_LAYOUT_ID } from '../constants';
 
 type LayoutDropdownProps = {
   placement: DropdownPlacement;
@@ -20,10 +20,12 @@ export const LayoutDropdown: React.FC<LayoutDropdownProps> = (props) => {
 
   const { isOpen, setIsOpen, close } = useClose();
 
+  const portal = usePortal();
+
   return (
     <Dropdown
       placement={placement}
-      portalId={PORTAL_LAYOUT_ID}
+      portalId={portal.current?.default?.id}
       isOpen={isOpen}
       onClickOutside={close}
       onToggle={setIsOpen}
