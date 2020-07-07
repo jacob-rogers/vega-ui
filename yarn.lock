@@ -1470,10 +1470,10 @@
     react-transition-group "^4.4.1"
     tslib "^1.11.1"
 
-"@gpn-prototypes/frontend-configs@0.1.1":
-  version "0.1.1"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/frontend-configs/0.1.1/e8ec71769f9ac357be8dc828859cd800e728f2710ef1e94e298731536d24c64b#44ee95bc807c442f7833ac9b111fba8cbbdc06e7"
-  integrity sha512-PnP9ufNm7U+0C8XMs11FO9QUrYHZE1UvDBvCKuA5qSjvAa4LOCDrpG3kKeV+rNl7bz1Rt1YlC6TyllodMx3OJA==
+"@gpn-prototypes/frontend-configs@0.1.2":
+  version "0.1.2"
+  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/frontend-configs/0.1.2/b50352ca4645ae762418d1bb777ac72c04e1a059df67d33e9113c0afaeecd7bd#c3150dc623650be52a5f8edcf0bfa6b2b442198e"
+  integrity sha512-y/8M9yZWaruNkuxMPOdSsRmBW7VvU/r5MCsfIza9BF39XmJ3v+r7iaPsn6wuGPAye18HmAnDM685A26y8ajJIw==
   dependencies:
     "@babel/core" "^7.9.0"
     "@babel/plugin-transform-runtime" "^7.10.1"
