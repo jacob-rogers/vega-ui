@@ -13,17 +13,19 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Установка ноды
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2-beta
         with:
-          node-version: '12.x'
           registry-url: 'https://npm.pkg.github.com'
+          node-version: '12.x'
+          scope: '@gpn-prototypes'
 
       - name: Установка зависимостей
         run: yarn install --frozen-lockfile
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: andresz1/size-limit-action@v1.3.2
+      - name: Проверка size limit
+        uses: andresz1/size-limit-action@v1.3.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           skip_step: install
