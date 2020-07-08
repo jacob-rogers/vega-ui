@@ -9,7 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
-
     steps:
       - name: Скачивание репозитория
         uses: actions/checkout@v2
@@ -18,7 +17,6 @@ jobs:
 
       - name: Скачивание всей git-истории (чтобы работал from-git)
         run: git fetch --prune --unshallow
-
 
       - name: Установка ноды
         uses: actions/setup-node@v1
@@ -45,7 +43,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-
       - name: Публикация пакетов в Github-реджистри
         run: |
           yarn lerna publish from-package --yes
@@ -67,7 +64,6 @@ jobs:
           changelog: ${{ steps.changelog.outputs.changelog }}
           token: ${{ secrets.ADMIN_TOKEN }}
           main_package: "@gpn-prototypes/vega-ui"
-
 
       - name: Обновление CHANGELOG.md
         uses: gpn-prototypes/vega-actions/update-changelog@master
