@@ -23,8 +23,11 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Сборка пакетов
+        run: yarn build
+
       - name: Проверка size limit
         uses: andresz1/size-limit-action@v1.3.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          skip_step: install
+          skip_step: build
