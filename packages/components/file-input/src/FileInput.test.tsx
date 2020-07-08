@@ -29,4 +29,16 @@ describe('FileInput', () => {
 
     expect(onChange).toBeCalled();
   });
+
+  test('отрабатывает рендер children', async () => {
+    const { findByLabelText } = render(
+      <FileInput id="test-input" onChange={jest.fn}>
+        <div aria-label="divininput">div</div>
+      </FileInput>,
+    );
+
+    const div = await findByLabelText('divininput');
+
+    expect(div).toBeInTheDocument();
+  });
 });

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 import { IconAttach } from '@gpn-prototypes/vega-icons';
+import { Text } from '@gpn-prototypes/vega-text';
 import { action } from '@storybook/addon-actions';
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
@@ -15,7 +16,7 @@ storiesOf('ui/FileInput', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
   .add('по умолчанию', () => {
-    const buttonProps = {
+    const buttonProps: React.ComponentProps<typeof Button> = {
       iconLeft: IconAttach,
       iconSize: 'xs',
       label: text('title', 'Title'),
@@ -23,6 +24,13 @@ storiesOf('ui/FileInput', module)
     return (
       <FileInput {...defaultKnobs()} accept="image/png" onChange={action('Файлы выбраны')}>
         {(props): React.ReactNode => <Button {...props} {...buttonProps} />}
+      </FileInput>
+    );
+  })
+  .add('без рендер пропа', () => {
+    return (
+      <FileInput {...defaultKnobs()} onChange={action('Файлы выбраны')}>
+        <Text>Нажми на меня</Text>
       </FileInput>
     );
   });
