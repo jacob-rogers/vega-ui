@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.1.1 (2020-07-06)
+
+* VEGA-94: PageFooter должен плавно появляться/скрываться [#58](https://github.com/gpn-prototypes/vega-ui/pull/58)
+  * Измененные пакеты: `components`
+   * Автор PR: [@maksim-kononov-csssr](https://github.com/maksim-kononov-csssr)
+
 ## @gpn-prototypes/vega-ui@2.1.1 (2020-07-03)
 
 * VEGA-94: PageFooter должен плавно появляться/скрываться [#58](https://github.com/gpn-prototypes/vega-ui/pull/58)
