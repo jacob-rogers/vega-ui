@@ -1,8 +1,7 @@
 name: "Size Limit"
 on:
   pull_request:
-    branches:
-      - master
+
 jobs:
   size-limit:
     runs-on: ubuntu-latest
