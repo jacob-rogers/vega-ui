@@ -9,11 +9,11 @@ import { FormRow } from './FormRow';
 
 import './Form.css';
 
-export type FormProps = {
-  className?: string;
-  children?: React.ReactNode;
+type FormElementProps = JSX.IntrinsicElements['form'];
+export interface FormProps extends FormElementProps {
   onSubmit?: (e: React.FormEvent) => void;
-} & JSX.IntrinsicElements['form'];
+  className?: string;
+}
 
 type FormType = React.FC<FormProps> & {
   Row: typeof FormRow;
@@ -23,7 +23,7 @@ type FormType = React.FC<FormProps> & {
   Legend: typeof FormLegend;
 };
 
-export const Form: FormType = ({ children, className, onSubmit, ...props }) => {
+export const Form: FormType = ({ onSubmit, className, children, ...props }) => {
   const cn = cnForm.mix(className);
 
   return (

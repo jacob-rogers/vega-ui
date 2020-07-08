@@ -2,19 +2,19 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-export type FormRowProps = {
-  className?: string;
+type DivProps = JSX.IntrinsicElements['div'];
+export interface FormRowProps extends DivProps {
   col?: '1' | '2' | '3' | '4';
   space?: 'm' | 'l' | 'xl' | 'none';
   gap?: 'm' | 'l' | 'xl' | 'none';
-  children?: React.ReactNode;
-};
+  className?: string;
+}
 
 export const FormRow: React.FC<FormRowProps> = ({
-  className,
   col = '1',
-  gap = 'l',
   space = 'l',
+  gap = 'l',
+  className,
   children,
   ...props
 }) => {

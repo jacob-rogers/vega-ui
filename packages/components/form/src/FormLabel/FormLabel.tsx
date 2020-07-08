@@ -2,21 +2,20 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type label = JSX.IntrinsicElements['label'];
-export interface FormLabelProps extends label {
-  className?: string;
+type LabelProps = JSX.IntrinsicElements['label'];
+export interface FormLabelProps extends LabelProps {
   space?: '2xs' | 'xs' | 's' | 'none';
   size?: 's' | 'l';
   htmlFor?: string;
-  children?: React.ReactNode;
+  className?: string;
 }
 
 export const FormLabel: React.FC<FormLabelProps> = ({
-  className,
-  size = 's',
-  children,
-  htmlFor,
   space = 's',
+  size = 's',
+  htmlFor,
+  className,
+  children,
   ...props
 }) => {
   const cn = cnForm('Label', { space, size }).mix(className);

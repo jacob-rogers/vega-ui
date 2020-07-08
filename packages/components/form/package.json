@@ -21,7 +21,6 @@
     "react": "^16.8.0"
   },
   "dependencies": {
-    "@gpn-design/uikit": "^1.1.2",
     "bem-cn": "^3.0.1"
   }
 }

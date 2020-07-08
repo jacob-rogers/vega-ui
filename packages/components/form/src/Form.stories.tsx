@@ -1,8 +1,7 @@
-/** @jsx jsx */
 import React from 'react';
-import { css, jsx } from '@emotion/core';
-import { Button } from '@gpn-design/uikit/Button';
-import { TextField } from '@gpn-design/uikit/TextField';
+import { css } from '@emotion/core';
+import { Button } from '@gpn-prototypes/vega-button';
+import { TextField } from '@gpn-prototypes/vega-text-field';
 import { action } from '@storybook/addon-actions';
 import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';

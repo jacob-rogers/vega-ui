@@ -2,10 +2,10 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-export type FormFieldProps = {
+type DivProps = JSX.IntrinsicElements['div'];
+export interface FormFieldProps extends DivProps {
   className?: string;
-  children?: React.ReactNode;
-};
+}
 
 export const FormField: React.FC<FormFieldProps> = ({ className, children, ...props }) => {
   const cn = cnForm('Field').mix(className);

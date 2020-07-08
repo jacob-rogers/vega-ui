@@ -14,7 +14,7 @@
 import { Form } from '@gpn-prototypes/vega-form';
 
 export const MyComponent = () => {
-  const handleSubmit = (e) => console.log(e);
+  const handleSubmit = e => console.log(e);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -55,37 +55,36 @@ export const MyComponent = () => {
 
 ```ts
 type FormProps = {
-  className?: string;
-  children?: React.ReactNode;
   onSubmit?: (e: React.FormEvent) => void;
+  className?: string;
 };
 
 type FormRowProps = {
+  col?: '1' | '2' | '3' | '4'; // количество колонок в строке, по умолчанию '1'
+  space?: 'm' | 'l' | 'xl' | 'none'; // отступ сверху, по умолчанию 'l'
+  gap?: 'm' | 'l' | 'xl' | 'none'; // отступ между строками и колонками, по умолчанию 'l'
   className?: string;
-  col?: '1' | '2' | '3' | '4'; // количество колонок в строке
-  space?: 'm' | 'l' | 'xl' | 'none'; // отступ строки
-  gap?: 'm' | 'l' | 'xl' | 'none'; // отступ между строками и колонками
-  children?: React.ReactNode;
 };
 
 type FormLabelProps = {
-  className?: string;
-  space?: '2xs' | 'xs' | 's' | 'none'; // отступ лейбла
-  size?: 's' | 'l'; // размер шрифта
+  space?: '2xs' | 'xs' | 's' | 'none'; // отступ снизу, по умолчанию 's'
+  size?: 's' | 'l'; // размер шрифта и высота строки, по умолчанию 's'
   htmlFor?: string;
-  children?: React.ReactNode;
+  className?: string;
+};
+
+type FormFieldProps = {
+  className?: string;
 };
 
 type FormFieldsetProps = {
-  className?: string;
-  children?: React.ReactNode;
   disabled?: boolean;
+  className?: string;
 };
 
 type FormLegendProps = {
+  space?: '2xs' | 'xs' | 's' | 'none'; // отступ снизу, по умолчанию 's'
+  size?: 's' | 'l'; // размер шрифта и высота строки, по умолчанию 's'
   className?: string;
-  space?: '2xs' | 'xs' | 's' | 'none';
-  size?: 's' | 'l';
-  children?: React.ReactNode;
-} & JSX.IntrinsicElements['legend'];
+};
 ```

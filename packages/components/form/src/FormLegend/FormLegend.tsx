@@ -2,19 +2,18 @@ import React from 'react';
 
 import { cnForm } from '../cn-form';
 
-type legend = JSX.IntrinsicElements['legend'];
-export interface FormLegendProps extends legend {
-  className?: string;
+type LegendProps = JSX.IntrinsicElements['legend'];
+export interface FormLegendProps extends LegendProps {
   space?: '2xs' | 'xs' | 's' | 'none';
   size?: 's' | 'l';
-  children?: React.ReactNode;
+  className?: string;
 }
 
 export const FormLegend: React.FC<FormLegendProps> = ({
-  className,
-  size = 's',
-  children,
   space = 's',
+  size = 's',
+  className,
+  children,
   ...props
 }) => {
   const cn = cnForm('Legend', { space, size }).mix(className);
