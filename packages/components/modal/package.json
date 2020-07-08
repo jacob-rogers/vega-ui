@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-modal",
-  "version": "0.2.0-alpha.0",
+  "version": "0.2.0-alpha.1",
   "description": "",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
