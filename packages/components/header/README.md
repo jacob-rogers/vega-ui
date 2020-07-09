@@ -84,7 +84,7 @@ type ItemRenderProps = {
 };
 
 type HeaderMenuItemProps = {
-  children: (props: ItemRenderProps) => React.ReactNode | React.ReactNode; // метод для рендера Item
+  children: (props: ItemRenderProps) => React.ReactNode; // метод для рендера Item
   className?: string;
 };
 
