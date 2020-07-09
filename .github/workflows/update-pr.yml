@@ -17,7 +17,7 @@ jobs:
           uppercase-title: true
           body-template: |
             ## Задача
-            Стенд: https://%branch%.vega-ui-storybook.csssr.cloud
+            Стенд: http://%branch%.vega-ui-storybook.csssr.cloud
             Cсылка в jira на задачу: https://jira.csssr.io/browse/%branch%
           replace-body: false
           body-prefix-newline-count: 1
