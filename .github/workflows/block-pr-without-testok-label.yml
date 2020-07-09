@@ -1,0 +1,17 @@
+name: Проверка лейбла TestOk
+on:
+  pull_request:
+    types: [labeled, unlabeled, opened, synchronize, reopened]
+
+jobs:
+  message-check:
+    name: Блокирование мерджа, если нет лейбла test-ok
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Проверка лейблов
+        uses: gpn-prototypes/vega-actions/block-pr-without-label@master
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          necessary_label: Test OK
