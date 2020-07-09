@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0-alpha.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.1.7...@gpn-prototypes/vega-modal@0.2.0-alpha.2) (2020-07-09)
+
+
+### Bug Fixes
+
+* **modal:** переименовал интерфейс ([43bef0b](https://github.com/gpn-prototypes/vega-ui/commit/43bef0b0296d5c520d60ea4f72df1cb19aa39cb8))
+
+
+### Features
+
+* **publish:** добавление паблиша альфа-версий ([9c35626](https://github.com/gpn-prototypes/vega-ui/commit/9c35626c49dd3cb5ceafd1f246172ca4ad503134))
+
+
+
+
+
 # [0.2.0-alpha.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.1.7...@gpn-prototypes/vega-modal@0.2.0-alpha.1) (2020-07-08)
 
 
