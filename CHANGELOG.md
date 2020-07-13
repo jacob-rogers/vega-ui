@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.3.1 (2020-07-13)
+
+* VEGA-212: Доработка компонентов Form и PageFooter [#99](https://github.com/gpn-prototypes/vega-ui/pull/99)
+  * Измененные пакеты: `components`
+   * Автор PR: [@maksim-kononov-csssr](https://github.com/maksim-kononov-csssr)
+
 ## @gpn-prototypes/vega-ui@2.3.0 (2020-07-13)
 
 * VEGA-71: Компонент "Сайдбар" [#55](https://github.com/gpn-prototypes/vega-ui/pull/55)
