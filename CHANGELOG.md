@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.2.0 (2020-07-13)
+
+* VEGA-29: Создать компонент "Хэдер" [#28](https://github.com/gpn-prototypes/vega-ui/pull/28)
+  * Измененные пакеты: `components`
+   * Автор PR: [@hitmanet](https://github.com/hitmanet)
+
 ## @gpn-prototypes/vega-ui@2.2.0-alpha.2 (2020-07-08)
 
 
