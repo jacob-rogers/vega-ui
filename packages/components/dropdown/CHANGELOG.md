@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@1.0.0...@gpn-prototypes/vega-dropdown@1.1.0) (2020-07-13)
+
+
+### Bug Fixes
+
+* **dropdown:** удалить дубли стилей ([271c3d0](https://github.com/gpn-prototypes/vega-ui/commit/271c3d01b0962d792e62c8af7569eef241510302))
+
+
+### Features
+
+* **header:** обновить dropdown ([23d2eb9](https://github.com/gpn-prototypes/vega-ui/commit/23d2eb9530b1370169afc116b84823fdf5814ac6))
+
+
+
+
+
 # [1.0.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@0.1.6...@gpn-prototypes/vega-dropdown@1.0.0) (2020-06-24)
 
 

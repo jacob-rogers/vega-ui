@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tabs@0.0.7...@gpn-prototypes/vega-tabs@0.0.8) (2020-07-13)
+
+
+### Bug Fixes
+
+* **docs:** правки по доке ([3a474ec](https://github.com/gpn-prototypes/vega-ui/commit/3a474ecd3f1c5ecf3c8c86f7338a2775662db8a2))
+
+
+
+
+
 ## [0.0.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tabs@0.0.6...@gpn-prototypes/vega-tabs@0.0.7) (2020-06-24)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-tabs

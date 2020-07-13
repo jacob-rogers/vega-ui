@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.2.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.1.1...@gpn-prototypes/vega-ui@2.2.0) (2020-07-13)
+
+
+### Bug Fixes
+
+* **docs:** поправил доку ([683cf06](https://github.com/gpn-prototypes/vega-ui/commit/683cf06867d0e1d1bbf56c4ea235ab9533a37daa))
+* **docs:** правки по доке ([3a474ec](https://github.com/gpn-prototypes/vega-ui/commit/3a474ecd3f1c5ecf3c8c86f7338a2775662db8a2))
+* **dropdown:** удалить дубли стилей ([271c3d0](https://github.com/gpn-prototypes/vega-ui/commit/271c3d01b0962d792e62c8af7569eef241510302))
+* **header:** добавить закрытие меню по клику вне меню ([9a76bf8](https://github.com/gpn-prototypes/vega-ui/commit/9a76bf8622a3c86b777e7d16d983c5e2acac908a))
+* **header:** исправление тестов ([d675071](https://github.com/gpn-prototypes/vega-ui/commit/d675071adede0f043584969af88b21fb6c61fa9e))
+* **header:** разбивка на мелкие кусочки ([b1600da](https://github.com/gpn-prototypes/vega-ui/commit/b1600dae2dfb35f3f3937078a67f85c0a42b09fe))
+* **header:** удалить props ([7de6e53](https://github.com/gpn-prototypes/vega-ui/commit/7de6e533b9d135acce11cb9ea24b2bb3fb177837))
+* **packages:** фикс неймспейсов ([3fa200e](https://github.com/gpn-prototypes/vega-ui/commit/3fa200eaea85f15ed67b833bcb4ffdefc674d490))
+
+
+### Features
+
+* **header:** обновить dropdown ([23d2eb9](https://github.com/gpn-prototypes/vega-ui/commit/23d2eb9530b1370169afc116b84823fdf5814ac6))
+
+
+
+
+
 ## [2.1.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.1.0...@gpn-prototypes/vega-ui@2.1.1) (2020-07-03)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
