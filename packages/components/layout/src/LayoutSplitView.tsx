@@ -7,22 +7,15 @@ interface LayoutSplitViewProps {
   children: [React.ReactNode, React.ReactNode];
 }
 
-function createHEX(): string {
-  return Math.random().toString(16).substr(2, 8);
-}
-
 export const LayoutSplitView: React.FC<LayoutSplitViewProps> = (props) => {
   const { view, children } = props;
   const breakpoint = view.getBreakpoint();
   const orientation = view.split.getOrientation();
 
-  const color = React.useMemo(createHEX, []);
-
   const template = `${breakpoint}fr 20px ${100 - breakpoint}fr`;
 
   const style: React.CSSProperties = {
     display: 'grid',
-    border: `10px solid #${color}`,
     [orientation === 'vertical' ? 'gridTemplateRows' : 'gridTemplateColumns']: template,
   };
 

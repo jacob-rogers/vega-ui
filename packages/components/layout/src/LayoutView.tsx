@@ -4,6 +4,7 @@ import { Grid } from './grid';
 import { useGridView } from './hooks';
 import { LayoutDataView } from './LayoutDataView';
 import { LayoutSplitView } from './LayoutSplitView';
+import { LayoutViewContext } from './LayoutViewContext';
 
 interface LayoutViewProps {
   idx?: number;
@@ -15,10 +16,12 @@ export const LayoutView: React.FC<LayoutViewProps> = (props) => {
 
   if (Grid.isSplitView(view)) {
     return (
-      <LayoutSplitView view={view}>
-        <LayoutView idx={view.firstChildIdx()} />
-        <LayoutView idx={view.secondChildIdx()} />
-      </LayoutSplitView>
+      <LayoutViewContext.Provider value={{ orientation: view.split.getOrientation() }}>
+        <LayoutSplitView view={view}>
+          <LayoutView idx={view.firstChildIdx()} />
+          <LayoutView idx={view.secondChildIdx()} />
+        </LayoutSplitView>
+      </LayoutViewContext.Provider>
     );
   }
 
