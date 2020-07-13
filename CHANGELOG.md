@@ -1,6 +1,7 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+
 ## @gpn-prototypes/vega-ui@2.3.1 (2020-07-13)
 
 * VEGA-212: Доработка компонентов Form и PageFooter [#99](https://github.com/gpn-prototypes/vega-ui/pull/99)
