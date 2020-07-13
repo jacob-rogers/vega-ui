@@ -1,6 +1,10 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.2.0-alpha.2 (2020-07-08)
+
+
+
 ## @gpn-prototypes/vega-ui@2.2.0-alpha.2 (2020-07-09)
 
 
