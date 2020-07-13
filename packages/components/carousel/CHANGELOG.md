@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-carousel@0.0.3...@gpn-prototypes/vega-carousel@0.0.4) (2020-07-13)
+
+
+### Bug Fixes
+
+* **storybook:** добавление примера ([e9b1cc7](https://github.com/gpn-prototypes/vega-ui/commit/e9b1cc73e1a8b118a697b34f591a12de9c5c80b7))
+
+
+
+
+
 ## [0.0.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-carousel@0.0.2...@gpn-prototypes/vega-carousel@0.0.3) (2020-06-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-carousel

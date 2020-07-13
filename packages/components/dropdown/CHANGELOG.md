@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@1.1.0...@gpn-prototypes/vega-dropdown@1.1.1) (2020-07-13)
+
+
+### Bug Fixes
+
+* **storybook:** добавление примера ([e9b1cc7](https://github.com/gpn-prototypes/vega-ui/commit/e9b1cc73e1a8b118a697b34f591a12de9c5c80b7))
+
+
+
+
+
 # [1.1.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@1.0.0...@gpn-prototypes/vega-dropdown@1.1.0) (2020-07-13)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-dropdown",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
