@@ -26,6 +26,8 @@ jobs:
 
       - name: Проверка size limit
         uses: andresz1/size-limit-action@v1.4.0
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           skip_step: install
