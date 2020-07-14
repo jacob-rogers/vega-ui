@@ -13,7 +13,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "coverage": "jest --all --coverage",
-    "build:ts": "tsc --build tsconfig.build.json --verbose",
+    "build:ts": "tsc --build tsconfig.build.json",
     "build:css": "postcss \"packages/**/*.css\" --dir dist --base ./packages --no-map",
     "build": "node scripts/build.js",
     "changelog": "changelog",
