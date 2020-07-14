@@ -44,7 +44,7 @@ type ModalProps = {
   children?: React.ReactNode;
   hasOverlay?: boolean; // нужно ли рендерить оверлей
   onOverlayClick?: (e: React.SyntheticEvent) => void; // метод, который вызовется по клику на оверлей (по умолчанию onClose)
-  rootSelector?: string; // селектор, в котором рендерить модальное окно (по умолчанию body)
+  portal?: HTMLDivElement | null; // контейнер, в котором рендерить модальное окно (по умолчанию body)
 };
 ```
 

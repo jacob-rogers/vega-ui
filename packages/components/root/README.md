@@ -1,15 +1,13 @@
 # @gpn-prototypes/vega-root
 
-Компонент является корневом селектором для вашего приложения и предоставляет средства для управления:
+Компонент является корневым для вашего приложения и предоставляет средства для управления:
 
-- Темизацией
-- Порталами
+-   Темизацией
+-   Порталами
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-root
-```
+    yarn add @gpn-prototypes/vega-root
 
 ### Пример использования
 
@@ -34,24 +32,16 @@ type PortalParams = {
 } & DivProps;
 
 type RootProps = {
-  initialPortals?: PortalParams[]; // начальные порталы для рендера
   defaultTheme?: 'default' | 'dark' | 'display'; // начальная тема
-  rootId: string; // id для корневого элемента
   children: React.ReactNode;
 };
 ```
-
-### API useRoot
-
-Возвращает `ts { rootId: string }`.
 
 ### API usePortal
 
 Возвращает реф с порталами.
 
 На данный момент доступен только default портал, который создается для проекта по умолчанию.
-
-В разработке находится создание многоуровневых порталов.
 
 Пример использования:
 
@@ -60,10 +50,20 @@ import { usePortal } from '@gpn-prototypes/vega-root';
 import { Modal } from './Modal';
 
 const MyComponent = () => {
-  const portal = usePortal();
+  const { portal } = usePortal();
 
   return <Modal portalID={portal.id}>{/* some code */}</Modal>;
 };
+```
+
+### API usePortalRender
+
+Предоставляет методы для рендера порталов.
+
+```ts
+type PortalRenderAPI = {
+  renderPortalWithTheme: (children: React.ReactNode, container: Element) => ReactPortal // метод для рендера портала в контейнере с темой. Является заменой createPortal.
+}
 ```
 
 ### API useTheme

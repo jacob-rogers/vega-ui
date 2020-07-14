@@ -52,6 +52,6 @@ type FileDropzoneInputProps = {
   label?: string; // лейбл для кнопки
   id: string; // id для крепления лейбла к инпуту
 };
-```
 
-Компонент `FileDropzone.Fullscreen` имеет те же пропсы, что и `FileDropzone`. `FileDropzone.Fullscreen` рендерится в портале.
+type FileDropzoneFullscreenProps = FileDropzoneProps & { portal?: HTMLElement | null } // портал для рендера, по умолчанию body.
+```

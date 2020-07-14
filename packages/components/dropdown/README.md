@@ -42,7 +42,7 @@ export const MyComponent = () => {
 <>
   <Dropdown
     isOpen={isOpen}
-    portalId="portal-id"
+    portal={document.body}
     onToggle={(nextState): void => {
       setIsOpen(nextState);
     }}
@@ -86,7 +86,7 @@ export type DropdownProps = {
   onToggle?(nextState: boolean, event: React.SyntheticEvent): void; // обработчик переключения состояния дропдауна
   onClickOutside?(): void; // обработчик клика вне дропдауна
   children?: React.ReactNode;
-  portalId?: string; // id для контейнера-портала
+  portal?: HTMLDivElement | null; // контейнер-портал
   offset?: [number, number]; // отступ меню. Формат [skidding, distance]
   placement?: DropdownPlacement; // расположение меню
 };
