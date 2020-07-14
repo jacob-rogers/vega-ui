@@ -9,7 +9,7 @@ import { LayoutOptionsList } from './LayoutOptionsList';
 export type LayoutOptionsProps = React.ComponentProps<typeof LayoutOptionsList>;
 
 export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
-  const { onLayoutChange } = props;
+  const { view } = props;
 
   return (
     <LayoutDropdown
@@ -31,15 +31,8 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
           />
         );
       }}
-      menu={({ closeDropdown }): React.ReactNode => {
-        return (
-          <LayoutOptionsList
-            onLayoutChange={(action): void => {
-              onLayoutChange(action);
-              closeDropdown();
-            }}
-          />
-        );
+      menu={(): React.ReactNode => {
+        return <LayoutOptionsList view={view} />;
       }}
     />
   );

@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from 'react';
+import React from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 import {
   IconArrowDown,
@@ -11,11 +11,12 @@ import {
 import { NavigationList } from '@gpn-prototypes/vega-navigation-list';
 
 import { cnLayout } from '../cn-layout';
+import { DataView, Direction } from '../grid';
 
-type ChangeAction = 'left' | 'right' | 'bottom' | 'top' | 'close';
+type ChangeAction = Direction | 'close';
 
 type LayoutOptionsListProps = {
-  onLayoutChange: (action: ChangeAction) => void;
+  view: DataView;
 };
 
 type LayoutOption = {
@@ -24,10 +25,14 @@ type LayoutOption = {
   icon: React.FC<IconProps>;
 };
 
-const LayoutOptionContext = createContext<LayoutOptionsListProps>({ onLayoutChange: () => {} });
-
-const LayoutOptionItem: React.FC<{ option: LayoutOption }> = ({ option }) => {
-  const { onLayoutChange } = useContext(LayoutOptionContext);
+const LayoutOptionItem: React.FC<{ option: LayoutOption; view: DataView }> = ({ option, view }) => {
+  const handleOptionClick = (action: ChangeAction): void => {
+    if (action === 'close') {
+      view.close();
+    } else {
+      view.split(action);
+    }
+  };
 
   return (
     <NavigationList.Item>
@@ -35,7 +40,7 @@ const LayoutOptionItem: React.FC<{ option: LayoutOption }> = ({ option }) => {
         <Button
           label={option.title}
           aria-label={option.title}
-          onClick={(): void => onLayoutChange(option.action)}
+          onClick={(): void => handleOptionClick(option.action)}
           view="clear"
           form="brick"
           size="m"
@@ -49,28 +54,32 @@ const LayoutOptionItem: React.FC<{ option: LayoutOption }> = ({ option }) => {
 };
 
 export const LayoutOptionsList: React.FC<LayoutOptionsListProps> = (props) => {
-  const { onLayoutChange } = props;
+  const { view } = props;
 
   const cn = cnLayout('List');
 
   const options: LayoutOption[] = [
     { action: 'right', icon: IconArrowRight, title: 'Добавить панель справа' },
     { action: 'left', icon: IconArrowLeft, title: 'Добавить панель слева' },
-    { action: 'top', icon: IconArrowUp, title: 'Добавить панель сверху' },
-    { action: 'bottom', icon: IconArrowDown, title: 'Добавить панель снизу' },
+    { action: 'up', icon: IconArrowUp, title: 'Добавить панель сверху' },
+    { action: 'down', icon: IconArrowDown, title: 'Добавить панель снизу' },
   ];
 
   const closeOption: LayoutOption = { action: 'close', icon: IconClose, title: 'Закрыть панель' };
 
   return (
-    <LayoutOptionContext.Provider value={{ onLayoutChange }}>
+    <>
       <NavigationList className={cn}>
         {options.map((option) => (
-          <LayoutOptionItem option={option} key={option.action} />
+          <LayoutOptionItem view={view} option={option} key={option.action} />
         ))}
-        <NavigationList.Delimiter className={cnLayout('Delimiter').toString()} />
-        <LayoutOptionItem option={closeOption} />
+        {view.canClose() && (
+          <>
+            <NavigationList.Delimiter className={cnLayout('Delimiter').toString()} />
+            <LayoutOptionItem view={view} option={closeOption} />
+          </>
+        )}
       </NavigationList>
-    </LayoutOptionContext.Provider>
+    </>
   );
 };
