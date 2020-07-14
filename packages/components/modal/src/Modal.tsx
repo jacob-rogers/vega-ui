@@ -40,7 +40,7 @@ export const Modal: Modal<ModalProps> = (props) => {
     onOverlayClick,
     isOpen,
     hasOverlay,
-    portal,
+    portal = document.body,
     className,
     ...rest
   } = props;

@@ -30,7 +30,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
     triggerProps: { triggerElement },
     menuProps,
     clickOutside,
-    portal,
+    portal = document.body,
   } = useDropdown();
   const { menuElement, setMenuElement, style, attributes } = menuProps;
 

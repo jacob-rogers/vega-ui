@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { Text } from '@gpn-design/uikit/Text';
 import { FileIconAvi, FileIconBmp, FileIconDoc, FileIconGif } from '@gpn-prototypes/vega-icons';
+import { usePortal } from '@gpn-prototypes/vega-root';
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
@@ -39,6 +40,7 @@ storiesOf('ui/FileDropzone', module)
   })
   .add('Демонстрация работы с fullscreen', () => {
     const [dropzoneText, setText] = React.useState('Перетащите, чтобы загрузить');
+    const { portal } = usePortal();
 
     return (
       <Container>
@@ -47,7 +49,7 @@ storiesOf('ui/FileDropzone', module)
           <MarginContainer>
             <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Я инпут')} />
           </MarginContainer>
-          <FileDropzone.Fullscreen>
+          <FileDropzone.Fullscreen portal={portal}>
             <MarginContainer>
               <FlexGroup>
                 <FileIconBmp size="m" />

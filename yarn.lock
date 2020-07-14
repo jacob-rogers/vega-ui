@@ -1442,6 +1442,20 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
+"@gpn-design/uikit@^1.0.2":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.3.0.tgz#a546fb5b24966f12f81d0059c7680af2f8093177"
+  integrity sha512-p6R3oE/212jmAr5QkWO82ij66X7I43YlRMIvZY7i5+EGuacnX200vIbZJo6S3zRTNxT/Et3pxVvQGy0RCiR5QQ==
+  dependencies:
+    "@bem-react/classname" "^1.5.8"
+    "@bem-react/classnames" "^1.3.9"
+    bem-cn "^3.0.1"
+    lodash "^4.17.15"
+    react-collapse "^5.0.0"
+    react-textarea-autosize "^7.1.2"
+    react-transition-group "^4.4.1"
+    tslib "^1.11.1"
+
 "@gpn-design/uikit@^1.0.5":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.2.0.tgz#05b1f0e139de1d43dc09faf8ae7d8fbf6de8517a"

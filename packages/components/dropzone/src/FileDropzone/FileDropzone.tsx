@@ -12,7 +12,6 @@ export type FileDropzoneProps = {
   className?: string;
   show?: boolean;
   fullscreen?: boolean;
-  portalSelector?: string;
   onDrop: (files: FileList | null) => void;
   onDragEnter?: (e: DropzoneDragEvent) => void;
   onDragLeave?: (e: DropzoneDragEvent) => void;
@@ -20,8 +19,10 @@ export type FileDropzoneProps = {
 
 type FileDropzoneContentProps = Omit<FileDropzoneProps, 'onDrop' | 'onDragEnter' | 'onDragLeave'>;
 
+type FileDropzoneFullscreenProps = FileDropzoneContentProps & { portal?: HTMLDivElement | null };
+
 type FileDropzone<T> = React.FC<T> & {
-  Fullscreen: React.FC<FileDropzoneContentProps>;
+  Fullscreen: React.FC<FileDropzoneFullscreenProps>;
   Input: typeof FileDropzoneInput;
 };
 
@@ -57,10 +58,14 @@ const FileDropzoneContent: React.FC<FileDropzoneContentProps> = (props) => {
   );
 };
 
-const FileDropzoneFullscreen: React.FC<FileDropzoneContentProps> = (props) => {
+const FileDropzoneFullscreen: React.FC<FileDropzoneFullscreenProps> = ({ portal, ...rest }) => {
   const { fullscreenVisible } = useFileDropzoneProvider();
 
-  return <FileDropzoneContent show={fullscreenVisible} fullscreen {...props} />;
+  return (
+    <DropzoneContext.Provider value={{ portal }}>
+      <FileDropzoneContent show={fullscreenVisible} fullscreen {...rest} />
+    </DropzoneContext.Provider>
+  );
 };
 
 export const FileDropzone: FileDropzone<FileDropzoneProps> = ({
@@ -68,16 +73,13 @@ export const FileDropzone: FileDropzone<FileDropzoneProps> = ({
   onDragEnter,
   onDragLeave,
   fullscreen,
-  portalSelector = 'body',
   ...rest
 }) => {
   const api = useFileDropzone({ onDrop, onDragEnter, onDragLeave }, { withFullscreen: fullscreen });
 
   return (
     <FileDropzoneContext.Provider value={api}>
-      <DropzoneContext.Provider value={{ portalSelector }}>
-        <FileDropzoneContent {...rest} />
-      </DropzoneContext.Provider>
+      <FileDropzoneContent {...rest} />
     </FileDropzoneContext.Provider>
   );
 };

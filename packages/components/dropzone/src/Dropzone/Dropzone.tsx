@@ -1,6 +1,5 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
-import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
+import { usePortalRender } from '@gpn-prototypes/vega-root';
 
 import { DragHandlers } from '../types';
 
@@ -14,7 +13,6 @@ export type DropzoneProps = {
   children?: React.ReactNode;
   show?: boolean;
   fullscreen?: boolean;
-  portalSelector?: string;
 } & DragHandlers &
   JSX.IntrinsicElements['div'];
 
@@ -35,9 +33,9 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     ...rest
   } = props;
 
-  const { portalSelector } = useDropzoneContext();
+  const { portal = document.body } = useDropzoneContext();
 
-  const portalNode = usePortalDomNode(portalSelector);
+  const { renderPortalWithTheme } = usePortalRender();
 
   React.useEffect(() => {
     if (fullscreen) {
@@ -67,10 +65,10 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     </div>
   );
 
-  if (portalNode && fullscreen) {
-    return createPortal(
+  if (portal && fullscreen) {
+    return renderPortalWithTheme(
       <div className={cnDropzone('Overlay').state({ visible: show })}>{content}</div>,
-      portalNode,
+      portal,
     );
   }
 

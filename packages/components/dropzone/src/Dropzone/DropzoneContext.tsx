@@ -1,11 +1,11 @@
 import React from 'react';
 
 type DropzoneContextProps = {
-  portalSelector?: string;
+  portal?: HTMLDivElement | null;
 };
 
 export const DropzoneContext = React.createContext<DropzoneContextProps>({
-  portalSelector: 'body',
+  portal: null,
 });
 
 export const useDropzoneContext = (): DropzoneContextProps => React.useContext(DropzoneContext);
