@@ -13,7 +13,7 @@ export type DropdownProps = {
   onToggle?(nextState: boolean, event: React.SyntheticEvent): void;
   onClickOutside?(): void;
   children?: React.ReactNode;
-  portalId?: string;
+  portal?: HTMLDivElement | null;
   offset?: [number, number];
   placement?: DropdownPlacement;
 };
@@ -29,7 +29,7 @@ export const Dropdown: Dropdown<DropdownProps> = (props) => {
   const {
     placement = 'bottom',
     children,
-    portalId,
+    portal,
     onToggle = noop,
     onClickOutside = noop,
     offset,
@@ -65,7 +65,7 @@ export const Dropdown: Dropdown<DropdownProps> = (props) => {
   const value: DropdownContextValue = {
     isOpen,
     onlyOpen,
-    portalId,
+    portal,
     toggle,
     clickOutside: onClickOutside,
     triggerProps: {

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { usePortal } from '@gpn-prototypes/vega-root';
 import { array, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
@@ -121,6 +122,8 @@ storiesOf('ui/Dropdown', module)
   .add('рендер в портале', () => {
     const [isOpen, setIsOpen] = React.useState(false);
 
+    const { portal } = usePortal();
+
     return (
       <>
         <Container>
@@ -131,7 +134,7 @@ storiesOf('ui/Dropdown', module)
               setIsOpen(nextState);
             }}
             onlyOpen={false}
-            portalId="test-1"
+            portal={portal}
           >
             <Dropdown.Trigger>
               {({ toggle, props }): React.ReactNode => (

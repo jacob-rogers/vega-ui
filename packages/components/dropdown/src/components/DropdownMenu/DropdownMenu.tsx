@@ -1,6 +1,6 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
-import { usePortalDomNode, useRootClose } from '@gpn-prototypes/vega-hooks';
+import { useRootClose } from '@gpn-prototypes/vega-hooks';
+import { usePortalRender } from '@gpn-prototypes/vega-root';
 
 import { useDropdown } from '../../DropdownContext';
 
@@ -30,7 +30,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
     triggerProps: { triggerElement },
     menuProps,
     clickOutside,
-    portalId,
+    portal,
   } = useDropdown();
   const { menuElement, setMenuElement, style, attributes } = menuProps;
 
@@ -46,13 +46,13 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = (props) => {
     },
   });
 
-  const portalNode = usePortalDomNode(`#${portalId}`);
+  const { renderPortalWithTheme } = usePortalRender();
 
   const refs = [menuRef, triggerRef];
   useRootClose(refs, clickOutside);
 
   let node = null;
-  const content = portalId && portalNode ? createPortal(children, portalNode) : children;
+  const content = portal ? renderPortalWithTheme(children, portal) : children;
 
   if (onlyOpen) {
     node = <>{isOpen ? content : null}</>;

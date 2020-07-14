@@ -41,6 +41,12 @@ export const ThemeRoot: React.FC<ThemeProps> = (props) => {
 
   const preset = getThemeByName(themeName);
 
+  React.useEffect(() => {
+    if (themeName !== theme) {
+      setTheme(themeName);
+    }
+  }, [themeName, theme]);
+
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
       <Theme preset={preset}>{children}</Theme>

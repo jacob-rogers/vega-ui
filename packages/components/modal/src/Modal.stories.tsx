@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@gpn-design/uikit/Button';
 import { Text } from '@gpn-design/uikit/Text';
+import { usePortal } from '@gpn-prototypes/vega-root';
 import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
@@ -41,6 +42,7 @@ storiesOf('ui/Modal', module)
     const example = exampleKnobs();
 
     const openAction = action('Modal opened');
+    const { portal } = usePortal();
     const closeAction = action('Modal closed');
 
     return (
@@ -55,7 +57,7 @@ storiesOf('ui/Modal', module)
           }}
         />
         <Modal
-          rootSelector="#portalRoot"
+          portal={portal}
           onClose={(e): void => {
             closeAction(e);
             handleClose();

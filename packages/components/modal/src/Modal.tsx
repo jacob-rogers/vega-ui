@@ -1,12 +1,8 @@
 import React, { useRef } from 'react';
-import { createPortal } from 'react-dom';
 import { Button } from '@gpn-prototypes/vega-button';
-import {
-  PossibleCloseEvent as CloseEvent,
-  usePortalDomNode,
-  useRootClose,
-} from '@gpn-prototypes/vega-hooks';
+import { PossibleCloseEvent as CloseEvent, useRootClose } from '@gpn-prototypes/vega-hooks';
 import { IconClose } from '@gpn-prototypes/vega-icons';
+import { usePortalRender } from '@gpn-prototypes/vega-root';
 
 import { cnModal } from './cn-modal';
 import { ModalBody } from './ModalBody';
@@ -26,7 +22,7 @@ export type ModalProps = {
   children?: React.ReactNode;
   hasOverlay?: boolean;
   onOverlayClick?: React.EventHandler<React.MouseEvent>;
-  rootSelector?: string;
+  portal?: HTMLDivElement | null;
   className?: string;
 };
 
@@ -44,12 +40,13 @@ export const Modal: Modal<ModalProps> = (props) => {
     onOverlayClick,
     isOpen,
     hasOverlay,
-    rootSelector,
+    portal,
     className,
     ...rest
   } = props;
-  const portal = usePortalDomNode(rootSelector);
   const ref = useRef<HTMLDivElement | null>(null);
+
+  const { renderPortalWithTheme } = usePortalRender();
 
   const onCloseModal = (e: PossibleCloseEvent): void => {
     if (isOpen) {
@@ -69,7 +66,7 @@ export const Modal: Modal<ModalProps> = (props) => {
     return null;
   }
 
-  return createPortal(
+  return renderPortalWithTheme(
     <>
       <div
         {...rest}

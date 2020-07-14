@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
 const isServer = typeof window === 'undefined';
 
 export const useIsomorphicEffect = isServer ? React.useEffect : React.useLayoutEffect;
 
-type OptionalElement = Element | null;
+type OptionalElement<T extends Element> = T | null;
 
-function getParentNode(selector: string): OptionalElement {
+function getParentNode(selector: string): OptionalElement<Element> {
   const isIDSelector = selector[0] === '#';
   const parentNode = isIDSelector
     ? document.getElementById(selector.substr(1))
@@ -15,18 +15,24 @@ function getParentNode(selector: string): OptionalElement {
   return parentNode;
 }
 
-export const usePortalDomNode = (parentSelector = 'body', className?: string): OptionalElement => {
-  const ref = React.useRef<Element | null>(null);
+export const usePortalDomNode = (
+  parentSelector = 'body',
+  params: HTMLAttributes<HTMLDivElement> = {},
+): OptionalElement<HTMLDivElement> => {
+  const ref = React.useRef<OptionalElement<HTMLDivElement>>(null);
 
   if (ref.current === null) {
     ref.current = document.createElement('div');
   }
 
   useIsomorphicEffect(() => {
-    if (className !== undefined && ref.current) {
-      ref.current.setAttribute('class', className);
-    }
-  }, [className]);
+    const keys = Object.keys(params) as Array<keyof HTMLAttributes<HTMLDivElement>>;
+    keys.forEach((param) => {
+      if (ref.current !== null) {
+        ref.current.setAttribute(param, params[param]);
+      }
+    });
+  }, [params]);
 
   useIsomorphicEffect(() => {
     const parent = getParentNode(parentSelector);

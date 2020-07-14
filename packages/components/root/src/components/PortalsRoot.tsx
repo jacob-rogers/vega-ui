@@ -1,5 +1,6 @@
-import React, { createContext, RefObject, useContext } from 'react';
+import React, { createContext, ReactPortal, RefObject, useContext, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
 
 import { getThemeByName, Theme, useTheme } from './ThemeRoot';
 
@@ -12,39 +13,63 @@ type DivProps = JSX.IntrinsicElements['div'];
 export type PortalParams = {
   className?: string;
   id: string;
-  innerRef: PortalRef;
 } & DivProps;
 
-type PortalContextProps = PortalRef;
+type PortalContextProps = {
+  portals: PortalRef;
+};
 
-export const PortalsContext = createContext<PortalContextProps>({ current: null });
+type RenderPortalWithTheme = (children: React.ReactNode, container: Element) => ReactPortal;
 
-export const usePortal = (name: PortalNames = 'default'): HTMLDivElement | null => {
-  const portals = useContext(PortalsContext);
+export const PortalsContext = createContext<PortalContextProps>({
+  portals: { current: null },
+});
 
-  if (portals.current !== null && name in portals.current) {
-    return portals.current[name];
-  }
+export const usePortal = (
+  name: PortalNames = 'default',
+): {
+  portal: HTMLDivElement | null | undefined;
+} => {
+  const { portals } = useContext(PortalsContext);
 
-  return null;
+  const getPortal = (): HTMLDivElement | null | undefined => {
+    if (portals.current !== null && name in portals.current) {
+      return portals.current[name];
+    }
+
+    return undefined;
+  };
+
+  return { portal: getPortal() };
+};
+
+export const usePortalRender = (): { renderPortalWithTheme: RenderPortalWithTheme } => {
+  const { theme } = useTheme();
+
+  const renderPortalWithTheme = React.useCallback(
+    (children: React.ReactNode, container: Element) => {
+      return createPortal(<Theme preset={getThemeByName(theme)}>{children}</Theme>, container);
+    },
+    [theme],
+  );
+
+  return { renderPortalWithTheme };
 };
 
 export const PortalsRoot: React.FC<PortalParams> = (props) => {
-  const { id, innerRef, ...rest } = props;
+  const { id, children, ...rest } = props;
 
-  const { theme } = useTheme();
+  const portalContainer = usePortalDomNode('body', { id, ...rest });
 
-  const setRef = (el: HTMLDivElement | null): void => {
-    if (el !== null && innerRef.current) {
-      innerRef.current.default = el;
-    }
-  };
+  const ref: PortalRef = useRef({ default: portalContainer });
 
-  const content = (
-    <Theme preset={getThemeByName(theme)}>
-      <div {...rest} ref={setRef} id={id} />
-    </Theme>
+  if (!portalContainer) {
+    return null;
+  }
+
+  return (
+    <>
+      <PortalsContext.Provider value={{ portals: ref }}>{children}</PortalsContext.Provider>
+    </>
   );
-
-  return createPortal(content, document.body);
 };
