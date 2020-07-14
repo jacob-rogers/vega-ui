@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Root } from '../../packages/components/root/src';
+import { Root, useTheme } from '../../packages/components/root/src';
 
 type ThemeName = 'default' | 'dark' | 'display';
 
@@ -9,8 +9,24 @@ type VegaThemeDecoratorProps = {
   className: string;
 };
 
-export const VegaRootDecorator: React.FC<VegaThemeDecoratorProps> = (props) => {
-  const { children, themeName } = props;
+const StorybookThemeRoot: React.FC<VegaThemeDecoratorProps> = ({ themeName, children }) => {
+  const { theme, setTheme } = useTheme();
 
-  return <Root defaultTheme={themeName}>{children}</Root>;
+  React.useEffect(() => {
+    if (themeName !== theme) {
+      setTheme(themeName);
+    }
+  }, [themeName, theme, setTheme]);
+
+  return <>{children}</>;
+};
+
+export const VegaRootDecorator: React.FC<VegaThemeDecoratorProps> = (props) => {
+  const { themeName } = props;
+
+  return (
+    <Root defaultTheme={themeName}>
+      <StorybookThemeRoot {...props} />
+    </Root>
+  );
 };

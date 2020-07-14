@@ -72,5 +72,9 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     );
   }
 
+  if (portal === null && fullscreen) {
+    return null;
+  }
+
   return content;
 };

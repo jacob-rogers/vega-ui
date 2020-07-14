@@ -5,7 +5,7 @@ type DropzoneContextProps = {
 };
 
 export const DropzoneContext = React.createContext<DropzoneContextProps>({
-  portal: null,
+  portal: undefined,
 });
 
 export const useDropzoneContext = (): DropzoneContextProps => React.useContext(DropzoneContext);

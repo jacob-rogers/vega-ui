@@ -23,7 +23,6 @@ const Component = (props: DropdownTestProps = {}): React.ReactElement => (
         )}
       </Dropdown.Menu>
     </Dropdown>
-    <div id="portal" data-testid="portal" />
   </div>
 );
 
@@ -33,7 +32,6 @@ const renderComponent = (props: DropdownTestProps = {}): RenderResult =>
 const findMenu = (): HTMLElement => screen.getByTestId('menu');
 const findTrigger = (): HTMLElement => screen.getByTestId('trigger');
 const findRoot = (): HTMLElement => screen.getByTestId('root');
-const findProtal = (): HTMLElement => screen.getByTestId('portal');
 
 describe('Dropdown', () => {
   test('рендерится без ошибок', () => {
@@ -91,12 +89,11 @@ describe('Dropdown', () => {
 
   it('рендерится в портале', async () => {
     await act(async () => {
-      await renderComponent({ isOpen: true, portalId: 'portal' });
+      await renderComponent({ isOpen: true });
     });
 
-    const portal = findProtal();
     const menu = findMenu();
 
-    expect(portal).toContainElement(menu);
+    expect(document.body).toContainElement(menu);
   });
 });

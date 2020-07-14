@@ -39,13 +39,7 @@ export const ThemeRoot: React.FC<ThemeProps> = (props) => {
   const { themeName = 'default', children } = props;
   const [theme, setTheme] = useState(themeName);
 
-  const preset = getThemeByName(themeName);
-
-  React.useEffect(() => {
-    if (themeName !== theme) {
-      setTheme(themeName);
-    }
-  }, [themeName, theme]);
+  const preset = getThemeByName(theme);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
