@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@1.1.1...@gpn-prototypes/vega-dropdown@1.2.0) (2020-07-14)
+
+
+### Bug Fixes
+
+* **docs:** правка доки ([4c1cd81](https://github.com/gpn-prototypes/vega-ui/commit/4c1cd8171b20c8f2d83b142c86b643f9e5e2b20b))
+
+
+### Features
+
+* **portals:** изменение рендера в порталах ([85a38e0](https://github.com/gpn-prototypes/vega-ui/commit/85a38e07d076cdf178cd8aead54fce648861cafb))
+
+
+
+
+
 ## [1.1.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@1.1.0...@gpn-prototypes/vega-dropdown@1.1.1) (2020-07-13)
 
 

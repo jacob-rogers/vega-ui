@@ -3,6 +3,34 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.6.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.5.0...@gpn-prototypes/vega-ui@2.6.0) (2020-07-14)
+
+
+### Bug Fixes
+
+* **app-container:** добавление app-container ([1043c78](https://github.com/gpn-prototypes/vega-ui/commit/1043c785af7c4260f073275cff2bf6ac31d7c646))
+* **docs:** правка док в хуках ([4b4d11f](https://github.com/gpn-prototypes/vega-ui/commit/4b4d11f560fee8c861928b83ad09ad28074cecbc))
+* **docs:** правка доки ([4c1cd81](https://github.com/gpn-prototypes/vega-ui/commit/4c1cd8171b20c8f2d83b142c86b643f9e5e2b20b))
+* **ds:** обновление версии ds ([f19f51a](https://github.com/gpn-prototypes/vega-ui/commit/f19f51aff73451b65679824b01215774ddeff151))
+* **portals:** фикс порталов ([646475d](https://github.com/gpn-prototypes/vega-ui/commit/646475d690ae3377b8caabae2e39489c62452c3e))
+* **portals-root:** правки сторибука ([7a62e06](https://github.com/gpn-prototypes/vega-ui/commit/7a62e069f61ae7b5b211b64be1de56dae392479d))
+* **portals-root:** фикс апдейта состояния ([d29887e](https://github.com/gpn-prototypes/vega-ui/commit/d29887e08b711e12aa05ca55909d77394809b65f))
+* **root:** правка тестов ([4dd1b7a](https://github.com/gpn-prototypes/vega-ui/commit/4dd1b7a8693b4741da779a84adbd8059aabeec55))
+* **root:** фикс бага с порталами ([97362e3](https://github.com/gpn-prototypes/vega-ui/commit/97362e31995c581433fe5c9278d85f986042ad7a))
+* **theme:** убрал лишний экспорт ([e5f6dc0](https://github.com/gpn-prototypes/vega-ui/commit/e5f6dc0d4d48f9a4c1976d4bb0db4b30c9830693))
+* **use-mount:** исправление хука ([57569ac](https://github.com/gpn-prototypes/vega-ui/commit/57569ac9328b432a34ee120c4edbf8c0626a90fc))
+* **use-mount:** рефакторинг рефа ([f5fcda2](https://github.com/gpn-prototypes/vega-ui/commit/f5fcda25a14bf8965d097cba2050ebf575bdb245))
+
+
+### Features
+
+* **portals:** изменение рендера в порталах ([85a38e0](https://github.com/gpn-prototypes/vega-ui/commit/85a38e07d076cdf178cd8aead54fce648861cafb))
+* **vega-root:** добавление контейнера в сторибук ([90fe4af](https://github.com/gpn-prototypes/vega-ui/commit/90fe4af9469d323b177c97bc3dee79c8f35fff3a))
+
+
+
+
+
 # [2.5.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.4.0...@gpn-prototypes/vega-ui@2.5.0) (2020-07-14)
 
 

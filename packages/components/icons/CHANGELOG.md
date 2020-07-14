@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.5](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-icons@0.1.4...@gpn-prototypes/vega-icons@0.1.5) (2020-07-14)
+
+
+### Bug Fixes
+
+* **ds:** обновление версии ds ([f19f51a](https://github.com/gpn-prototypes/vega-ui/commit/f19f51aff73451b65679824b01215774ddeff151))
+
+
+
+
+
 ## [0.1.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-icons@0.1.3...@gpn-prototypes/vega-icons@0.1.4) (2020-06-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-icons

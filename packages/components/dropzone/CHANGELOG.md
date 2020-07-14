@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropzone@0.1.0...@gpn-prototypes/vega-dropzone@0.1.1) (2020-07-14)
+
+
+### Bug Fixes
+
+* **docs:** правка доки ([4c1cd81](https://github.com/gpn-prototypes/vega-ui/commit/4c1cd8171b20c8f2d83b142c86b643f9e5e2b20b))
+
+
+
+
+
 # 0.1.0 (2020-07-13)
 
 

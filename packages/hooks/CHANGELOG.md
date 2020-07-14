@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.2.0...@gpn-prototypes/vega-hooks@0.3.0) (2020-07-14)
+
+
+### Bug Fixes
+
+* **app-container:** добавление app-container ([1043c78](https://github.com/gpn-prototypes/vega-ui/commit/1043c785af7c4260f073275cff2bf6ac31d7c646))
+* **docs:** правка док в хуках ([4b4d11f](https://github.com/gpn-prototypes/vega-ui/commit/4b4d11f560fee8c861928b83ad09ad28074cecbc))
+* **docs:** правка доки ([4c1cd81](https://github.com/gpn-prototypes/vega-ui/commit/4c1cd8171b20c8f2d83b142c86b643f9e5e2b20b))
+* **hooks:** заменил тип в хуке use-mount ([dcb246b](https://github.com/gpn-prototypes/vega-ui/commit/dcb246b2ca770d00dc91b28a2495e663c98754d0))
+* **portals-root:** правки сторибука ([7a62e06](https://github.com/gpn-prototypes/vega-ui/commit/7a62e069f61ae7b5b211b64be1de56dae392479d))
+* **use-mount:** исправление хука ([57569ac](https://github.com/gpn-prototypes/vega-ui/commit/57569ac9328b432a34ee120c4edbf8c0626a90fc))
+* **use-mount:** рефакторинг рефа ([f5fcda2](https://github.com/gpn-prototypes/vega-ui/commit/f5fcda25a14bf8965d097cba2050ebf575bdb245))
+
+
+### Features
+
+* **portals:** изменение рендера в порталах ([85a38e0](https://github.com/gpn-prototypes/vega-ui/commit/85a38e07d076cdf178cd8aead54fce648861cafb))
+
+
+
+
+
 # [0.2.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.1.3...@gpn-prototypes/vega-hooks@0.2.0) (2020-06-24)
 
 
