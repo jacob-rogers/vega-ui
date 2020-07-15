@@ -5,7 +5,6 @@
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
   "author": "csssr",
-  "sideEffects": false,
   "files": [
     "dist"
   ],
