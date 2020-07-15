@@ -4,7 +4,7 @@ import { Grid, GridState, GridUpdate } from './grid';
 import { GridContext } from './hooks';
 import { LayoutView } from './LayoutView';
 
-interface LayoutProps {
+export interface LayoutProps {
   state?: GridState;
   onChange?: (update: GridUpdate) => void;
 }

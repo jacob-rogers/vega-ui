@@ -15,7 +15,6 @@ interface LayoutDataViewProps {
 export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
   const { view } = props;
   const widget = view.getWidget();
-  const widget = view.getWidgetName();
   const context = view.getContext({
     input: '',
   });

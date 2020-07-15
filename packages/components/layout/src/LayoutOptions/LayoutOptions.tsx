@@ -21,7 +21,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
             onClick={toggle}
             onlyIcon
             iconSize="s"
-            aria-label="Открыть dropdown"
+            aria-label="Открыть опции панели"
             size="xs"
             form="brick"
             view="clear"

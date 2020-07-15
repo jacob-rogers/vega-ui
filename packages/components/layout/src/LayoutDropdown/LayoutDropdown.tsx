@@ -20,12 +20,12 @@ export const LayoutDropdown: React.FC<LayoutDropdownProps> = (props) => {
 
   const { isOpen, setIsOpen, close } = useClose();
 
-  const portal = usePortal();
+  const { portal } = usePortal();
 
   return (
     <Dropdown
       placement={placement}
-      portalId={portal?.id}
+      portal={portal}
       isOpen={isOpen}
       onClickOutside={close}
       onToggle={setIsOpen}
