@@ -84,15 +84,13 @@ describe('Layout', () => {
 
       await clickByOption(labels[0]);
 
-      expect(container.querySelectorAll('.VegaLayout__Window').length).toBe(2);
+      expect(container.querySelector('.VegaLayout__Window_split_horizontal')).toBeInTheDocument();
     });
 
     test('панель закрывается', async () => {
       const { container } = renderComponent();
 
       await clickByOption(labels[0]);
-
-      expect(container.querySelectorAll('.VegaLayout__Window').length).toBe(2);
 
       const triggers = await screen.findAllByLabelText('Открыть опции панели');
 
