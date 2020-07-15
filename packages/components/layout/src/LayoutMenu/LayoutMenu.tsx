@@ -10,7 +10,7 @@ import { LayoutMenuList, LayoutMenuListProps } from './LayoutMenuList';
 export type LayoutMenuProps = LayoutMenuListProps;
 
 export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
-  const { activeValue = '', items, onChange } = props;
+  const { activeValue = '', items = [], onChange = (): void => {} } = props;
 
   const activeItem = React.useMemo(() => items.find((item) => activeValue === item.value), [
     activeValue,
