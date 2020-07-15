@@ -1,8 +1,11 @@
 import React from 'react';
 
+import { cnLayout } from './cn-layout';
 import { Grid, GridState, GridUpdate } from './grid';
 import { GridContext } from './hooks';
 import { LayoutView } from './LayoutView';
+
+import './Layout.css';
 
 export interface LayoutProps {
   state?: GridState;
@@ -26,7 +29,9 @@ export const Layout: React.FC<LayoutProps> = ({ state, onChange }) => {
 
   return (
     <GridContext.Provider value={grid}>
-      <LayoutView />
+      <div className={cnLayout()}>
+        <LayoutView />
+      </div>
     </GridContext.Provider>
   );
 };

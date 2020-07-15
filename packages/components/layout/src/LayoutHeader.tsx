@@ -1,18 +1,14 @@
 import React from 'react';
 
-import { cnLayout } from '../cn-layout';
+import { cnLayout } from './cn-layout';
 
 type HeaderProps = JSX.IntrinsicElements['header'];
-export interface BaseLayoutHeaderProps extends HeaderProps {
+export interface LayoutHeaderProps extends HeaderProps {
   className?: string;
   children?: React.ReactNode;
 }
 
-export const BaseLayoutHeader: React.FC<BaseLayoutHeaderProps> = ({
-  className,
-  children,
-  ...rest
-}) => {
+export const LayoutHeader: React.FC<LayoutHeaderProps> = ({ className, children, ...rest }) => {
   const cn = cnLayout('Header').mix(className);
 
   return (

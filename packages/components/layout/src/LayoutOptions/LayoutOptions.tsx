@@ -9,8 +9,6 @@ import { LayoutOptionsList } from './LayoutOptionsList';
 export type LayoutOptionsProps = React.ComponentProps<typeof LayoutOptionsList>;
 
 export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
-  const { view } = props;
-
   return (
     <LayoutDropdown
       placement="bottom-end"
@@ -32,7 +30,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
         );
       }}
       menu={(): React.ReactNode => {
-        return <LayoutOptionsList view={view} />;
+        return <LayoutOptionsList {...props} />;
       }}
     />
   );

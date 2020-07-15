@@ -12,6 +12,8 @@ export function useMount(fn: Function = (): void => {}): React.MutableRefObject<
       if (typeof result === 'function') {
         result();
       }
+
+      isMountedRef.current = true;
     };
   }, []);
   return isMountedRef;

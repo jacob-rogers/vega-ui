@@ -14,7 +14,7 @@ interface LayoutDataViewProps {
 
 export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
   const { view } = props;
-  const widget = view.getWidget();
+  const widget = view.getWidgetName();
   const context = view.getContext({
     input: '',
   });
@@ -45,7 +45,7 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
           name="view"
           value={widget}
           onChange={(e): void => {
-            view.setWidget(e.target.value);
+            view.setWidgetName(e.target.value);
           }}
         >
           <option value="foo">foo</option>
