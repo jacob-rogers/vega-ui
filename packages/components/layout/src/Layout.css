@@ -113,7 +113,7 @@
       outline: none;
     }
 
-    &_direction_vertical {
+    &_split_vertical {
       right: 0;
 
       margin-right: calc(var(--layout-resizer-size) * -1);
@@ -124,7 +124,7 @@
       cursor: ew-resize;
     }
 
-    &_direction_horizontal {
+    &_split_horizontal {
       bottom: 0;
 
       margin-bottom: calc(var(--layout-resizer-size) * -1);
@@ -137,15 +137,37 @@
   }
 
   &__Window {
+    --first-view-size: 1fr;
+    --second-view-size: 1fr;
+    --first-view-min-size: 0;
+    --second-view-min-size: 0;
     position: relative;
 
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 
     box-sizing: border-box;
     height: 100%;
 
     color: var(--color-typo-primary);
+
+    &_split_horizontal {
+      display: grid;
+      grid-template-rows: auto;
+      grid-template-columns: var(--first-view-size) var(--layout-resizer-size) var(
+          --second-view-size
+        );
+    }
+
+    &_split_vertical {
+      display: grid;
+      grid-template-rows: minmax(
+          var(--first-view-min-size),
+          var(--first-view-size),
+          var(--layout-resizer-size)
+        ) minmax(var(--second-view-min-size), var(--second-view-size));
+    }
   }
 
   /*
@@ -154,24 +176,12 @@
       - только у первой, в разделенном вертикальн окне
   */
 
-  &:first-child > &__Window_direction_vertical &__Window_direction_horizontal:first-child &__Header,
-  &:first-child > &__Window_direction_horizontal &__Header {
-    margin-top: 0;
-  }
-
-  /* шапка в любом последнем (т.е. втором) горизонтальном окне — всегда должна иметь отступ */
-  &__Window_direction_horizontal:last-child &__Header {
-    margin-top: 2px !important;
-  }
-
   &__Window:last-child > &__Resizer {
     display: none;
   }
 
   &__Body {
     margin-left: var(--layout-resizer-size);
-
-    overflow: auto;
 
     box-sizing: border-box;
 
@@ -189,7 +199,7 @@
   }
 }
 
-ul.VegaLayout__List {
+.VegaLayout__MenuWrapper .VegaLayout__List {
   z-index: var(--layout-z-portal);
 
   padding-top: calc(var(--space-m) + 2px);
@@ -204,7 +214,7 @@ ul.VegaLayout__List {
   box-shadow: 0 4px 16px rgba(0, 32, 51, 0.18), 0 2px 2px rgba(0, 0, 0, 0.04);
 }
 
-button.VegaLayout__Option {
+.VegaLayout__List .VegaLayout__Option {
   padding-right: var(--space-s);
   padding-left: var(--space-s);
 

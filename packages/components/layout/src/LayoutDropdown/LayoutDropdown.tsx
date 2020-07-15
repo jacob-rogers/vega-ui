@@ -4,7 +4,7 @@ import {
   DropdownPlacement,
   DropdownTriggerChildrenProps,
 } from '@gpn-prototypes/vega-dropdown';
-import { useClose } from '@gpn-prototypes/vega-hooks';
+import { useToggle } from '@gpn-prototypes/vega-hooks';
 import { usePortal } from '@gpn-prototypes/vega-root';
 
 import { cnLayout } from '../cn-layout';
@@ -18,7 +18,7 @@ type LayoutDropdownProps = {
 export const LayoutDropdown: React.FC<LayoutDropdownProps> = (props) => {
   const { placement, trigger, menu } = props;
 
-  const { isOpen, setIsOpen, close } = useClose();
+  const { state, toggle } = useToggle();
 
   const { portal } = usePortal();
 
@@ -26,17 +26,17 @@ export const LayoutDropdown: React.FC<LayoutDropdownProps> = (props) => {
     <Dropdown
       placement={placement}
       portal={portal}
-      isOpen={isOpen}
-      onClickOutside={close}
-      onToggle={setIsOpen}
+      isOpen={state}
+      onClickOutside={(): void => toggle(false)}
+      onToggle={toggle}
     >
       <Dropdown.Trigger>
-        {(triggerProps): React.ReactNode => trigger({ ...triggerProps, isOpen })}
+        {(triggerProps): React.ReactNode => trigger({ ...triggerProps, isOpen: state })}
       </Dropdown.Trigger>
       <Dropdown.Menu>
         {({ props: menuProps }): React.ReactNode => (
           <div className={cnLayout('MenuWrapper')} {...menuProps}>
-            {menu({ closeDropdown: close })}
+            {menu({ closeDropdown: () => toggle(false) })}
           </div>
         )}
       </Dropdown.Menu>

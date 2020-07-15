@@ -11,12 +11,13 @@ import {
 import { NavigationList } from '@gpn-prototypes/vega-navigation-list';
 
 import { cnLayout } from '../cn-layout';
-import { DataView, Direction } from '../grid';
+import { SplitDirection } from '../grid';
 
-type ChangeAction = Direction | 'close';
+export type ChangeAction = SplitDirection | 'close';
 
 type LayoutOptionsListProps = {
-  view: DataView;
+  onClick: (action: ChangeAction) => void;
+  canClose: boolean;
 };
 
 type LayoutOption = {
@@ -25,22 +26,17 @@ type LayoutOption = {
   icon: React.FC<IconProps>;
 };
 
-const LayoutOptionItem: React.FC<{ option: LayoutOption; view: DataView }> = ({ option, view }) => {
-  const handleOptionClick = (action: ChangeAction): void => {
-    if (action === 'close') {
-      view.close();
-    } else {
-      view.split(action);
-    }
-  };
-
+const LayoutOptionItem: React.FC<{
+  option: LayoutOption;
+  onClick: LayoutOptionsListProps['onClick'];
+}> = ({ option, onClick }) => {
   return (
     <NavigationList.Item>
       {(props): React.ReactNode => (
         <Button
           label={option.title}
           aria-label={option.title}
-          onClick={(): void => handleOptionClick(option.action)}
+          onClick={(): void => onClick(option.action)}
           view="clear"
           form="brick"
           size="m"
@@ -54,7 +50,7 @@ const LayoutOptionItem: React.FC<{ option: LayoutOption; view: DataView }> = ({ 
 };
 
 export const LayoutOptionsList: React.FC<LayoutOptionsListProps> = (props) => {
-  const { view } = props;
+  const { onClick, canClose } = props;
 
   const cn = cnLayout('List');
 
@@ -71,12 +67,12 @@ export const LayoutOptionsList: React.FC<LayoutOptionsListProps> = (props) => {
     <>
       <NavigationList className={cn}>
         {options.map((option) => (
-          <LayoutOptionItem view={view} option={option} key={option.action} />
+          <LayoutOptionItem onClick={onClick} option={option} key={option.action} />
         ))}
-        {view.canClose() && (
+        {canClose && (
           <>
             <NavigationList.Delimiter className={cnLayout('Delimiter').toString()} />
-            <LayoutOptionItem view={view} option={closeOption} />
+            <LayoutOptionItem onClick={onClick} option={closeOption} />
           </>
         )}
       </NavigationList>
