@@ -1,7 +1,7 @@
 import React from 'react';
-import { createPortal } from 'react-dom';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
-import { useKey, usePortalDomNode } from '@gpn-prototypes/vega-hooks';
+import { useKey } from '@gpn-prototypes/vega-hooks';
+import { usePortalRender } from '@gpn-prototypes/vega-root';
 
 import { cnSidebar } from './cn-sidebar';
 import { SidebarBody } from './SidebarBody';
@@ -17,7 +17,7 @@ export type SidebarProps = {
   align?: 'left' | 'right';
   hasOverlay?: boolean;
   onOverlayClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent) => void;
-  portalContainerSelector?: string;
+  portal?: HTMLDivElement | null;
   onMinimize?: (event: React.MouseEvent) => void;
   onClose?: (event: React.MouseEvent) => void;
   className?: string;
@@ -42,7 +42,7 @@ export const Sidebar: Sidebar<SidebarProps> = ({
   align = 'right',
   hasOverlay = true,
   onOverlayClick,
-  portalContainerSelector,
+  portal,
   onMinimize,
   onClose,
   className,
@@ -50,6 +50,8 @@ export const Sidebar: Sidebar<SidebarProps> = ({
   ...rest
 }) => {
   const showOverlay = isOpen && hasOverlay && !isMinimized;
+
+  const { renderPortalWithTheme } = usePortalRender();
 
   const handleOverlayClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent,
@@ -101,10 +103,8 @@ export const Sidebar: Sidebar<SidebarProps> = ({
     </>
   );
 
-  const container = usePortalDomNode(portalContainerSelector);
-
-  if (portalContainerSelector && container) {
-    return createPortal(Content, container);
+  if (portal) {
+    return renderPortalWithTheme(Content, portal);
   }
 
   return Content;

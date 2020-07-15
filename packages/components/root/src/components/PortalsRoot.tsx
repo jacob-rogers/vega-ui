@@ -1,12 +1,12 @@
 import React, { createContext, ReactPortal, RefObject, useContext, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { usePortalDomNode } from '@gpn-prototypes/vega-hooks';
+import { usePortals } from '@gpn-prototypes/vega-hooks';
 
 import { getThemeByName, Theme, useTheme } from './ThemeRoot';
 
-type PortalNames = 'default';
-
-export type PortalRef = RefObject<Record<PortalNames, HTMLDivElement | null>>;
+export type PortalRef = RefObject<{
+  [key: string]: HTMLDivElement;
+}>;
 
 type DivProps = JSX.IntrinsicElements['div'];
 
@@ -22,11 +22,11 @@ type PortalContextProps = {
 type RenderPortalWithTheme = (children: React.ReactNode, container: Element) => ReactPortal;
 
 export const PortalsContext = createContext<PortalContextProps>({
-  portals: { current: null },
+  portals: { current: {} },
 });
 
 export const usePortal = (
-  name: PortalNames = 'default',
+  name = 'default',
 ): {
   portal: HTMLDivElement | null | undefined;
 } => {
@@ -57,15 +57,14 @@ export const usePortalRender = (): { renderPortalWithTheme: RenderPortalWithThem
 };
 
 export const PortalsRoot: React.FC<PortalParams> = (props) => {
-  const { id, children, ...rest } = props;
+  const { children } = props;
 
-  const portalContainer = usePortalDomNode('body', { id, ...rest });
-
-  const ref: PortalRef = useRef({ default: portalContainer });
-
-  if (!portalContainer) {
-    return null;
-  }
+  const { ref } = usePortals([
+    {
+      name: 'default',
+      parentSelector: 'body',
+    },
+  ]);
 
   return (
     <>

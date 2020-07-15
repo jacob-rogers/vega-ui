@@ -2,23 +2,25 @@ import React from 'react';
 import { createPortal } from 'react-dom';
 import { render, screen } from '@testing-library/react';
 
-import { usePortalDomNode } from './use-portal-dom-node';
+import { usePortals } from './use-portals';
 
 type Props = {
   rootSelector: string;
 };
 
 const SomeComponent: React.FC<Props> = ({ rootSelector }) => {
-  const node = usePortalDomNode(rootSelector);
+  const { ref } = usePortals([{ name: 'rootSelector', parentSelector: rootSelector }]);
 
-  if (!node) {
+  const rootPortal = ref.current.rootSelector;
+
+  if (!rootPortal) {
     return null;
   }
 
-  return createPortal(<div data-testid="portal-component">test component</div>, node);
+  return createPortal(<div data-testid="portal-component">test component</div>, rootPortal);
 };
 
-describe('usePortalDomNode', () => {
+describe('usePortals', () => {
   test('компонент рендерится', () => {
     render(<SomeComponent rootSelector="body" />);
     expect(screen.getByTestId('portal-component')).toBeInTheDocument();
