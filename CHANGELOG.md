@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.6.2 (2020-07-16)
+
+* VEGA-216: Исправить проблему с загрузкой стилей + исправить список зависимостей [#107](https://github.com/gpn-prototypes/vega-ui/pull/107)
+  * Измененные пакеты: `components`
+   * Автор PR: [@maksim-kononov-csssr](https://github.com/maksim-kononov-csssr)
+
 ## @gpn-prototypes/vega-ui@2.6.1 (2020-07-16)
 
 * VEGA-216: Исправить проблему с загрузкой стилей [#104](https://github.com/gpn-prototypes/vega-ui/pull/104)
