@@ -1,1 +1,1 @@
-export { usePortals } from './use-portals';
+export { usePortals, PortalParams, PortalsMap, PortalsAPI } from './use-portals';

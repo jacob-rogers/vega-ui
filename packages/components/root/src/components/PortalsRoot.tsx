@@ -1,46 +1,49 @@
-import React, { createContext, ReactPortal, RefObject, useContext, useRef } from 'react';
+import React, { createContext, ReactPortal, RefObject, useContext } from 'react';
 import { createPortal } from 'react-dom';
-import { usePortals } from '@gpn-prototypes/vega-hooks';
+import {
+  PortalParams,
+  PortalsAPI,
+  PortalsMap,
+  useMount,
+  usePortals,
+  useUnmount,
+} from '@gpn-prototypes/vega-hooks';
 
 import { getThemeByName, Theme, useTheme } from './ThemeRoot';
 
-export type PortalRef = RefObject<{
-  [key: string]: HTMLDivElement;
-}>;
+export type PortalRef = RefObject<PortalsMap>;
 
-type DivProps = JSX.IntrinsicElements['div'];
-
-export type PortalParams = {
-  className?: string;
-  id: string;
-} & DivProps;
-
-type PortalContextProps = {
-  portals: PortalRef;
-};
+type PortalContextProps = PortalsAPI;
 
 type RenderPortalWithTheme = (children: React.ReactNode, container: Element) => ReactPortal;
 
 export const PortalsContext = createContext<PortalContextProps>({
-  portals: { current: {} },
+  ref: { current: {} },
+  append: () => {},
+  remove: () => {},
+  createContainer: () => {},
 });
 
 export const usePortal = (
-  name = 'default',
+  params: PortalParams = { name: 'portalsRoot' },
 ): {
   portal: HTMLDivElement | null | undefined;
 } => {
-  const { portals } = useContext(PortalsContext);
+  const { ref, append, createContainer, remove } = useContext(PortalsContext);
 
-  const getPortal = (): HTMLDivElement | null | undefined => {
-    if (portals.current !== null && name in portals.current) {
-      return portals.current[name];
-    }
+  if (!ref.current[params.name]) {
+    createContainer(params);
+  }
 
-    return undefined;
-  };
+  useMount(() => {
+    append(params);
+  });
 
-  return { portal: getPortal() };
+  useUnmount(() => {
+    remove(params.name);
+  });
+
+  return { portal: ref.current[params.name] };
 };
 
 export const usePortalRender = (): { renderPortalWithTheme: RenderPortalWithTheme } => {
@@ -56,19 +59,20 @@ export const usePortalRender = (): { renderPortalWithTheme: RenderPortalWithThem
   return { renderPortalWithTheme };
 };
 
-export const PortalsRoot: React.FC<PortalParams> = (props) => {
-  const { children } = props;
+type PortalsRootProps = {
+  initialPortals: PortalParams[];
+};
 
-  const { ref } = usePortals([
-    {
-      name: 'default',
-      parentSelector: 'body',
-    },
-  ]);
+export const PortalsRoot: React.FC<PortalsRootProps> = (props) => {
+  const { children, initialPortals } = props;
+
+  const { ref, append, createContainer, remove } = usePortals(initialPortals);
 
   return (
     <>
-      <PortalsContext.Provider value={{ portals: ref }}>{children}</PortalsContext.Provider>
+      <PortalsContext.Provider value={{ ref, append, createContainer, remove }}>
+        {children}
+      </PortalsContext.Provider>
     </>
   );
 };

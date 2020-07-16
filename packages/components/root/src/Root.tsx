@@ -1,4 +1,5 @@
 import React from 'react';
+import { PortalParams } from '@gpn-prototypes/vega-hooks';
 
 import {
   PortalsRoot,
@@ -12,14 +13,15 @@ import {
 export type RootProps = {
   defaultTheme?: ThemeName;
   children: React.ReactNode;
+  initialPortals?: PortalParams[];
 };
 
 const Root: React.FC<RootProps> = (props) => {
-  const { defaultTheme, children } = props;
+  const { defaultTheme, children, initialPortals = [] } = props;
 
   return (
     <ThemeRoot themeName={defaultTheme}>
-      <PortalsRoot id="portalRoot">{children}</PortalsRoot>
+      <PortalsRoot initialPortals={initialPortals}>{children}</PortalsRoot>
     </ThemeRoot>
   );
 };

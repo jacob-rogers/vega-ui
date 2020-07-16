@@ -38,7 +38,7 @@ storiesOf('ui/Modal', module)
     },
   })
   .add('по умолчанию', () => {
-    const { isOpen, close: handleClose, open: handleOpen } = useModal({ initialOpen: true });
+    const { isOpen, close: handleClose, open: handleOpen } = useModal({ initialOpen: false });
     const example = exampleKnobs();
 
     const openAction = action('Modal opened');

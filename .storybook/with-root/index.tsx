@@ -25,7 +25,7 @@ export const VegaRootDecorator: React.FC<VegaThemeDecoratorProps> = (props) => {
   const { themeName } = props;
 
   return (
-    <Root defaultTheme={themeName}>
+    <Root initialPortals={[{ name: 'portalRoot' }]} defaultTheme={themeName}>
       <StorybookThemeRoot {...props} />
     </Root>
   );
