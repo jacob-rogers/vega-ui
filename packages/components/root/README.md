@@ -16,7 +16,7 @@ import { Root as VegaRoot } from '@gpn-prototypes/vega-root';
 
 export const App = () => {
   return (
-    <VegaRoot initialPortals={[{ id: 'modalRoot' }]} defaultTheme="default">
+    <VegaRoot initialPortals={[{ name: 'modalRoot' }]} defaultTheme="default">
       {/* код приложения */}
     </VegaRoot>
   );
@@ -34,14 +34,15 @@ type PortalParams = {
 type RootProps = {
   defaultTheme?: 'default' | 'dark' | 'display'; // начальная тема
   children: React.ReactNode;
+  initialPortals: { name: string; className?: string; parentSelector?: string } // порталы, которые будут зарендерены при монтировании компонента
 };
 ```
 
 ### API usePortal
 
-Возвращает реф с порталами.
+Возвращает портал-контейнер для рендера в нем компонентов.
 
-На данный момент доступен только default портал, который создается для проекта по умолчанию.
+На вход принимает `ts { name: string; className?: string; parentSelector?: string } `. Параметры `parentSelector` и `className` необходимы на случай, если портал не найден, тогда он будет создан.
 
 Пример использования:
 
@@ -50,7 +51,7 @@ import { usePortal } from '@gpn-prototypes/vega-root';
 import { Modal } from './Modal';
 
 const MyComponent = () => {
-  const { portal } = usePortal();
+  const { portal } = usePortal({ name: 'default' });
 
   return <Modal portalID={portal.id}>{/* some code */}</Modal>;
 };
