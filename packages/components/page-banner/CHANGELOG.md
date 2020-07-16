@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-page-banner@0.2.2...@gpn-prototypes/vega-page-banner@0.2.3) (2020-07-16)
+
+
+### Bug Fixes
+
+* **header, page-banner:** удалил свойство "sideEffects": false ([5e6f8b7](https://github.com/gpn-prototypes/vega-ui/commit/5e6f8b74d7c2b2d71deb5b5238511792c924780c))
+
+
+
+
+
 ## [0.2.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-page-banner@0.2.1...@gpn-prototypes/vega-page-banner@0.2.2) (2020-06-09)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-page-banner
