@@ -25,4 +25,10 @@ describe('usePortals', () => {
     render(<SomeComponent rootSelector="body" />);
     expect(screen.getByTestId('portal-component')).toBeInTheDocument();
   });
+
+  test('создается портал', async () => {
+    render(<SomeComponent rootSelector="body" />);
+
+    expect(document.body).toContainElement(document.querySelector('#rootSelector'));
+  });
 });
