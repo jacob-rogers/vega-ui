@@ -8,12 +8,14 @@ export interface LayoutHeaderProps extends HeaderProps {
   children?: React.ReactNode;
 }
 
-export const LayoutHeader: React.FC<LayoutHeaderProps> = ({ className, children, ...rest }) => {
-  const cn = cnLayout('Header').mix(className);
+export const LayoutHeader = React.forwardRef<HTMLHeadingElement, LayoutHeaderProps>(
+  ({ className, children, ...rest }, ref) => {
+    const cn = cnLayout('Header').mix(className);
 
-  return (
-    <header className={cn} {...rest}>
-      {children}
-    </header>
-  );
-};
+    return (
+      <header ref={ref} className={cn} {...rest}>
+        {children}
+      </header>
+    );
+  },
+);

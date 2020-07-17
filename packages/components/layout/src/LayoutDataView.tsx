@@ -15,9 +15,6 @@ interface LayoutDataViewProps {
 export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
   const { view } = props;
   const widget = view.getWidgetName();
-  const context = view.getContext({
-    input: '',
-  });
 
   const items = [
     { value: 'projects', label: 'Проекты' },
@@ -51,13 +48,6 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
           <option value="foo">foo</option>
           <option value="bar">bar</option>
         </select>
-        <input
-          type="text"
-          value={context.input}
-          onChange={(e): void => {
-            view.setContext({ input: e.target.value });
-          }}
-        />
       </LayoutBody>
     </LayoutWindow>
   );
