@@ -6,6 +6,7 @@
   --layout-resizer-size: 2px;
   --layout-z-resizer: 1;
   --layout-z-header: calc(var(--layout-z-resizer) + 1);
+  --layout-header-height: 25px;
   position: relative;
 
   display: grid;
@@ -22,15 +23,13 @@
     right: 0;
     left: 0;
 
-    margin-left: var(--layout-resizer-size);
-
     display: flex;
     overflow-x: auto;
     overflow-y: hidden;
     justify-content: space-between;
 
     box-sizing: border-box;
-    height: 25px;
+    height: var(--layout-header-height);
 
     border-bottom: 1px solid var(--color-bg-secondary);
     flex-shrink: 0;
@@ -85,7 +84,7 @@
   }
 
   &__Resizer {
-    position: absolute;
+    position: relative;
     z-index: var(--layout-z-resizer);
 
     padding: 0;
@@ -97,13 +96,12 @@
       content: '';
 
       position: absolute;
-      top: 0;
-      right: -1px;
-      left: -1px;
-      bottom: 0;
+
+      display: block;
     }
 
-    &:hover {
+    &:hover,
+    &.is-active {
       z-index: var(--layout-z-header);
 
       background-color: var(--color-control-bg-primary);
@@ -113,34 +111,40 @@
       outline: none;
     }
 
-    &_split_vertical {
-      right: 0;
-
-      margin-right: calc(var(--layout-resizer-size) * -1);
-
+    &_split_horizontal {
       width: var(--layout-resizer-size);
       height: 100%;
 
       cursor: ew-resize;
+
+      &:hover::after {
+        top: 0;
+        left: calc(var(--layout-resizer-size) * -2);
+
+        width: calc(var(--layout-resizer-size) * 6);
+        height: 100%;
+      }
     }
 
-    &_split_horizontal {
-      bottom: 0;
-
-      margin-bottom: calc(var(--layout-resizer-size) * -1);
-
+    &_split_vertical {
       width: 100%;
       height: var(--layout-resizer-size);
 
       cursor: ns-resize;
+
+      &:hover::after {
+        top: calc(var(--layout-resizer-size) * -2);
+        left: 0;
+
+        width: 100%;
+        height: calc(var(--layout-resizer-size) * 6);
+      }
     }
   }
 
   &__Window {
     --first-view-size: 1fr;
     --second-view-size: 1fr;
-    --first-view-min-size: 0;
-    --second-view-min-size: 0;
     position: relative;
 
     display: flex;
@@ -155,16 +159,17 @@
     &_split_horizontal {
       display: grid;
       grid-template-rows: auto;
-      grid-template-columns: var(--first-view-size) var(--layout-resizer-size) var(
-          --second-view-size
+      grid-template-columns: minmax(25px, var(--first-view-size)) var(--layout-resizer-size) minmax(
+          25px,
+          var(--second-view-size)
         );
     }
 
     &_split_vertical {
       display: grid;
       grid-template-rows:
-        minmax(var(--first-view-min-size), var(--first-view-size), var(--layout-resizer-size))
-        minmax(var(--second-view-min-size), var(--second-view-size));
+        minmax(var(--layout-header-height), var(--first-view-size)) var(--layout-resizer-size)
+        minmax(var(--layout-header-height), var(--second-view-size));
     }
   }
 

@@ -7,9 +7,9 @@ import { LayoutView } from './LayoutView';
 
 import './Layout.css';
 
-export interface LayoutProps {
+interface LayoutProps {
   state?: GridState;
-  onChange?: (update: GridUpdate) => void;
+  onChange?: (change: { update: GridUpdate; state: GridState }) => void;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ state, onChange }) => {
@@ -19,9 +19,9 @@ export const Layout: React.FC<LayoutProps> = ({ state, onChange }) => {
 
   React.useEffect(
     () =>
-      grid.addListener((update) => {
+      grid.addListener(update => {
         if (typeof onChangeRef.current === 'function') {
-          onChangeRef.current(update);
+          onChangeRef.current({ update, state: grid.extract() });
         }
       }),
     [grid, onChangeRef],
