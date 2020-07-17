@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { SplitView } from './grid';
+import { LayoutResizer } from './LayoutResizer';
 import { LayoutWindow } from './LayoutWindow';
 
 interface LayoutSplitViewProps {
@@ -12,24 +13,21 @@ export const LayoutSplitView: React.FC<LayoutSplitViewProps> = (props) => {
   const { view, children } = props;
   const breakpoint = view.getBreakpoint();
   const orientation = view.split.getOrientation();
-
-  const resizerStyle: React.CSSProperties = {
-    display: 'grid',
-    [orientation === 'horizontal' ? 'gridTemplateRows' : 'gridTemplateColumns']: '1fr 1fr',
-  };
+  const [first, second] = children;
+  const containerRef = React.useRef<HTMLDivElement | null>(null);
 
   return (
-    <LayoutWindow split={orientation}>
-      {children[0]}
-      <div style={resizerStyle}>
-        <button type="button" onClick={(): void => view.setBreakpoint(breakpoint + 1)}>
-          +
-        </button>
-        <button type="button" onClick={(): void => view.setBreakpoint(breakpoint - 1)}>
-          -
-        </button>
-      </div>
-      {children[1]}
+    <LayoutWindow ref={containerRef} split={orientation}>
+      {first}
+      <LayoutResizer
+        containerRef={containerRef}
+        split={orientation}
+        breakpoint={breakpoint}
+        onAfterResize={(bp): void => {
+          view.setBreakpoint(bp);
+        }}
+      />
+      {second}
     </LayoutWindow>
   );
 };
