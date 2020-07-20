@@ -33,7 +33,7 @@ export type PortalsAPI = {
 };
 
 export const usePortals = (portals: PortalParams[] | PortalParams): PortalsAPI => {
-  const params = Array.isArray(portals) ? portals : [portals];
+  const params = useRef(Array.isArray(portals) ? portals : [portals]);
 
   const ref = useRef<PortalsMap>({});
 
@@ -66,18 +66,18 @@ export const usePortals = (portals: PortalParams[] | PortalParams): PortalsAPI =
   };
 
   if (Object.keys(ref.current).length === 0) {
-    params.forEach((portal) => {
+    params.current.forEach((portal) => {
       createPortalContainer(portal);
     });
   }
 
   useIsomorphicEffect(() => {
-    params.forEach((portal) => {
+    params.current.forEach((portal) => {
       appendPortal(portal);
     });
 
     return (): void => {
-      params.forEach(({ name }) => {
+      params.current.forEach(({ name }) => {
         removePortal(name);
       });
     };

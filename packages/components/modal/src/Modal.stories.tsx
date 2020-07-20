@@ -42,7 +42,7 @@ storiesOf('ui/Modal', module)
     const example = exampleKnobs();
 
     const openAction = action('Modal opened');
-    const { portal } = usePortal();
+    const { portal } = usePortal({ name: 'modalRoot' });
     const closeAction = action('Modal closed');
 
     return (
