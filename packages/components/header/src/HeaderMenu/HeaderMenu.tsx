@@ -36,7 +36,7 @@ export const HeaderMenu: HeaderMenu = (props) => {
 
   return (
     <HeaderMenuContext.Provider value={{ closeMenu: handleCloseMenu }}>
-      <div className={cnHeader('MenuWrap')} role="menubar" aria-haspopup="true">
+      <div className={cnHeader('MenuWrap')} role="menubar">
         <Dropdown
           isOpen={isOpen}
           aria-expanded={isOpen}
