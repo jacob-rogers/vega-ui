@@ -29,8 +29,16 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
           />
         );
       }}
-      menu={(): React.ReactNode => {
-        return <LayoutOptionsList {...props} />;
+      menu={({ closeDropdown }): React.ReactNode => {
+        return (
+          <LayoutOptionsList
+            {...props}
+            onClick={(action): void => {
+              closeDropdown();
+              props.onClick(action);
+            }}
+          />
+        );
       }}
     />
   );
