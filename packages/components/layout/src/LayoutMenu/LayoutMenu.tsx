@@ -44,8 +44,8 @@ export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
             items={items}
             activeValue={activeValue}
             onChange={(value: string): void => {
-              onChange(value);
               closeDropdown();
+              onChange(value);
             }}
           />
         );

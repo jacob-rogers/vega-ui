@@ -3,3 +3,4 @@ export { Split, SplitDirection, SplitOrientation } from './Split';
 export { DataView } from './DataView';
 export { SplitView } from './SplitView';
 export { Cursor } from './Cursor';
+export { Node } from './Node';
