@@ -1,6 +1,12 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+## @gpn-prototypes/vega-ui@2.7.1 (2020-07-21)
+
+* VEGA-109: обновлен frontend-configs [#110](https://github.com/gpn-prototypes/vega-ui/pull/110)
+  * Измененные пакеты: `components`
+   * Автор PR: [@tsvetta](https://github.com/tsvetta)
+
 
 ## @gpn-prototypes/vega-ui@2.6.2 (2020-07-16)
 
