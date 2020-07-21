@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.7.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.7.0...@gpn-prototypes/vega-ui@2.7.1) (2020-07-21)
+
+
+### Bug Fixes
+
+* **header:** убран лишний aria-haspopup из HeaderMenu ([782ce77](https://github.com/gpn-prototypes/vega-ui/commit/782ce77564fc24059942d159e3c1cb67a5019029))
+
+
+
+
+
 # [2.7.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.6.2...@gpn-prototypes/vega-ui@2.7.0) (2020-07-21)
 
 
