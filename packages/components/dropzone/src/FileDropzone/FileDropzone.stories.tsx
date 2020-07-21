@@ -14,7 +14,7 @@ const MarginContainer = styled.div`
 `;
 
 const Container = styled.div`
-  width: 300px;
+  width: 250px;
 `;
 
 const FlexGroup = styled.div`
