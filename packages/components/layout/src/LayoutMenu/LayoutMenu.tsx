@@ -26,7 +26,7 @@ export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
             innerRef={ref}
             onClick={toggle}
             label={activeItem?.label}
-            aria-label="Триггер для меню layout"
+            aria-label="Открыть список виджетов"
             iconRight={IconSelect}
             size="xs"
             iconSize="xs"

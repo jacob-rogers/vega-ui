@@ -17,7 +17,7 @@ export const LayoutSplitView: React.FC<LayoutSplitViewProps> = (props) => {
   const containerRef = React.useRef<HTMLDivElement | null>(null);
 
   return (
-    <LayoutWindow ref={containerRef} split={orientation}>
+    <LayoutWindow role="group" ref={containerRef} split={orientation}>
       {first}
       <LayoutResizer
         containerRef={containerRef}
