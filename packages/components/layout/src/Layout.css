@@ -162,19 +162,11 @@
 
     &_split_vertical {
       display: grid;
-      grid-template-rows: minmax(
-          var(--first-view-min-size),
-          var(--first-view-size),
-          var(--layout-resizer-size)
-        ) minmax(var(--second-view-min-size), var(--second-view-size));
+      grid-template-rows:
+        minmax(var(--first-view-min-size), var(--first-view-size), var(--layout-resizer-size))
+        minmax(var(--second-view-min-size), var(--second-view-size));
     }
   }
-
-  /*
-    не должно быть отступа у шапок в самом верху иерархии:
-      - у всех шапок к окнах разделенных горизонтально
-      - только у первой, в разделенном вертикальн окне
-  */
 
   &__Window:last-child > &__Resizer {
     display: none;
@@ -201,9 +193,8 @@
 
 .VegaLayout__MenuWrapper .VegaLayout__List {
   z-index: var(--layout-z-portal);
-
-  padding-top: calc(var(--space-m) + 2px);
-  padding-bottom: calc(var(--space-m) + 2px);
+  border-radius: var(--control-radius);
+  padding: var(--space-xs) 0;
 
   box-sizing: border-box;
   min-width: 240px;
@@ -215,8 +206,7 @@
 }
 
 .VegaLayout__List .VegaLayout__Option {
-  padding-right: var(--space-s);
-  padding-left: var(--space-s);
+  padding: calc(var(--space-xs) + 2px) var(--space-s);
 
   display: flex;
   align-items: center;
