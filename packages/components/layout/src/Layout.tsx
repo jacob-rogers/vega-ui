@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { cnLayout } from './cn-layout';
-import { Grid, GridState, GridUpdate } from './grid';
+import { Grid, GridState, GridUpdate, Node } from './grid';
 import { GridContext } from './hooks';
 import { LayoutWidget } from './LayoutDataView';
 import { LayoutView } from './LayoutView';
@@ -14,8 +14,18 @@ export interface LayoutProps {
   onChange?: (change: { update: GridUpdate; state: GridState }) => void;
 }
 
-export const Layout: React.FC<LayoutProps> = ({ state, widgets, onChange }) => {
-  const grid = React.useMemo(() => Grid.create(state), [state]);
+export const Layout: React.FC<LayoutProps> = (props) => {
+  const { state, widgets, onChange } = props;
+
+  const grid = React.useMemo(() => {
+    const [widget] = widgets;
+    return Grid.create(
+      state ?? {
+        0: Node.createLeaf({ widget: widget?.component }),
+      },
+    );
+  }, [state, widgets]);
+
   const onChangeRef = React.useRef(onChange);
   onChangeRef.current = onChange;
 
@@ -31,7 +41,7 @@ export const Layout: React.FC<LayoutProps> = ({ state, widgets, onChange }) => {
 
   return (
     <GridContext.Provider value={grid}>
-      <div className={cnLayout()}>
+      <div role="tree" className={cnLayout()}>
         <LayoutView widgets={widgets} />
       </div>
     </GridContext.Provider>

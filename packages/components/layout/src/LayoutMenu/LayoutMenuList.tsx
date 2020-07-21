@@ -28,6 +28,7 @@ export const LayoutMenuList: React.FC<LayoutMenuListProps> = (props) => {
             <Button
               label={item.label}
               aria-label={item.label}
+              aria-current={activeValue === item.value}
               onClick={(): void => onChange(item.value)}
               size="m"
               form="brick"
