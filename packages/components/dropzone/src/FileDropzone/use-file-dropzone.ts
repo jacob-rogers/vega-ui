@@ -24,7 +24,7 @@ export const useFileDropzone = (
     }
   };
 
-  const handleDragEnter: ReactDragEventHandler = (e) => {
+  const handleDragEnter: ReactDragEventHandler = e => {
     e.preventDefault();
     e.stopPropagation();
     if (options.withFullscreen && !fullscreenVisible) {
@@ -35,20 +35,20 @@ export const useFileDropzone = (
     }
   };
 
-  const handleDragLeave: ReactDragEventHandler = (e) => {
+  const handleDragLeave: ReactDragEventHandler = e => {
     e.preventDefault();
-    e.stopPropagation();
     closeFullscreenVisible();
     if (handlers.onDragLeave) {
       handlers.onDragLeave(e);
     }
   };
 
-  const handleDragOver: ReactDragEventHandler = (e) => {
+  const handleDragOver: ReactDragEventHandler = e => {
     e.preventDefault();
     e.stopPropagation();
     if (e.dataTransfer) {
       e.dataTransfer.dropEffect = 'copy';
+      e.dataTransfer.effectAllowed = 'copy';
     }
   };
 
