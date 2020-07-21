@@ -39,6 +39,12 @@
     }
   }
 
+  &.is-droparea {
+    .VegaDropzone__Content {
+      pointer-events: none;
+    }
+  }
+
   &.is-fullscreen {
     position: relative;
     pointer-events: none;
@@ -51,10 +57,5 @@
     height: 90%;
 
     color: var(--color-typo-secondary);
-
-    .VegaDropzone__Content,
-    .VegaDropzone__Overlay {
-      pointer-events: none;
-    }
   }
 }

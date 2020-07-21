@@ -13,6 +13,7 @@ export type DropzoneProps = {
   children?: React.ReactNode;
   show?: boolean;
   fullscreen?: boolean;
+  inDropArea?: boolean;
 } & DragHandlers &
   JSX.IntrinsicElements['div'];
 
@@ -29,7 +30,7 @@ type DropzoneEvents = {
   [k in EventKeys]: DragEventHandler;
 };
 
-export const Dropzone: React.FC<DropzoneProps> = props => {
+export const Dropzone: React.FC<DropzoneProps> = (props) => {
   const defaultDragHandler = (): void => {};
   const {
     className,
@@ -42,6 +43,7 @@ export const Dropzone: React.FC<DropzoneProps> = props => {
     onDragLeave = defaultDragHandler,
     onDrop = defaultDragHandler,
     fullscreen = false,
+    inDropArea = false,
     show = true,
     ...rest
   } = props;
@@ -60,22 +62,26 @@ export const Dropzone: React.FC<DropzoneProps> = props => {
     };
   }, [fullscreen, onDragEnter]);
 
-  const dropzoneClassName = fullscreen ? cnDropzone.state({ fullscreen }) : cnDropzone;
+  const dropzoneClassName = fullscreen
+    ? cnDropzone.state({ fullscreen, droparea: inDropArea })
+    : cnDropzone.state({ droparea: inDropArea });
+
+  const eventProps = {
+    onDragOver,
+    onDragEnd,
+    onDragExit,
+    onDrop,
+    onDragStart,
+    onDragEnter,
+    onDragLeave,
+  };
 
   const getProps = (): Partial<DropzoneEvents> => {
-    const eventProps = {
-      onDragOver,
-      onDragEnd,
-      onDragExit,
-      onDrop,
-      onDragStart,
-    };
-
     if (fullscreen) {
-      return eventProps;
+      return {};
     }
 
-    return { ...eventProps, onDragEnter, onDragLeave };
+    return eventProps;
   };
 
   const content = (
@@ -86,7 +92,7 @@ export const Dropzone: React.FC<DropzoneProps> = props => {
 
   if (portal && fullscreen) {
     return renderPortalWithTheme(
-      <div onDragLeave={onDragLeave} className={cnDropzone('Overlay').state({ visible: show })}>
+      <div {...eventProps} className={cnDropzone('Overlay').state({ visible: show })}>
         {content}
       </div>,
       portal,
