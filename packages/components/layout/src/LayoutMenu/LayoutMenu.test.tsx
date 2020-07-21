@@ -16,13 +16,12 @@ function renderComponent(
 }
 
 function findTrigger(): Promise<HTMLElement> {
-  return screen.findByLabelText('Триггер для меню layout');
+  return screen.findByLabelText('Открыть список виджетов');
 }
 
 async function clickByTrigger(): Promise<void> {
-  const trigger = await findTrigger();
-
-  act(() => {
+  await act(async () => {
+    const trigger = await findTrigger();
     fireEvent.click(trigger);
   });
 }
@@ -35,9 +34,10 @@ describe('LayoutMenu', () => {
   it('рендерится триггер', async () => {
     renderComponent();
 
-    const trigger = await findTrigger();
-
-    expect(trigger).toBeInTheDocument();
+    await act(async () => {
+      const trigger = await findTrigger();
+      expect(trigger).toBeInTheDocument();
+    });
   });
 
   it('рендерится элементы меню', async () => {
@@ -45,9 +45,10 @@ describe('LayoutMenu', () => {
 
     await clickByTrigger();
 
-    const menuItem = await screen.getByLabelText('test');
-
-    expect(menuItem).toBeInTheDocument();
+    await act(async () => {
+      const menuItem = await screen.getByLabelText('test');
+      expect(menuItem).toBeInTheDocument();
+    });
   });
 
   it('вызывается onChange по клику на элемент', async () => {
@@ -57,9 +58,10 @@ describe('LayoutMenu', () => {
 
     await clickByTrigger();
 
-    const menuItem = await screen.getByLabelText('test');
-
-    fireEvent.click(menuItem);
+    await act(async () => {
+      const menuItem = screen.getByLabelText('test');
+      fireEvent.click(menuItem);
+    });
 
     expect(onChange).toBeCalled();
   });
@@ -69,8 +71,8 @@ describe('LayoutMenu', () => {
 
     await clickByTrigger();
 
-    const menuItem = await screen.getByLabelText('test');
+    const menuItem = screen.getByLabelText('test');
 
-    expect(menuItem.classList.contains('VegaNavigationList__Item_active')).toBe(true);
+    expect(menuItem.getAttribute('aria-current')).toBe('true');
   });
 });

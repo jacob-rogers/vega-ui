@@ -41,7 +41,7 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
   };
 
   return (
-    <LayoutWindow>
+    <LayoutWindow role="treeitem">
       <LayoutHeader>
         <LayoutMenu
           items={widgetOptions}
@@ -50,7 +50,7 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
         />
         <LayoutOptions canClose={view.canClose()} onClick={handleOptionClick} />
       </LayoutHeader>
-      <LayoutBody>{Component !== undefined && <Component />}</LayoutBody>
+      <LayoutBody>{Component !== undefined && <Component {...view.getContext({})} />}</LayoutBody>
     </LayoutWindow>
   );
 };

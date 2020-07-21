@@ -4,17 +4,12 @@ import styled from '@emotion/styled';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 
-import { Node } from './grid/Node';
 import { Layout } from './Layout';
 
 const widgets = [
   { name: 'Widget one', component: 'vega-widget-one' },
   { name: 'Widget two', component: 'vega-widget-two' },
 ];
-
-const state = {
-  0: Node.createLeaf({ widget: widgets[0].component }),
-};
 
 class WidgetOne extends HTMLElement {
   static widgetName = 'vega-widget-one';
@@ -50,7 +45,7 @@ const Container = styled.div`
 storiesOf('ui/Layout', module).add('по умолчанию', () => {
   return (
     <Container>
-      <Layout widgets={widgets} state={state} onChange={action('onChange')} />
+      <Layout widgets={widgets} onChange={action('onChange')} />
     </Container>
   );
 });
