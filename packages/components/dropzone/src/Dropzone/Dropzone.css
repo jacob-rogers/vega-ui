@@ -41,6 +41,7 @@
 
   &.is-fullscreen {
     position: relative;
+    pointer-events: none;
     z-index: 101;
 
     margin: calc(var(--space-2xl) * 2);
@@ -51,7 +52,8 @@
 
     color: var(--color-typo-secondary);
 
-    .VegaDropzone__Content {
+    .VegaDropzone__Content,
+    .VegaDropzone__Overlay {
       pointer-events: none;
     }
   }

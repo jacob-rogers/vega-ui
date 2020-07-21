@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { DragEventHandler } from 'react';
 import { usePortalRender } from '@gpn-prototypes/vega-root';
 
 import { DragHandlers } from '../types';
@@ -16,7 +16,20 @@ export type DropzoneProps = {
 } & DragHandlers &
   JSX.IntrinsicElements['div'];
 
-export const Dropzone: React.FC<DropzoneProps> = (props) => {
+type EventKeys =
+  | 'onDragOver'
+  | 'onDragEnd'
+  | 'onDragLeave'
+  | 'onDragExit'
+  | 'onDrop'
+  | 'onDragEnter'
+  | 'onDragStart';
+
+type DropzoneEvents = {
+  [k in EventKeys]: DragEventHandler;
+};
+
+export const Dropzone: React.FC<DropzoneProps> = props => {
   const defaultDragHandler = (): void => {};
   const {
     className,
@@ -49,25 +62,33 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
 
   const dropzoneClassName = fullscreen ? cnDropzone.state({ fullscreen }) : cnDropzone;
 
-  const eventsProps = {
-    onDragOver,
-    onDragEnd,
-    onDragEnter,
-    onDragExit,
-    onDrop,
-    onDragLeave,
-    onDragStart,
+  const getProps = (): Partial<DropzoneEvents> => {
+    const eventProps = {
+      onDragOver,
+      onDragEnd,
+      onDragExit,
+      onDrop,
+      onDragStart,
+    };
+
+    if (fullscreen) {
+      return eventProps;
+    }
+
+    return { ...eventProps, onDragEnter, onDragLeave };
   };
 
   const content = (
-    <div className={dropzoneClassName.mix(className)} {...eventsProps} {...rest}>
+    <div className={dropzoneClassName.mix(className)} {...getProps()} {...rest}>
       <div className={cnDropzone('Content')}>{children}</div>
     </div>
   );
 
   if (portal && fullscreen) {
     return renderPortalWithTheme(
-      <div className={cnDropzone('Overlay').state({ visible: show })}>{content}</div>,
+      <div onDragLeave={onDragLeave} className={cnDropzone('Overlay').state({ visible: show })}>
+        {content}
+      </div>,
       portal,
     );
   }

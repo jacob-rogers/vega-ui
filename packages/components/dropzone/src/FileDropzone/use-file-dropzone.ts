@@ -37,6 +37,7 @@ export const useFileDropzone = (
 
   const handleDragLeave: ReactDragEventHandler = e => {
     e.preventDefault();
+    e.stopPropagation();
     closeFullscreenVisible();
     if (handlers.onDragLeave) {
       handlers.onDragLeave(e);
