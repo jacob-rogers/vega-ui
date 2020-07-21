@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-sidebar@0.1.0...@gpn-prototypes/vega-sidebar@0.2.0) (2020-07-21)
+
+
+### Features
+
+* **root:** возможность создавать множественные порталы ([7996a2b](https://github.com/gpn-prototypes/vega-ui/commit/7996a2bae82f938d31797fd5d7ae362fbbf87014))
+
+
+
+
+
 # 0.1.0 (2020-07-13)
 
 

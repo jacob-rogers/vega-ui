@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-root@0.1.0...@gpn-prototypes/vega-root@0.2.0) (2020-07-21)
+
+
+### Features
+
+* **portals:** добавление апи для создания порталов ([d755d89](https://github.com/gpn-prototypes/vega-ui/commit/d755d894234d90f997c361120c81da18876d3182))
+* **portals:** добавление тестов и документации PortalsRoot ([99651be](https://github.com/gpn-prototypes/vega-ui/commit/99651be08ae8cc85345e6a05f42ef187cac68ec2))
+* **root:** возможность создавать множественные порталы ([7996a2b](https://github.com/gpn-prototypes/vega-ui/commit/7996a2bae82f938d31797fd5d7ae362fbbf87014))
+
+
+
+
+
 # 0.1.0 (2020-07-14)
 
 
