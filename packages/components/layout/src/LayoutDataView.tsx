@@ -8,20 +8,29 @@ import { LayoutMenu } from './LayoutMenu';
 import { LayoutOptions } from './LayoutOptions';
 import { LayoutWindow } from './LayoutWindow';
 
+export interface LayoutWidget {
+  name: string;
+  component: string;
+}
+
 interface LayoutDataViewProps {
   view: DataView;
+  widgets: LayoutWidget[];
 }
 
 export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
-  const { view } = props;
-  const widget = view.getWidgetName();
+  const { view, widgets } = props;
 
-  const items = [
-    { value: 'projects', label: 'Проекты' },
-    { value: 'notProjects', label: 'Не проекты ' },
-  ];
+  const widgetOptions = React.useMemo(
+    () =>
+      widgets.map((widget) => ({
+        label: widget.name,
+        value: widget.component,
+      })),
+    [widgets],
+  );
 
-  const [activeItem, setActiveItem] = React.useState(items[0].value);
+  const Component = view.getWidgetName();
 
   const handleOptionClick = (action: ChangeAction): void => {
     if (action === 'close') {
@@ -34,21 +43,14 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
   return (
     <LayoutWindow>
       <LayoutHeader>
-        <LayoutMenu items={items} activeValue={activeItem} onChange={setActiveItem} />
+        <LayoutMenu
+          items={widgetOptions}
+          activeValue={view.getWidgetName()}
+          onChange={(name): void => view.setWidgetName(name)}
+        />
         <LayoutOptions canClose={view.canClose()} onClick={handleOptionClick} />
       </LayoutHeader>
-      <LayoutBody>
-        <select
-          name="view"
-          value={widget}
-          onChange={(e): void => {
-            view.setWidgetName(e.target.value);
-          }}
-        >
-          <option value="foo">foo</option>
-          <option value="bar">bar</option>
-        </select>
-      </LayoutBody>
+      <LayoutBody>{Component !== undefined && <Component />}</LayoutBody>
     </LayoutWindow>
   );
 };

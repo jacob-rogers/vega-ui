@@ -23,7 +23,7 @@ export const LayoutMenuList: React.FC<LayoutMenuListProps> = (props) => {
   return (
     <NavigationList className={cn}>
       {items.map((item) => (
-        <NavigationList.Item active={activeValue === item.value} key={item.value}>
+        <NavigationList.Item active={activeValue === item.value} key={item.label}>
           {(itemProps): React.ReactNode => (
             <Button
               label={item.label}
