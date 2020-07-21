@@ -9,17 +9,26 @@ import { storiesOf } from '@storybook/react';
 
 import { FileDropzone } from './FileDropzone';
 
-const MarginContainer = styled.div`
+const InputContainer = styled.div`
   margin-top: 25px;
+  display: flex;
 `;
 
 const Container = styled.div`
   width: 250px;
 `;
 
+const DocsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+`;
+
 const FlexGroup = styled.div`
   display: flex;
   justify-content: space-around;
+  width: 20%;
 `;
 
 const KNOB_GROUPS = {
@@ -53,9 +62,9 @@ storiesOf('ui/FileDropzone', module)
           onDrop={handleDrop}
         >
           <Text>{dropzoneText}</Text>
-          <MarginContainer>
+          <InputContainer>
             <FileDropzone.Input {...inputKnobs()} />
-          </MarginContainer>
+          </InputContainer>
         </FileDropzone>
       </Container>
     );
@@ -68,11 +77,11 @@ storiesOf('ui/FileDropzone', module)
       <Container>
         <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
           <Text>{dropzoneText}</Text>
-          <MarginContainer>
+          <InputContainer>
             <FileDropzone.Input {...inputKnobs()} />
-          </MarginContainer>
+          </InputContainer>
           <FileDropzone.Fullscreen portal={portal}>
-            <MarginContainer>
+            <DocsContainer>
               <FlexGroup>
                 <FileIconBmp size="m" />
                 <FileIconAvi size="m" />
@@ -80,7 +89,7 @@ storiesOf('ui/FileDropzone', module)
                 <FileIconGif size="m" />
               </FlexGroup>
               <Text>Отпустите, чтобы загрузить</Text>
-            </MarginContainer>
+            </DocsContainer>
           </FileDropzone.Fullscreen>
         </FileDropzone>
       </Container>

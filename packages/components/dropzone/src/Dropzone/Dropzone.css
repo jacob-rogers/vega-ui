@@ -14,7 +14,6 @@
   &__Content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 
     width: 100%;
   }
@@ -43,7 +42,7 @@
     }
   }
 
-  &.is-droparea {
+  &_activated {
     .VegaDropzone__Content {
       pointer-events: none;
     }

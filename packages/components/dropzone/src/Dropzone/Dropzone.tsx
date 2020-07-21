@@ -26,10 +26,6 @@ type EventKeys =
   | 'onDragEnter'
   | 'onDragStart';
 
-type DropzoneEvents = {
-  [k in EventKeys]: DragEventHandler;
-};
-
 export const Dropzone: React.FC<DropzoneProps> = (props) => {
   const defaultDragHandler = (): void => {};
   const {
@@ -62,9 +58,11 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     };
   }, [fullscreen, onDragEnter]);
 
+  const baseDropzoneClassName = cnDropzone({ activated: inDropArea });
+
   const dropzoneClassName = fullscreen
-    ? cnDropzone.state({ fullscreen, droparea: inDropArea })
-    : cnDropzone.state({ droparea: inDropArea });
+    ? baseDropzoneClassName.state({ fullscreen })
+    : baseDropzoneClassName;
 
   const eventProps = {
     onDragOver,
@@ -76,16 +74,10 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
     onDragLeave,
   };
 
-  const getProps = (): Partial<DropzoneEvents> => {
-    if (fullscreen) {
-      return {};
-    }
-
-    return eventProps;
-  };
+  const contentProps: DropzoneProps = fullscreen ? {} : eventProps;
 
   const content = (
-    <div className={dropzoneClassName.mix(className)} {...getProps()} {...rest}>
+    <div className={dropzoneClassName.mix(className)} {...contentProps} {...rest}>
       <div className={cnDropzone('Content')}>{children}</div>
     </div>
   );
