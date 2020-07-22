@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Text } from '@gpn-design/uikit/Text';
 import { FileIconAvi, FileIconBmp, FileIconDoc, FileIconGif } from '@gpn-prototypes/vega-icons';
 import { usePortal } from '@gpn-prototypes/vega-root';
+import { Text } from '@gpn-prototypes/vega-text';
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 

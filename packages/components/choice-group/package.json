@@ -21,9 +21,6 @@
   "dependencies": {
     "@gpn-design/uikit": "^1.1.2"
   },
-  "devDependencies": {
-    "@gpn-prototypes/vega-icons": "^0.1.5"
-  },
   "peerDependencies": {
     "react": "^16.8.0"
   }

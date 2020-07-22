@@ -21,14 +21,11 @@
   "peerDependencies": {
     "react": "^16.8.0"
   },
-  "devDependencies": {
-    "@types/react-transition-group": "*"
-  },
   "dependencies": {
-    "@gpn-design/uikit": "^1.1.2",
     "@gpn-prototypes/vega-button": "^0.1.4",
     "@gpn-prototypes/vega-icons": "^0.1.5",
     "@gpn-prototypes/vega-text": "^0.1.4",
-    "react-transition-group": "^4.3.0"
+    "react-transition-group": "^4.3.0",
+    "bem-cn": "^3.0.1"
   }
 }

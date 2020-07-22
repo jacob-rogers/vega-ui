@@ -19,12 +19,7 @@
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "peerDependencies": {
-    "react": "^16"
-  },
-  "devDependencies": {
-    "@emotion/core": "^10.0.28",
-    "@gpn-prototypes/vega-animation": "^0.0.2",
-    "@gpn-prototypes/vega-button": "^0.1.4"
+    "react": "^16.8.0"
   },
   "dependencies": {
     "bem-cn": "^3.0.1"

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Button } from '@gpn-design/uikit/Button';
-import { Text } from '@gpn-design/uikit/Text';
+import { Button } from '@gpn-prototypes/vega-button';
 import { usePortal } from '@gpn-prototypes/vega-root';
+import { Text } from '@gpn-prototypes/vega-text';
 import { action } from '@storybook/addon-actions';
 import { boolean, text } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';

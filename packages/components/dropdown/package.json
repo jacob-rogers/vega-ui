@@ -22,7 +22,6 @@
     "react": "^16.8.0"
   },
   "dependencies": {
-    "@gpn-design/uikit": "^1.1.2",
     "@gpn-prototypes/vega-hooks": "^0.4.0",
     "@gpn-prototypes/vega-root": "^0.2.0",
     "@popperjs/core": "^2.4.0",
