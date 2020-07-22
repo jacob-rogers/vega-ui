@@ -21,7 +21,7 @@ to: packages/components/<%= name %>/package.json
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.13.1"
   },
   "dependencies": {
     "bem-cn": "^3.0.1"

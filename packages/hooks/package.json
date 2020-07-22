@@ -20,6 +20,6 @@
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.13.1"
   }
 }

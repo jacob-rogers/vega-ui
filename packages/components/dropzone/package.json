@@ -18,12 +18,12 @@
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "dependencies": {
     "@gpn-prototypes/vega-file-input": "^0.1.0",
     "@gpn-prototypes/vega-hooks": "0.0.8",
-    "bem-cn": "^3.0.1",
-    "react-dom": "^16.13.1"
+    "bem-cn": "^3.0.1"
   }
 }
