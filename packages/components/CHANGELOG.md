@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.8.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.7.2...@gpn-prototypes/vega-ui@2.8.0) (2020-07-23)
+
+
+### Features
+
+* **packages:** добавлен header ([7ad6dfd](https://github.com/gpn-prototypes/vega-ui/commit/7ad6dfd0521f149e8c4c99ee1b09a43df3181678))
+
+
+
+
+
 ## [2.7.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.7.1...@gpn-prototypes/vega-ui@2.7.2) (2020-07-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
