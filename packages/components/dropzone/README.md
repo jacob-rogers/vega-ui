@@ -21,7 +21,7 @@ export const MyComponent = () => {
   return (
     <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
       <Text>{dropzoneText}</Text>
-      <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Я инпут')} />
+      <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Загрузить файл')} />
       <FileDropzone.Fullscreen>
         <FileIconBmp size="m" />
         <FileIconAvi size="m" />

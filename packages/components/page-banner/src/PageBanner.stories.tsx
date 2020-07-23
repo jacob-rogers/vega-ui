@@ -5,8 +5,8 @@ import { storiesOf } from '@storybook/react';
 import { PageBanner, PageBannerProps } from './PageBanner';
 
 const defaultKnobs = (): PageBannerProps => ({
-  title: text('title', 'Усть-Енисей'),
-  description: text('description', 'Россия, Ямало-Ненецкий АО, Усть-Енисей'),
+  title: text('title', 'Новый проект'),
+  description: text('description', 'Россия, Регион'),
 });
 
 storiesOf('ui/PageBanner', module)

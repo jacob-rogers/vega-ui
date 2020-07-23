@@ -32,7 +32,7 @@ storiesOf('ui/FileDropzone', module)
         <FileDropzone onDrop={(): void => setText('Файлы выбраны')}>
           <Text>{dropzoneText}</Text>
           <MarginContainer>
-            <FileDropzone.Input id="dropzone-id" label={text('label', 'Я инпут')} />
+            <FileDropzone.Input id="dropzone-id" label={text('label', 'Загрузить файл')} />
           </MarginContainer>
         </FileDropzone>
       </Container>
@@ -47,7 +47,7 @@ storiesOf('ui/FileDropzone', module)
         <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
           <Text>{dropzoneText}</Text>
           <MarginContainer>
-            <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Я инпут')} />
+            <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Загрузить файл')} />
           </MarginContainer>
           <FileDropzone.Fullscreen portal={portal}>
             <MarginContainer>
