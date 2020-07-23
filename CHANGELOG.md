@@ -1,6 +1,7 @@
 # Changelog
 
 <!-- insert-new-changelog-here -->
+
 ## @gpn-prototypes/vega-ui@2.7.2 (2020-07-23)
 
 * VEGA-215: Удалить devDependencies у всех пакетов [#113](https://github.com/gpn-prototypes/vega-ui/pull/113)
