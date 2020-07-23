@@ -1,6 +1,7 @@
 # Компоненты Vega UI
 
 -   [Animation](animation)
+-   [Carousel](carousel)
 -   [Dropdown](dropdown)
 -   [Dropzone](dropzone)
 -   [FileInput](file-input)
@@ -12,6 +13,7 @@
 -   [NavigationList](navigation-list)
 -   [PageBanner](page-banner)
 -   [PageFooter](page-footer)
+-   [Root](root)
 -   [ScalePanel](scale-panel)
 -   [Sidebar](sidebar)
 -   [Tabs](tabs)
