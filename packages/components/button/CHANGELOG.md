@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.2.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-button@0.1.4...@gpn-prototypes/vega-button@0.2.0) (2020-07-23)
+
+
+### Bug Fixes
+
+* **button:** удалил css ([1404226](https://github.com/gpn-prototypes/vega-ui/commit/1404226f00e3459e7d409a477825df7e82f42c29))
+
+
+### Features
+
+* **file-input:** добавление инпута для файлов ([fadf591](https://github.com/gpn-prototypes/vega-ui/commit/fadf5911965528ca87e7e6bed6cbffce4e3560f0))
+
+
+
+
+
 ## [0.1.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-button@0.1.3...@gpn-prototypes/vega-button@0.1.4) (2020-06-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-button

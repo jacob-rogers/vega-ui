@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-carousel",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
@@ -22,10 +22,10 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-button": "^0.1.4",
-    "@gpn-prototypes/vega-icons": "^0.1.5",
-    "@gpn-prototypes/vega-text": "^0.1.4",
-    "react-transition-group": "^4.3.0",
-    "bem-cn": "^3.0.1"
+    "@gpn-prototypes/vega-button": "^0.2.0",
+    "@gpn-prototypes/vega-icons": "^0.1.6",
+    "@gpn-prototypes/vega-text": "^0.1.5",
+    "bem-cn": "^3.0.1",
+    "react-transition-group": "^4.3.0"
   }
 }
