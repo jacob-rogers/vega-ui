@@ -85,3 +85,7 @@ _Внимание!_ На данный момент пакеты публикую
 
 При публикации через Github Actions автоматически обновляется `CHANGELOG.md`. Сведения об изменениях берутся из PR, которые изменяли какие-либо внутренние пакеты.
 Корневой `CHANGELOG.md` создается для пакета `@gpn-prototypes/vega-ui`. История изменений дочерних пакетов находится в директории этих пакетов, файле `CHANGELOG.md`.
+
+## Проверить, версии каких пакетов поднимутся
+
+`yarn lerna version --conventional-commits --no-commit-hooks --no-push --no-git-tag-version --allow-branch=<branch-name>`
