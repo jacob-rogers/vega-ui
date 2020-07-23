@@ -33,6 +33,7 @@
     "@gpn-prototypes/vega-file": "^0.1.5",
     "@gpn-prototypes/vega-file-input": "^0.1.1",
     "@gpn-prototypes/vega-form": "^0.1.7",
+    "@gpn-prototypes/vega-header": "^0.0.1",
     "@gpn-prototypes/vega-hooks": "^0.4.1",
     "@gpn-prototypes/vega-icons": "^0.1.6",
     "@gpn-prototypes/vega-informer": "^0.1.6",

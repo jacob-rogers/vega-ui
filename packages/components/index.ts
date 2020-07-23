@@ -6,6 +6,7 @@ export * from '@gpn-prototypes/vega-checkbox';
 export * from '@gpn-prototypes/vega-choice-group';
 export * from '@gpn-prototypes/vega-file';
 export * from '@gpn-prototypes/vega-form';
+export * from '@gpn-prototypes/vega-header';
 export * from '@gpn-prototypes/vega-icons';
 export * from '@gpn-prototypes/vega-informer';
 export * from '@gpn-prototypes/vega-modal';

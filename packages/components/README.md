@@ -1,5 +1,6 @@
 # Компоненты Vega UI
 
+-   [Header](header)
 -   [Logo](logo)
 -   [Modal](modal)
 -   [Dropdown](dropdown)

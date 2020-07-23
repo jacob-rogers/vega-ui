@@ -17,6 +17,7 @@ type Header = React.FC<HeaderProps> & {
 
 export const Header: Header = (props) => {
   const { children } = props;
+
   return <header className={cnHeader()}>{children}</header>;
 };
 

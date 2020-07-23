@@ -53,6 +53,7 @@
     "packages/components/checkbox",
     "packages/components/choice-group",
     "packages/components/file",
+    "packages/components/header",
     "packages/components/radio",
     "packages/components/switch",
     "packages/components/tabs",
