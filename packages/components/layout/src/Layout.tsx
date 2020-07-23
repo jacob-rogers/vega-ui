@@ -9,13 +9,14 @@ import { LayoutView } from './LayoutView';
 import './Layout.css';
 
 export interface LayoutProps {
+  className?: string;
   widgets: LayoutWidget[];
   state?: GridState;
   onChange?: (change: { update: GridUpdate; state: GridState }) => void;
 }
 
 export const Layout: React.FC<LayoutProps> = (props) => {
-  const { state, widgets, onChange } = props;
+  const { state, widgets, onChange, ...rest } = props;
 
   const grid = React.useMemo(() => {
     const [widget] = widgets;
@@ -41,7 +42,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
 
   return (
     <GridContext.Provider value={grid}>
-      <div role="tree" className={cnLayout()}>
+      <div {...rest} role="tree" className={cnLayout.mix(rest.className)}>
         <LayoutView widgets={widgets} />
       </div>
     </GridContext.Provider>
