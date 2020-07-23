@@ -7,6 +7,12 @@
   * Измененные пакеты: `components`
    * Автор PR: [@maksim-kononov-csssr](https://github.com/maksim-kononov-csssr)
 
+## @gpn-prototypes/vega-ui@2.7.2 (2020-07-23)
+
+* VEGA-215: Удалить devDependencies у всех пакетов [#113](https://github.com/gpn-prototypes/vega-ui/pull/113)
+  * Измененные пакеты: `components`
+   * Автор PR: [@maksim-kononov-csssr](https://github.com/maksim-kononov-csssr)
+
 ## @gpn-prototypes/vega-ui@2.7.1 (2020-07-21)
 
 * VEGA-109: обновлен frontend-configs [#110](https://github.com/gpn-prototypes/vega-ui/pull/110)
