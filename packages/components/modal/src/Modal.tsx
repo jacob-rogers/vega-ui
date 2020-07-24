@@ -26,13 +26,13 @@ export type ModalProps = {
   className?: string;
 };
 
-interface ModalComponent extends React.FC<ModalProps>, DivProps {
+interface Modal<T> extends React.FC<T>, DivProps {
   Header: typeof ModalHeader;
   Footer: typeof ModalFooter;
   Body: typeof ModalBody;
 }
 
-export const Modal: ModalComponent = (props) => {
+export const Modal: Modal<ModalProps> = (props) => {
   const {
     hasCloseButton,
     onClose,

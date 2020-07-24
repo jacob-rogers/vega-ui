@@ -91,7 +91,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 * **portals:** изменение рендера в порталах ([85a38e0](https://github.com/gpn-prototypes/vega-ui/commit/85a38e07d076cdf178cd8aead54fce648861cafb))
 * **vega-root:** добавление контейнера в сторибук ([90fe4af](https://github.com/gpn-prototypes/vega-ui/commit/90fe4af9469d323b177c97bc3dee79c8f35fff3a))
-* **publish:** добавление паблиша альфа-версий ([9c35626](https://github.com/gpn-prototypes/vega-ui/commit/9c35626c49dd3cb5ceafd1f246172ca4ad503134))
 
 
 
@@ -139,7 +138,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **lint:** фиксы по линтингу ([7a0a6b3](https://github.com/gpn-prototypes/vega-ui/commit/7a0a6b34a515126f1a4d7ecf42f563369a4659a0))
 * **storybook:** добавление примера ([e9b1cc7](https://github.com/gpn-prototypes/vega-ui/commit/e9b1cc73e1a8b118a697b34f591a12de9c5c80b7))
 * **test:** правки теcтов ([66f4a9f](https://github.com/gpn-prototypes/vega-ui/commit/66f4a9fd62026b0347bcec7050034b1d32abde1d))
-# [2.2.0-alpha.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.1.1...@gpn-prototypes/vega-ui@2.2.0-alpha.1) (2020-07-08)
 
 
 ### Features
@@ -203,19 +201,11 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 * **header:** разбивка на мелкие кусочки ([b1600da](https://github.com/gpn-prototypes/vega-ui/commit/b1600dae2dfb35f3f3937078a67f85c0a42b09fe))
 * **header:** удалить props ([7de6e53](https://github.com/gpn-prototypes/vega-ui/commit/7de6e533b9d135acce11cb9ea24b2bb3fb177837))
 * **packages:** фикс неймспейсов ([3fa200e](https://github.com/gpn-prototypes/vega-ui/commit/3fa200eaea85f15ed67b833bcb4ffdefc674d490))
-* **publish:** добавление паблиша альфа-версий ([9c35626](https://github.com/gpn-prototypes/vega-ui/commit/9c35626c49dd3cb5ceafd1f246172ca4ad503134))
-
-
-
-
-
-# [2.2.0-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.1.1...@gpn-prototypes/vega-ui@2.2.0-alpha.0) (2020-07-08)
 
 
 ### Features
 
 * **header:** обновить dropdown ([23d2eb9](https://github.com/gpn-prototypes/vega-ui/commit/23d2eb9530b1370169afc116b84823fdf5814ac6))
-* **publish:** добавление паблиша альфа-версий ([0fe68c0](https://github.com/gpn-prototypes/vega-ui/commit/0fe68c0c23f2e1ec5f14f4cad6595c6a037d6ba9))
 
 
 

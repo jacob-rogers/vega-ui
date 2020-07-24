@@ -2,7 +2,6 @@ name: Публикация новых версий пакетов
 on:
   push:
     branches: [master]
-  pull_request: [opened, reopened, synchronize]
 
 jobs:
   publish:
@@ -11,14 +10,10 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
 
     steps:
-      - uses: docker://quay.csssr.cloud/csssr/github-info:v1
-        id: gh
-
-      - uses: actions/checkout@v2
+      - name: Скачивание репозитория
+        uses: actions/checkout@v2
         with:
-          ref: refs/heads/${{ steps.gh.outputs.branch }}
           token: ${{ secrets.ADMIN_TOKEN }}
-
 
       - name: Скачивание всей git-истории (чтобы работал from-git)
         run: git fetch --prune --unshallow
@@ -37,24 +32,31 @@ jobs:
       - name: Сборка пакетов
         run: yarn build
 
-      - name: Публикация пакетов
-        uses: gpn-prototypes/vega-actions/release-lerna-packages@master
-        with:
-          branch: ${{ steps.gh.outputs.branch }}
-          main_branch: master
-          gh_user: GitHub Workflow
-          gh_email: workflow@github.com
+      - name: Настройка git
+        run: |
+          git config --local user.name "GitHub Workflow"
+          git config --local user.email "workflow@github.com"
+
+      - name: Поднятие версий пакетов
+        run: |
+          yarn lerna version --conventional-commits --allow-branch=master --no-commit-hooks --no-push --yes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Публикация пакетов в Github-реджистри
+        run: |
+          yarn lerna publish from-package --yes
+          git push origin master --follow-tags
+
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.ADMIN_TOKEN }}
-
 
       - name: Генерация CHANGELOG
         id: changelog
         uses: gpn-prototypes/vega-actions/generate-changelog@master
         env:
           GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
-        if: "contains(steps.extract_branch.output.branch, 'master')"
 
       - name: Создание релиза на Github
         uses: gpn-prototypes/vega-actions/generate-gh-release@master
@@ -62,20 +64,16 @@ jobs:
           changelog: ${{ steps.changelog.outputs.changelog }}
           token: ${{ secrets.ADMIN_TOKEN }}
           main_package: "@gpn-prototypes/vega-ui"
-        if: "contains(steps.extract_branch.output.branch, 'master')"
 
       - name: Обновление CHANGELOG.md
         uses: gpn-prototypes/vega-actions/update-changelog@master
         with:
           changelog: ${{ steps.changelog.outputs.changelog }}
-        if: "contains(steps.extract_branch.output.branch, 'master')"
 
       - name: Commit CHANGELOG.md
         run: |
           git add CHANGELOG.md
           git commit -m "chore(changelog): обновление changelog [skip ci]" --no-verify --quiet
           git push origin master
-        if: "contains(steps.extract_branch.output.branch, 'master')"
-
 
 
