@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.1-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.0...@gpn-prototypes/vega-ui@2.8.1-alpha.0) (2020-07-24)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-ui
+
+
+
+
+
 # [2.8.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.7.2...@gpn-prototypes/vega-ui@2.8.0) (2020-07-23)
 
 
