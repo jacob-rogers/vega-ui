@@ -2,7 +2,8 @@ name: Публикация новых версий пакетов
 on:
   push:
     branches: [master]
-  pull_request: [opened, reopened, synchronize]
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
   publish:
