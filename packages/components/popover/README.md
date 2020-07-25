@@ -1,6 +1,6 @@
 # @gpn-prototypes/vega-popover
 
-Компонент-обертка для [компонента Theme из дизайн-системы ГПН](https://ui-kit.gpn.vercel.app/?path=/docs/ui-kit-popover--popover-positioned-by-anchor-story)
+Компонент-обертка для [компонента Popover из дизайн-системы ГПН](https://ui-kit.gpn.vercel.app/?path=/story/ui-kit-popover--popover-positioned-by-anchor-story)
 
 ### Установка
 ```
