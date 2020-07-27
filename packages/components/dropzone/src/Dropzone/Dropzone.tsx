@@ -1,4 +1,4 @@
-import React, { DragEventHandler } from 'react';
+import React from 'react';
 import { usePortalRender } from '@gpn-prototypes/vega-root';
 
 import { DragHandlers } from '../types';
@@ -16,15 +16,6 @@ export type DropzoneProps = {
   inDropArea?: boolean;
 } & DragHandlers &
   JSX.IntrinsicElements['div'];
-
-type EventKeys =
-  | 'onDragOver'
-  | 'onDragEnd'
-  | 'onDragLeave'
-  | 'onDragExit'
-  | 'onDrop'
-  | 'onDragEnter'
-  | 'onDragStart';
 
 export const Dropzone: React.FC<DropzoneProps> = (props) => {
   const defaultDragHandler = (): void => {};
