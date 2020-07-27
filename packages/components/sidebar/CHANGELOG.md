@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-sidebar@0.2.1...@gpn-prototypes/vega-sidebar@0.2.2) (2020-07-27)
+
+
+### Bug Fixes
+
+* **components:** sidebar ([7531c52](https://github.com/gpn-prototypes/vega-ui/commit/7531c52e03dc6b19351ebd11d068073d3210cf65))
+
+
+
+
+
 ## [0.2.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-sidebar@0.2.0...@gpn-prototypes/vega-sidebar@0.2.1) (2020-07-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-sidebar

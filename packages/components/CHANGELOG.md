@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.1...@gpn-prototypes/vega-ui@2.8.2) (2020-07-27)
+
+
+### Bug Fixes
+
+* **components:** sidebar ([7531c52](https://github.com/gpn-prototypes/vega-ui/commit/7531c52e03dc6b19351ebd11d068073d3210cf65))
+
+
+
+
+
 ## [2.8.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.0...@gpn-prototypes/vega-ui@2.8.1) (2020-07-24)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
