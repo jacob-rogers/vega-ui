@@ -15215,10 +15215,10 @@ store2@^2.7.1:
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.11.2.tgz#a298e5e97b21b3ce7419b732540bc7c79cb007db"
   integrity sha512-TQMKs+C6n9idtzLpxluikmDCYiDJrTbbIGn9LFxMg0BVTu+8JZKSlXTWYRpOFKlfKD5HlDWLVpJJyNGZ2e9l1A==
 
-storybook-addon-performance@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-performance/-/storybook-addon-performance-0.9.0.tgz#7769d41d8903dc5a9f65c9a5da61b2accc6d8837"
-  integrity sha512-rVxgj1Z/6yiVti6IVr67h1M8nX3f4iFga8LgGgLd++zdBCJxpg/LWW5uABoGvJGhVOw/71P86LC3Ufnx+NuCsA==
+storybook-addon-performance@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/storybook-addon-performance/-/storybook-addon-performance-0.11.0.tgz#c6a68b07053622cf5676479afe327499ea2c2c41"
+  integrity sha512-tDsUcacFS9b4FvFXYqKAAnoqlnV2yeZhkfutPS74cXMBq9uQHMVsM0RfKTtdMPZXoM4Qa62IrcQITo3Ns1+Vpg==
   dependencies:
     "@storybook/addons" "^5.3.18"
     "@storybook/api" "^5.3.18"
