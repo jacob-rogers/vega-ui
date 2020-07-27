@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-ui",
-  "version": "2.9.0-alpha.0",
+  "version": "2.9.0-alpha.1",
   "description": "",
   "author": "CSSSR",
   "license": "MIT",
@@ -44,7 +44,7 @@
     "@gpn-prototypes/vega-navigation-list": "^1.0.3",
     "@gpn-prototypes/vega-page-banner": "^0.2.4",
     "@gpn-prototypes/vega-page-footer": "^0.2.7",
-    "@gpn-prototypes/vega-popover": "^0.1.0-alpha.0",
+    "@gpn-prototypes/vega-popover": "^0.1.0-alpha.1",
     "@gpn-prototypes/vega-progress-spin": "^0.1.3",
     "@gpn-prototypes/vega-radio": "^0.1.5",
     "@gpn-prototypes/vega-root": "^0.2.1",

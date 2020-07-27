@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0-alpha.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.9.0-alpha.0...@gpn-prototypes/vega-ui@2.9.0-alpha.1) (2020-07-27)
+
+
+### Bug Fixes
+
+* **popover:** линтинг md файла ([297d85f](https://github.com/gpn-prototypes/vega-ui/commit/297d85f3bffd8960d97663b71a7fd6af97c4a40b))
+
+
+
+
+
 # [2.9.0-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.1...@gpn-prototypes/vega-ui@2.9.0-alpha.0) (2020-07-27)
 
 
