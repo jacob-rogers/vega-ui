@@ -30,12 +30,13 @@ const cssButton = css`
   margin-left: var(--space-xs);
 `;
 
-const Block = styled.div<{ height: string }>`
-  height: ${({ height }): string => height};
+const Block = styled.div<{ height?: string; cursor?: string }>`
+  height: ${({ height }): string => height || 'auto'};
   padding: var(--space-xs);
   font-size: var(--size-text-s);
   color: var(--color-typo-primary);
   background: var(--color-bg-ghost);
+  cursor: ${({ cursor }): string => cursor || 'auto'};
   &:not(:first-of-type) {
     margin-top: var(--space-xs);
   }
@@ -94,7 +95,9 @@ storiesOf('ui/Sidebar', module)
             <>
               <Sidebar.Header hasMinimizeButton={false}>Загрузка файлов</Sidebar.Header>
               <Sidebar.Body>
-                <Block height="auto">Блок 1</Block>
+                <Block cursor="pointer" onClick={handleMaximize}>
+                  Блок 1
+                </Block>
               </Sidebar.Body>
             </>
           ) : (

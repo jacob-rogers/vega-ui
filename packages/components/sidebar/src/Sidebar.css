@@ -52,13 +52,9 @@
     &-title {
       overflow: hidden;
 
-      font-size: var(--size-text-xs);
-      line-height: var(--line-height-text-s);
-
       white-space: nowrap;
       text-overflow: ellipsis;
 
-      color: var(--color-typo-primary);
       flex: auto;
     }
 

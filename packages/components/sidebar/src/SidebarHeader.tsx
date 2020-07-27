@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 import { IconClose, IconRemove } from '@gpn-prototypes/vega-icons';
+import { Text } from '@gpn-prototypes/vega-text';
 
 import { cnSidebar } from './cn-sidebar';
 import { useSidebarContext } from './use-sidebar-context';
@@ -32,9 +33,9 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
 
   return (
     <header className={cnSidebar('Header')}>
-      <div className={cnSidebar('Header-title').mix(className)} {...rest}>
+      <Text size="xs" view="primary" className={cnSidebar('Header-title').mix(className)} {...rest}>
         {children}
-      </div>
+      </Text>
       <div className={cnSidebar('Header-buttons')}>
         {hasMinimizeButton && (
           <Button
@@ -44,6 +45,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
             view="clear"
             form="brick"
             onlyIcon
+            iconSize="s"
             iconRight={IconRemove}
             onClick={handleMinimize}
           />
@@ -55,6 +57,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
           view="clear"
           form="brick"
           onlyIcon
+          iconSize="s"
           iconRight={IconClose}
           onClick={handleClose}
         />
