@@ -13,7 +13,7 @@
 -   [NavigationList](navigation-list)
 -   [PageBanner](page-banner)
 -   [PageFooter](page-footer)
-  - [Popover](popover)
+-   [Popover](popover)
 -   [Root](root)
 -   [ScalePanel](scale-panel)
 -   [Sidebar](sidebar)
