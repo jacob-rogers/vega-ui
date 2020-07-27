@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-file-input@0.1.1...@gpn-prototypes/vega-file-input@0.1.2-alpha.0) (2020-07-27)
+
+
+### Bug Fixes
+
+* **dropzone:** фикс стилей у кнопки ([2a48833](https://github.com/gpn-prototypes/vega-ui/commit/2a488333c089268b075cd821a7d4d8cd8d531004))
+
+
+
+
+
 ## [0.1.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-file-input@0.1.0...@gpn-prototypes/vega-file-input@0.1.1) (2020-07-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-file-input

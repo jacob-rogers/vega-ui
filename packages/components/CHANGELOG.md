@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.8.2-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.1...@gpn-prototypes/vega-ui@2.8.2-alpha.0) (2020-07-27)
+
+
+### Bug Fixes
+
+* **dropzone:** стили у дропзоны ([c32a345](https://github.com/gpn-prototypes/vega-ui/commit/c32a345086a7f19e183f1ca297abf0b4a22f9db4))
+* **dropzone:** убрал лишние типы ([37c856d](https://github.com/gpn-prototypes/vega-ui/commit/37c856d9ec574df1a44cbd891892bd1cf81473e0))
+* **dropzone:** фикс бага с исчезновением ([17a87b2](https://github.com/gpn-prototypes/vega-ui/commit/17a87b2a6ef01c28d723becd761eba6947636924))
+* **dropzone:** фикс бага с отсутствием закрытия режима fullscreen ([80ce960](https://github.com/gpn-prototypes/vega-ui/commit/80ce960e3bf8a67c9a82e0fbb852fdd98932ae99))
+* **dropzone:** фикс навешивания ивентов на дропзону ([0715dc5](https://github.com/gpn-prototypes/vega-ui/commit/0715dc5e0d56942339f6f0af17fe89509f1f4637))
+* **dropzone:** фикс стилей у кнопки ([2a48833](https://github.com/gpn-prototypes/vega-ui/commit/2a488333c089268b075cd821a7d4d8cd8d531004))
+
+
+
+
+
 ## [2.8.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.0...@gpn-prototypes/vega-ui@2.8.1) (2020-07-24)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
