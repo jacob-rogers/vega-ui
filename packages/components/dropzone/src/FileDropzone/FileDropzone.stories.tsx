@@ -3,37 +3,68 @@ import styled from '@emotion/styled';
 import { FileIconAvi, FileIconBmp, FileIconDoc, FileIconGif } from '@gpn-prototypes/vega-icons';
 import { usePortal } from '@gpn-prototypes/vega-root';
 import { Text } from '@gpn-prototypes/vega-text';
-import { text, withKnobs } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { FileDropzone } from './FileDropzone';
 
-const MarginContainer = styled.div`
+const InputContainer = styled.div`
   margin-top: 25px;
+  display: flex;
 `;
 
 const Container = styled.div`
-  width: 300px;
+  width: 250px;
+`;
+
+const DocsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
 `;
 
 const FlexGroup = styled.div`
   display: flex;
   justify-content: space-around;
+  width: 20%;
 `;
+
+const KNOB_GROUPS = {
+  Input: 'FileDropzoneInput',
+};
+
+const inputKnobs = (): React.ComponentProps<typeof FileDropzone.Input> => ({
+  id: 'dropzone-id',
+  multiple: boolean('multiple', true, KNOB_GROUPS.Input),
+  label: text('label', 'Я инпут', KNOB_GROUPS.Input),
+});
 
 storiesOf('ui/FileDropzone', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
   .add('По умолчанию', () => {
-    const [dropzoneText, setText] = React.useState('Перетащите, чтобы загрузить');
+    const initialText = 'Перетащите, чтобы загрузить';
+
+    const [dropzoneText, setText] = React.useState(initialText);
+
+    const handleDrop = (files: FileList | null): void => {
+      setText('Файлы выбраны');
+      action('onDrop')(files);
+    };
 
     return (
       <Container>
-        <FileDropzone onDrop={(): void => setText('Файлы выбраны')}>
+        <FileDropzone
+          onDragEnter={(): void => setText('Отпустите, чтобы загрузить')}
+          onDragLeave={(): void => setText(initialText)}
+          onDrop={handleDrop}
+        >
           <Text>{dropzoneText}</Text>
-          <MarginContainer>
-            <FileDropzone.Input id="dropzone-id" label={text('label', 'Загрузить файл')} />
-          </MarginContainer>
+          <InputContainer>
+            <FileDropzone.Input {...inputKnobs()} />
+          </InputContainer>
         </FileDropzone>
       </Container>
     );
@@ -46,11 +77,11 @@ storiesOf('ui/FileDropzone', module)
       <Container>
         <FileDropzone fullscreen onDrop={(): void => setText('Файлы выбраны')}>
           <Text>{dropzoneText}</Text>
-          <MarginContainer>
-            <FileDropzone.Input id="file-dropzone-id" label={text('label', 'Загрузить файл')} />
-          </MarginContainer>
+          <InputContainer>
+            <FileDropzone.Input {...inputKnobs()} />
+          </InputContainer>
           <FileDropzone.Fullscreen portal={portal}>
-            <MarginContainer>
+            <DocsContainer>
               <FlexGroup>
                 <FileIconBmp size="m" />
                 <FileIconAvi size="m" />
@@ -58,7 +89,7 @@ storiesOf('ui/FileDropzone', module)
                 <FileIconGif size="m" />
               </FlexGroup>
               <Text>Отпустите, чтобы загрузить</Text>
-            </MarginContainer>
+            </DocsContainer>
           </FileDropzone.Fullscreen>
         </FileDropzone>
       </Container>

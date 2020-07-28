@@ -33,7 +33,7 @@ const FileDropzoneContent: React.FC<FileDropzoneContentProps> = (props) => {
     handleDragLeave,
     handleDragOver,
     handleDrop,
-    withFullscreen,
+    inDropArea,
   } = useFileDropzoneProvider();
 
   const dropzoneProps: React.ComponentProps<typeof Dropzone> = {
@@ -43,16 +43,14 @@ const FileDropzoneContent: React.FC<FileDropzoneContentProps> = (props) => {
     onDrop: handleDrop,
   };
 
-  const getProps = (): Partial<React.ComponentProps<typeof Dropzone>> => {
-    if (withFullscreen) {
-      return fullscreen ? dropzoneProps : {};
-    }
-
-    return dropzoneProps;
-  };
-
   return (
-    <Dropzone className={className} show={show} fullscreen={fullscreen} {...getProps()}>
+    <Dropzone
+      inDropArea={inDropArea}
+      className={className}
+      show={show}
+      fullscreen={fullscreen}
+      {...dropzoneProps}
+    >
       {children}
     </Dropzone>
   );
