@@ -1,5 +1,1 @@
-module.exports = {
-  plugins: [
-    "remark-preset-lint-recommended"
-  ]
-}
+module.exports = require('@gpn-prototypes/frontend-configs/.remarkrc.js');
