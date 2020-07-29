@@ -17,7 +17,7 @@
     "build:css": "postcss \"packages/**/*.css\" --dir dist --base ./packages --no-map",
     "build": "node scripts/build.js",
     "changelog": "changelog",
-    "packages:clean": "lerna clean --yes && lerna exec \"rm -rf dist\" && rm -rf ./dist",
+    "packages:clean": "lerna exec \"rm -rf dist\" && rm -rf ./dist",
     "packages:diff": "lerna diff",
     "packages:version": "lerna version --conventional-commits --no-push --no-commit-hooks",
     "packages:bootstrap": "lerna bootstrap",
