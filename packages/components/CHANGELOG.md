@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.9.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.2...@gpn-prototypes/vega-ui@2.9.0) (2020-07-30)
+
+
+### Features
+
+* **icons:** добавить новые иконки ([b8c41db](https://github.com/gpn-prototypes/vega-ui/commit/b8c41db1181d2c9fab125abd7979a52e3f83148e))
+
+
+
+
+
 ## [2.8.2-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.8.1...@gpn-prototypes/vega-ui@2.8.2-alpha.0) (2020-07-27)
 
 
