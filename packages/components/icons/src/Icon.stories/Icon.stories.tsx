@@ -209,6 +209,9 @@ const icons = {
   IconWorld,
 };
 
+type IconsKeysType = keyof typeof icons;
+const iconsKeys = Object.keys(icons) as IconsKeysType[];
+
 storiesOf('icons/common', module)
   .addParameters({
     metadata: {
@@ -222,7 +225,7 @@ storiesOf('icons/common', module)
   })
   .add('по умлочанию', () => (
     <div className="tpl-grid tpl-grid_s-ratio_1-1-1-1-1 tpl-grid_row-gap_full">
-      {Object.keys(icons).map(name => {
+      {iconsKeys.map((name) => {
         const Icon = icons[name];
         return <IconsItem key={name} name={name} icon={Icon} />;
       })}
