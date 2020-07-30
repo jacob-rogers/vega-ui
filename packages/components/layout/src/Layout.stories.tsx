@@ -42,10 +42,21 @@ const Container = styled.div`
   box-sizing: border-box;
 `;
 
-storiesOf('ui/Layout', module).add('по умолчанию', () => {
-  return (
-    <Container>
-      <Layout widgets={widgets} onChange={action('onChange')} />
-    </Container>
-  );
-});
+storiesOf('ui/Layout', module)
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/layout',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('по умолчанию', () => {
+    return (
+      <Container>
+        <Layout widgets={widgets} onChange={action('onChange')} />
+      </Container>
+    );
+  });
