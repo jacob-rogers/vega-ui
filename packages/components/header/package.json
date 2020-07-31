@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-header",
-  "version": "0.1.2-alpha.1",
+  "version": "0.1.2",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@gpn-prototypes/vega-button": "^0.1.4",
-    "@gpn-prototypes/vega-dropdown": "^1.2.3-alpha.1",
+    "@gpn-prototypes/vega-dropdown": "^1.2.3",
     "@gpn-prototypes/vega-icons": "^0.2.0",
     "@gpn-prototypes/vega-tabs": "^0.0.9",
     "@gpn-prototypes/vega-text": "^0.1.4",
