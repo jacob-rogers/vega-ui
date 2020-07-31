@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0-alpha.5](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.4.1...@gpn-prototypes/vega-hooks@0.5.0-alpha.5) (2020-07-31)
+
+
+### Bug Fixes
+
+* **docs:** фикс документации у хуков ([a925f93](https://github.com/gpn-prototypes/vega-ui/commit/a925f9386305b3c2a927f18d546193e80e48cb1b))
+* **layout:** правки в рендере порталов ([408cc6f](https://github.com/gpn-prototypes/vega-ui/commit/408cc6fb9b1adbbf9a9a5279703ba704058c1938))
+* **test:** фикс тестов layout-options ([c99ab20](https://github.com/gpn-prototypes/vega-ui/commit/c99ab201c6dde433da08b39f989e7a6d7a0bb32c))
+
+
+### Features
+
+* **hooks:** добавление хука useClose ([93c4c3e](https://github.com/gpn-prototypes/vega-ui/commit/93c4c3ebbc1c0170b8070e485e461534605348a5))
+* **layout:** триггер для меню ([c04cb6f](https://github.com/gpn-prototypes/vega-ui/commit/c04cb6f7a299a42d9b843a6c42015adad86db61c))
+
+
+
+
+
 # [0.5.0-alpha.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.4.1...@gpn-prototypes/vega-hooks@0.5.0-alpha.4) (2020-07-31)
 
 
