@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.10.0-alpha.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.9.0...@gpn-prototypes/vega-ui@2.10.0-alpha.4) (2020-07-31)
+
+
+### Bug Fixes
+
+* **css:** фикс стилей у лейаута ([be92d8e](https://github.com/gpn-prototypes/vega-ui/commit/be92d8ef0bd97d76216a837b51529b6e705ca0d5))
+* **docs:** фикс доки ([c3180d0](https://github.com/gpn-prototypes/vega-ui/commit/c3180d0d9cbef99011c6a8cdb92010b539242f88))
+* **docs:** фикс документации у хуков ([a925f93](https://github.com/gpn-prototypes/vega-ui/commit/a925f9386305b3c2a927f18d546193e80e48cb1b))
+* **layout:** добавить статусы в storybook ([980dc2a](https://github.com/gpn-prototypes/vega-ui/commit/980dc2a1b0d37ccc938a07583ec0434b4560385b))
+* **layout:** правки в верстке ([e2e6fab](https://github.com/gpn-prototypes/vega-ui/commit/e2e6fab6def3872bbde1ce8586386c0256f72ee7))
+* **layout:** фикс рут контейнера ([0632856](https://github.com/gpn-prototypes/vega-ui/commit/06328564a5100df0f56463162bd2948342215b03))
+* **portal:** правильный рендер в порталах ([5682dbf](https://github.com/gpn-prototypes/vega-ui/commit/5682dbff438dd4646db6ba0e6fd9876315248849))
+* **root:** изменение апи ([9e25d8f](https://github.com/gpn-prototypes/vega-ui/commit/9e25d8f64dbf6c2744bee124f512bf7a2fb7949b))
+* **root:** фикс рут контейнера ([ea95f34](https://github.com/gpn-prototypes/vega-ui/commit/ea95f346cdb6fcc9f8284e8eba96577219ac81b0))
+* **test:** правки по тестам ([c658803](https://github.com/gpn-prototypes/vega-ui/commit/c6588030cb205cbe8f66cbc7860ab96fa79e1722))
+* **test:** фикс тестов ([19c9023](https://github.com/gpn-prototypes/vega-ui/commit/19c9023cb096b9ef431023ad08e6606a87048e51))
+* **test:** фиксы тестов у layoutOptions ([1981208](https://github.com/gpn-prototypes/vega-ui/commit/1981208c2e1ce10b0de61fb439cd52b63d422bca))
+
+
+### Features
+
+* **layout:** добавить grid ([b8eba30](https://github.com/gpn-prototypes/vega-ui/commit/b8eba305183a6eae544f310cfce70e37d8fb0b84))
+* **layout:** добавить виджеты, доработать стили ([b7fa6d0](https://github.com/gpn-prototypes/vega-ui/commit/b7fa6d0936dca1f78e7a14231c361805aea4ed91))
+* **layout:** добавить ресайзы ([8e39fc3](https://github.com/gpn-prototypes/vega-ui/commit/8e39fc38f4e901cb5b5df15c2f1aa3fce4939e95))
+* **layout:** добавление базовых компонентов ([e880eed](https://github.com/gpn-prototypes/vega-ui/commit/e880eed959ac2095cb937b44f81a0b5d26a0299a))
+* **layout:** добавление верстки ([d537779](https://github.com/gpn-prototypes/vega-ui/commit/d5377794a09a9062d2d8d49b03c93270959d195a))
+* **layout:** добавление верстки для сплита ([a3b0bcc](https://github.com/gpn-prototypes/vega-ui/commit/a3b0bcc30ca1c09f5a2efb5363689fcf2eab1e21))
+* **layout:** добавление документации к меню ([704c2e1](https://github.com/gpn-prototypes/vega-ui/commit/704c2e12cb7c8040be177d61a8ec8457484cfc02))
+* **layout:** добавление примера в сторибук ([660c4f6](https://github.com/gpn-prototypes/vega-ui/commit/660c4f6dbb45816598134d516f15479b6210f439))
+* **layout:** пробрасывать rest props на корневой контейнер ([7082dc7](https://github.com/gpn-prototypes/vega-ui/commit/7082dc7b9ff62adf29423eed991e0c239e468f0d))
+* **layout:** триггер для меню ([c04cb6f](https://github.com/gpn-prototypes/vega-ui/commit/c04cb6f7a299a42d9b843a6c42015adad86db61c))
+* **layout-menu:** изменение апи для порталов и тесты ([9765e0c](https://github.com/gpn-prototypes/vega-ui/commit/9765e0c09ce8aeacefe70364e821725c26e7a6e9))
+* **layout-options:** добавление опций лейаута ([60979de](https://github.com/gpn-prototypes/vega-ui/commit/60979dedf0f695f5e64c33a08646c76483556084))
+
+
+
+
+
 # [2.10.0-alpha.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.9.0...@gpn-prototypes/vega-ui@2.10.0-alpha.3) (2020-07-31)
 
 

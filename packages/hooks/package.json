@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-hooks",
-  "version": "0.5.0-alpha.3",
+  "version": "0.5.0-alpha.4",
   "description": "",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
