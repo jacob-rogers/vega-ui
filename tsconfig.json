@@ -43,6 +43,7 @@
       "@gpn-prototypes/vega-text": ["packages/components/text/src/index.ts"],
       "@gpn-prototypes/vega-theme": ["packages/components/theme/src/index.ts"],
       "@gpn-prototypes/vega-timer": ["packages/components/timer/src/index.ts"],
+      "@gpn-prototypes/vega-tooltip": ["packages/components/tooltip/src/index.ts"],
       "@gpn-prototypes/vega-user": ["packages/components/user/src/index.ts"],
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }

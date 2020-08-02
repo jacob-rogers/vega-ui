@@ -81,6 +81,7 @@
     "packages/components/text",
     "packages/components/theme",
     "packages/components/timer",
+    "packages/components/tooltip",
     "packages/components/user",
     "packages/components"
   ],

@@ -18,3 +18,4 @@
 -   [Sidebar](sidebar)
 -   [Tabs](tabs)
 -   [Theme](theme)
+-   [Tooltip](tooltip)
