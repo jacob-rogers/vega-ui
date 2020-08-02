@@ -1,0 +1,26 @@
+{
+  "name": "@gpn-prototypes/vega-tooltip",
+  "version": "0.0.1",
+  "main": "dist/src/index.js",
+  "module": "dist/src/index.js",
+  "types": "dist/src/index.d.ts",
+  "author": "csssr",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/gpn-prototypes/vega-ui.git",
+    "directory": "packages/components/tooltip"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/gpn-prototypes"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1"
+  },
+  "dependencies": {
+    "@gpn-design/uikit": "^1.6.0"
+  }
+}
