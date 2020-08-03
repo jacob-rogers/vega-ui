@@ -17,4 +17,5 @@
 -   [ScalePanel](scale-panel)
 -   [Sidebar](sidebar)
 -   [Tabs](tabs)
+-   [Tag](tag)
 -   [Theme](theme)

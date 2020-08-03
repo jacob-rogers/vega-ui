@@ -35,3 +35,4 @@ export * from '@gpn-prototypes/vega-text';
 export * from '@gpn-prototypes/vega-theme';
 export * from '@gpn-prototypes/vega-timer';
 export * from '@gpn-prototypes/vega-user';
+export * from '@gpn-prototypes/vega-tag';

@@ -1403,6 +1403,18 @@
     react-transition-group "^4.4.1"
     tslib "^1.13.0"
 
+"@gpn-design/uikit@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.6.0.tgz#314ebeabc3788ae08b4b0ec858fabc80dc7e8a66"
+  integrity sha512-GGjr+d5nrAeFmYeX38l2Bo2nz5yGnUP16/+ZXEFDUw3IGDKwKv4hjYBZFn7ByYaDvY1bqYyldQebHDQ14LR8KQ==
+  dependencies:
+    "@bem-react/classname" "^1.5.8"
+    "@bem-react/classnames" "^1.3.9"
+    bem-cn "^3.0.1"
+    react-textarea-autosize "^7.1.2"
+    react-transition-group "^4.4.1"
+    tslib "^1.13.0"
+
 "@gpn-prototypes/frontend-configs@^1.0.0":
   version "1.0.0"
   resolved "https://npm.pkg.github.com/download/@gpn-prototypes/frontend-configs/1.0.0/a2dfefbc0b1f2ddbb43ec9096092404cfbd6c259afb6440eb810b43758d90c9a#f16757794b130eaec63cdb2539b567ee45e1f72e"

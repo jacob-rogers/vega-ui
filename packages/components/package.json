@@ -51,6 +51,7 @@
     "@gpn-prototypes/vega-sidebar": "^0.2.3",
     "@gpn-prototypes/vega-snack-bar": "^0.1.3",
     "@gpn-prototypes/vega-switch": "^0.1.5",
+    "@gpn-prototypes/vega-tag": "^0.0.1",
     "@gpn-prototypes/vega-tabs": "^0.0.13",
     "@gpn-prototypes/vega-text": "^0.1.5",
     "@gpn-prototypes/vega-text-field": "^0.1.6",

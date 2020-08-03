@@ -82,6 +82,7 @@
     "packages/components/theme",
     "packages/components/timer",
     "packages/components/user",
+    "packages/components/tag",
     "packages/components"
   ],
   "devDependencies": {
