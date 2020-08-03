@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.11.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.10.0...@gpn-prototypes/vega-ui@2.11.0) (2020-08-03)
+
+
+### Features
+
+* **tag:** добавить компонент Tag ([#168](https://github.com/gpn-prototypes/vega-ui/issues/168)) ([db04f1b](https://github.com/gpn-prototypes/vega-ui/commit/db04f1b0f70dd2d5401cc3da229aab5a86fa2e10))
+
+
+
+
+
 # [2.10.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.9.0...@gpn-prototypes/vega-ui@2.10.0) (2020-07-31)
 
 
