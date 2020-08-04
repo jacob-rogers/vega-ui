@@ -27,13 +27,21 @@ export class Node<C = {}, T extends AnyData<C> = LeafData<C>> {
 
   private data: T;
 
-  public constructor(type: 'leaf' | 'branch', data: T) {
+  private constructor(type: 'leaf' | 'branch', data: T) {
     this.type = type;
     this.data = data;
   }
 
   public clone(): Node<C, T> {
     return new Node(this.type, this.data);
+  }
+
+  static createLeaf<C = {}>(data: LeafData<C>): Node<C, LeafData<C>> {
+    return new Node<C, LeafData<C>>('leaf', data);
+  }
+
+  static createBranch<C = {}>(data: BranchData<C>): Node<C, BranchData<C>> {
+    return new Node<C, BranchData<C>>('branch', data);
   }
 
   public isLeaf(): this is Node<C, T> {

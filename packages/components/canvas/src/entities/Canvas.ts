@@ -1,4 +1,4 @@
-import { LeafData, Node } from './Node';
+import { Node } from './Node';
 import { Listener, Notifier } from './Notifier';
 import { Tree, TreeState } from './Tree';
 import { TreeItem, TreeItemUpdate } from './TreeItem';
@@ -19,7 +19,7 @@ export class Canvas {
 
   static create(state?: TreeState): Canvas {
     const treeState = state ?? {
-      0: new Node<Context, LeafData<Context>>('leaf', {
+      0: Node.createLeaf<Context>({
         context: {
           title: 'Начало',
           type: 'root',
