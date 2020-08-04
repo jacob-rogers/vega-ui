@@ -48,6 +48,7 @@
       "@gpn-prototypes/vega-tag": ["packages/components/tag/src/index.ts"],
       "@gpn-prototypes/vega-table": ["packages/components/table/src/index.ts"],
       "@gpn-prototypes/vega-radio-list": ["packages/components/radio-list/src/index.ts"],
+      "@gpn-prototypes/vega-canvas": ["packages/components/canvas/src/index.ts"],
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }
   },

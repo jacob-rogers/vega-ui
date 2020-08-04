@@ -19,6 +19,6 @@
 -   [Sidebar](sidebar)
 -   [Tabs](tabs)
 -   [Tag](tag)
--   [Theme](theme)
 -   [Table](table)
 -   [RadioList](radio-list)
+-   [Canvas](canvas)
