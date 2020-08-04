@@ -1,7 +1,7 @@
-import { BranchData, LeafData, Node } from './Node';
+import { Node } from './Node';
 import { Tree } from './Tree';
 
-const leaf = new Node<{}, LeafData>('leaf', { context: {} });
+const leaf = Node.createLeaf({ context: {} });
 
 describe('Tree', () => {
   describe('создание', () => {
@@ -12,7 +12,7 @@ describe('Tree', () => {
 
       expect(tree).toBeInstanceOf(Tree);
 
-      state[0] = new Node<{}, LeafData>('leaf', { context: {} });
+      state[0] = Node.createLeaf({ context: {} });
       expect(tree.root()).toBe(leaf);
     });
     test('from', () => {
@@ -35,9 +35,9 @@ describe('Tree', () => {
   });
 
   test('max', () => {
-    const branch = new Node<{}, BranchData>('branch', { context: {}, children: [] });
-    const right = new Node<{}, LeafData>('leaf', { context: {} });
-    const left = new Node<{}, LeafData>('leaf', { context: {} });
+    const branch = Node.createBranch({ context: {}, children: [] });
+    const right = Node.createLeaf({ context: {} });
+    const left = Node.createLeaf({ context: {} });
     const tree = Tree.from([branch, left, right]);
     const [idx, node] = tree.max();
 
@@ -57,7 +57,7 @@ describe('Tree', () => {
   });
 
   test('remove', () => {
-    const branch = new Node<{}, BranchData>('branch', { context: {}, children: [] });
+    const branch = Node.createBranch({ context: {}, children: [] });
     const tree = Tree.from([branch, leaf]);
 
     expect(tree.max()[0]).toBe(1);
@@ -68,7 +68,7 @@ describe('Tree', () => {
   });
 
   test('addChildToBranch', () => {
-    const branch = new Node<{}, BranchData>('branch', { context: {}, children: [] });
+    const branch = Node.createBranch({ context: {}, children: [] });
 
     const tree = Tree.from([branch]);
 
@@ -82,7 +82,7 @@ describe('Tree', () => {
   });
 
   test('connectToParent', () => {
-    const branch = new Node<{}, BranchData>('branch', { context: {}, children: [] });
+    const branch = Node.createBranch({ context: {}, children: [] });
 
     const tree = Tree.from([branch, leaf]);
 
@@ -94,7 +94,7 @@ describe('Tree', () => {
   });
 
   test('disconnectFromParent', () => {
-    const branch = new Node<{}, BranchData>('branch', { context: {}, children: [] });
+    const branch = Node.createBranch({ context: {}, children: [] });
 
     const tree = Tree.from([branch, leaf]);
 

@@ -131,7 +131,7 @@ export class Tree {
       return;
     }
 
-    const branch = new Node<T, BranchData<T>>('branch', {
+    const branch = Node.createBranch<T>({
       parentIdx: node.parent(),
       children: [],
       context: node.getData().context,
@@ -144,7 +144,7 @@ export class Tree {
     branch: Node<T, BranchData<T>>,
     data: Omit<LeafData<T>, 'parentIdx'>,
   ): void {
-    const leafIndex = this.insertNewLeaf<T>(new Node<T, LeafData<T>>('leaf', data));
+    const leafIndex = this.insertNewLeaf<T>(Node.createLeaf<T>(data));
     branch.addChild(leafIndex);
   }
 
