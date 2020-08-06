@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = ({ config }) => {
   config.module.rules.push({
@@ -31,6 +33,30 @@ module.exports = ({ config }) => {
       configFile: 'tsconfig.storybook.json',
     }),
   ];
+
+  config.plugins.push(
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.resolve(__dirname, './fonts'),
+          to: 'static/fonts',
+        },
+      ],
+    }),
+  );
+
+  config.module.rules.push({
+    test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+    use: [
+      {
+        loader: 'file-loader',
+        query: {
+          name: '[name].[ext]',
+        },
+      },
+    ],
+    include: path.resolve(__dirname, './fonts/SegoeUI'),
+  });
 
   config.devServer = { stats: { warningsFilter: /export .* was not found in/ } };
 

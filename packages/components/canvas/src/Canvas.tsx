@@ -1,15 +1,19 @@
 import React from 'react';
-import { block } from 'bem-cn';
+import { Layer, Stage } from 'react-konva';
+import block from 'bem-cn';
+
+import { BaseContainer, SimpleBlock } from './components';
 
 import './Canvas.css';
 
-export type CanvasProps = {
-  title?: string;
-  className?: string;
-};
-
-const cnCanvas = block('VegaCanvas');
-
-export const Canvas: React.FC<CanvasProps> = ({ title = 'default', className }) => {
-  return <div className={cnCanvas.mix(className)}>Title: {title}</div>;
+export const Canvas: React.FC<{}> = () => {
+  return (
+    <Stage className={block('VegaCanvas')} width={window.innerWidth} height={window.innerHeight}>
+      <Layer>
+        <SimpleBlock width={72} position={{ x: 10, y: 10 }} label="Начало" />
+        <SimpleBlock width={72} position={{ x: 1000, y: 10 }} label="Конец" />
+        <BaseContainer label="Шаг 1" position={{ x: 200, y: 10 }} />
+      </Layer>
+    </Stage>
+  );
 };

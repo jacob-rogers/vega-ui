@@ -23,6 +23,8 @@
   "dependencies": {
     "bem-cn": "^3.0.1",
     "@gpn-prototypes/vega-dropdown": "^1.2.3",
+    "react-konva": "^16.13.0-5",
+    "konva": "^7.0.4",
     "uuid": "^8.3.0"
   },
   "devDependencies": {
