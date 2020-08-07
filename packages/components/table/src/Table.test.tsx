@@ -3,19 +3,6 @@ import { render, RenderResult } from '@testing-library/react';
 
 import { Table, TableProps } from './Table';
 
-class ResizeObserver {
-  // eslint-disable-next-line class-methods-use-this
-  observe(): void {}
-
-  // eslint-disable-next-line class-methods-use-this
-  unobserve(): void {}
-
-  // eslint-disable-next-line class-methods-use-this
-  disconnect(): void {}
-}
-// @ts-expect-error
-window.ResizeObserver = ResizeObserver;
-
 const columns: TableProps['columns'] = [
   {
     title: '№',
