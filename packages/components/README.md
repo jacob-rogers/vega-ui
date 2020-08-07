@@ -20,3 +20,4 @@
 -   [Tabs](tabs)
 -   [Tag](tag)
 -   [Theme](theme)
+-   [Table](table)

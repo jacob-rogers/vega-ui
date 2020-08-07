@@ -37,3 +37,4 @@ export * from '@gpn-prototypes/vega-theme';
 export * from '@gpn-prototypes/vega-timer';
 export * from '@gpn-prototypes/vega-user';
 export * from '@gpn-prototypes/vega-tag';
+export * from '@gpn-prototypes/vega-table';

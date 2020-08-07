@@ -20,6 +20,7 @@
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "dependencies": {
+    "@gpn-prototypes/vega-table": "^0.0.1",
     "@gpn-prototypes/vega-animation": "^0.0.3",
     "@gpn-prototypes/vega-attach": "^0.1.3",
     "@gpn-prototypes/vega-avatar": "^0.1.5",
