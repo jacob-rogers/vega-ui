@@ -1,7 +1,7 @@
 import React from 'react';
 import { Group, Image, Rect } from 'react-konva';
 
-import { useImage } from '../../hooks';
+import { useImage, useUpdatePosition } from '../../hooks';
 import { BaseProps } from '../../types';
 import { ListItem } from '../ListItem';
 import { Text } from '../Text';
@@ -11,11 +11,13 @@ import arrowIcon from './ArrowDown.svg';
 export type ListProps = Omit<BaseProps, 'height'>;
 
 export const List: React.FC<ListProps> = (props) => {
-  const { position, label } = props;
+  const { position, label, onPositionChange } = props;
   const [icon] = useImage(arrowIcon);
 
+  const handleDragEnd = useUpdatePosition(onPositionChange);
+
   return (
-    <Group x={position.x} y={position.y} width={250} draggable>
+    <Group x={position.x} y={position.y} width={250} draggable onDragEnd={handleDragEnd}>
       <Rect
         cornerRadius={2}
         height={100}
