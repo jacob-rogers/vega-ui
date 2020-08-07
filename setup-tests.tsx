@@ -21,3 +21,22 @@ jest.mock('react-transition-group', () => {
     TransitionGroup: FakeTransitionGroup,
   };
 });
+
+beforeAll(() => {
+  // @ts-expect-error
+  global.ResizeObserver = class ResizeObserver {
+    // eslint-disable-next-line class-methods-use-this
+    observe(): void {}
+
+    // eslint-disable-next-line class-methods-use-this
+    unobserve(): void {}
+
+    // eslint-disable-next-line class-methods-use-this
+    disconnect(): void {}
+  };
+});
+
+afterAll(() => {
+  // @ts-expect-error
+  delete global.ResizeObserver;
+});
