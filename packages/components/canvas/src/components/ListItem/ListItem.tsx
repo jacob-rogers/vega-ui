@@ -2,13 +2,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Group, Rect } from 'react-konva';
 import Konva from 'konva';
 
+import { useUpdatePosition } from '../../hooks';
 import { BaseProps } from '../../types';
 import { Text } from '../Text';
 
-type ListItemProps = BaseProps & {
-  centerText?: boolean;
-  draggable?: boolean;
-};
+type ListItemProps = BaseProps &
+  Omit<React.ComponentProps<typeof Rect>, 'x' | 'y'> & {
+    centerText?: boolean;
+    draggable?: boolean;
+  };
 
 export const ListItem: React.FC<ListItemProps> = (props) => {
   const {
@@ -20,25 +22,21 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
     width: widthProp,
     draggable = true,
     onPositionChange,
+    ...rest
   } = props;
   const textRef = useRef<Konva.Text>(null);
   const [width, setWidth] = useState(centerText ? 0 : widthProp);
 
   useEffect(() => {
     if (textRef.current && centerText) {
-      setWidth(textRef.current.getTextWidth() + 25);
+      setWidth(textRef.current.getTextWidth() + 26);
     }
   }, [centerText]);
 
-  const handleDragEnd = (evt: Konva.KonvaEventObject<DragEvent>): void => {
-    const newPosition = evt.target.position();
-    if (onPositionChange) {
-      onPositionChange(newPosition);
-    }
-  };
+  const handleDragEnd = useUpdatePosition(onPositionChange);
 
   return (
-    <Group x={position.x} y={position.y} draggable={draggable} onDragEnd={handleDragEnd}>
+    <Group {...rest} x={position.x} y={position.y} draggable={draggable} onDragEnd={handleDragEnd}>
       <Rect cornerRadius={2} height={height} width={width} fill={fill} />
       <Text
         align="center"
