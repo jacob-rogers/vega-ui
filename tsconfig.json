@@ -45,6 +45,7 @@
       "@gpn-prototypes/vega-timer": ["packages/components/timer/src/index.ts"],
       "@gpn-prototypes/vega-user": ["packages/components/user/src/index.ts"],
       "@gpn-prototypes/vega-tag": ["packages/components/tag/src/index.ts"],
+      "@gpn-prototypes/vega-table": ["packages/components/table/src/index.ts"],
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }
   },
