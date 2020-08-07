@@ -19,6 +19,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
     label,
     width: widthProp,
     draggable = true,
+    onPositionChange,
   } = props;
   const textRef = useRef<Konva.Text>(null);
   const [width, setWidth] = useState(centerText ? 0 : widthProp);
@@ -29,8 +30,15 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
     }
   }, [centerText]);
 
+  const handleDragEnd = (evt: Konva.KonvaEventObject<DragEvent>): void => {
+    const newPosition = evt.target.position();
+    if (onPositionChange) {
+      onPositionChange(newPosition);
+    }
+  };
+
   return (
-    <Group x={position.x} y={position.y} draggable={draggable}>
+    <Group x={position.x} y={position.y} draggable={draggable} onDragEnd={handleDragEnd}>
       <Rect cornerRadius={2} height={height} width={width} fill={fill} />
       <Text
         align="center"
