@@ -1,3 +1,4 @@
+export * from '@gpn-prototypes/vega-popover';
 export * from '@gpn-prototypes/vega-animation';
 export * from '@gpn-prototypes/vega-attach';
 export * from '@gpn-prototypes/vega-avatar';

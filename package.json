@@ -70,6 +70,7 @@
     "packages/components/page-banner",
     "packages/components/page-footer",
     "packages/components/progress-spin",
+    "packages/components/popover",
     "packages/components/radio",
     "packages/components/root",
     "packages/components/scale-panel",

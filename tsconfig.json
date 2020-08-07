@@ -32,6 +32,7 @@
       "@gpn-prototypes/vega-page-banner": ["packages/components/page-banner/src/index.ts"],
       "@gpn-prototypes/vega-page-footer": ["packages/components/page-footer/src/index.ts"],
       "@gpn-prototypes/vega-progress-spin": ["packages/components/progress-spin/src/index.ts"],
+      "@gpn-prototypes/vega-popover": ["packages/components/popover/src/index.ts"],
       "@gpn-prototypes/vega-radio": ["packages/components/radio/src/index.ts"],
       "@gpn-prototypes/vega-root": ["packages/components/root/src/index.ts"],
       "@gpn-prototypes/vega-scale-panel": ["packages/components/scale-panel/src/index.ts"],
