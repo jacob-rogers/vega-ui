@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Group, Rect, Text } from 'react-konva';
+import { Group, Rect } from 'react-konva';
 import Konva from 'konva';
 
 import { BaseProps } from '../../types';
+import { Text } from '../Text';
 
-type SimpleBlockProps = BaseProps & {
+type ListItemProps = BaseProps & {
   centerText?: boolean;
   draggable?: boolean;
 };
 
-export const SimpleBlock: React.FC<SimpleBlockProps> = (props) => {
+export const ListItem: React.FC<ListItemProps> = (props) => {
   const {
     position,
     fill = '#0078D2',
@@ -33,14 +34,13 @@ export const SimpleBlock: React.FC<SimpleBlockProps> = (props) => {
       <Rect cornerRadius={2} height={height} width={width} fill={fill} />
       <Text
         align="center"
-        height={height}
-        x={12}
         verticalAlign="middle"
+        height={height}
+        position={{ x: 12 }}
+        label={label}
         fill="#fff"
-        text={label}
         fontSize={14}
-        ref={textRef}
-        fontFamily="Segoe UI"
+        innerRef={textRef}
       />
     </Group>
   );
