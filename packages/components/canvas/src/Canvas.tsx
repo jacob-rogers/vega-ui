@@ -23,44 +23,44 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
 
   const canvas = useMemo(() => CanvasEntity.create(treeStateInStorage), [treeStateInStorage]);
 
-  const getNode = useCallback(
-    (idx: number): TreeItem => {
-      return canvas.get(idx);
+  const getTree = useCallback(
+    (idx: string): Tree<Context> | undefined => {
+      return canvas.getTree(idx);
     },
     [canvas],
   );
 
   useEffect(() => {
     canvas.addListener(() => {
-      setTreeStateInStorage(canvas.extract());
+      setTreeStateInStorage(canvas.getTrees());
     });
   }, [canvas, setTreeStateInStorage]);
 
   const onPositionChange = useCallback(
-    (idx: number, pos: Position): void => {
-      const node = getNode(idx);
-      node.setContext({ ...node.getContext(), x: pos.x, y: pos.y });
+    (idx: string, pos: Position): void => {
+      const tree = getTree(idx);
+
+      if (tree) {
+        tree.setData({ ...tree.getData(), position: pos });
+      }
     },
-    [getNode],
+    [getTree],
   );
 
   const handleStepAdding = useCallback(() => {
-    canvas.createLeaf({
-      context: {
-        type: 'step',
-        label: 'Шаг',
-        x: window.innerWidth / 3,
-        y: window.innerHeight / 3,
-      },
+    const node = new Node<Context>({
+      type: 'step',
+      title: 'Шаг',
+      position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
     });
+    canvas.addTree(Tree.of(node));
   }, [canvas]);
 
   return (
     <CanvasView
-      tree={canvas.extract()}
+      trees={canvas.getTrees()}
       onPositionChange={onPositionChange}
       onStepAdding={handleStepAdding}
-      getNode={getNode}
     />
   );
 };

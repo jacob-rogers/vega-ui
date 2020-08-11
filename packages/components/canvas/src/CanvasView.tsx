@@ -2,21 +2,20 @@ import React from 'react';
 import { Layer, Stage } from 'react-konva';
 import block from 'bem-cn';
 
-import { BaseContainer, Button, SimpleBlock } from './components';
-import { Context, TreeItem, TreeState } from './entities';
+import { Button, List, ListItem } from './components';
+import { Context, Tree } from './entities';
 import { Position } from './types';
 
 import './Canvas.css';
 
 type CanvasViewProps = {
-  onPositionChange: (idx: number, pos: Position) => void;
-  getNode: (idx: number) => TreeItem<Context>;
+  onPositionChange: (idx: string, pos: Position) => void;
   onStepAdding: () => void;
-  tree: TreeState;
+  trees: Tree<Context>[];
 };
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
-  const { onPositionChange, getNode, tree, onStepAdding } = props;
+  const { onPositionChange, trees, onStepAdding } = props;
 
   return (
     <Stage
@@ -25,22 +24,21 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       height={window.innerHeight}
     >
       <Layer>
-        {Object.keys(tree).map((key) => {
-          const idx = Number(key);
-          const currentNode = getNode(idx);
-          const { x, y, type, label } = currentNode.getContext();
+        {trees.map((tree) => {
+          const idx = tree.getId();
+          const { position, type, title } = tree.getData();
 
           const baseProps = {
-            position: { x, y },
-            label,
+            position,
+            label: title,
             key: idx,
             onPositionChange: (pos: Position): void => onPositionChange(idx, pos),
           };
 
           return ['root', 'end'].includes(type) ? (
-            <SimpleBlock {...baseProps} width={72} />
+            <ListItem {...baseProps} width={72} />
           ) : (
-            <BaseContainer {...baseProps} />
+            <List {...baseProps} />
           );
         })}
       </Layer>
