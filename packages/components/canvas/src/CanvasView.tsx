@@ -12,10 +12,11 @@ type CanvasViewProps = {
   onPositionChange: (idx: string, pos: Position) => void;
   onStepAdding: () => void;
   trees: Tree<Context>[];
+  clearSteps: () => void;
 };
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
-  const { onPositionChange, trees, onStepAdding } = props;
+  const { onPositionChange, trees, onStepAdding, clearSteps } = props;
 
   return (
     <Stage
@@ -47,6 +48,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           label="Добавить шаг"
           onClick={onStepAdding}
           position={{ x: 10, y: window.innerHeight - 150 }}
+        />
+        <Button
+          label="Очистить поле"
+          onClick={clearSteps}
+          position={{ x: window.innerWidth - 300, y: window.innerHeight - 150 }}
         />
       </Layer>
     </Stage>
