@@ -1,1 +1,0 @@
-export { SimpleBlock } from './SimpleBlock';
