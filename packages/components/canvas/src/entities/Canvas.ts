@@ -1,10 +1,13 @@
+import { Position } from '../types';
+
 import { Node } from './Node';
 import { Listener, Notifier } from './Notifier';
 import { Tree } from './Tree';
 
 export type Context = {
   title: string;
-  type: 'root' | 'item';
+  type: 'step' | 'root' | 'end';
+  position: Position;
 };
 
 export type CanvasUpdate =
