@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "bem-cn": "^3.0.1",
-    "@gpn-prototypes/vega-canvas": "^0.5.0",
+    "@gpn-prototypes/vega-hooks": "^0.5.0",
     "react-konva": "^16.13.0-5",
     "konva": "^7.0.4",
     "uuid": "^8.3.0"
