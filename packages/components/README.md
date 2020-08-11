@@ -19,4 +19,4 @@
 -   [Tabs](tabs)
 -   [Tag](tag)
 -   [Theme](theme)
-- [Canvas](canvas)
+-   [Canvas](canvas)

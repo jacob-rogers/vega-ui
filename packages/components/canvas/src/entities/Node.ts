@@ -1,94 +1,68 @@
-export interface NodeData<T> {
-  parentIdx?: number;
-  context: T;
-}
+import { v4 as uuid } from 'uuid';
 
-export interface BranchData<T = {}> extends LeafData<T> {
-  children: number[];
-}
-
-export interface Branch {
-  type: 'branch';
-  data: BranchData;
-}
-
-export type LeafData<T = {}> = NodeData<T>;
-
-export interface Leaf {
-  type: 'leaf';
-  data: LeafData;
-}
-
-export type AnyNode = Branch | Leaf;
-export type AnyData<C> = LeafData<C> | BranchData<C>;
-
-export class Node<C = {}, T extends AnyData<C> = LeafData<C>> {
-  public type: 'leaf' | 'branch';
-
+export class Node<T = unknown> {
   private data: T;
 
-  private constructor(type: 'leaf' | 'branch', data: T) {
-    this.type = type;
+  private parent: Node<T> | null;
+
+  private children: Node<T>[];
+
+  private readonly id: string = uuid();
+
+  constructor(data: T, parent: Node<T> | null = null, children: Node<T>[] = []) {
     this.data = data;
+    this.parent = parent;
+    this.children = children;
   }
 
-  public clone(): Node<C, T> {
-    return new Node(this.type, this.data);
+  public isRoot(): boolean {
+    return this.parent === null;
   }
 
-  static createLeaf<C = {}>(data: LeafData<C>): Node<C, LeafData<C>> {
-    return new Node<C, LeafData<C>>('leaf', data);
+  public isLeaf(): boolean {
+    return this.children.length === 0;
   }
 
-  static createBranch<C = {}>(data: BranchData<C>): Node<C, BranchData<C>> {
-    return new Node<C, BranchData<C>>('branch', data);
+  public getId(): string {
+    return this.id;
   }
 
-  public isLeaf(): this is Node<C, T> {
-    return this.type === 'leaf';
+  public addChild(node: Node<T>): Node<T> {
+    node.setParent(this);
+    this.children.push(node);
+    return this;
   }
 
-  public isBranch(): this is Node<C, BranchData<C>> {
-    return this.type === 'branch';
-  }
-
-  public addChild(idx: number): void {
-    if (this.isBranch() && this.data.children.indexOf(idx) === -1) {
-      this.data.children.push(idx);
+  public removeChild(node: Node<T>): void {
+    const idx = this.children.findIndex((child) => child.id === node.id);
+    if (idx !== undefined) {
+      this.children.splice(idx, 1);
     }
   }
 
-  public parent(): number | undefined {
-    return this.data.parentIdx;
+  public getChildren(): Node<T>[] {
+    return this.children;
   }
 
-  public setParent(parent: number | undefined): void {
-    this.data.parentIdx = parent;
+  public setParent(node: Node<T> | null): void {
+    this.parent = node;
   }
 
-  public getChildren(): number[] {
-    if (this.isBranch()) {
-      return this.data.children;
+  public getParent(): Node<T> | null {
+    return this.parent;
+  }
+
+  public remove(): void {
+    if (this.parent instanceof Node) {
+      this.parent.removeChild(this);
     }
-
-    return [];
   }
 
-  public getData(): AnyData<C> {
+  public getData(): T {
     return this.data;
   }
 
-  public isChild(): boolean {
-    return this.data.parentIdx !== -1;
-  }
-
-  public removeChild(idx: number): void {
-    if (this.isBranch()) {
-      this.data.children = this.data.children.filter((childIdx) => childIdx !== idx);
-    }
-  }
-
-  public setData(data: Partial<T>): void {
-    this.data = { ...this.data, data };
+  public setData(data: T): void {
+    this.data = { ...this.data, ...data };
   }
 }
