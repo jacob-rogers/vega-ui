@@ -21,4 +21,5 @@
 -   [Tag](tag)
 -   [Table](table)
 -   [RadioList](radio-list)
+-   [Theme](theme)
 -   [Canvas](canvas)

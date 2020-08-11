@@ -1,207 +1,74 @@
-import { BranchData, LeafData, Node } from './Node';
+import { Node } from './Node';
 
-export type TreeNode = Node;
-type Optional<T> = T | undefined;
+export class Tree<T = unknown> {
+  private node: Node<T>;
 
-type WithRoot<T> = {
-  [idx: string]: T;
-  '0': T;
-};
-
-export type TreeState = WithRoot<TreeNode>;
-
-type TreeEntry = [number, TreeNode];
-
-export class Tree {
-  private state: TreeState;
-
-  static create(state: TreeState): Tree {
-    return Tree.of(state);
+  private constructor(node: Node<T>) {
+    this.node = node;
   }
 
-  static of(state: TreeState): Tree {
-    return new Tree({ ...state });
+  public extract(): Node<T> {
+    return this.node;
   }
 
-  static from(nodes: TreeNode[]): Tree {
-    const [root] = nodes;
-    return Tree.create({
-      ...Object.fromEntries(Object.entries(nodes)),
-      0: root,
-    });
+  static of<T = unknown>(node: Node<T>): Tree<T> {
+    return new Tree(node);
   }
 
-  private constructor(state: TreeState) {
-    this.state = state;
+  public getData(): T {
+    return this.node.getData();
   }
 
-  public nth(idx: number): Optional<TreeNode> {
-    return this.state[idx];
+  public getId(): string {
+    return this.node.getId();
   }
 
-  public root(): TreeNode {
-    const root = this.nth(0);
+  public setData(data: T): void {
+    this.node.setData(data);
+  }
 
-    if (root === undefined) {
-      throw new Error('Отсутствует корневой элемент');
+  public iterate(fn: (node: Node<T>) => void): void {
+    const iterator = (node: Node<T>): void => {
+      fn(node);
+      const children = node.getChildren();
+      children.forEach(iterator);
+    };
+
+    iterator(this.node);
+  }
+
+  public getChildren(): Tree<T>[] {
+    return this.node.getChildren().map((node) => new Tree(node));
+  }
+
+  public getParent(): Tree<T> | null {
+    const parent = this.node.getParent();
+    if (parent) {
+      return new Tree(parent);
     }
-
-    return root;
+    return null;
   }
 
-  public max(): TreeEntry | [number, null] {
-    let index = 0;
-    let node = this.root();
-
-    if (node === undefined) {
-      return [index, null];
-    }
-
-    this.iterate((n, idx) => {
-      node = idx > index ? n : node;
-      index = Math.max(index, idx);
-    });
-
-    return [index, node];
+  public addChild(tree: Tree<T>): void {
+    this.node.addChild(tree.extract());
   }
 
-  private iterate(fn: (node: TreeNode, idx: number, done: () => void) => null | void): void {
-    let isDone = false;
-    const entries = Object.entries(this.state);
-
-    function done(): void {
-      isDone = true;
+  public setParent(tree: Tree<T> | null): void {
+    const currentParent = this.getParent();
+    if (currentParent instanceof Tree) {
+      currentParent.removeChild(this);
     }
-
-    for (let i = 0; i < entries.length; ) {
-      const [idx, node] = entries[i];
-
-      fn(node, Number(idx), done);
-
-      if (isDone) {
-        break;
-      }
-
-      i += 1;
+    if (tree) {
+      tree.addChild(this);
     }
+    this.node.setParent(tree ? tree.extract() : tree);
   }
 
-  public indexOf(node: TreeNode): number {
-    let index = -1;
-
-    this.iterate((n, idx, done) => {
-      if (n === node) {
-        index = idx;
-        done();
-      }
-    });
-
-    return index;
+  public removeChild(tree: Tree<T>): void {
+    this.node.removeChild(tree.extract());
   }
 
-  public insert(idx: number, node: TreeNode): void {
-    this.state[idx] = node;
-  }
-
-  public remove(idx: number): void {
-    if (idx === 0) {
-      throw new Error('Нельзя удалить корневой элемент');
-    }
-
-    const node = this.nth(idx);
-
-    const parentIdx = node?.parent();
-
-    if (!node) {
-      return;
-    }
-
-    if (parentIdx) {
-      const parent = this.nth(parentIdx);
-      if (parent !== undefined && parent.isBranch()) {
-        parent.removeChild(idx);
-      }
-    }
-
-    delete this.state[idx];
-  }
-
-  public toBranch<T>(node: Node<T, LeafData<T>>): void {
-    if (node === undefined || node.isBranch()) {
-      return;
-    }
-
-    const branch = Node.createBranch<T>({
-      parentIdx: node.parent(),
-      children: [],
-      context: node.getData().context,
-    });
-
-    this.insert(this.indexOf(node), branch);
-  }
-
-  public addChildToBranch<T>(
-    branch: Node<T, BranchData<T>>,
-    data: Omit<LeafData<T>, 'parentIdx'>,
-  ): void {
-    const leafIndex = this.insertNewLeaf<T>(Node.createLeaf<T>(data));
-    branch.addChild(leafIndex);
-  }
-
-  public insertNewLeaf<T>(leaf: Node<T, LeafData<T>>): number {
-    const [max] = this.max();
-    const leafIndex = max + 1;
-
-    this.insert(max + 1, leaf);
-
-    return leafIndex;
-  }
-
-  public connectToParent(childIdx: number, parentIdx: number): void {
-    const parent = this.nth(parentIdx);
-
-    const child = this.nth(childIdx);
-
-    if (childIdx === 0) {
-      throw new Error('Невозможно добавить родителя к корневому узлу');
-    }
-
-    if (!parent || !child) {
-      throw new Error('Узлы не найдены');
-    }
-
-    if (!parent.isBranch()) {
-      return;
-    }
-
-    parent.addChild(childIdx);
-    child.setParent(parentIdx);
-  }
-
-  public disconnectFromParent(childIdx: number): void {
-    const child = this.nth(childIdx);
-
-    if (!child) {
-      throw new Error(`Элемент с индексом ${childIdx} не найден`);
-    }
-
-    const parentIdx = child.parent();
-
-    if (parentIdx === undefined) {
-      throw new Error(`Родитель у элемента ${childIdx} не найден`);
-    }
-
-    const parent = this.nth(parentIdx);
-
-    if (!parent) {
-      throw new Error(`Родитель с индексом ${parentIdx} не найден`);
-    }
-
-    parent.removeChild(childIdx);
-    child.setParent(undefined);
-  }
-
-  public extract(): TreeState {
-    return this.state;
+  public remove(): void {
+    this.node.remove();
   }
 }

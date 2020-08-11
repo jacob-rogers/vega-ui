@@ -1,40 +1,37 @@
 import { Node } from './Node';
 import { Listener, Notifier } from './Notifier';
-import { Tree, TreeState } from './Tree';
-import { TreeItem, TreeItemUpdate } from './TreeItem';
+import { Tree } from './Tree';
 
-type Context = {
+export type Context = {
   title: string;
   type: 'root' | 'item';
 };
 
+export type CanvasUpdate =
+  | { type: 'add-tree'; id: string }
+  | { type: 'change'; id: string; changes: Context }
+  | { type: 'remove-tree'; id: string }
+  | { type: 'disconnect-tree'; id: string; oldParentId: string }
+  | { type: 'connect-tree'; parentId: string; childId: string };
+
 export class Canvas {
-  private tree: Tree;
+  private trees: Tree<Context>[];
 
-  private notifier: Notifier<TreeItemUpdate<Context>> = new Notifier();
+  private notifier: Notifier<CanvasUpdate> = new Notifier();
 
-  private constructor(tree: Tree) {
-    this.tree = tree;
+  private constructor(trees: Tree<Context>[]) {
+    this.trees = trees;
   }
 
-  static create(state?: TreeState): Canvas {
-    const treeState = state ?? {
-      0: Node.createLeaf<Context>({
-        context: {
-          title: 'Начало',
-          type: 'root',
-        },
-      }),
-    };
-
-    return new Canvas(Tree.create(treeState));
+  static create(rootNode: Node<Context>): Canvas {
+    return new Canvas([Tree.of<Context>(rootNode)]);
   }
 
-  public extract(): TreeState {
-    return this.tree.extract();
+  static of(trees: Tree<Context>[]): Canvas {
+    return new Canvas(trees);
   }
 
-  public addListener(listener: Listener<TreeItemUpdate<Context>>): VoidFunction {
+  public addListener(listener: Listener<CanvasUpdate>): VoidFunction {
     return this.notifier.addListener(listener);
   }
 
@@ -42,13 +39,72 @@ export class Canvas {
     this.notifier.removeAllListeners();
   }
 
-  public get(idx: number): TreeItem<Context> {
-    const node = this.tree.nth(idx);
+  public getTrees(): Tree<Context>[] {
+    return this.trees;
+  }
 
-    if (node === undefined) {
-      throw new Error(`Элемента с индексом "${idx}" не существует`);
+  public iterate(fn: (node: Node) => void): void {
+    this.trees.forEach((tree) => {
+      tree.iterate(fn);
+    });
+  }
+
+  public removeTree(tree: Tree<Context>): void {
+    const treeIndex = this.trees.findIndex((child) => child.getId() === tree.getId());
+    if (treeIndex !== undefined) {
+      this.trees.splice(treeIndex, 1);
+      this.notifier.notify({
+        type: 'remove-tree',
+        id: tree.getId(),
+      });
     }
+  }
 
-    return new TreeItem(idx, this.tree, this.notifier);
+  public addTree(tree: Tree<Context>): void {
+    this.trees.push(tree);
+    this.notifier.notify({
+      id: tree.getId(),
+      type: 'add-tree',
+    });
+  }
+
+  public connectTrees(parentTree: Tree<Context>, childTree: Tree<Context>): void {
+    childTree.setParent(parentTree);
+    this.removeTree(childTree);
+    this.notifier.notify({
+      type: 'connect-tree',
+      childId: childTree.getId(),
+      parentId: parentTree.getId(),
+    });
+  }
+
+  public disconnectTree(childTree: Tree<Context>): void {
+    const treeNode = childTree.extract();
+    const parent = treeNode.getParent();
+
+    if (parent) {
+      parent.removeChild(treeNode);
+      childTree.setParent(null);
+
+      this.addTree(childTree);
+      this.notifier.notify({
+        type: 'disconnect-tree',
+        id: childTree.getId(),
+        oldParentId: parent.getId(),
+      });
+    }
+  }
+
+  public getTree(id: string): Tree<Context> | undefined {
+    return this.trees.find((tree) => tree.getId() === id);
+  }
+
+  public setTreeData(tree: Tree<Context>, data: Context): void {
+    tree.setData(data);
+    this.notifier.notify({
+      type: 'change',
+      id: tree.getId(),
+      changes: data,
+    });
   }
 }
