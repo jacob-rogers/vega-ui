@@ -15,7 +15,8 @@ export type CanvasUpdate =
   | { type: 'change'; id: string; changes: Context }
   | { type: 'remove-tree'; id: string }
   | { type: 'disconnect-tree'; id: string; oldParentId: string }
-  | { type: 'connect-tree'; parentId: string; childId: string };
+  | { type: 'connect-tree'; parentId: string; childId: string }
+  | { type: 'clear' };
 
 export class Canvas {
   private trees: Tree<Context>[];
@@ -123,5 +124,10 @@ export class Canvas {
       id: tree.getId(),
       changes: data,
     });
+  }
+
+  public removeTrees(): void {
+    this.trees = [];
+    this.notifier.notify({ type: 'clear' });
   }
 }
