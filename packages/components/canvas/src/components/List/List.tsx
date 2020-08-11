@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
-import { Group, Image, Rect, Text } from 'react-konva';
+import React from 'react';
+import { Group, Image, Rect } from 'react-konva';
 
+import { useImage } from '../../hooks';
 import { BaseProps } from '../../types';
-import { SimpleBlock } from '../SimpleBlock';
+import { ListItem } from '../ListItem';
+import { Text } from '../Text';
 
 import arrowIcon from './ArrowDown.svg';
 
-export type BaseContainerProps = Omit<BaseProps, 'height'>;
+export type ListProps = Omit<BaseProps, 'height'>;
 
-export const BaseContainer: React.FC<BaseContainerProps> = (props) => {
+export const List: React.FC<ListProps> = (props) => {
   const { position, label } = props;
-  const [icon, setIcon] = React.useState<HTMLImageElement | null>(null);
-
-  useEffect(() => {
-    const image = new window.Image();
-    image.src = arrowIcon;
-    image.addEventListener('load', () => setIcon(image));
-    return (): void => {
-      image.removeEventListener('load', () => setIcon(image));
-    };
-  }, []);
+  const [icon] = useImage(arrowIcon);
 
   return (
     <Group x={position.x} y={position.y} width={250} draggable>
@@ -33,15 +26,13 @@ export const BaseContainer: React.FC<BaseContainerProps> = (props) => {
       {icon && <Image image={icon} x={230} y={12} />}
       <Text
         align="center"
-        x={12}
-        y={8}
+        position={{ x: 12, y: 8 }}
         verticalAlign="middle"
         fill="#fff"
-        text={label}
+        label={label}
         fontSize={14}
-        fontFamily="Segoe UI"
       />
-      <SimpleBlock
+      <ListItem
         label="Сейсмика"
         fill="#22272B"
         centerText={false}
