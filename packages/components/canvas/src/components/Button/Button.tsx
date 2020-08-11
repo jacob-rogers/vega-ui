@@ -2,7 +2,7 @@ import React from 'react';
 import Konva from 'konva';
 
 import { Position } from '../../types';
-import { SimpleBlock } from '../SimpleBlock';
+import { ListItem } from '../ListItem';
 
 type ButtonProps = {
   onClick: (e: Konva.KonvaEventObject<MouseEvent>) => void;
@@ -39,7 +39,7 @@ export const Button: React.FC<ButtonProps> = (props) => {
   };
 
   return (
-    <SimpleBlock
+    <ListItem
       position={position}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
