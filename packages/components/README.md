@@ -23,4 +23,5 @@
 -   [RadioList](radio-list)
 -   [Tree](tree)
 -   [Tooltip](tooltip)
+-   [Theme](theme)
 -   [Canvas](canvas)

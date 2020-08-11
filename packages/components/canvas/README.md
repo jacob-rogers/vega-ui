@@ -6,9 +6,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-canvas
-```
+    yarn add @gpn-prototypes/vega-canvas
 
 ### Примеры использования
 
