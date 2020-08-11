@@ -8,27 +8,23 @@ import { Position } from './types';
 import './Canvas.css';
 
 type CanvasProps = {
-  state?: Tree[];
+  state?: Tree<Context>[];
 };
 
-const defaultTreeState: Tree[] = [];
+const startNode = new Node<Context>({ position: { x: 10, y: 300 }, title: 'Начало', type: 'root' });
+const endNode = new Node<Context>({ position: { x: 600, y: 300 }, title: 'Конец', type: 'end' });
+
+const defaultTreeState: Tree<Context>[] = [Tree.of(startNode), Tree.of(endNode)];
 
 export const Canvas: React.FC<CanvasProps> = (props) => {
   const { state } = props;
 
-  const [treeStateInStorage, setTreeStateInStorage] = useLocalStorage<Tree[]>(
+  const [treeStateInStorage, setTreeStateInStorage] = useLocalStorage<Tree<Context>[]>(
     'treeState',
     state ?? defaultTreeState,
   );
 
-  const canvas = useMemo(() => CanvasEntity.create(treeStateInStorage), [treeStateInStorage]);
-
-  const getTree = useCallback(
-    (idx: string): Tree<Context> | undefined => {
-      return canvas.getTree(idx);
-    },
-    [canvas],
-  );
+  const canvas = useMemo(() => CanvasEntity.of(treeStateInStorage), [treeStateInStorage]);
 
   useEffect(() => {
     canvas.addListener(() => {
@@ -38,13 +34,13 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
 
   const onPositionChange = useCallback(
     (idx: string, pos: Position): void => {
-      const tree = getTree(idx);
+      const tree = canvas.getTree(idx);
 
       if (tree) {
-        tree.setData({ ...tree.getData(), position: pos });
+        canvas.setTreeData(tree, { ...tree.getData(), position: pos });
       }
     },
-    [getTree],
+    [canvas],
   );
 
   const handleStepAdding = useCallback(() => {

@@ -26,12 +26,26 @@ export class Canvas {
     this.trees = trees;
   }
 
+  static prepareTrees(
+    trees: Array<
+      Tree<Context> | { node: { data: Context; children: Node<Context>[]; parent: Node<Context> } }
+    >,
+  ): Tree<Context>[] {
+    return trees.map((tree) => {
+      if (tree instanceof Tree) {
+        return tree;
+      }
+
+      return Tree.of(new Node(tree.node.data, tree.node.parent, tree.node.children));
+    });
+  }
+
   static create(rootNode: Node<Context>): Canvas {
     return new Canvas([Tree.of<Context>(rootNode)]);
   }
 
   static of(trees: Tree<Context>[]): Canvas {
-    return new Canvas(trees);
+    return new Canvas(Canvas.prepareTrees(trees));
   }
 
   public addListener(listener: Listener<CanvasUpdate>): VoidFunction {
