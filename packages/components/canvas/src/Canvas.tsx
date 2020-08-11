@@ -57,6 +57,9 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
       trees={canvas.getTrees()}
       onPositionChange={onPositionChange}
       onStepAdding={handleStepAdding}
+      clearSteps={(): void => {
+        canvas.removeTrees();
+      }}
     />
   );
 };
