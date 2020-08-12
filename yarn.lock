@@ -1397,23 +1397,10 @@
     react-transition-group "^4.4.1"
     tslib "^1.11.1"
 
-"@gpn-design/uikit@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.5.0.tgz#ddd4fe770c17511271bd326dbd4d9d1d388965a8"
-  integrity sha512-QU5UUM+ST9SivuM47+Lp6gqKdhWkip/XcG8Cd0iyAqhelDO3UoZq+/2/rVn8NrEaovZ52xvd/z4slhl4fbxyFA==
-  dependencies:
-    "@bem-react/classname" "^1.5.8"
-    "@bem-react/classnames" "^1.3.9"
-    bem-cn "^3.0.1"
-    lodash "^4.17.19"
-    react-textarea-autosize "^7.1.2"
-    react-transition-group "^4.4.1"
-    tslib "^1.13.0"
-
-"@gpn-design/uikit@^1.6.0":
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.6.0.tgz#314ebeabc3788ae08b4b0ec858fabc80dc7e8a66"
-  integrity sha512-GGjr+d5nrAeFmYeX38l2Bo2nz5yGnUP16/+ZXEFDUw3IGDKwKv4hjYBZFn7ByYaDvY1bqYyldQebHDQ14LR8KQ==
+"@gpn-design/uikit@^1.6.1":
+  version "1.6.1"
+  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.6.1.tgz#f12ddb90998db92c0eb932d14bf07a9349650b68"
+  integrity sha512-rl8Tb9JOsiyhFEqK3Upg8yzdeJdMaTY6JCHySZgipiisxO3OKUW+JiP3RX/bc+cxrUyYS9x5SDNPsgyBLcYpYw==
   dependencies:
     "@bem-react/classname" "^1.5.8"
     "@bem-react/classnames" "^1.3.9"
