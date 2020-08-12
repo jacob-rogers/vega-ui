@@ -4,10 +4,13 @@ import { Node } from './Node';
 import { Listener, Notifier } from './Notifier';
 import { Tree } from './Tree';
 
+export type Connection = 'children' | 'parent';
+
 export type Context = {
   title: string;
   type: 'step' | 'root' | 'end';
   position: Position;
+  canHasConnections?: [Connection, Connection?];
 };
 
 export type CanvasUpdate =

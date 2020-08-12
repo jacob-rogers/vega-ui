@@ -11,8 +11,18 @@ type CanvasProps = {
   state?: Tree<Context>[];
 };
 
-const startNode = new Node<Context>({ position: { x: 10, y: 300 }, title: 'Начало', type: 'root' });
-const endNode = new Node<Context>({ position: { x: 600, y: 300 }, title: 'Конец', type: 'end' });
+const startNode = new Node<Context>({
+  position: { x: 10, y: 300 },
+  title: 'Начало',
+  type: 'root',
+  canHasConnections: ['children'],
+});
+const endNode = new Node<Context>({
+  position: { x: 600, y: 300 },
+  title: 'Конец',
+  type: 'end',
+  canHasConnections: ['parent'],
+});
 
 const defaultTreeState: Tree<Context>[] = [Tree.of(startNode), Tree.of(endNode)];
 
@@ -48,6 +58,7 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
       type: 'step',
       title: 'Шаг',
       position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
+      canHasConnections: ['children', 'parent'],
     });
     canvas.addTree(Tree.of(node));
   }, [canvas]);
