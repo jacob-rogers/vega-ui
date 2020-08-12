@@ -9,16 +9,24 @@ import { Text } from '../Text';
 
 import arrowIcon from './ArrowDown.svg';
 
-export type ListProps = Omit<BaseProps, 'height'>;
+export type ListProps = Omit<BaseProps, 'height'> & {
+  draggable?: boolean;
+};
 
 export const List: React.FC<ListProps> = (props) => {
-  const { position, label, onPositionChange } = props;
+  const { position, label, onPositionChange, draggable = true } = props;
   const [icon] = useImage(arrowIcon);
 
   const handleDragEnd = useUpdatePosition(onPositionChange);
 
   return (
-    <Group x={position.x} y={position.y} width={250} draggable onDragEnd={handleDragEnd}>
+    <Group
+      x={position.x}
+      y={position.y}
+      width={250}
+      draggable={draggable}
+      onDragEnd={handleDragEnd}
+    >
       <Rect
         cornerRadius={2}
         height={100}
