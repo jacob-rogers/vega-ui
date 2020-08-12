@@ -29,7 +29,7 @@ const items = [
 storiesOf('ui/ChoiceGroup', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
         href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/choicegroup',
