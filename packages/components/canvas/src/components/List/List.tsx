@@ -3,7 +3,6 @@ import { Group, Image, Rect } from 'react-konva';
 
 import { useImage, useUpdatePosition } from '../../hooks';
 import { BaseProps } from '../../types';
-import { Connector } from '../Connector';
 import { ListItem } from '../ListItem';
 import { Text } from '../Text';
 
@@ -14,7 +13,7 @@ export type ListProps = Omit<BaseProps, 'height'> & {
 };
 
 export const List: React.FC<ListProps> = (props) => {
-  const { position, label, onPositionChange, draggable = true } = props;
+  const { position, label, onPositionChange, draggable = true, children } = props;
   const [icon] = useImage(arrowIcon);
 
   const handleDragEnd = useUpdatePosition(onPositionChange);
@@ -51,8 +50,7 @@ export const List: React.FC<ListProps> = (props) => {
         width={230}
         position={{ x: 12, y: 40 }}
       />
-      <Connector position={{ y: 12 }} />
-      <Connector position={{ y: 12, x: 250 }} />
+      {children}
     </Group>
   );
 };

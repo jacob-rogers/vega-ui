@@ -2,7 +2,7 @@ import React from 'react';
 import { Layer, Stage } from 'react-konva';
 import block from 'bem-cn';
 
-import { Button, List, ListItem } from './components';
+import { Button, StepView } from './components';
 import { Context, Tree } from './entities';
 import { Position } from './types';
 
@@ -26,20 +26,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     >
       <Layer>
         {trees.map((tree) => {
-          const idx = tree.getId();
-          const { position, type, title } = tree.getData();
-
-          const baseProps = {
-            position,
-            label: title,
-            key: idx,
-            onPositionChange: (pos: Position): void => onPositionChange(idx, pos),
-          };
-
-          return ['root', 'end'].includes(type) ? (
-            <ListItem {...baseProps} width={72} />
-          ) : (
-            <List {...baseProps} />
+          return (
+            <StepView
+              step={tree}
+              key={tree.getId()}
+              onPositionChange={(pos: Position): void => onPositionChange(tree.getId(), pos)}
+            />
           );
         })}
       </Layer>

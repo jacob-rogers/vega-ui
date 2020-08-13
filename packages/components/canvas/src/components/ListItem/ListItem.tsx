@@ -10,6 +10,7 @@ type ListItemProps = BaseProps &
   Omit<React.ComponentProps<typeof Rect>, 'x' | 'y'> & {
     centerText?: boolean;
     draggable?: boolean;
+    onWidthUpdate?: (width: number) => void;
   };
 
 export const ListItem: React.FC<ListItemProps> = (props) => {
@@ -22,6 +23,8 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
     width: widthProp,
     draggable = true,
     onPositionChange,
+    children,
+    onWidthUpdate,
     ...rest
   } = props;
   const textRef = useRef<Konva.Text>(null);
@@ -29,9 +32,13 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
 
   useEffect(() => {
     if (textRef.current && centerText) {
-      setWidth(textRef.current.getTextWidth() + 26);
+      const newWidth = textRef.current.getTextWidth() + 26;
+      setWidth(newWidth);
+      if (onWidthUpdate) {
+        onWidthUpdate(newWidth);
+      }
     }
-  }, [centerText]);
+  }, [centerText, onWidthUpdate]);
 
   const handleDragEnd = useUpdatePosition(onPositionChange);
 
@@ -48,6 +55,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
         fontSize={14}
         innerRef={textRef}
       />
+      {children}
     </Group>
   );
 };
