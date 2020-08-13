@@ -130,7 +130,7 @@ export class Canvas {
   }
 
   public removeTrees(): void {
-    this.trees = [];
+    this.trees = this.trees.filter((tree) => tree.getData().type !== 'step');
     this.notifier.notify({ type: 'clear' });
   }
 }
