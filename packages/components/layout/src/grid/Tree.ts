@@ -55,10 +55,6 @@ export class Tree {
     let index = 0;
     let node = this.root();
 
-    if (node === undefined) {
-      return [index, null];
-    }
-
     this.iterate((n, idx) => {
       node = idx > index ? n : node;
       index = Math.max(index, idx);
