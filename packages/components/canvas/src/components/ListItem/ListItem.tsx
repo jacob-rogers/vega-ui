@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Group, Rect } from 'react-konva';
+import { useMount } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { useUpdatePosition } from '../../hooks';
@@ -30,7 +31,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
   const textRef = useRef<Konva.Text>(null);
   const [width, setWidth] = useState(centerText ? 0 : widthProp);
 
-  useEffect(() => {
+  useMount(() => {
     if (textRef.current && centerText) {
       const newWidth = textRef.current.getTextWidth() + 26;
       setWidth(newWidth);
@@ -38,7 +39,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
         onWidthUpdate(newWidth);
       }
     }
-  }, [centerText, onWidthUpdate]);
+  });
 
   const handleDragEnd = useUpdatePosition(onPositionChange);
 

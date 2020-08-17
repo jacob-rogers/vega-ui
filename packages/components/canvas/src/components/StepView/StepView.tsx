@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 
+import { useCanvas } from '../../context';
 import { Connection, Context, Tree } from '../../entities';
 import { Position } from '../../types';
 import { Connector } from '../Connector';
@@ -9,12 +10,14 @@ import { ListItem } from '../ListItem';
 
 export type StepViewProps = {
   step: Tree<Context>;
-  onPositionChange(pos: Position): void;
 };
 
 export const StepView: React.FC<StepViewProps> = (props) => {
-  const { step, onPositionChange } = props;
+  const { step } = props;
   const stepData = step.getData();
+  const { onPositionChange } = useCanvas();
+
+  const stepChildren = step.getChildren();
 
   const { type, canHasConnections } = stepData;
   const [stepWidth, setStepWidth] = useState(0);
@@ -34,7 +37,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
   const baseProps = {
     draggable,
     position: stepData.position,
-    onPositionChange,
+    onPositionChange: (position: Position): void => onPositionChange(step, position),
     label: stepData.title,
   };
 
@@ -74,11 +77,18 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     </>
   );
 
-  return !isList ? (
-    <ListItem {...baseProps} onWidthUpdate={handleUpdateWidth} width={72}>
-      {children}
-    </ListItem>
-  ) : (
-    <List {...baseProps}>{children}</List>
+  return (
+    <>
+      {!isList ? (
+        <ListItem {...baseProps} onWidthUpdate={handleUpdateWidth} width={72}>
+          {children}
+        </ListItem>
+      ) : (
+        <List {...baseProps}>{children}</List>
+      )}
+      {stepChildren.map((child) => (
+        <StepView step={child} key={child.getId()} />
+      ))}
+    </>
   );
 };
