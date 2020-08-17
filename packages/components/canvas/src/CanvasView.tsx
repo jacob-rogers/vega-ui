@@ -3,20 +3,21 @@ import { Layer, Stage } from 'react-konva';
 import block from 'bem-cn';
 
 import { Button, StepView } from './components';
-import { Context, Tree } from './entities';
+import { CanvasContext } from './context';
+import { CanvasTree, Context, Tree } from './entities';
 import { Position } from './types';
 
 import './Canvas.css';
 
 type CanvasViewProps = {
-  onPositionChange: (idx: string, pos: Position) => void;
   onStepAdding: () => void;
   trees: Tree<Context>[];
   clearSteps: () => void;
+  onPositionChange: (tree: CanvasTree, position: Position) => void;
 };
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
-  const { onPositionChange, trees, onStepAdding, clearSteps } = props;
+  const { trees, onStepAdding, clearSteps, onPositionChange } = props;
 
   return (
     <Stage
@@ -24,17 +25,13 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       width={window.innerWidth}
       height={window.innerHeight}
     >
-      <Layer>
-        {trees.map((tree) => {
-          return (
-            <StepView
-              step={tree}
-              key={tree.getId()}
-              onPositionChange={(pos: Position): void => onPositionChange(tree.getId(), pos)}
-            />
-          );
-        })}
-      </Layer>
+      <CanvasContext.Provider value={{ onPositionChange }}>
+        <Layer>
+          {trees.map((tree) => {
+            return <StepView step={tree} key={tree.getId()} />;
+          })}
+        </Layer>
+      </CanvasContext.Provider>
       <Layer>
         <Button
           label="Добавить шаг"
