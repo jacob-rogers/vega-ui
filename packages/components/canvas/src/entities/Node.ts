@@ -1,5 +1,12 @@
 import { v4 as uuid } from 'uuid';
 
+export type NodeData<T> = {
+  id?: string;
+  parent?: Node<T> | null;
+  children?: Node<T>[];
+  data: T;
+};
+
 export class Node<T = unknown> {
   private data: T;
 
@@ -7,11 +14,13 @@ export class Node<T = unknown> {
 
   private children: Node<T>[];
 
-  private readonly id: string = uuid();
+  private id: string;
 
-  constructor(data: T, parent: Node<T> | null = null, children: Node<T>[] = []) {
-    this.data = data;
+  constructor(nodeData: NodeData<T>) {
+    const { id = uuid(), parent = null, data, children = [] } = nodeData;
+    this.id = id;
     this.parent = parent;
+    this.data = data;
     this.children = children;
   }
 

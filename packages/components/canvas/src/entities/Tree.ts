@@ -64,6 +64,12 @@ export class Tree<T = unknown> {
     this.node.setParent(tree ? tree.extract() : tree);
   }
 
+  public setChildren(trees: Tree<T>[]): void {
+    trees.forEach((tree) => {
+      tree.setParent(this);
+    });
+  }
+
   public removeChild(tree: Tree<T>): void {
     this.node.removeChild(tree.extract());
   }
