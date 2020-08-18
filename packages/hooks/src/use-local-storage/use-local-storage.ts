@@ -16,8 +16,11 @@ export function useLocalStorage<T>(key: string, initialValue: T): API<T> {
   });
 
   const handleStorageUpdate = (e: StorageEvent): void => {
-    console.log(e.newValue, storedValue);
-    if (typeof e.newValue === 'string' && e.newValue !== JSON.stringify(storedValue)) {
+    if (
+      typeof e.newValue === 'string' &&
+      e.newValue !== JSON.stringify(storedValue) &&
+      e.key === key
+    ) {
       setStoredValue(JSON.parse(e.newValue));
     }
   };
