@@ -1,30 +1,71 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Circle } from 'react-konva';
+import { useOnChange } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
-import { useHover } from '../../hooks';
+import { useCanvas } from '../../context';
 import { BaseProps } from '../../types';
 
 type KonvaCircleProps = Omit<React.ComponentProps<typeof Circle>, 'x' | 'y' | 'width' | 'height'>;
 
-type ConnectorProps = KonvaCircleProps & Omit<BaseProps, 'label'>;
+interface ConnectorProps extends KonvaCircleProps, Omit<BaseProps, 'label'> {
+  onActiveChange(newActive: boolean): void;
+}
 
 const RADIUS = 6;
 const INITIAL_STROKE = 'rgba(255, 255, 255, 0.2)';
+const STROKE_ON_HOVER = '#fff';
+const INITIAL_FILL = '#161A1D';
 
 export const Connector: React.FC<ConnectorProps> & { radius: typeof RADIUS } = (props) => {
   const {
     position: { x, y },
+    fill: fillProp,
+    stroke: strokeProp,
+    onActiveChange,
     ...rest
   } = props;
 
+  const [isActive, setActive] = useState(false);
+  const [stroke, setStroke] = useState(INITIAL_STROKE);
+
+  const { updateCursor, stageRef } = useCanvas();
+
   const ref = useRef<Konva.Circle>(null);
 
-  const { handleMouseEnter, handleMouseLeave, fill, stroke } = useHover({
-    cursor: 'pointer',
-    stroke: { hover: '#fff', initial: INITIAL_STROKE },
-    fill: { initial: '#161A1D' },
+  const handleMouseUp = (): void => {
+    setStroke(INITIAL_STROKE);
+    setActive(false);
+    updateCursor('default');
+    if (stageRef.current) {
+      stageRef.current.removeEventListener('mouseup', handleMouseUp);
+    }
+  };
+
+  useOnChange(isActive, () => {
+    onActiveChange(isActive);
   });
+
+  const handleMouseDown = (): void => {
+    // нужно чтобы событие начинало слушаться только когда мы нажали и удерживаем мышку на коннекторе
+    if (stageRef.current) {
+      stageRef.current.addEventListener('mouseup', handleMouseUp);
+    }
+    setStroke(STROKE_ON_HOVER);
+    setActive(true);
+  };
+
+  const handleMouseEnter = (): void => {
+    setStroke(STROKE_ON_HOVER);
+    updateCursor('pointer');
+  };
+
+  const handleMouseLeave = (): void => {
+    if (!isActive) {
+      setStroke(INITIAL_STROKE);
+      updateCursor('default');
+    }
+  };
 
   return (
     <Circle
@@ -33,9 +74,10 @@ export const Connector: React.FC<ConnectorProps> & { radius: typeof RADIUS } = (
       y={y}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      fill={fill}
+      onMouseDown={handleMouseDown}
+      fill={fillProp ?? INITIAL_FILL}
       ref={ref}
-      stroke={stroke}
+      stroke={strokeProp ?? stroke}
       strokeWidth={2}
       radius={RADIUS}
     />

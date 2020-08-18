@@ -44,7 +44,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
   const handleDragEnd = useUpdatePosition(onPositionChange);
 
   return (
-    <Group {...rest} x={position.x} y={position.y} draggable={draggable} onDragEnd={handleDragEnd}>
+    <Group {...rest} x={position.x} y={position.y} draggable={draggable} onDragMove={handleDragEnd}>
       <Rect cornerRadius={2} height={height} width={width} fill={fill} />
       <Text
         align="center"

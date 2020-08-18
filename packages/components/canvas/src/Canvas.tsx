@@ -45,7 +45,7 @@ const endNode = Tree.of(
   }),
 );
 
-step.setParent(startNode);
+// step.setParent(startNode);
 
 const childStep = Tree.of(
   new Node<Context>({
@@ -53,9 +53,10 @@ const childStep = Tree.of(
   }),
 );
 
-childStep.setParent(step);
+// childStep.setParent(step);
+// endNode.setParent(startNode);
 
-const defaultTreeState: CanvasTree[] = [startNode, endNode];
+const defaultTreeState: CanvasTree[] = [startNode];
 
 export const Canvas: React.FC<CanvasProps> = (props) => {
   const { state } = props;
@@ -94,7 +95,7 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
       },
     });
     const tree = Tree.of(node);
-    canvas.addTree(tree);
+    canvas.connectTrees(canvas.getTrees()[0], tree);
   }, [canvas]);
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import Konva from 'konva';
 
-import { useHover } from '../../hooks';
+import { useCanvas } from '../../context';
 import { Position } from '../../types';
 import { ListItem } from '../ListItem';
 
@@ -15,13 +15,17 @@ type ButtonProps = {
 export const Button: React.FC<ButtonProps> = (props) => {
   const { onClick, position, label } = props;
 
-  const { handleMouseEnter, handleMouseLeave } = useHover({ cursor: 'pointer' });
+  const { updateCursor } = useCanvas();
 
   return (
     <ListItem
       position={position}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={(): void => {
+        updateCursor('pointer');
+      }}
+      onMouseLeave={(): void => {
+        updateCursor('default');
+      }}
       onClick={onClick}
       label={label}
       draggable={false}

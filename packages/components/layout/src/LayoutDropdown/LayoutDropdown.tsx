@@ -18,7 +18,7 @@ type LayoutDropdownProps = {
 export const LayoutDropdown: React.FC<LayoutDropdownProps> = (props) => {
   const { placement, trigger, menu } = props;
 
-  const { state, toggle } = useToggle();
+  const [state, toggle] = useToggle();
 
   const { portal } = usePortal();
 
