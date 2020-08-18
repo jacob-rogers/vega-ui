@@ -1,7 +1,7 @@
 import { Node } from './Node';
 import { Tree } from './Tree';
 
-const leaf = new Node(null);
+const leaf = new Node({ data: {} });
 
 type Data = { title: string };
 
@@ -14,8 +14,8 @@ describe('Tree', () => {
   });
 
   test('iterate', () => {
-    const root = new Node<Data>({ title: 'title' });
-    const child = new Node<Data>({ title: 'child' });
+    const root = new Node<Data>({ data: { title: 'title' } });
+    const child = new Node<Data>({ data: { title: 'child' } });
 
     root.addChild(child);
 
@@ -26,21 +26,25 @@ describe('Tree', () => {
     });
 
     expect(tree.extract().getData().title).toBe('test');
-    expect(tree.extract().getChildren()[0].getData().title).toBe('test');
+    expect(
+      tree
+        .extract()
+        .getChildren()[0]
+        .getData().title,
+    ).toBe('test');
   });
 
   test('addChild', () => {
     const tree = Tree.of(leaf);
 
-    tree.addChild(Tree.of(new Node(null)));
+    tree.addChild(Tree.of(new Node({ data: {} })));
 
     expect(tree.getChildren().length).toBe(1);
   });
 
   test('removeChild', () => {
-    const root = new Node<Data>({ title: 'title' });
-    const child = new Node<Data>({ title: 'child' });
-
+    const root = new Node<Data>({ data: { title: 'title' } });
+    const child = new Node<Data>({ data: { title: 'child' } });
     root.addChild(child);
 
     const tree = Tree.of(root);
@@ -51,9 +55,9 @@ describe('Tree', () => {
   });
 
   test('setParent', () => {
-    const root = new Node(null);
-    const child = new Node(null);
-    const secondChild = new Node(null);
+    const root = new Node({ data: null });
+    const child = new Node({ data: null });
+    const secondChild = new Node({ data: null });
 
     root.addChild(child);
     root.addChild(secondChild);
