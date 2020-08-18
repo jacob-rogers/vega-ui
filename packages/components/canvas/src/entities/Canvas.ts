@@ -10,7 +10,6 @@ export type Context = {
   title: string;
   type: 'step' | 'root' | 'end';
   position: Position;
-  canHasConnections?: [Connection, Connection?];
 };
 
 export type CanvasUpdate =
@@ -30,13 +29,15 @@ export type FlatTree = {
 
 export type CanvasTree = Tree<Context>;
 
+export type CanvasSet = Set<CanvasTree>;
+
 export class Canvas {
-  private trees: CanvasTree[];
+  private trees: CanvasSet;
 
   private notifier: Notifier<CanvasUpdate> = new Notifier();
 
   private constructor(trees: CanvasTree[]) {
-    this.trees = trees;
+    this.trees = new Set(trees);
   }
 
   static toFlat(tree: CanvasTree): FlatTree {
@@ -62,6 +63,10 @@ export class Canvas {
     );
 
     return flatTrees.map((tree) => Canvas.toFlat(tree));
+  }
+
+  public extractTrees(): CanvasTree[] {
+    return Array.from(this.trees);
   }
 
   static toTrees(flatTrees: FlatTree[]): CanvasTree[] {
@@ -97,7 +102,7 @@ export class Canvas {
   }
 
   public extract(): FlatTree[] {
-    return Canvas.toFlatArray(this.trees);
+    return Canvas.toFlatArray(Array.from(this.trees));
   }
 
   public addListener(listener: Listener<CanvasUpdate>): VoidFunction {
@@ -108,27 +113,20 @@ export class Canvas {
     this.notifier.removeAllListeners();
   }
 
-  public getTrees(): CanvasTree[] {
+  public getTrees(): CanvasSet {
     return this.trees;
   }
 
-  public findTree(id: string): CanvasTree | undefined {
-    return this.trees.find((tree) => tree.getId() === id);
-  }
-
   public removeTree(tree: CanvasTree): void {
-    const treeIndex = this.trees.findIndex((child) => child.getId() === tree.getId());
-    if (treeIndex !== undefined) {
-      this.trees.splice(treeIndex, 1);
-      this.notifier.notify({
-        type: 'remove-tree',
-        id: tree.getId(),
-      });
-    }
+    this.trees.delete(tree);
+    this.notifier.notify({
+      type: 'remove-tree',
+      id: tree.getId(),
+    });
   }
 
   public addTree(tree: CanvasTree): void {
-    this.trees.push(tree);
+    this.trees.add(tree);
     this.notifier.notify({
       id: tree.getId(),
       type: 'add-tree',
@@ -137,7 +135,7 @@ export class Canvas {
 
   public connectTrees(parentTree: CanvasTree, childTree: CanvasTree): void {
     childTree.setParent(parentTree);
-    if (this.findTree(childTree.getId())) {
+    if (this.trees.has(childTree)) {
       this.removeTree(childTree);
     }
     this.notifier.notify({
@@ -174,7 +172,7 @@ export class Canvas {
   }
 
   public removeTrees(): void {
-    this.trees = this.trees.filter((tree) => tree.getData().type !== 'step');
+    this.trees = new Set(Array.from(this.trees).filter((tree) => tree.getData().type !== 'step'));
     this.notifier.notify({ type: 'clear' });
   }
 }
