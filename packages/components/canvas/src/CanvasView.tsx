@@ -4,14 +4,14 @@ import block from 'bem-cn';
 
 import { Button, StepView } from './components';
 import { CanvasContext } from './context';
-import { CanvasTree, Context, Tree } from './entities';
+import { CanvasTree } from './entities';
 import { Position } from './types';
 
 import './Canvas.css';
 
 type CanvasViewProps = {
   onStepAdding: () => void;
-  trees: Tree<Context>[];
+  trees: CanvasTree[];
   clearSteps: () => void;
   onPositionChange: (tree: CanvasTree, position: Position) => void;
 };
