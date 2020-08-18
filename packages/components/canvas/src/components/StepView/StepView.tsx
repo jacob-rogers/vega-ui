@@ -103,7 +103,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
               x: Number(child.getData().position.x),
               y:
                 Number(child.getData().position.y) +
-                (child.getData().type === 'step' ? LIST_PADDING : STEP_WIDTH / 2),
+                (child.getData().type === 'step' ? LIST_PADDING : STEP_HEIGHT / 2),
             }}
           />
         </React.Fragment>
