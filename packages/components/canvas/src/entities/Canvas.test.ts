@@ -2,8 +2,6 @@ import { Canvas, Context } from './Canvas';
 import { Node } from './Node';
 import { Tree } from './Tree';
 
-// const simpleCanvas = [Tree.of<Context>(new Node({ data: { title: 'Шаг 1', type: 'root' }}))];
-
 const createCanvas = (): Canvas => {
   const data: Context = { title: 'Шаг 1', position: {}, type: 'root' };
 
@@ -29,23 +27,23 @@ describe('Canvas', () => {
   test('connectTrees', () => {
     const canvas = createCanvas();
 
-    expect(canvas.getTrees().length).toBe(2);
+    expect(canvas.getTrees().size).toBe(2);
 
-    const firstTree = canvas.getTrees()[0];
-    const secondTree = canvas.getTrees()[1];
+    const firstTree = canvas.extractTrees()[0];
+    const secondTree = canvas.extractTrees()[1];
 
     canvas.connectTrees(firstTree, secondTree);
 
     expect(firstTree.getChildren().length).toBe(2);
     expect(secondTree.getParent()).toStrictEqual(firstTree);
 
-    expect(canvas.getTrees().length).toBe(1);
+    expect(canvas.extractTrees().length).toBe(1);
   });
 
   test('disconnectTree', () => {
     const canvas = createCanvas();
 
-    const rootTree = canvas.getTrees()[0];
+    const rootTree = canvas.extractTrees()[0];
 
     const secondTree = rootTree.getChildren()[0];
 
@@ -54,7 +52,7 @@ describe('Canvas', () => {
     expect(rootTree.getChildren().length).toBe(0);
     expect(secondTree.getParent()).toBe(null);
 
-    expect(canvas.getTrees().length).toBe(3);
+    expect(canvas.getTrees().size).toBe(3);
   });
 
   test('extract', () => {
@@ -65,7 +63,7 @@ describe('Canvas', () => {
   test('toTrees', () => {
     const canvas = createCanvas();
 
-    const trees = canvas.getTrees();
+    const trees = canvas.extractTrees();
 
     const flat = canvas.extract();
 

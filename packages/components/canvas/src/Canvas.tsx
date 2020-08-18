@@ -19,7 +19,6 @@ const step = Tree.of(
       type: 'step',
       title: 'Шаг',
       position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
-      canHasConnections: ['children', 'parent'],
     },
   }),
 );
@@ -30,7 +29,6 @@ const startNode = Tree.of(
       position: { x: 10, y: 300 },
       title: 'Начало',
       type: 'root',
-      canHasConnections: ['children'],
     },
   }),
 );
@@ -40,12 +38,11 @@ const endNode = Tree.of(
       position: { x: 600, y: 300 },
       title: 'Конец',
       type: 'end',
-      canHasConnections: ['parent'],
     },
   }),
 );
 
-// step.setParent(startNode);
+step.setParent(startNode);
 
 const childStep = Tree.of(
   new Node<Context>({
@@ -53,8 +50,8 @@ const childStep = Tree.of(
   }),
 );
 
-// childStep.setParent(step);
-// endNode.setParent(startNode);
+childStep.setParent(step);
+endNode.setParent(startNode);
 
 const defaultTreeState: CanvasTree[] = [startNode];
 
@@ -91,16 +88,17 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
         type: 'step',
         title: 'Шаг',
         position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
-        canHasConnections: ['children', 'parent'],
       },
     });
     const tree = Tree.of(node);
-    canvas.connectTrees(canvas.getTrees()[0], tree);
+    const canvasSet = canvas.getTrees();
+    const firstNode = canvasSet.values().next();
+    canvas.connectTrees(firstNode.value, tree);
   }, [canvas]);
 
   return (
     <CanvasView
-      trees={canvas.getTrees()}
+      trees={canvas.extractTrees()}
       onStepAdding={handleStepAdding}
       onPositionChange={onPositionChange}
       clearSteps={(): void => {
