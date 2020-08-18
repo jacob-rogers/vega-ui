@@ -22,39 +22,40 @@ const createCanvas = (): Canvas => {
 };
 
 describe('Canvas', () => {
-  // test('of', () => {
-  //   expect(Canvas.of(simpleCanvas)).toBeInstanceOf(Canvas);
-  // });
+  test('of', () => {
+    expect(Canvas.from([])).toBeInstanceOf(Canvas);
+  });
 
-  // test('connectTrees', () => {
-  //   const rootTree = Tree.of<Context>(new Node({ title: 'Шаг 1', type: 'root' }));
-  //   const secondTree = Tree.of<Context>(new Node({ title: 'Шаг 2', type: 'root' }));
-  //   const canvas = Canvas.of([rootTree, secondTree]);
+  test('connectTrees', () => {
+    const canvas = createCanvas();
 
-  //   expect(canvas.getTrees().length).toBe(2);
+    expect(canvas.getTrees().length).toBe(2);
 
-  //   canvas.connectTrees(rootTree, secondTree);
+    const firstTree = canvas.getTrees()[0];
+    const secondTree = canvas.getTrees()[1];
 
-  //   expect(rootTree.getChildren().length).toBe(1);
-  //   expect(secondTree.getParent()).toStrictEqual(rootTree);
+    canvas.connectTrees(firstTree, secondTree);
 
-  //   expect(canvas.getTrees().length).toBe(1);
-  // });
+    expect(firstTree.getChildren().length).toBe(2);
+    expect(secondTree.getParent()).toStrictEqual(firstTree);
 
-  // test.skip('disconnectTree', () => {
-  //   const rootTree = Tree.of<Context>(new Node({ title: 'Шаг 1', type: 'root' }));
-  //   const secondTree = Tree.of<Context>(new Node({ title: 'Шаг 2', type: 'root' }));
+    expect(canvas.getTrees().length).toBe(1);
+  });
 
-  //   rootTree.addChild(secondTree);
-  //   const canvas = Canvas.of([rootTree]);
+  test('disconnectTree', () => {
+    const canvas = createCanvas();
 
-  //   canvas.disconnectTree(secondTree);
+    const rootTree = canvas.getTrees()[0];
 
-  //   expect(rootTree.getChildren().length).toBe(0);
-  //   expect(secondTree.getParent()).toBe(null);
+    const secondTree = rootTree.getChildren()[0];
 
-  //   expect(canvas.getTrees().length).toBe(2);
-  // });
+    canvas.disconnectTree(secondTree);
+
+    expect(rootTree.getChildren().length).toBe(0);
+    expect(secondTree.getParent()).toBe(null);
+
+    expect(canvas.getTrees().length).toBe(3);
+  });
 
   test('extract', () => {
     const canvas = createCanvas();
