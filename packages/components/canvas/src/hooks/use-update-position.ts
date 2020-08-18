@@ -3,11 +3,13 @@ import Konva from 'konva';
 
 import { Position } from '../types';
 
+type KonvaMouseEvent = Konva.KonvaEventObject<MouseEvent>;
+
 export const useUpdatePosition = (
   onPositionChange?: (pos: Position) => void,
-): ((e: Konva.KonvaEventObject<MouseEvent>) => void) => {
+): ((e: KonvaMouseEvent) => void) => {
   const handleDragEnd = useCallback(
-    (e: Konva.KonvaEventObject<MouseEvent>): void => {
+    (e: KonvaMouseEvent): void => {
       const position = e.target.position();
       if (onPositionChange) {
         onPositionChange(position);
