@@ -5,12 +5,18 @@ export const useImage = (
 ): [HTMLImageElement | null, (image: HTMLImageElement) => void] => {
   const [image, setImage] = useState<HTMLImageElement | null>(null);
 
+  const updateImage = (e: Event): void => {
+    if (e.target instanceof HTMLImageElement) {
+      setImage(e.target);
+    }
+  };
+
   useEffect(() => {
     const windowImage = new Image();
+    windowImage.addEventListener('load', updateImage);
     windowImage.src = src;
-    windowImage.addEventListener('load', () => setImage(windowImage));
     return (): void => {
-      windowImage.removeEventListener('load', () => setImage(windowImage));
+      windowImage.removeEventListener('load', updateImage);
     };
   }, [src]);
 

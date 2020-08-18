@@ -3,6 +3,7 @@ import { Group, Rect } from 'react-konva';
 import { useMount } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
+import { LIST_PADDING, STEP_HEIGHT, STEP_PADDING } from '../../constants';
 import { useUpdatePosition } from '../../hooks';
 import { BaseProps } from '../../types';
 import { Text } from '../Text';
@@ -18,7 +19,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
   const {
     position,
     fill = '#0078D2',
-    height = 40,
+    height = STEP_HEIGHT,
     centerText = true,
     label,
     width: widthProp,
@@ -33,7 +34,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
 
   useMount(() => {
     if (textRef.current && centerText) {
-      const newWidth = textRef.current.getTextWidth() + 26;
+      const newWidth = textRef.current.getTextWidth() + STEP_PADDING;
       setWidth(newWidth);
       if (onWidthUpdate) {
         onWidthUpdate(newWidth);
@@ -50,7 +51,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
         align="center"
         verticalAlign="middle"
         height={height}
-        position={{ x: 12 }}
+        position={{ x: LIST_PADDING }}
         label={label}
         fill="#fff"
         fontSize={14}

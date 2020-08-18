@@ -7,26 +7,26 @@ import { Connector } from '../Connector';
 const RADIUS = Connector.radius;
 
 type ConnectionLineProps = {
-  parentPosition: Position;
-  childPosition: Position;
+  parentPosition: Required<Position>;
+  childPosition: Required<Position>;
 };
 
 export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
   const { parentPosition: parent, childPosition: child } = props;
 
-  const dx = Number(child.x) - Number(parent.x);
-  const dy = Number(child.y) - Number(child.y);
+  const dx = child.x - parent.x;
+  const dy = child.y - child.y;
 
   const angle = Math.atan2(-dy, dx);
 
   const arrowStart = {
-    x: Number(parent.x) + -RADIUS * Math.cos(angle + Math.PI),
-    y: Number(parent.y) + RADIUS * Math.sin(angle + Math.PI),
+    x: parent.x + -RADIUS * Math.cos(angle + Math.PI),
+    y: parent.y + RADIUS * Math.sin(angle + Math.PI),
   };
 
   const arrowEnd = {
-    x: Number(child.x) + -RADIUS * Math.cos(angle),
-    y: Number(child.y) + RADIUS * Math.sin(angle),
+    x: child.x + -RADIUS * Math.cos(angle),
+    y: child.y + RADIUS * Math.sin(angle),
   };
 
   return (
