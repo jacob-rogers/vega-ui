@@ -112,10 +112,8 @@ export class Canvas {
     return this.trees;
   }
 
-  public iterate(fn: (node: Node) => void): void {
-    this.trees.forEach((tree) => {
-      tree.iterate(fn);
-    });
+  public findTree(id: string): CanvasTree | undefined {
+    return this.trees.find((tree) => tree.getId() === id);
   }
 
   public removeTree(tree: CanvasTree): void {
@@ -139,7 +137,9 @@ export class Canvas {
 
   public connectTrees(parentTree: CanvasTree, childTree: CanvasTree): void {
     childTree.setParent(parentTree);
-    this.removeTree(childTree);
+    if (this.findTree(childTree.getId())) {
+      this.removeTree(childTree);
+    }
     this.notifier.notify({
       type: 'connect-tree',
       childId: childTree.getId(),

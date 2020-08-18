@@ -24,7 +24,7 @@ export const List: React.FC<ListProps> = (props) => {
       y={position.y}
       width={250}
       draggable={draggable}
-      onDragEnd={handleDragEnd}
+      onDragMove={handleDragEnd}
     >
       <Rect
         cornerRadius={2}
