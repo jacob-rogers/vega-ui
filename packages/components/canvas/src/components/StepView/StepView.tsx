@@ -1,8 +1,8 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
+import React, { useCallback, useState } from 'react';
 
+import { LIST_PADDING, STEP_HEIGHT, STEP_WIDTH } from '../../constants';
 import { useCanvas } from '../../context';
-import { CanvasTree, Connection } from '../../entities';
+import { CanvasTree } from '../../entities';
 import { Position } from '../../types';
 import { ConnectionLine } from '../ConnectionLine';
 import { Connector } from '../Connector';
@@ -13,6 +13,8 @@ export type StepViewProps = {
   step: CanvasTree;
 };
 
+const CONNECTOR_STROKE = '#fff';
+
 export const StepView: React.FC<StepViewProps> = (props) => {
   const { step } = props;
   const stepData = step.getData();
@@ -20,7 +22,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
 
   const stepChildren = step.getChildren();
 
-  const { type, canHasConnections } = stepData;
+  const { type } = stepData;
   const [stepWidth, setStepWidth] = useState(0);
   const [draggable, setDraggable] = useState(true);
 
@@ -28,10 +30,8 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     setStepWidth(newWidth);
   }, []);
 
-  const [canHasParent, canHasChildren] = useMemo(
-    () => ['parent', 'children'].map((el) => canHasConnections?.includes(el as Connection)),
-    [canHasConnections],
-  );
+  const canHasChildren = type !== 'end';
+  const canHasParent = type !== 'root';
 
   const isList = type === 'step';
 
@@ -50,7 +50,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     onActiveChange: handleConnectorActiveChange,
   };
 
-  const connectorsY = isList ? 12 : 20;
+  const connectorsY = isList ? LIST_PADDING : STEP_HEIGHT / 2;
 
   const connectorPosition = {
     parent: {
@@ -58,7 +58,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
       y: connectorsY,
     },
     children: {
-      x: stepData.type === 'step' ? 250 : stepWidth,
+      x: stepData.type === 'step' ? STEP_WIDTH : stepWidth,
       y: connectorsY,
     },
   };
@@ -69,14 +69,14 @@ export const StepView: React.FC<StepViewProps> = (props) => {
         <Connector
           {...connectorProps}
           position={connectorPosition.parent}
-          stroke={step.getParent() ? '#fff' : undefined}
+          stroke={step.getParent() ? CONNECTOR_STROKE : undefined}
         />
       )}
       {canHasChildren && (
         <Connector
           {...connectorProps}
           position={connectorPosition.children}
-          stroke={stepChildren.length ? '#fff' : undefined}
+          stroke={stepChildren.length ? CONNECTOR_STROKE : undefined}
         />
       )}
     </>
@@ -100,8 +100,10 @@ export const StepView: React.FC<StepViewProps> = (props) => {
               y: Number(step.getData().position.y) + connectorsY,
             }}
             childPosition={{
-              x: child.getData().position.x,
-              y: Number(child.getData().position.y) + (child.getData().type === 'step' ? 12 : 20),
+              x: Number(child.getData().position.x),
+              y:
+                Number(child.getData().position.y) +
+                (child.getData().type === 'step' ? LIST_PADDING : STEP_WIDTH / 2),
             }}
           />
         </React.Fragment>
