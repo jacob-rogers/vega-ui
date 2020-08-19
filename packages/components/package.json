@@ -59,6 +59,7 @@
     "@gpn-prototypes/vega-text-field": "^0.1.6",
     "@gpn-prototypes/vega-theme": "^0.0.4",
     "@gpn-prototypes/vega-timer": "^0.1.3",
-    "@gpn-prototypes/vega-user": "^0.1.5"
+    "@gpn-prototypes/vega-user": "^0.1.5",
+    "@gpn-prototypes/vega-radio-list": "^0.0.1"
   }
 }
