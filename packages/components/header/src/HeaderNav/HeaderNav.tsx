@@ -2,18 +2,18 @@ import React from 'react';
 import { Tabs } from '@gpn-prototypes/vega-tabs';
 
 import { cnHeader } from '../cn-header';
-import { NavItem } from '../types';
+import { NavItemType } from '../types';
 
 type HeaderNavProps = {
-  navItems: NavItem[];
-  activeItem?: NavItem[];
-  onChangeItem: (item: NavItem[]) => void;
+  navItems: NavItemType[];
+  activeItem?: NavItemType[];
+  onChangeItem: (item: NavItemType[]) => void;
 };
 
 export const HeaderNav: React.FC<HeaderNavProps> = (props) => {
   const { navItems, activeItem, onChangeItem } = props;
 
-  const handleChangeItem = (item: NavItem[] | null): void => {
+  const handleChangeItem = (item: NavItemType[] | null): void => {
     if (item !== null) {
       onChangeItem(item);
     }
@@ -21,7 +21,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = (props) => {
 
   return (
     <nav className={cnHeader('Nav')}>
-      <Tabs<NavItem>
+      <Tabs<NavItemType>
         items={navItems}
         value={activeItem}
         getItemKey={(item): string => item.name}

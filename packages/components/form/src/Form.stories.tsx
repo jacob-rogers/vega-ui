@@ -40,6 +40,8 @@ const cssButton = css`
 
 const cssTitle = css`
   color: var(--color-typo-primary);
+  margin: 0;
+  padding: var(--space-xs) 0;
 `;
 
 const KNOB_GROUPS = {
@@ -49,8 +51,8 @@ const KNOB_GROUPS = {
 };
 
 const rowKnobs = (): React.ComponentProps<typeof Form.Row> => ({
-  gap: select('gap', ['m', 'l', 'xl', 'none'], 'm', KNOB_GROUPS.row),
-  space: select('space', ['m', 'l', 'xl', 'none'], 'm', KNOB_GROUPS.row),
+  gap: select('gap', ['xs', 's', 'm', 'l', 'xl', 'none'], 'm', KNOB_GROUPS.row),
+  space: select('space', ['xs', 's', 'm', 'l', 'xl', 'none'], 'm', KNOB_GROUPS.row),
   col: select('col', ['1', '2', '3', '4'], '1', KNOB_GROUPS.row),
 });
 

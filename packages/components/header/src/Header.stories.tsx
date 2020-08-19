@@ -3,7 +3,7 @@ import { Text } from '@gpn-prototypes/vega-text';
 import { storiesOf } from '@storybook/react';
 
 import { Header } from './Header';
-import { NavItem } from './types';
+import { NavItemType } from './types';
 
 storiesOf('ui/Header', module)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
@@ -43,7 +43,7 @@ storiesOf('ui/Header', module)
 
     const [activeItem, setActiveItem] = React.useState(navItems.filter((ni) => ni.isActive));
 
-    const handleChangeActive = (item: NavItem[]): void => {
+    const handleChangeActive = (item: NavItemType[]): void => {
       setActiveItem(item);
     };
 

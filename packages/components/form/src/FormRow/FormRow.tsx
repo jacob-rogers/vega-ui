@@ -5,8 +5,8 @@ import { cnForm } from '../cn-form';
 type DivProps = JSX.IntrinsicElements['div'];
 export interface FormRowProps extends DivProps {
   col?: '1' | '2' | '3' | '4';
-  space?: 'm' | 'l' | 'xl' | 'none';
-  gap?: 'm' | 'l' | 'xl' | 'none';
+  space?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'none';
+  gap?: 'xs' | 's' | 'm' | 'l' | 'xl' | 'none';
   className?: string;
 }
 

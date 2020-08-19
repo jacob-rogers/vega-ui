@@ -7,18 +7,19 @@ import { HeaderNav } from './HeaderNav';
 import './Header.css';
 
 type HeaderProps = {
+  className?: string;
   children: React.ReactNode;
 };
 
-type Header = React.FC<HeaderProps> & {
+type HeaderType = React.FC<HeaderProps> & {
   Menu: typeof HeaderMenu;
   Nav: typeof HeaderNav;
 };
 
-export const Header: Header = (props) => {
-  const { children } = props;
+export const Header: HeaderType = ({ className, children }) => {
+  const cn = cnHeader.mix(className);
 
-  return <header className={cnHeader()}>{children}</header>;
+  return <header className={cn}>{children}</header>;
 };
 
 Header.Menu = HeaderMenu;

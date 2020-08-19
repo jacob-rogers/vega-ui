@@ -9,8 +9,9 @@ import {
 
 export type ThemeName = 'default' | 'dark' | 'display';
 
-type ThemeProps = {
+type ThemeRootProps = {
   themeName?: ThemeName;
+  className?: string;
   children: ReactNode;
 };
 
@@ -35,15 +36,17 @@ const ThemeContext = createContext<ThemeContextProps>({
 
 export const useTheme = (): ThemeContextProps => useContext(ThemeContext);
 
-export const ThemeRoot: React.FC<ThemeProps> = (props) => {
-  const { themeName = 'default', children } = props;
+export const ThemeRoot: React.FC<ThemeRootProps> = (props) => {
+  const { themeName = 'default', className, children } = props;
   const [theme, setTheme] = useState(themeName);
 
   const preset = getThemeByName(theme);
 
   return (
     <ThemeContext.Provider value={{ theme, setTheme }}>
-      <Theme preset={preset}>{children}</Theme>
+      <Theme preset={preset} className={className}>
+        {children}
+      </Theme>
     </ThemeContext.Provider>
   );
 };
