@@ -13,9 +13,9 @@ module.exports = {
     '@storybook/addon-a11y',
   ],
   presets: [],
-  webpackFinal: async config => {
+  webpackFinal: async (config) => {
     // eslint-disable-next-line no-param-reassign
-    config.module.rules = config.module.rules.filter(f => f.test.toString() !== '/\\.css$/');
+    config.module.rules = config.module.rules.filter((f) => f.test.toString() !== '/\\.css$/');
 
     config.module.rules.push({
       test: /\.(ts|tsx)$/,

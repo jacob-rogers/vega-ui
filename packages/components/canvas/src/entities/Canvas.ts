@@ -49,7 +49,7 @@ export class Canvas {
     };
   }
 
-  static flatArray(trees: CanvasTree[]): FlatTree[] {
+  static flatArray(trees: CanvasTree[]): CanvasTree[] {
     const flattenTree = (root: CanvasTree): CanvasTree[] => {
       const flatten = [root];
 
@@ -61,7 +61,7 @@ export class Canvas {
       [],
     );
 
-    return flatTrees.map((tree) => Canvas.flat(tree));
+    return flatTrees;
   }
 
   public extractTrees(): CanvasTree[] {
@@ -96,8 +96,12 @@ export class Canvas {
     return new Canvas(trees);
   }
 
+  public searchTree(id: string): CanvasTree | undefined {
+    return Canvas.flatArray(Array.from(this.trees)).find((tree) => tree.getId() === id);
+  }
+
   public extract(): FlatTree[] {
-    return Canvas.flatArray(Array.from(this.trees));
+    return Canvas.flatArray(Array.from(this.trees)).map((tree) => Canvas.flat(tree));
   }
 
   public addListener(listener: Listener<CanvasUpdate>): VoidFunction {
@@ -128,12 +132,15 @@ export class Canvas {
     });
   }
 
-  public connect(parentTree: CanvasTree, childTree: CanvasTree): void {
-    parentTree.addChild(childTree);
-    if (this.trees.has(childTree)) {
-      this.remove(childTree);
+  public connect(parentTree: CanvasTree, childTree: CanvasTree): void | undefined {
+    if (childTree.getParent()) {
+      return undefined;
     }
-    this.notifier.notify({
+
+    console.log(childTree, parentTree)
+    parentTree.addChild(childTree);
+    this.remove(childTree);
+    return this.notifier.notify({
       type: 'connect-tree',
       childId: childTree.getId(),
       parentId: parentTree.getId(),
@@ -163,5 +170,14 @@ export class Canvas {
       id: tree.getId(),
       changes: data,
     });
+  }
+
+  public onTreePositionChange(tree: CanvasTree, position: Position): void {
+    this.setData(tree, { ...tree.getData(), position });
+  }
+
+  public removeTrees(): void {
+    this.trees = new Set(Array.from(this.trees).filter((tree) => tree.getData().type !== 'step'));
+    this.notifier.notify({ type: 'clear' });
   }
 }

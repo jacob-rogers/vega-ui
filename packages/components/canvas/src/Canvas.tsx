@@ -36,23 +36,14 @@ const endNode = Tree.of<Context>({
   },
 });
 
-step.setParent(startNode);
-
-const childStep = Tree.of<Context>({
-  data: step.getData(),
-});
-
-childStep.setParent(step);
-endNode.setParent(startNode);
-
-const defaultTreeState: CanvasTree[] = [startNode];
+const defaultTreeState: CanvasTree[] = [startNode, endNode];
 
 export const Canvas: React.FC<CanvasProps> = (props) => {
   const { state } = props;
 
   const [treeStateInStorage, setTreeStateInStorage] = useLocalStorage<FlatTree[]>(
     'treeState',
-    state ?? CanvasEntity.flatArray(defaultTreeState),
+    state ?? CanvasEntity.flatArray(defaultTreeState).map((tree) => CanvasEntity.flat(tree)),
   );
 
   const canvas = useMemo(() => CanvasEntity.of(treeStateInStorage), [treeStateInStorage]);
@@ -67,31 +58,5 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
     });
   }, [canvas, setTreeStateInStorage]);
 
-  const onPositionChange = useCallback(
-    (tree: Tree<Context>, pos: Position): void => {
-      canvas.setData(tree, { ...tree.getData(), position: pos });
-    },
-    [canvas],
-  );
-
-  const handleStepAdding = useCallback(() => {
-    const data: Context = {
-      type: 'step',
-      title: 'Шаг',
-      position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
-    };
-    const tree = Tree.of({ data });
-    const trees = canvas.get();
-    const firstNode = trees.values().next();
-    canvas.connect(firstNode.value, tree);
-  }, [canvas]);
-
-  return (
-    <CanvasView
-      trees={canvas.extractTrees()}
-      onStepAdding={handleStepAdding}
-      onPositionChange={onPositionChange}
-      clearSteps={(): void => {}}
-    />
-  );
+  return <CanvasView canvas={canvas} />;
 };

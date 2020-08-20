@@ -70,9 +70,9 @@ export class Tree<T = unknown> {
   }
 
   public addChild(tree: Tree<T>): Tree<T> {
-    const currentParent = this.getParent();
+    const currentParent = tree.getParent();
     if (currentParent instanceof Tree) {
-      currentParent.removeChild(this);
+      currentParent.removeChild(tree);
     }
     tree.setParent(this);
     this.children.push(tree);
