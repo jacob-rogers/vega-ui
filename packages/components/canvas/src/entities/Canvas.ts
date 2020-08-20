@@ -137,7 +137,6 @@ export class Canvas {
       return undefined;
     }
 
-    console.log(childTree, parentTree)
     parentTree.addChild(childTree);
     this.remove(childTree);
     return this.notifier.notify({
