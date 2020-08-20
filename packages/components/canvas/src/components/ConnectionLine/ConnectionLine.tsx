@@ -2,9 +2,7 @@ import React from 'react';
 import { Line } from 'react-konva';
 
 import { Position } from '../../types';
-import { Connector } from '../Connector';
-
-const RADIUS = Connector.radius;
+import { RADIUS } from '../Connector';
 
 type ConnectionLineProps = {
   parentPosition: Required<Position>;

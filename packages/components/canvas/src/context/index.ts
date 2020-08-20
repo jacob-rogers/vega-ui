@@ -1,1 +1,1 @@
-export { CanvasContext, useCanvas } from './CanvasContext';
+export { ActiveStep, CanvasContext, StepConnectorData, useCanvas } from './CanvasContext';

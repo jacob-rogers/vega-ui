@@ -1,1 +1,1 @@
-export { Connector } from './Connector';
+export { Connector, RADIUS } from './Connector';

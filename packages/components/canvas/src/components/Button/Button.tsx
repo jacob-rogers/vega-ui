@@ -15,16 +15,16 @@ type ButtonProps = {
 export const Button: React.FC<ButtonProps> = (props) => {
   const { onClick, position, label } = props;
 
-  const { updateCursor } = useCanvas();
+  const { setCursor } = useCanvas();
 
   return (
     <ListItem
       position={position}
       onMouseEnter={(): void => {
-        updateCursor('pointer');
+        setCursor('pointer');
       }}
       onMouseLeave={(): void => {
-        updateCursor('default');
+        setCursor('default');
       }}
       onClick={onClick}
       label={label}

@@ -4,77 +4,76 @@ import { useOnChange } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { useCanvas } from '../../context';
-import { BaseProps } from '../../types';
+import { BaseProps, ConnectorType, Position } from '../../types';
 
 type KonvaCircleProps = Omit<React.ComponentProps<typeof Circle>, 'x' | 'y' | 'width' | 'height'>;
 
 interface ConnectorProps extends KonvaCircleProps, Omit<BaseProps, 'label'> {
-  onActiveChange(newActive: boolean): void;
+  type: 'parent' | 'children';
+  isActive: boolean | null;
+  onChangeActive: (type: ConnectorType) => void;
+  position: Required<Position>;
+  disabled?: boolean;
 }
 
-const RADIUS = 6;
+export const RADIUS = 6;
 const INITIAL_STROKE = 'rgba(255, 255, 255, 0.2)';
 const STROKE_ON_HOVER = '#fff';
 const INITIAL_FILL = '#161A1D';
 
-export const Connector: React.FC<ConnectorProps> & { radius: typeof RADIUS } = (props) => {
+export const Connector: React.FC<ConnectorProps> = (props) => {
   const {
-    position: { x, y },
+    position,
     fill: fillProp,
     stroke: strokeProp,
-    onActiveChange,
+    isActive,
+    onChangeActive,
+    type,
+    disabled = false,
     ...rest
   } = props;
 
-  const [isActive, setActive] = useState(false);
   const [stroke, setStroke] = useState(INITIAL_STROKE);
 
-  const { updateCursor, stageRef } = useCanvas();
+  const { setCursor } = useCanvas();
 
   const ref = useRef<Konva.Circle>(null);
 
-  const handleMouseUp = (): void => {
-    setStroke(INITIAL_STROKE);
-    setActive(false);
-    updateCursor('default');
-    if (stageRef.current) {
-      stageRef.current.removeEventListener('mouseup', handleMouseUp);
-    }
-  };
-
   useOnChange(isActive, () => {
-    onActiveChange(isActive);
+    setStroke(isActive ? STROKE_ON_HOVER : INITIAL_STROKE);
   });
 
-  const handleMouseDown = (): void => {
-    // нужно чтобы событие начинало слушаться только когда мы нажали и удерживаем мышку на коннекторе
-    if (stageRef.current) {
-      stageRef.current.addEventListener('mouseup', handleMouseUp);
-    }
-    setStroke(STROKE_ON_HOVER);
-    setActive(true);
-  };
-
   const handleMouseEnter = (): void => {
-    setStroke(STROKE_ON_HOVER);
-    updateCursor('pointer');
+    setCursor('pointer');
+    if (stroke !== STROKE_ON_HOVER) {
+      setStroke(STROKE_ON_HOVER);
+    }
   };
 
   const handleMouseLeave = (): void => {
     if (!isActive) {
-      setStroke(INITIAL_STROKE);
-      updateCursor('default');
+      if (stroke !== INITIAL_STROKE) {
+        setStroke(INITIAL_STROKE);
+      }
+      setCursor('default');
     }
+  };
+
+  const handleChangeActive = (): void | undefined => {
+    if (disabled) {
+      return undefined;
+    }
+    return onChangeActive(type);
   };
 
   return (
     <Circle
       {...rest}
-      x={x}
-      y={y}
+      x={position.x}
+      y={position.y}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onMouseDown={handleMouseDown}
+      onMouseDown={handleChangeActive}
       fill={fillProp ?? INITIAL_FILL}
       ref={ref}
       stroke={strokeProp ?? stroke}
@@ -83,5 +82,3 @@ export const Connector: React.FC<ConnectorProps> & { radius: typeof RADIUS } = (
     />
   );
 };
-
-Connector.radius = RADIUS;
