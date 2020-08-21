@@ -2,5 +2,76 @@
   padding: var(--space-xs);
 
   color: var(--color-typo-primary);
-  background-color: var(--color-bg-secondary);
+  background-color: var(--color-bg-default);
+}
+
+.VegaTree:hover .VegaTree__NodeList_expanded::before {
+  content: '';
+
+  border-left: 1px solid var(--color-bg-stripe);
+  height: 100%;
+  position: absolute;
+  left: 3px;
+}
+
+.VegaTree__TreeNode, ul {
+  list-style: none;
+  padding-left: 12px;
+}
+
+.VegaTree__Leaf {
+  cursor: pointer;
+  padding-left: 12px;
+}
+
+.VegaTree__Leaf > span {
+  font-size: 14px;
+  line-height: 150%;
+  font-style: normal;
+}
+
+.VegaTree__NodeList {
+  display: none;
+  margin: 0;
+}
+
+.VegaTree__NodeList_expanded {
+  display: block;
+
+  position: relative;
+}
+
+.VegaTree__NavigationItem {
+  color: var(--color-typo-primary);
+  user-select: none;
+  font-size: 14px;
+  line-height: 150%;
+  font-style: normal;
+  cursor: pointer;
+}
+
+.VegaTree__NavigationItem::before {
+  content: '';
+  border: solid;
+  border-color: var(--color-typo-ghost);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  margin-right: 7px;
+  margin-bottom: 1px;
+  padding: 3px;
+
+  transform: rotate(-45deg);
+}
+
+.VegaTree__NavigationItem_expanded::before {
+  content: '';
+  border: solid;
+  border-color: var(--color-typo-ghost);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  margin-right: 4px;
+  margin-bottom: 3px;
+  padding: 3px;
+
+  transform: rotate(45deg);
 }

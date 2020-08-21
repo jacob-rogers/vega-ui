@@ -1,15 +1,12 @@
 import React from 'react';
-import { block } from 'bem-cn';
-
+import {RootTreeNode} from "./RootTreeNode";
+import cnTree from "./cn-tree";
 import './Tree.css';
+import {RootTreeProps} from "./types";
 
-export type TreeProps = {
-  title?: string;
-  className?: string;
-};
 
-const cnTree = block('VegaTree');
-
-export const Tree: React.FC<TreeProps> = ({ title = 'default', className }) => {
-  return <div className={cnTree.mix(className)}>Title: {title}</div>;
+export const Tree: React.FC<RootTreeProps> = (props) => {
+  return <div className={cnTree()}>
+    <RootTreeNode {...props}/>
+  </div>;
 };
