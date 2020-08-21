@@ -1,7 +1,6 @@
-import { Node } from './Node';
 import { Tree } from './Tree';
 
-const leaf = new Node({ data: {} });
+const leaf = { data: {} };
 
 type Data = { title: string };
 
@@ -14,62 +13,47 @@ describe('Tree', () => {
   });
 
   test('iterate', () => {
-    const root = new Node<Data>({ data: { title: 'title' } });
-    const child = new Node<Data>({ data: { title: 'child' } });
+    const root = Tree.of<Data>({ data: { title: 'title' } });
+    const child = Tree.of<Data>({ data: { title: 'child' } });
 
     root.addChild(child);
 
-    const tree = Tree.of(root);
-
-    tree.iterate((node) => {
+    root.iterate((node) => {
       node.setData({ title: 'test' });
     });
 
-    expect(tree.extract().getData().title).toBe('test');
-    expect(
-      tree
-        .extract()
-        .getChildren()[0]
-        .getData().title,
-    ).toBe('test');
+    expect(root.getData().title).toBe('test');
+    expect(root.getChildren()[0].getData().title).toBe('test');
   });
 
   test('addChild', () => {
     const tree = Tree.of(leaf);
 
-    tree.addChild(Tree.of(new Node({ data: {} })));
+    tree.addChild(Tree.of({ data: {} }));
 
     expect(tree.getChildren().length).toBe(1);
   });
 
   test('removeChild', () => {
-    const root = new Node<Data>({ data: { title: 'title' } });
-    const child = new Node<Data>({ data: { title: 'child' } });
+    const root = Tree.of<Data>({ data: { title: 'title' } });
+    const child = Tree.of<Data>({ data: { title: 'child' } });
     root.addChild(child);
 
-    const tree = Tree.of(root);
+    root.removeChild(child);
 
-    tree.removeChild(Tree.of(child));
-
-    expect(tree.getChildren().length).toBe(0);
+    expect(root.getChildren().length).toBe(0);
   });
 
   test('setParent', () => {
-    const root = new Node({ data: null });
-    const child = new Node({ data: null });
-    const secondChild = new Node({ data: null });
+    const root = Tree.of({ data: null });
+    const child = Tree.of({ data: null });
+    const secondChild = Tree.of({ data: null });
 
-    root.addChild(child);
-    root.addChild(secondChild);
+    child.setParent(root);
+    secondChild.setParent(root);
 
-    expect(root.getChildren().length).toBe(2);
+    secondChild.setParent(child);
 
-    const secondChildTree = Tree.of(secondChild);
-
-    secondChildTree.setParent(Tree.of(child));
-
-    expect(root.getChildren().length).toBe(1);
-
-    expect(child.getChildren().length).toBe(1);
+    expect(secondChild.getParent()).toEqual(child);
   });
 });

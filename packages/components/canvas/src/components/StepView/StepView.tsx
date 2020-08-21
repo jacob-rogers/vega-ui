@@ -91,7 +91,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
       ) : (
         <List {...baseProps}>{children}</List>
       )}
-      {stepChildren.map((child) => (
+      {Array.from(stepChildren).map((child) => (
         <React.Fragment key={child.getId()}>
           <StepView step={child} />
           <ConnectionLine

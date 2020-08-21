@@ -2,7 +2,7 @@ import React from 'react';
 import { Group, Image, Rect } from 'react-konva';
 
 import { LIST_PADDING, STEP_HEIGHT, STEP_WIDTH } from '../../constants';
-import { useImage, useUpdatePosition } from '../../hooks';
+import { useImage } from '../../hooks';
 import { BaseProps } from '../../types';
 import { ListItem } from '../ListItem';
 import { Text } from '../Text';
@@ -14,10 +14,8 @@ export type ListProps = Omit<BaseProps, 'height'> & {
 };
 
 export const List: React.FC<ListProps> = (props) => {
-  const { position, label, onPositionChange, draggable = true, children } = props;
+  const { position, label, onPositionChange = (): void => {}, draggable = true, children } = props;
   const [icon] = useImage(arrowIcon);
-
-  const handleDragEnd = useUpdatePosition(onPositionChange);
 
   return (
     <Group
@@ -25,7 +23,7 @@ export const List: React.FC<ListProps> = (props) => {
       y={position.y}
       width={STEP_WIDTH}
       draggable={draggable}
-      onDragMove={handleDragEnd}
+      onDragMove={(e): void => onPositionChange(e.target.position())}
     >
       <Rect
         cornerRadius={2}

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { Layer, Stage } from 'react-konva';
-import block from 'bem-cn';
 
+import { cnCanvas } from './cn-canvas';
 import { Button, StepView } from './components';
 import { CanvasContext } from './context';
 import { CanvasTree } from './entities';
@@ -25,7 +25,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   return (
     <Stage
       style={{ cursor }}
-      className={block('VegaCanvas').toString()}
+      className={cnCanvas.toString()}
       width={window.innerWidth}
       height={window.innerHeight}
       ref={stageRef}
