@@ -81,8 +81,8 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
       position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
     };
     const tree = Tree.of({ data });
-    const canvasSet = canvas.get();
-    const firstNode = canvasSet.values().next();
+    const trees = canvas.get();
+    const firstNode = trees.values().next();
     canvas.connect(firstNode.value, tree);
   }, [canvas]);
 
