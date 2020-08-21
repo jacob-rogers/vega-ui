@@ -2,12 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 import { useLocalStorage, useMount } from '@gpn-prototypes/vega-hooks';
 
 import { CanvasView } from './CanvasView';
-<<<<<<< HEAD
 import { Canvas as CanvasEntity, CanvasTree, Context, FlatTree, Tree } from './entities';
-import { Position } from './types';
-=======
-import { Canvas as CanvasEntity, CanvasTree, Context, FlatTree, Node, Tree } from './entities';
->>>>>>> 42cb8e9... fix(lint): убрал лишнее
 
 import './Canvas.css';
 
