@@ -85,6 +85,8 @@
     "packages/components/user",
     "packages/components/tag",
     "packages/components/table",
+    "packages/components/tree",
+    "packages/components/tree",
     "packages/components"
   ],
   "devDependencies": {
