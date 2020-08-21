@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import { useLocalStorage, useMount } from '@gpn-prototypes/vega-hooks';
 
 import { CanvasView } from './CanvasView';
-import { Canvas as CanvasEntity, CanvasTree, Context, FlatTree, Node, Tree } from './entities';
+import { Canvas as CanvasEntity, CanvasTree, Context, FlatTree, Tree } from './entities';
 import { Position } from './types';
 
 import './Canvas.css';
@@ -13,42 +13,34 @@ type CanvasProps = {
   state?: CanvasState;
 };
 
-const step = Tree.of(
-  new Node<Context>({
-    data: {
-      type: 'step',
-      title: 'Шаг',
-      position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
-    },
-  }),
-);
+const step = Tree.of<Context>({
+  data: {
+    type: 'step',
+    title: 'Шаг',
+    position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
+  },
+});
 
-const startNode = Tree.of(
-  new Node<Context>({
-    data: {
-      position: { x: 10, y: 300 },
-      title: 'Начало',
-      type: 'root',
-    },
-  }),
-);
-const endNode = Tree.of(
-  new Node<Context>({
-    data: {
-      position: { x: 600, y: 300 },
-      title: 'Конец',
-      type: 'end',
-    },
-  }),
-);
+const startNode = Tree.of<Context>({
+  data: {
+    position: { x: 10, y: 300 },
+    title: 'Начало',
+    type: 'root',
+  },
+});
+const endNode = Tree.of<Context>({
+  data: {
+    position: { x: 600, y: 300 },
+    title: 'Конец',
+    type: 'end',
+  },
+});
 
 step.setParent(startNode);
 
-const childStep = Tree.of(
-  new Node<Context>({
-    data: step.getData(),
-  }),
-);
+const childStep = Tree.of<Context>({
+  data: step.getData(),
+});
 
 childStep.setParent(step);
 endNode.setParent(startNode);
@@ -60,7 +52,7 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
 
   const [treeStateInStorage, setTreeStateInStorage] = useLocalStorage<FlatTree[]>(
     'treeState',
-    state ?? CanvasEntity.toFlatArray(defaultTreeState),
+    state ?? CanvasEntity.flatArray(defaultTreeState),
   );
 
   const canvas = useMemo(() => CanvasEntity.of(treeStateInStorage), [treeStateInStorage]);
@@ -77,23 +69,21 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
 
   const onPositionChange = useCallback(
     (tree: Tree<Context>, pos: Position): void => {
-      canvas.setTreeData(tree, { ...tree.getData(), position: pos });
+      canvas.setData(tree, { ...tree.getData(), position: pos });
     },
     [canvas],
   );
 
   const handleStepAdding = useCallback(() => {
-    const node = new Node<Context>({
-      data: {
-        type: 'step',
-        title: 'Шаг',
-        position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
-      },
-    });
-    const tree = Tree.of(node);
-    const canvasSet = canvas.getTrees();
+    const data: Context = {
+      type: 'step',
+      title: 'Шаг',
+      position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
+    };
+    const tree = Tree.of({ data });
+    const canvasSet = canvas.get();
     const firstNode = canvasSet.values().next();
-    canvas.connectTrees(firstNode.value, tree);
+    canvas.connect(firstNode.value, tree);
   }, [canvas]);
 
   return (
@@ -101,9 +91,7 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
       trees={canvas.extractTrees()}
       onStepAdding={handleStepAdding}
       onPositionChange={onPositionChange}
-      clearSteps={(): void => {
-        canvas.removeTrees();
-      }}
+      clearSteps={(): void => {}}
     />
   );
 };

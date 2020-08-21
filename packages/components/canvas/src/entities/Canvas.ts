@@ -1,6 +1,5 @@
 import { Position } from '../types';
 
-import { Node } from './Node';
 import { Listener, Notifier } from './Notifier';
 import { Tree } from './Tree';
 
@@ -14,7 +13,7 @@ export type Context = {
 
 export type CanvasUpdate =
   | { type: 'add-tree'; id: string }
-  | { type: 'change'; id: string; changes: Context }
+  | { type: 'change'; id: string; changes: Partial<Context> }
   | { type: 'remove-tree'; id: string }
   | { type: 'disconnect-tree'; id: string; oldParentId: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
@@ -40,7 +39,7 @@ export class Canvas {
     this.trees = new Set(trees);
   }
 
-  static toFlat(tree: CanvasTree): FlatTree {
+  static flat(tree: CanvasTree): FlatTree {
     const parent = tree.getParent();
     return {
       id: tree.getId(),
@@ -50,7 +49,7 @@ export class Canvas {
     };
   }
 
-  static toFlatArray(trees: CanvasTree[]): FlatTree[] {
+  static flatArray(trees: CanvasTree[]): FlatTree[] {
     const flattenTree = (root: CanvasTree): CanvasTree[] => {
       const flatten = [root];
 
@@ -62,16 +61,16 @@ export class Canvas {
       [],
     );
 
-    return flatTrees.map((tree) => Canvas.toFlat(tree));
+    return flatTrees.map((tree) => Canvas.flat(tree));
   }
 
   public extractTrees(): CanvasTree[] {
     return Array.from(this.trees);
   }
 
-  static toTrees(flatTrees: FlatTree[]): CanvasTree[] {
+  static deep(flatTrees: FlatTree[]): CanvasTree[] {
     const trees: [CanvasTree, FlatTree][] = flatTrees.map((item) => {
-      return [Tree.of(new Node({ data: item.data, id: item.id })), item];
+      return [Tree.of({ data: item.data, id: item.id }), item];
     });
 
     const nest = (items: [CanvasTree, FlatTree][], id: string | null = null): CanvasTree[] => {
@@ -89,12 +88,8 @@ export class Canvas {
     return nest(trees);
   }
 
-  static create(rootNode: Node<Context>): Canvas {
-    return new Canvas([Tree.of<Context>(rootNode)]);
-  }
-
   static of(trees: FlatTree[]): Canvas {
-    return new Canvas(Canvas.toTrees(trees));
+    return new Canvas(Canvas.deep(trees));
   }
 
   static from(trees: CanvasTree[]): Canvas {
@@ -102,7 +97,7 @@ export class Canvas {
   }
 
   public extract(): FlatTree[] {
-    return Canvas.toFlatArray(Array.from(this.trees));
+    return Canvas.flatArray(Array.from(this.trees));
   }
 
   public addListener(listener: Listener<CanvasUpdate>): VoidFunction {
@@ -113,11 +108,11 @@ export class Canvas {
     this.notifier.removeAllListeners();
   }
 
-  public getTrees(): CanvasSet {
+  public get(): CanvasSet {
     return this.trees;
   }
 
-  public removeTree(tree: CanvasTree): void {
+  public remove(tree: CanvasTree): void {
     this.trees.delete(tree);
     this.notifier.notify({
       type: 'remove-tree',
@@ -125,7 +120,7 @@ export class Canvas {
     });
   }
 
-  public addTree(tree: CanvasTree): void {
+  public add(tree: CanvasTree): void {
     this.trees.add(tree);
     this.notifier.notify({
       id: tree.getId(),
@@ -133,10 +128,10 @@ export class Canvas {
     });
   }
 
-  public connectTrees(parentTree: CanvasTree, childTree: CanvasTree): void {
-    childTree.setParent(parentTree);
+  public connect(parentTree: CanvasTree, childTree: CanvasTree): void {
+    parentTree.addChild(childTree);
     if (this.trees.has(childTree)) {
-      this.removeTree(childTree);
+      this.remove(childTree);
     }
     this.notifier.notify({
       type: 'connect-tree',
@@ -145,15 +140,14 @@ export class Canvas {
     });
   }
 
-  public disconnectTree(childTree: CanvasTree): void {
-    const treeNode = childTree.extract();
-    const parent = treeNode.getParent();
+  public disconnect(childTree: CanvasTree): void {
+    const parent = childTree.getParent();
 
     if (parent) {
-      parent.removeChild(treeNode);
+      parent.removeChild(childTree);
       childTree.setParent(null);
 
-      this.addTree(childTree);
+      this.add(childTree);
       this.notifier.notify({
         type: 'disconnect-tree',
         id: childTree.getId(),
@@ -162,17 +156,12 @@ export class Canvas {
     }
   }
 
-  public setTreeData(tree: CanvasTree, data: Context): void {
+  public setData(tree: CanvasTree, data: Partial<Context>): void {
     tree.setData(data);
     this.notifier.notify({
       type: 'change',
       id: tree.getId(),
       changes: data,
     });
-  }
-
-  public removeTrees(): void {
-    this.trees = new Set(Array.from(this.trees).filter((tree) => tree.getData().type !== 'step'));
-    this.notifier.notify({ type: 'clear' });
   }
 }

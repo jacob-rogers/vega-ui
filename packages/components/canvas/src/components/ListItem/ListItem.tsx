@@ -4,7 +4,6 @@ import { useMount } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { LIST_PADDING, STEP_HEIGHT, STEP_PADDING } from '../../constants';
-import { useUpdatePosition } from '../../hooks';
 import { BaseProps } from '../../types';
 import { Text } from '../Text';
 
@@ -24,7 +23,8 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
     label,
     width: widthProp,
     draggable = true,
-    onPositionChange,
+    onPositionChange = (): void => {},
+    fontSize = 14,
     children,
     onWidthUpdate,
     ...rest
@@ -42,10 +42,14 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
     }
   });
 
-  const handleDragEnd = useUpdatePosition(onPositionChange);
-
   return (
-    <Group {...rest} x={position.x} y={position.y} draggable={draggable} onDragMove={handleDragEnd}>
+    <Group
+      {...rest}
+      x={position.x}
+      y={position.y}
+      draggable={draggable}
+      onDragMove={(e): void => onPositionChange(e.target.position())}
+    >
       <Rect cornerRadius={2} height={height} width={width} fill={fill} />
       <Text
         align="center"
@@ -54,7 +58,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
         position={{ x: LIST_PADDING }}
         label={label}
         fill="#fff"
-        fontSize={14}
+        fontSize={fontSize}
         innerRef={textRef}
       />
       {children}

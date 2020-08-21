@@ -1,18 +1,41 @@
+import { v4 as uuid } from 'uuid';
+
 import { Node } from './Node';
+
+type TreeData<T> = {
+  id?: string;
+  parent?: Tree<T> | null;
+  children?: Tree<T>[];
+  data: T;
+};
 
 export class Tree<T = unknown> {
   private node: Node<T>;
 
-  private constructor(node: Node<T>) {
+  private children: Tree<T>[];
+
+  private parent: Tree<T> | null;
+
+  private id: string;
+
+  private constructor(node: Node<T>, children: Tree<T>[], parent: Tree<T> | null, id: string) {
     this.node = node;
+    this.children = children;
+    this.parent = parent;
+    this.id = id;
   }
 
-  public extract(): Node<T> {
-    return this.node;
+  public isRoot(): boolean {
+    return this.parent === null;
   }
 
-  static of<T = unknown>(node: Node<T>): Tree<T> {
-    return new Tree(node);
+  public isLeaf(): boolean {
+    return this.children.length === 0;
+  }
+
+  static of<T = unknown>(treeData: TreeData<T>): Tree<T> {
+    const { data, id = uuid(), children = [], parent = null } = treeData;
+    return new Tree(new Node(data), children, parent, id);
   }
 
   public getData(): T {
@@ -20,61 +43,66 @@ export class Tree<T = unknown> {
   }
 
   public getId(): string {
-    return this.node.getId();
+    return this.id;
   }
 
-  public setData(data: T): void {
+  public setData(data: Partial<T>): Tree<T> {
     this.node.setData(data);
+    return this;
   }
 
-  public iterate(fn: (node: Node<T>) => void): void {
-    const iterator = (node: Node<T>): void => {
-      fn(node);
-      const children = node.getChildren();
+  public iterate(fn: (tree: Tree<T>) => void): void {
+    const iterator = (tree: Tree<T>): void => {
+      fn(tree);
+      const children = tree.getChildren();
       children.forEach(iterator);
     };
 
-    iterator(this.node);
+    iterator(this);
   }
 
   public getChildren(): Tree<T>[] {
-    return this.node.getChildren().map((node) => new Tree(node));
+    return this.children;
   }
 
   public getParent(): Tree<T> | null {
-    const parent = this.node.getParent();
-    if (parent) {
-      return new Tree(parent);
-    }
-    return null;
+    return this.parent;
   }
 
-  public addChild(tree: Tree<T>): void {
-    this.node.addChild(tree.extract());
-  }
-
-  public setParent(tree: Tree<T> | null): void {
+  public addChild(tree: Tree<T>): Tree<T> {
     const currentParent = this.getParent();
     if (currentParent instanceof Tree) {
       currentParent.removeChild(this);
     }
-    if (tree) {
-      tree.addChild(this);
-    }
-    this.node.setParent(tree ? tree.extract() : tree);
+    tree.setParent(this);
+    this.children.push(tree);
+    return this;
   }
 
-  public setChildren(trees: Tree<T>[]): void {
+  public setParent(tree: Tree<T> | null): Tree<T> {
+    this.parent = tree;
+    return this;
+  }
+
+  public setChildren(trees: Tree<T>[]): Tree<T> {
+    this.children = [];
     trees.forEach((tree) => {
-      tree.setParent(this);
+      this.addChild(tree);
     });
+    return this;
   }
 
-  public removeChild(tree: Tree<T>): void {
-    this.node.removeChild(tree.extract());
+  public removeChild(tree: Tree<T>): Tree<T> {
+    const idx = this.children.findIndex((child) => child.getId() === tree.getId());
+    if (idx !== undefined) {
+      this.children.splice(idx, 1);
+    }
+    return this;
   }
 
   public remove(): void {
-    this.node.remove();
+    if (this.parent instanceof Tree) {
+      this.parent.removeChild(this);
+    }
   }
 }
