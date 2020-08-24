@@ -15,7 +15,7 @@ const createCanvas = (): Canvas => {
   fouthTree.addChild(fifthTree);
   thirdTree.addChild(fouthTree);
 
-  return Canvas.from([tree, thirdTree]);
+  return Canvas.from([tree, secondTree, thirdTree, fouthTree, fifthTree]);
 };
 
 describe('Canvas', () => {
@@ -26,45 +26,35 @@ describe('Canvas', () => {
   test('connect', () => {
     const canvas = createCanvas();
 
-    expect(canvas.get().size).toBe(2);
+    const firstTree = canvas.extract()[0];
+    const thirdTree = canvas.extract()[2];
 
-    const firstTree = canvas.extractTrees()[0];
-    const secondTree = canvas.extractTrees()[1];
-
-    canvas.connect(firstTree, secondTree);
+    canvas.connect(firstTree, thirdTree);
 
     expect(firstTree.getChildren().length).toBe(2);
-    expect(secondTree.getParent()).toStrictEqual(firstTree);
-
-    expect(canvas.extractTrees().length).toBe(1);
+    expect(thirdTree.getParent()).toBe(firstTree.getId());
   });
 
   test('disconnect', () => {
     const canvas = createCanvas();
 
-    const rootTree = canvas.extractTrees()[0];
+    const rootTree = canvas.extract()[0];
 
-    const secondTree = rootTree.getChildren()[0];
+    const secondTree = canvas.searchTree(rootTree.getChildren()[0]);
 
-    canvas.disconnect(secondTree);
+    if (secondTree) {
+      canvas.disconnect(secondTree);
+    }
 
     expect(rootTree.getChildren().length).toBe(0);
-    expect(secondTree.getParent()).toBe(null);
 
-    expect(canvas.get().size).toBe(3);
+    if (secondTree) {
+      expect(secondTree.getParent()).toBe(null);
+    }
   });
 
   test('extract', () => {
     const canvas = createCanvas();
     expect(canvas.extract().length).toBe(5);
-  });
-
-  test('deep', () => {
-    const canvas = createCanvas();
-
-    const trees = canvas.extractTrees();
-    const flat = canvas.extract();
-
-    expect(Canvas.deep(flat)).toEqual(trees);
   });
 });

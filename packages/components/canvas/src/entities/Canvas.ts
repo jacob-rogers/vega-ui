@@ -1,7 +1,7 @@
 import { Position } from '../types';
 
 import { Listener, Notifier } from './Notifier';
-import { Tree } from './Tree';
+import { Tree, TreeData } from './Tree';
 
 export type Connection = 'children' | 'parent';
 
@@ -17,14 +17,8 @@ export type CanvasUpdate =
   | { type: 'remove-tree'; id: string }
   | { type: 'disconnect-tree'; id: string; oldParentId: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
-  | { type: 'clear' };
-
-export type FlatTree = {
-  data: Context;
-  parentId: string | null;
-  children: string[];
-  id: string;
-};
+  | { type: 'clear' }
+  | { type: 'update' };
 
 export type CanvasTree = Tree<Context>;
 
@@ -39,69 +33,37 @@ export class Canvas {
     this.trees = new Set(trees);
   }
 
-  static flat(tree: CanvasTree): FlatTree {
-    const parent = tree.getParent();
-    return {
-      id: tree.getId(),
-      children: tree.getChildren().map((child) => child.getId()),
-      parentId: parent ? parent.getId() : null,
-      data: tree.getData(),
-    };
-  }
+  static prepareTrees(trees: Array<CanvasTree | TreeData<Context>>): CanvasTree[] {
+    return trees.map((tree) => {
+      if (tree instanceof Tree) {
+        return tree;
+      }
 
-  static flatArray(trees: CanvasTree[]): CanvasTree[] {
-    const flattenTree = (root: CanvasTree): CanvasTree[] => {
-      const flatten = [root];
-
-      return flatten.concat(root.getChildren().flatMap((child) => flattenTree(child)));
-    };
-
-    const flatTrees = trees.reduce<CanvasTree[]>(
-      (prev, next) => prev.concat(flattenTree(next)),
-      [],
-    );
-
-    return flatTrees;
-  }
-
-  public extractTrees(): CanvasTree[] {
-    return Array.from(this.trees);
-  }
-
-  static deep(flatTrees: FlatTree[]): CanvasTree[] {
-    const trees: [CanvasTree, FlatTree][] = flatTrees.map((item) => {
-      return [Tree.of({ data: item.data, id: item.id }), item];
+      return Tree.of(tree);
     });
-
-    const nest = (items: [CanvasTree, FlatTree][], id: string | null = null): CanvasTree[] => {
-      return items
-        .filter(([, flatTree]) => {
-          return flatTree.parentId === id;
-        })
-        .map(([tree, flatTree]) => {
-          const children = nest(items, flatTree.id);
-          tree.setChildren(children);
-          return tree;
-        });
-    };
-
-    return nest(trees);
   }
 
-  static of(trees: FlatTree[]): Canvas {
-    return new Canvas(Canvas.deep(trees));
+  static of(trees: Array<CanvasTree | TreeData<Context>>): Canvas {
+    return new Canvas(Canvas.prepareTrees(trees));
   }
 
   static from(trees: CanvasTree[]): Canvas {
     return new Canvas(trees);
   }
 
-  public searchTree(id: string): CanvasTree | undefined {
-    return Canvas.flatArray(Array.from(this.trees)).find((tree) => tree.getId() === id);
+  public setTrees(trees: CanvasSet) {
+    this.trees = trees;
   }
 
-  public extract(): FlatTree[] {
-    return Canvas.flatArray(Array.from(this.trees)).map((tree) => Canvas.flat(tree));
+  public searchTree(id: string | null): CanvasTree | undefined {
+    if (!id) {
+      return undefined;
+    }
+    return Array.from(this.trees).find((tree) => tree.getId() === id);
+  }
+
+  public extract(): CanvasTree[] {
+    return Array.from(this.trees);
   }
 
   public addListener(listener: Listener<CanvasUpdate>): VoidFunction {
@@ -133,12 +95,11 @@ export class Canvas {
   }
 
   public connect(parentTree: CanvasTree, childTree: CanvasTree): void | undefined {
-    if (childTree.getParent()) {
+    if (childTree.getParent() || childTree.getParent() === parentTree.getId()) {
       return undefined;
     }
 
     parentTree.addChild(childTree);
-    this.remove(childTree);
     return this.notifier.notify({
       type: 'connect-tree',
       childId: childTree.getId(),
@@ -147,13 +108,12 @@ export class Canvas {
   }
 
   public disconnect(childTree: CanvasTree): void {
-    const parent = childTree.getParent();
+    const parent = this.searchTree(childTree.getParent());
 
     if (parent) {
       parent.removeChild(childTree);
       childTree.setParent(null);
-
-      this.add(childTree);
+      console.log(childTree.getParent());
       this.notifier.notify({
         type: 'disconnect-tree',
         id: childTree.getId(),
@@ -172,11 +132,10 @@ export class Canvas {
   }
 
   public onTreePositionChange(tree: CanvasTree, position: Position): void {
-    this.setData(tree, { ...tree.getData(), position });
+    this.setData(tree, { position });
   }
 
-  public removeTrees(): void {
-    this.trees = new Set(Array.from(this.trees).filter((tree) => tree.getData().type !== 'step'));
-    this.notifier.notify({ type: 'clear' });
+  public onUpdate(): void {
+    this.notifier.notify({ type: 'update' });
   }
 }

@@ -1,15 +1,14 @@
-import React, { useEffect, useMemo } from 'react';
-import { useLocalStorage, useMount } from '@gpn-prototypes/vega-hooks';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useInterval, useUnmount } from '@gpn-prototypes/vega-hooks';
 
 import { CanvasView } from './CanvasView';
-import { Canvas as CanvasEntity, CanvasTree, Context, FlatTree, Tree } from './entities';
+import { Canvas as CanvasEntity, CanvasTree, CanvasUpdate, Context, Tree } from './entities';
 
 import './Canvas.css';
 
-type CanvasState = FlatTree[];
-
 type CanvasProps = {
-  state?: CanvasState;
+  state?: CanvasTree[];
+  onChange?: (change: { update: CanvasUpdate[]; state: CanvasTree[] }) => void;
 };
 
 const startNode = Tree.of<Context>({
@@ -30,24 +29,33 @@ const endNode = Tree.of<Context>({
 const defaultTreeState: CanvasTree[] = [startNode, endNode];
 
 export const Canvas: React.FC<CanvasProps> = (props) => {
-  const { state } = props;
+  const { state, onChange } = props;
 
-  const [treeStateInStorage, setTreeStateInStorage] = useLocalStorage<FlatTree[]>(
-    'treeState',
-    state ?? CanvasEntity.flatArray(defaultTreeState).map((tree) => CanvasEntity.flat(tree)),
-  );
+  const [treeState, setState] = useState(state ?? defaultTreeState);
+  const [changes, setChanges] = useState<CanvasUpdate[]>([]);
 
-  const canvas = useMemo(() => CanvasEntity.of(treeStateInStorage), [treeStateInStorage]);
+  const canvas = useMemo(() => CanvasEntity.of(treeState), [treeState]);
 
-  useMount(() => {
-    setTreeStateInStorage(canvas.extract());
+  const onChangeRef = useRef(onChange);
+
+  useInterval(500, () => {
+    if (changes.length && typeof onChangeRef.current === 'function') {
+      onChangeRef.current({ update: changes, state: treeState });
+      setChanges([]);
+    }
   });
 
   useEffect(() => {
-    canvas.addListener(() => {
-      setTreeStateInStorage(canvas.extract());
+    canvas.addListener((newChanges) => {
+      setState(canvas.extract());
+      setChanges([...changes, newChanges]);
     });
-  }, [canvas, setTreeStateInStorage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [canvas]);
+
+  useUnmount(() => {
+    canvas.removeAllListeners();
+  });
 
   return <CanvasView canvas={canvas} />;
 };
