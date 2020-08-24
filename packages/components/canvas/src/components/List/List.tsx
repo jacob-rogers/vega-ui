@@ -9,16 +9,22 @@ import { Text } from '../Text';
 
 import arrowIcon from './ArrowDown.svg';
 
-export type ListProps = Omit<BaseProps, 'height'> & {
-  draggable?: boolean;
-};
+export type ListProps = Omit<BaseProps, 'height'> & React.ComponentProps<typeof Group>;
 
 export const List: React.FC<ListProps> = (props) => {
-  const { position, label, onPositionChange = (): void => {}, draggable = true, children } = props;
+  const {
+    position,
+    label,
+    onPositionChange = (): void => {},
+    draggable = true,
+    children,
+    ...rest
+  } = props;
   const [icon] = useImage(arrowIcon);
 
   return (
     <Group
+      {...rest}
       x={position.x}
       y={position.y}
       width={STEP_WIDTH}

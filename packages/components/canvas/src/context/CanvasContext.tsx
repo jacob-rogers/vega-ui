@@ -1,7 +1,7 @@
 import { createContext, MutableRefObject, useContext } from 'react';
 import Konva from 'konva';
 
-import { CanvasTree } from '../entities';
+import { Canvas, CanvasTree } from '../entities';
 import { ConnectorType, Position } from '../types';
 
 export type StepConnectorData = {
@@ -11,11 +11,11 @@ export type StepConnectorData = {
 
 export type ActiveStep = {
   stepData: CanvasTree;
-  connectorData: StepConnectorData;
+  connectorData: StepConnectorData | null;
 };
 
 type API = {
-  onPositionChange(tree: CanvasTree, position: Position): void;
+  canvas: Canvas | null;
   handleStepActive: (activeStep: ActiveStep | null) => void;
   setCursor: (newCursor: string) => void;
   stageRef: MutableRefObject<Konva.Stage | null>;
@@ -23,7 +23,7 @@ type API = {
 };
 
 export const CanvasContext = createContext<API>({
-  onPositionChange: () => {},
+  canvas: null,
   stageRef: { current: null },
   setCursor: () => {},
   handleStepActive: () => {},

@@ -12,20 +12,6 @@ describe('Tree', () => {
     });
   });
 
-  test('iterate', () => {
-    const root = Tree.of<Data>({ data: { title: 'title' } });
-    const child = Tree.of<Data>({ data: { title: 'child' } });
-
-    root.addChild(child);
-
-    root.iterate((node) => {
-      node.setData({ title: 'test' });
-    });
-
-    expect(root.getData().title).toBe('test');
-    expect(root.getChildren()[0].getData().title).toBe('test');
-  });
-
   test('addChild', () => {
     const tree = Tree.of(leaf);
 
@@ -54,6 +40,6 @@ describe('Tree', () => {
 
     secondChild.setParent(child);
 
-    expect(secondChild.getParent()).toEqual(child);
+    expect(secondChild.getParent()).toBe(child.getId());
   });
 });

@@ -40,11 +40,15 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
     if (newActiveStep) {
       setCursor('pointer');
-      const {
-        connectorData: { position, type },
-      } = newActiveStep;
+      const steps = canvas.extract().slice();
+      const index = steps.indexOf(newActiveStep.stepData);
+      steps.splice(index, 1);
+      steps.push(newActiveStep.stepData);
+      canvas.setTrees(new Set(steps));
+      const { connectorData } = newActiveStep;
 
-      if (stageRef.current) {
+      if (stageRef.current && connectorData) {
+        const { type, position } = connectorData;
         const pos = stageRef.current.getPointerPosition();
         if (pos) {
           setConnectingLinePoints([
@@ -105,15 +109,15 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     >
       <CanvasContext.Provider
         value={{
-          onPositionChange: (tree, position): void => canvas.onTreePositionChange(tree, position),
+          canvas,
           stageRef,
           handleStepActive,
           activeStep,
           setCursor,
         }}
       >
-        {connectingLinePoints && (
-          <Layer>
+        <Layer>
+          {connectingLinePoints && (
             <Line
               points={connectingLinePoints}
               stroke="#fff"
@@ -122,15 +126,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
               pointerWidth={6}
               tension={0.2}
             />
-          </Layer>
-        )}
-        {canvas.extractTrees().map((tree) => {
-          return (
-            <Layer key={tree.getId()}>
-              <StepView step={tree} />
-            </Layer>
-          );
-        })}
+          )}
+          {canvas.extract().map((tree) => {
+            return <StepView step={tree} key={tree.getId()} />;
+          })}
+        </Layer>
         <Layer>
           <Button
             label="Добавить шаг"
