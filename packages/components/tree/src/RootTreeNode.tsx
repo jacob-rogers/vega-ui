@@ -5,8 +5,6 @@ import cnTree from "./cn-tree";
 import {Leaf} from "./Leaf";
 
 
-const cnRootTreeNode = cnTree('RootTreeNode')
-
 export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
   const rootTreeData = props;
 
@@ -40,7 +38,7 @@ export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
       if ('nodeList' in node) {
         const element = <TreeNode
           nodeList={node.nodeList}
-          key={index}
+          key={node.name}
           handleDragStart={handleDragStart}
           handleDragOver={handleDragOver}
           handleDragDrop={handleDragDrop}
@@ -56,7 +54,7 @@ export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
       if (node?.name) {
         acc.push(<Leaf
           handleDragStart={handleDragStart}
-          key={index}
+          key={node.name}
           name={node.name}
         />);
 
@@ -68,14 +66,19 @@ export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
   }
 
   return (
-    <div className={cnRootTreeNode}>
-      <span
-        className={cnTree('NavigationItem', { expanded })}
-        onClick={() => {setExpanded(!expanded)}}
+    <div className={cnTree('RootTreeNode')}>
+      <div
+        className={cnTree('NavigationItem')}
         role="navigation"
       >
+        <div
+          className={cnTree('NavigationArrow', { expanded })}
+          onClick={() => {setExpanded(!expanded)}}
+          onKeyDown={() => {setExpanded(!expanded)}}
+          role="navigation"
+        />
         {rootTreeData.name}
-      </span>
+      </div>
       <ul className={cnTree('NodeList', { expanded })}>{renderTree(rootTreeData.nodeList)}</ul>
     </div>)
 }

@@ -3,6 +3,7 @@
 
   color: var(--color-typo-primary);
   background-color: var(--color-bg-default);
+  position: relative;
 }
 
 .VegaTree:hover .VegaTree__NodeList_expanded::before {
@@ -12,6 +13,16 @@
   height: 100%;
   position: absolute;
   left: 3px;
+}
+
+.VegaTree__Backlight {
+  z-index: 0;
+  position: absolute;
+  left: 0;
+
+  width: 100%;
+  background-color: var(--color-control-bg-focus);
+  height: 24px;
 }
 
 .VegaTree__TreeNode, ul {
@@ -28,6 +39,9 @@
   font-size: 14px;
   line-height: 150%;
   font-style: normal;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
 }
 
 .VegaTree__NodeList {
@@ -48,9 +62,16 @@
   line-height: 150%;
   font-style: normal;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  min-height: 24px;
 }
 
-.VegaTree__NavigationItem::before {
+.VegaTree__NavigationArrow {
+  z-index: 1;
+}
+
+.VegaTree__NavigationArrow::before {
   content: '';
   border: solid;
   border-color: var(--color-typo-ghost);
@@ -63,7 +84,7 @@
   transform: rotate(-45deg);
 }
 
-.VegaTree__NavigationItem_expanded::before {
+.VegaTree__NavigationArrow_expanded::before {
   content: '';
   border: solid;
   border-color: var(--color-typo-ghost);
