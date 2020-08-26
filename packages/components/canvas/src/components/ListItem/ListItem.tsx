@@ -55,7 +55,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
         align="center"
         verticalAlign="middle"
         height={height}
-        position={{ x: LIST_PADDING }}
+        position={{ x: LIST_PADDING, y: 0 }}
         label={label}
         fill="#fff"
         fontSize={fontSize}

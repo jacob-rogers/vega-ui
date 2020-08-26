@@ -48,10 +48,9 @@ const getConnectorsPosition = (step: CanvasTree, options?: Options): ConnectorsP
 export const StepView: React.FC<StepViewProps> = (props) => {
   const { step } = props;
   const stepData = step.getData();
-  const { canvas, activeStep, handleStepActive } = useCanvas();
+  const { canvas, draggableData, handleConnectorDrag, handleStepDrag } = useCanvas();
 
-  const isActiveStep = activeStep && activeStep.stepData.getId() === step.getId();
-  const draggable = Boolean(!activeStep?.connectorData);
+  const hasActiveConnnector = Boolean(draggableData && draggableData.step.getId() === step.getId());
 
   const stepChildren = step.getChildren();
 
@@ -68,26 +67,26 @@ export const StepView: React.FC<StepViewProps> = (props) => {
   const isList = type === 'step';
 
   const baseProps = {
-    draggable,
+    draggable: !hasActiveConnnector,
     position: stepData.position,
-    onPositionChange: (position: Position): void => canvas?.onTreePositionChange(step, position),
-    onDragEnd: (): void => canvas?.onUpdate(),
+    onPositionChange: (position: Position): void => canvas.onTreePositionChange(step, position),
+    onDragEnd: (): void => canvas.onUpdate(),
     label: stepData.title,
     onMouseDown: (): void => {
-      handleStepActive({ stepData: step, connectorData: null });
+      handleStepDrag(step);
     },
   };
 
-  const parent = canvas?.searchTree(step.getParent());
+  const parent = canvas.searchTree(step.getParent());
 
   const width = isList ? STEP_WIDTH : stepWidth;
 
   const absoluteConnectorsPosition = getConnectorsPosition(step, { stepWidth: width });
 
   const handleConnectorActive = (connectorType: ConnectorType): void => {
-    handleStepActive({
-      stepData: step,
-      connectorData: { type: connectorType, position: absoluteConnectorsPosition[connectorType] },
+    handleConnectorDrag({
+      step,
+      connector: { type: connectorType, position: absoluteConnectorsPosition[connectorType] },
     });
   };
 
@@ -106,7 +105,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
         <Connector
           {...connectorProps}
           disabled={Boolean(step.getParent())}
-          isActive={isActiveStep && activeStep?.connectorData?.type === 'parent'}
+          isActive={hasActiveConnnector && draggableData?.connector.type === 'parent'}
           type="parent"
           id={`${step.getId()}_parent`}
           position={absoluteConnectorsPosition.parent}
@@ -116,7 +115,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
       {canHasChildren && (
         <Connector
           {...connectorProps}
-          isActive={isActiveStep && activeStep?.connectorData?.type === 'children'}
+          isActive={hasActiveConnnector && draggableData?.connector.type === 'children'}
           type="children"
           id={`${step.getId()}_children`}
           position={absoluteConnectorsPosition.children}
@@ -124,7 +123,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
         />
       )}
       {step.getChildren().map((child) => {
-        const childTree = canvas?.searchTree(child);
+        const childTree = canvas.searchTree(child);
         if (!childTree) {
           return null;
         }

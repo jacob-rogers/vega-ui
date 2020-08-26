@@ -24,7 +24,7 @@
     "bem-cn": "^3.0.1",
     "@gpn-prototypes/vega-hooks": "^0.5.0",
     "react-konva": "^16.13.0-6",
-    "konva": "^7.0.4",
+    "konva": "^7.0.6",
     "uuid": "^8.3.0"
   },
   "devDependencies": {

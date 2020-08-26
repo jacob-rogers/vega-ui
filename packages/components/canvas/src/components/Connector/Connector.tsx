@@ -12,7 +12,7 @@ interface ConnectorProps extends KonvaCircleProps, Omit<BaseProps, 'label'> {
   type: 'parent' | 'children';
   isActive: boolean | null;
   onChangeActive: (type: ConnectorType) => void;
-  position: Required<Position>;
+  position: Position;
   disabled?: boolean;
 }
 

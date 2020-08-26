@@ -96,17 +96,15 @@ export class Canvas {
     });
   }
 
-  public connect(parentTree: CanvasTree, childTree: CanvasTree): void | undefined {
-    if (childTree.getParent() || childTree.getParent() === parentTree.getId()) {
-      return undefined;
+  public connect(parentTree: CanvasTree, childTree: CanvasTree): void {
+    if (childTree.isRoot()) {
+      parentTree.addChild(childTree);
+      this.notifier.notify({
+        type: 'connect-tree',
+        childId: childTree.getId(),
+        parentId: parentTree.getId(),
+      });
     }
-
-    parentTree.addChild(childTree);
-    return this.notifier.notify({
-      type: 'connect-tree',
-      childId: childTree.getId(),
-      parentId: parentTree.getId(),
-    });
   }
 
   public disconnect(childTree: CanvasTree): void {
