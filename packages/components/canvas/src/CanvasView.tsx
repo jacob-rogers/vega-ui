@@ -69,8 +69,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       if (id.length) {
         const [stepId, connectionType] = id.split('_');
         const targetStep = canvas.searchTree(stepId);
-
-        if (targetStep) {
+        if (targetStep && connectionType !== activeStep.connectorData?.type) {
           const trees =
             connectionType === 'parent'
               ? [activeStep.stepData, targetStep]
