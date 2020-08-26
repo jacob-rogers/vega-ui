@@ -24,10 +24,12 @@ export type CanvasTree = Tree<Context>;
 
 export type CanvasSet = Set<CanvasTree>;
 
+export type CanvasNotifier = Notifier<CanvasUpdate>;
+
 export class Canvas {
   private trees: CanvasSet;
 
-  private notifier: Notifier<CanvasUpdate> = new Notifier();
+  private notifier: CanvasNotifier = new Notifier();
 
   private constructor(trees: CanvasTree[]) {
     this.trees = new Set(trees);
@@ -51,7 +53,7 @@ export class Canvas {
     return new Canvas(trees);
   }
 
-  public setTrees(trees: CanvasSet) {
+  public setTrees(trees: CanvasSet): void {
     this.trees = trees;
   }
 
@@ -113,7 +115,6 @@ export class Canvas {
     if (parent) {
       parent.removeChild(childTree);
       childTree.setParent(null);
-      console.log(childTree.getParent());
       this.notifier.notify({
         type: 'disconnect-tree',
         id: childTree.getId(),
