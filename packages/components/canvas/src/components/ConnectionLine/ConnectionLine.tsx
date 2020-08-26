@@ -5,8 +5,8 @@ import { Position } from '../../types';
 import { RADIUS } from '../Connector';
 
 type ConnectionLineProps = {
-  parentPosition: Required<Position>;
-  childPosition: Required<Position>;
+  parentPosition: Position;
+  childPosition: Position;
 };
 
 export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {

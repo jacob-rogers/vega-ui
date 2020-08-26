@@ -11219,10 +11219,10 @@ known-css-properties@^0.19.0:
   resolved "https://registry.yarnpkg.com/known-css-properties/-/known-css-properties-0.19.0.tgz#5d92b7fa16c72d971bda9b7fe295bdf61836ee5b"
   integrity sha512-eYboRV94Vco725nKMlpkn3nV2+96p9c3gKXRsYqAJSswSENvBhN7n5L+uDhY58xQa0UukWsDMTGELzmD8Q+wTA==
 
-konva@^7.0.4:
-  version "7.0.4"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-7.0.4.tgz#9b4f535825c0cea0fbfb320a236e893f6514a091"
-  integrity sha512-5fJdzktseg5tPcB97DPuFNoVOmbk5GmOdbDoQ+oN7fDQq+xLRbTQfdQ8vSlFL5PUkpXCf3hKX0RXq2KJfoYVfg==
+konva@^7.0.6:
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-7.0.6.tgz#01f5cd893cd644613c8c2948ce3d5e06593146ab"
+  integrity sha512-dhl0pIw9FHRFw3JWCPZUxAvU+uPs6ZoW5mFvS3ft71cUyEEnHRby/WfxRpS/417Rq7HmSs1C0lTfp6EtAD+1WA==
 
 language-subtag-registry@~0.3.2:
   version "0.3.20"
