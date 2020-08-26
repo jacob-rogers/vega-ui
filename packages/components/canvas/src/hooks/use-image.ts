@@ -1,24 +1,47 @@
 import { useEffect, useState } from 'react';
 
+type Status = 'loading' | 'loaded' | 'failed';
+
+type State = {
+  image?: HTMLImageElement;
+  status: Status;
+};
+
+const defaultState: State = { image: undefined, status: 'loading' };
+
 export const useImage = (
   src: string,
-): [HTMLImageElement | null, (image: HTMLImageElement) => void] => {
-  const [image, setImage] = useState<HTMLImageElement | null>(null);
+  crossOrigin?: string,
+): [HTMLImageElement | undefined, Status] => {
+  const [state, setState] = useState(defaultState);
 
-  const updateImage = (e: Event): void => {
-    if (e.target instanceof HTMLImageElement) {
-      setImage(e.target);
-    }
-  };
+  const { image, status } = state;
 
   useEffect(() => {
-    const windowImage = new Image();
-    windowImage.addEventListener('load', updateImage);
-    windowImage.src = src;
-    return (): void => {
-      windowImage.removeEventListener('load', updateImage);
-    };
-  }, [src]);
+    const img = document.createElement('img');
 
-  return [image, setImage];
+    const onLoad = (): void => {
+      setState({ image: img, status: 'loaded' });
+    };
+
+    const onError = (): void => {
+      setState({ image: undefined, status: 'failed' });
+    };
+
+    img.addEventListener('load', onLoad);
+    img.addEventListener('error', onError);
+
+    if (crossOrigin) {
+      img.crossOrigin = crossOrigin;
+    }
+
+    img.src = src;
+
+    return (): void => {
+      img.removeEventListener('load', onLoad);
+      img.removeEventListener('error', onError);
+    };
+  });
+
+  return [image, status];
 };
