@@ -1,57 +1,45 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useInterval, useUnmount } from '@gpn-prototypes/vega-hooks';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { useUnmount } from '@gpn-prototypes/vega-hooks';
 
 import { CanvasView } from './CanvasView';
-import { Canvas as CanvasEntity, CanvasTree, CanvasUpdate, Context, Tree } from './entities';
+import { Canvas as CanvasEntity, CanvasTree, CanvasUpdate } from './entities';
 
 import './Canvas.css';
 
-type CanvasProps = {
-  state?: CanvasTree[];
-  onChange?: (change: { update: CanvasUpdate[]; state: CanvasTree[] }) => void;
+export type Change = {
+  update: CanvasUpdate;
+  state: CanvasTree[];
 };
 
-const startNode = Tree.of<Context>({
-  data: {
-    position: { x: 10, y: 300 },
-    title: 'Начало',
-    type: 'root',
-  },
-});
-const endNode = Tree.of<Context>({
-  data: {
-    position: { x: 600, y: 300 },
-    title: 'Конец',
-    type: 'end',
-  },
-});
-
-const defaultTreeState: CanvasTree[] = [startNode, endNode];
+type CanvasProps = {
+  state?: CanvasTree[];
+  onChange?: (change: Change) => void;
+};
 
 export const Canvas: React.FC<CanvasProps> = (props) => {
-  const { state, onChange } = props;
+  const { state = [], onChange } = props;
 
-  const [treeState, setState] = useState(state ?? defaultTreeState);
-  const [changes, setChanges] = useState<CanvasUpdate[]>([]);
-
-  const canvas = useMemo(() => CanvasEntity.of(treeState), [treeState]);
+  const canvas = useMemo(() => CanvasEntity.of(state), [state]);
 
   const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
 
-  useInterval(500, () => {
-    if (changes.length && typeof onChangeRef.current === 'function') {
-      onChangeRef.current({ update: changes, state: treeState });
-      setChanges([]);
-    }
-  });
+  const handleChange = useCallback(
+    (changes: CanvasUpdate): void => {
+      if (typeof onChangeRef.current === 'function') {
+        onChangeRef.current({ update: changes, state: canvas.extract() });
+      }
+    },
+    [canvas],
+  );
 
   useEffect(() => {
-    canvas.addListener((newChanges) => {
-      setState(canvas.extract());
-      setChanges([...changes, newChanges]);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [canvas]);
+    const unsub = canvas.addListener(handleChange);
+
+    return (): void => {
+      unsub();
+    };
+  }, [canvas, handleChange]);
 
   useUnmount(() => {
     canvas.removeAllListeners();
