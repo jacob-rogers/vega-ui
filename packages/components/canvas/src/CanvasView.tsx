@@ -4,8 +4,8 @@ import Konva from 'konva';
 
 import { cnCanvas } from './cn-canvas';
 import { Button, RADIUS, StepView } from './components';
-import { CanvasContext, DraggableData } from './context';
-import { Canvas, CanvasTree, Context, Tree } from './entities';
+import { ActiveData, CanvasContext, SelectedData } from './context';
+import { Canvas, Context, Tree } from './entities';
 import { KonvaMouseEvent } from './types';
 
 import './Canvas.css';
@@ -21,7 +21,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const [cursor, setCursor] = useState('default');
 
   const [connectingLinePoints, setConnectingLinePoints] = useState<Coordinates | null>(null);
-  const [draggableData, setDraggableData] = useState<DraggableData | null>(null);
+  const [activeData, setActiveData] = useState<ActiveData | null>(null);
+  const [selectedData, setSelectedData] = useState<SelectedData | null>(null);
 
   const stageRef = useRef<Konva.Stage>(null);
 
@@ -35,21 +36,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
-  const handleStepDrag = (step: CanvasTree): void => {
-    setCursor('pointer');
-    const steps = canvas.extract().slice();
-    const index = steps.indexOf(step);
-    steps.splice(index, 1);
-    steps.push(step);
-    canvas.setTrees(new Set(steps));
-  };
+  const handleActiveDataChange = (newActiveData: ActiveData | null): void => {
+    setActiveData(newActiveData);
 
-  const handleConnectorDrag = (newDraggableData: DraggableData | null): void => {
-    setDraggableData(newDraggableData);
-
-    if (newDraggableData) {
+    if (newActiveData) {
       setCursor('pointer');
-      const { connector } = newDraggableData;
+      const { connector } = newActiveData;
 
       if (stageRef.current) {
         const { type, position } = connector;
@@ -67,23 +59,23 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   };
 
   const handleMouseUp = (e: KonvaMouseEvent): void => {
-    if (draggableData) {
+    if (activeData) {
       const id = e.target.id();
 
       if (id.length) {
         const [stepId, connectionType] = id.split('_');
         const targetStep = canvas.searchTree(stepId);
-        if (targetStep && connectionType !== draggableData.connector?.type) {
+        if (targetStep && connectionType !== activeData.connector?.type) {
           const trees =
             connectionType === 'parent'
-              ? [draggableData.step, targetStep]
-              : [targetStep, draggableData.step];
+              ? [activeData.step, targetStep]
+              : [targetStep, activeData.step];
 
           canvas.connect(trees[0], trees[1]);
         }
       }
 
-      setDraggableData(null);
+      setActiveData(null);
       setConnectingLinePoints(null);
     }
     setCursor('default');
@@ -100,6 +92,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     canvas.add(tree);
   }, [canvas]);
 
+  const handleMouseDown = useCallback(() => {
+    if (selectedData) {
+      setSelectedData(null);
+    }
+  }, [selectedData]);
+
   return (
     <Stage
       style={{ cursor }}
@@ -109,15 +107,16 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       ref={stageRef}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
+      onMouseDown={handleMouseDown}
     >
       <CanvasContext.Provider
         value={{
           canvas,
           stageRef,
-          handleConnectorDrag,
-          draggableData,
+          handleActiveDataChange,
+          activeData,
           setCursor,
-          handleStepDrag,
+          selectedData,
         }}
       >
         <Layer>

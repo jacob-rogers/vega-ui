@@ -1,1 +1,7 @@
-export { DraggableData, CanvasContext, StepConnectorData, useCanvas } from './CanvasContext';
+export {
+  ActiveData,
+  CanvasContext,
+  SelectedData,
+  StepConnectorData,
+  useCanvas,
+} from './CanvasContext';

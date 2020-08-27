@@ -14,8 +14,8 @@ export type StepViewProps = {
 };
 
 type ConnectorsPosition = {
-  parent: Required<Position>;
-  children: Required<Position>;
+  parent: Position;
+  children: Position;
 };
 
 type Options = {
@@ -48,9 +48,9 @@ const getConnectorsPosition = (step: CanvasTree, options?: Options): ConnectorsP
 export const StepView: React.FC<StepViewProps> = (props) => {
   const { step } = props;
   const stepData = step.getData();
-  const { canvas, draggableData, handleConnectorDrag, handleStepDrag } = useCanvas();
+  const { canvas, activeData, handleActiveDataChange, setCursor, selectedData } = useCanvas();
 
-  const hasActiveConnnector = Boolean(draggableData && draggableData.step.getId() === step.getId());
+  const hasActiveConnnector = Boolean(activeData && activeData.step.getId() === step.getId());
 
   const stepChildren = step.getChildren();
 
@@ -73,7 +73,12 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     onDragEnd: (): void => canvas.onUpdate(),
     label: stepData.title,
     onMouseDown: (): void => {
-      handleStepDrag(step);
+      setCursor('pointer');
+      const steps = canvas.extract().slice();
+      const index = steps.indexOf(step);
+      steps.splice(index, 1);
+      steps.push(step);
+      canvas.setTrees(new Set(steps));
     },
   };
 
@@ -83,8 +88,19 @@ export const StepView: React.FC<StepViewProps> = (props) => {
 
   const absoluteConnectorsPosition = getConnectorsPosition(step, { stepWidth: width });
 
+  const onLineMouseDown = (childId: string): void => {
+    const childTree = canvas.searchTree(childId);
+    if (childTree) {
+      handleActiveDataChange({
+        step,
+        connector: { type: 'children', position: absoluteConnectorsPosition.children },
+      });
+      canvas.disconnect(childTree);
+    }
+  };
+
   const handleConnectorActive = (connectorType: ConnectorType): void => {
-    handleConnectorDrag({
+    handleActiveDataChange({
       step,
       connector: { type: connectorType, position: absoluteConnectorsPosition[connectorType] },
     });
@@ -105,7 +121,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
         <Connector
           {...connectorProps}
           disabled={Boolean(step.getParent())}
-          isActive={hasActiveConnnector && draggableData?.connector.type === 'parent'}
+          isActive={hasActiveConnnector && activeData?.connector.type === 'parent'}
           type="parent"
           id={`${step.getId()}_parent`}
           position={absoluteConnectorsPosition.parent}
@@ -115,7 +131,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
       {canHasChildren && (
         <Connector
           {...connectorProps}
-          isActive={hasActiveConnnector && draggableData?.connector.type === 'children'}
+          isActive={hasActiveConnnector && activeData?.connector.type === 'children'}
           type="children"
           id={`${step.getId()}_children`}
           position={absoluteConnectorsPosition.children}
@@ -130,8 +146,9 @@ export const StepView: React.FC<StepViewProps> = (props) => {
         return (
           <ConnectionLine
             key={child}
-            parentPosition={absoluteConnectorsPosition.children}
-            childPosition={getConnectorsPosition(childTree).parent}
+            parent={absoluteConnectorsPosition.children}
+            child={getConnectorsPosition(childTree).parent}
+            onMouseDown={(): void => onLineMouseDown(child)}
           />
         );
       })}
