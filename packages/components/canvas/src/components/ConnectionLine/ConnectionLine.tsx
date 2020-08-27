@@ -1,16 +1,22 @@
 import React from 'react';
 import { Line } from 'react-konva';
 
-import { Position } from '../../types';
+import { useCanvas } from '../../context';
+import { KonvaMouseEvent, Position } from '../../types';
 import { RADIUS } from '../Connector';
 
 type ConnectionLineProps = {
-  parentPosition: Position;
-  childPosition: Position;
+  parent: Position;
+  child: Position;
+  onMouseDown: (e: KonvaMouseEvent) => void;
+  onClick: (e: KonvaMouseEvent) => void;
+  fill?: string;
 };
 
 export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
-  const { parentPosition: parent, childPosition: child } = props;
+  const { parent, child, onMouseDown, onClick, fill = '#fff' } = props;
+
+  const { setCursor } = useCanvas();
 
   const dx = child.x - parent.x;
   const dy = child.y - child.y;
@@ -32,8 +38,16 @@ export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
       tension={0.2}
       points={[arrowStart.x, arrowStart.y, arrowEnd.x, arrowEnd.y]}
       stroke="#fff"
-      fill="#fff"
+      fill={fill}
       strokeWidth={3}
+      onMouseDown={onMouseDown}
+      onClick={onClick}
+      onMouseEnter={(): void => {
+        setCursor('pointer');
+      }}
+      onMouseLeave={(): void => {
+        setCursor('default');
+      }}
       pointerWidth={6}
     />
   );

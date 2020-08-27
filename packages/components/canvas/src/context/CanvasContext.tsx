@@ -9,27 +9,33 @@ export type StepConnectorData = {
   position: Position;
 };
 
-export type DraggableData = {
+export type ActiveData = {
   step: CanvasTree;
   connector: StepConnectorData;
 };
 
+export type SelectedData =
+  | { type: 'step'; id: string }
+  | { type: 'line'; parentId: string; childId: string };
+
+const noop = (): void => {};
+
 type API = {
   canvas: Canvas;
-  handleConnectorDrag: (activeStep: DraggableData | null) => void;
+  handleActiveDataChange: (newActive: ActiveData | null) => void;
   setCursor: (newCursor: string) => void;
   stageRef: MutableRefObject<Konva.Stage | null>;
-  handleStepDrag: (step: CanvasTree) => void;
-  draggableData: DraggableData | null;
+  activeData: ActiveData | null;
+  selectedData: SelectedData | null;
 };
 
 export const CanvasContext = createContext<API>({
   canvas: Canvas.of([]),
   stageRef: { current: null },
-  setCursor: () => {},
-  handleConnectorDrag: () => {},
-  handleStepDrag: () => {},
-  draggableData: null,
+  setCursor: noop,
+  handleActiveDataChange: noop,
+  activeData: null,
+  selectedData: null,
 });
 
 export const useCanvas = (): API => useContext(CanvasContext);
