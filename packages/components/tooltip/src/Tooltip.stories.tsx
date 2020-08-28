@@ -1,8 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { Text } from '@gpn-design/uikit/Text';
-import { presetGpnDark, presetGpnDefault, presetGpnDisplay, Theme } from '@gpn-design/uikit/Theme';
-import { useTheme } from '@gpn-prototypes/vega-root';
 import { action } from '@storybook/addon-actions';
 import { boolean, number, object, select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
@@ -47,15 +45,6 @@ const Container = styled.div`
   background-color: #efe7e5;
 `;
 
-function getThemeByName(themeName: ThemeName): ThemePreset {
-  const obj = {
-    default: presetGpnDefault,
-    dark: presetGpnDark,
-    display: presetGpnDisplay,
-  };
-  return obj[themeName] || presetGpnDefault;
-}
-
 storiesOf('ui/Tooltip', module)
   .addDecorator(withKnobs)
   .addParameters({
@@ -77,13 +66,8 @@ storiesOf('ui/Tooltip', module)
 
     React.useEffect(() => setIsTooltipVisible(false), [buttonRef]);
 
-    // Обертка с Theme нужна только для Сторибука
-
-    const { theme } = useTheme();
-    const preset = getThemeByName(theme);
-
     return (
-      <Theme preset={preset}>
+      <>
         <Button type="button" onClick={handleClickOnAnchor} ref={buttonRef}>
           Открыть
         </Button>
@@ -92,7 +76,7 @@ storiesOf('ui/Tooltip', module)
             <Text size="xs">Текст подсказки</Text>
           </Tooltip>
         )}
-      </Theme>
+      </>
     );
   })
   .add('по координате', () => {
@@ -102,13 +86,8 @@ storiesOf('ui/Tooltip', module)
       setPosition({ x: event.clientX, y: event.clientY });
     };
 
-    // Обертка с Theme нужна только для Сторибука
-
-    const { theme } = useTheme();
-    const preset = getThemeByName(theme);
-
     return (
-      <Theme preset={preset}>
+      <>
         <Container
           onMouseMove={handleMouseMove}
           onMouseLeave={(): void => setPosition(undefined)}
@@ -120,6 +99,6 @@ storiesOf('ui/Tooltip', module)
         >
           <Text size="xs">Подсказка</Text>
         </Tooltip>
-      </Theme>
+      </>
     );
   });
