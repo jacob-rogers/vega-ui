@@ -1505,7 +1505,7 @@
     react-transition-group "^4.4.1"
     tslib "^1.11.1"
 
-"@gpn-design/uikit@^1.6.0":
+"@gpn-design/uikit@^1.6.0", "@gpn-design/uikit@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.7.1.tgz#bed2d152807681c6f42b3aa0ce7aff819910588e"
   integrity sha512-MZ+vI9F7JouWkMjdLWLWixNCak09QsWBrufwzzTQRJtmIbnnOuvHjpU5hQ5RWEOccOsG14b+4p10ikYnolLLvg==
@@ -1514,18 +1514,6 @@
     "@bem-react/classnames" "^1.3.9"
     bem-cn "^3.0.1"
     compute-scroll-into-view "^1.0.14"
-    react-textarea-autosize "^7.1.2"
-    react-transition-group "^4.4.1"
-    tslib "^1.13.0"
-
-"@gpn-design/uikit@^1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.6.1.tgz#f12ddb90998db92c0eb932d14bf07a9349650b68"
-  integrity sha512-rl8Tb9JOsiyhFEqK3Upg8yzdeJdMaTY6JCHySZgipiisxO3OKUW+JiP3RX/bc+cxrUyYS9x5SDNPsgyBLcYpYw==
-  dependencies:
-    "@bem-react/classname" "^1.5.8"
-    "@bem-react/classnames" "^1.3.9"
-    bem-cn "^3.0.1"
     react-textarea-autosize "^7.1.2"
     react-transition-group "^4.4.1"
     tslib "^1.13.0"

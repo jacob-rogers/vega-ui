@@ -6,14 +6,14 @@ import { NavItemType } from '../types';
 
 type HeaderNavProps = {
   navItems: NavItemType[];
-  activeItem?: NavItemType[];
-  onChangeItem: (item: NavItemType[]) => void;
+  activeItem?: NavItemType;
+  onChangeItem: (item: NavItemType) => void;
 };
 
 export const HeaderNav: React.FC<HeaderNavProps> = (props) => {
   const { navItems, activeItem, onChangeItem } = props;
 
-  const handleChangeItem = (item: NavItemType[] | null): void => {
+  const handleChangeItem = (item: NavItemType | null): void => {
     if (item !== null) {
       onChangeItem(item);
     }
@@ -24,8 +24,7 @@ export const HeaderNav: React.FC<HeaderNavProps> = (props) => {
       <Tabs<NavItemType>
         items={navItems}
         value={activeItem}
-        getItemKey={(item): string => item.name}
-        getItemLabel={(item): string => item.name}
+        getLabel={(item): string => item.name}
         onChange={({ value }): void => handleChangeItem(value)}
       />
     </nav>
