@@ -15,7 +15,7 @@ export const Tabs: BaseTabsComponent = (props) => {
 
   const draggableTab = useDraggableContainer({
     findActiveElement(wrapper: HTMLElement) {
-      return wrapper.querySelector('.Tabs-Tab_active');
+      return wrapper.querySelector('.TabsTab_checked');
     },
   });
 
