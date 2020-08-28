@@ -4,7 +4,13 @@ import cnTree from './cn-tree';
 import { LeafType } from './types';
 
 export const Leaf: React.FC<LeafType> = (props) => {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const ref = useRef<HTMLLIElement | null>(null);
+
+  const handleDragStart = (event: React.DragEvent): void => {
+    if (typeof props.handleDragStart === 'function') {
+      props.handleDragStart(event, ref);
+    }
+  };
 
   const handleSelect = () => {
     if (typeof props.handleSelectItem === 'function') {
@@ -23,14 +29,14 @@ export const Leaf: React.FC<LeafType> = (props) => {
   return (
     <li
       className={cnTree('Leaf', { Selected: props.selectedItems?.includes(ref) })}
-      draggable="true"
-      onDragStart={props.handleDragStart}
+      draggable={props.isDraggable === false ? "false" : "true"}
+      onDragStart={handleDragStart}
+      ref={ref}
     >
       <div
-        ref={ref}
         role="treeitem"
         tabIndex={0}
-        onKeyDown={handleSelect}
+        onKeyDown={() => {}}
         onClick={handleSelect}
         onContextMenu={handleContextMenuOpen}
       >

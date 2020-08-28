@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
-import TreeContextMenu, { ContextMenuData } from './components/TreeContextMenu';
+import TreeContextMenu, {ContextMenuData} from './components/TreeContextMenu';
 import cnTree from './cn-tree';
-import { useMultiSelect } from './hooks';
-import { Leaf } from './Leaf';
-import { TreeNode } from './TreeNode';
-import { LeafType, NodeTreeType, RootTreeProps } from './types';
+import {useMultiSelect} from './hooks';
+import {Leaf} from './Leaf';
+import {TreeNode} from './TreeNode';
+import {LeafType, NodeTreeType, RootTreeProps} from './types';
+
 
 export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
-  const { name, nodeList } = props;
+  const {name, nodeList} = props;
 
   const [expanded, setExpanded] = useState<boolean>(false);
-  const [currentDraggingElement, setCurrentDraggingElement] = useState<HTMLElement | null>(null);
+  const [currentDraggingElement, setCurrentDraggingElement] = useState<React.RefObject<HTMLElement> | null>(null);
+  const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
   const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
   const [contextMenuData, setContextMenuData] = useState<ContextMenuData | null>(null);
   const [isMultiSelect, setIsMultiSelect] = useState<boolean>(false);
@@ -73,39 +75,48 @@ export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
     setIsOpenContextMenu(true);
   };
 
-  const handleDragStart = (e: React.BaseSyntheticEvent) => {
+  const handleDragStart = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>) => {
     e.stopPropagation();
 
-    setCurrentDraggingElement(e.currentTarget);
+    setCurrentDraggingElement(ref);
   };
 
-  const handleDragOver = (e: React.BaseSyntheticEvent) => {
+  const handleDragOver = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>) => {
     e.stopPropagation();
-
     e.preventDefault();
+
+    setDropZone(ref)
   };
 
-  const handleDragDrop = (e: React.BaseSyntheticEvent) => {
+  const handleDragDrop = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
 
-    try {
-      e.target.appendChild(currentDraggingElement);
-    } catch (error) {
-      console.log(error);
+    if (dropZone && currentDraggingElement && !dropZone?.current?.contains(currentDraggingElement?.current as Node)) {
+      dropZone.current?.appendChild(currentDraggingElement.current as Node);
     }
   };
+
+  const handleDragEnd = (e: React.BaseSyntheticEvent): void => {
+    e.stopPropagation();
+
+    setDropZone(null);
+    setCurrentDraggingElement(null);
+  }
 
   const renderTree = (t: NodeTreeType[]) => {
     return t.reduce((acc: Array<React.ReactElement>, node: NodeTreeType | LeafType) => {
       if ('nodeList' in node) {
         const element = (
           <TreeNode
+            isDraggable={props.isDraggable}
             nodeList={node.nodeList}
+            onlyDropZone={node.onlyDropZone}
             key={node.name}
-            currentDraggingElement={currentDraggingElement}
+            dropZone={dropZone}
             handleDragStart={handleDragStart}
             handleDragOver={handleDragOver}
             handleDragDrop={handleDragDrop}
+            handleDragEnd={handleDragEnd}
             handleContextMenu={handleContextMenu}
             handleSelectItem={handleSelectItem}
             selectedItems={selectedItems}
@@ -123,6 +134,7 @@ export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
       if (node?.name) {
         acc.push(
           <Leaf
+            isDraggable={props.isDraggable}
             handleDragStart={handleDragStart}
             key={node.name}
             name={node.name}
@@ -151,7 +163,7 @@ export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
           }}
         >
           <div
-            className={cnTree('NavigationArrow', { expanded })}
+            className={cnTree('NavigationArrow', {expanded})}
             onClick={() => {
               setExpanded(!expanded);
             }}
@@ -166,7 +178,7 @@ export const RootTreeNode: React.FC<RootTreeProps> = (props) => {
           {name}
         </div>
 
-        <ul className={cnTree('NodeList', { expanded })}>{renderTree(nodeList)}</ul>
+        <ul className={cnTree('NodeList', {expanded})}>{renderTree(nodeList)}</ul>
       </div>
 
       {isOpenContextMenu && contextMenuData && (

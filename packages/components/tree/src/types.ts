@@ -3,11 +3,13 @@ import React from 'react';
 export interface BaseNode {
   name: string;
   id?: string | number;
-  currentDraggingElement?: HTMLElement | null;
   selectedItems?: React.Ref<HTMLElement>[] | null;
-  handleDragStart?(event: React.DragEvent): void;
-  handleDragOver?(event: React.DragEvent): void;
+  isDraggable?: boolean;
+  onlyDropZone?: boolean;
+  handleDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
+  handleDragOver?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
   handleDragDrop?(event: React.DragEvent): void;
+  handleDragEnd?(event: React.DragEvent): void;
   handleContextMenu?(event: React.MouseEvent, ref: React.Ref<HTMLElement>): void;
   handleRename?: () => void;
   handleCopy?: () => void;
@@ -19,6 +21,7 @@ export interface BaseNode {
 export interface NodeTreeType extends BaseNode {
   nodeList?: NodeTreeType[];
   children?: React.ReactNode;
+  dropZone?: React.Ref<HTMLElement> | null;
 }
 
 export interface RootTreeProps extends BaseNode {

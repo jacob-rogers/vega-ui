@@ -1,15 +1,16 @@
 import React from 'react';
-import { withKnobs } from '@storybook/addon-knobs';
-import { storiesOf } from '@storybook/react';
+import {withKnobs} from '@storybook/addon-knobs';
+import {storiesOf} from '@storybook/react';
 
-import { Tree } from './Tree';
-import { RootTreeProps } from './types';
+import {Tree} from './Tree';
+import {RootTreeProps} from './types';
 
-const items: RootTreeProps = {
+const rootProps: RootTreeProps = {
   name: 'Усть-Енисей',
   nodeList: [
     {
       name: 'Поднятие 44-23',
+      onlyDropZone: true,
       nodeList: [
         {
           name: 'Залежь - 78',
@@ -45,6 +46,7 @@ const items: RootTreeProps = {
     },
     {
       name: 'Поднятие 55-100',
+      onlyDropZone: true,
       nodeList: [
         {
           name: 'Залежь - 78',
@@ -65,6 +67,7 @@ const items: RootTreeProps = {
     },
     {
       name: 'Поднятие 23-32',
+      onlyDropZone: true,
       nodeList: [
         {
           name: 'Залежь - 44',
@@ -110,5 +113,10 @@ const items: RootTreeProps = {
 
 storiesOf('ui/Tree', module)
   .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
-  .add('по умолчанию', () => <Tree {...items} />);
+  .addParameters({metadata: {author: 'CSSSR', status: 'Approved'}})
+  .add('по умолчанию', () =>
+    <Tree
+      name={rootProps.name}
+      nodeList={rootProps.nodeList}
+      isDraggable={true}
+    />);
