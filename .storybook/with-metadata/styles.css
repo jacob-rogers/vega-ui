@@ -1,3 +1,8 @@
+/* Убрать рамку */
+.sb-show-main {
+  padding: 0 !important;
+}
+
 .Metadata {
   &__panel {
     position: fixed;

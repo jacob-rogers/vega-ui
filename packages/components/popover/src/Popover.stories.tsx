@@ -74,7 +74,7 @@ storiesOf('ui/Popover', module)
 
     return (
       <Wrapper>
-        <Button type="button" label="Открыть" onClick={handleClickOnAnchor} innerRef={buttonRef} />
+        <Button type="button" label="Открыть" onClick={handleClickOnAnchor} ref={buttonRef} />
         {isPopoverVisible && (
           <Popover {...getCommonKnobs()} anchorRef={buttonRef}>
             <Content>Контент</Content>
