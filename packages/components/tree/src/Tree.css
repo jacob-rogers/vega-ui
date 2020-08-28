@@ -3,7 +3,39 @@
 
   color: var(--color-typo-primary);
   background-color: var(--color-bg-default);
-  position: relative;
+}
+
+.VegaTree__ContextMenu {
+  position: absolute;
+  width: 220px;
+
+  background-color: var(--color-bg-default);
+  border: 1px solid var(--color-bg-border);
+
+  box-sizing: border-box;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 32, 51, 0.18);
+  border-radius: 4px;
+}
+
+.VegaTree__ContextMenuList {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+
+.VegaTree__ContextMenuItem {
+  cursor: pointer;
+  text-align: left;
+  padding-left: 5px;
+
+  font-size: 14px;
+  line-height: 20px;
+
+  color: var(--color-typo-primary);
+}
+
+.VegaTree__ContextMenuItem_withSeparator {
+  border-bottom: 1px solid var(--color-bg-ghost);
+  margin-bottom: 5px;
 }
 
 .VegaTree:hover .VegaTree__NodeList_expanded::before {
@@ -21,23 +53,39 @@
   left: 0;
 
   width: 100%;
-  background-color: var(--color-control-bg-focus);
   height: 24px;
 }
 
-.VegaTree__TreeNode, ul {
+.VegaTree__Backlight_selected {
+  background-color: var(--color-control-bg-active);
+}
+
+.VegaTree__TreeNode,
+ul {
   list-style: none;
+  outline: none;
   padding-left: 12px;
 }
 
 .VegaTree__Leaf {
   cursor: pointer;
+  outline: none;
   padding-left: 12px;
 }
 
-.VegaTree__Leaf > span {
+.VegaTree__Leaf:hover {
+  background-color: var(--color-control-bg-focus);
+}
+
+.VegaTree__Leaf_Selected,
+.VegaTree__Leaf_Selected:hover {
+  background-color: var(--color-control-bg-active);
+}
+
+.VegaTree__Leaf > div {
   font-size: 14px;
   line-height: 150%;
+  outline: none;
   font-style: normal;
   display: flex;
   align-items: center;
@@ -65,10 +113,21 @@
   display: flex;
   align-items: center;
   min-height: 24px;
+  outline: none;
+}
+
+.VegaTree__NavigationItem:hover {
+  background-color: var(--color-control-bg-focus);
+}
+
+.VegaTree__NavigationItem_Selected,
+.VegaTree__NavigationItem_Selected:hover {
+  background-color: var(--color-control-bg-active);
 }
 
 .VegaTree__NavigationArrow {
   z-index: 1;
+  outline: none;
 }
 
 .VegaTree__NavigationArrow::before {
