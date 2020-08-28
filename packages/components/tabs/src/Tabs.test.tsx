@@ -7,7 +7,12 @@ type TabItem = {
   name: string;
 };
 
-type TabsProps = React.ComponentProps<typeof Tabs>;
+type TabsProps = {
+  value?: TabItem | null;
+  items: TabItem[];
+  getLabel: (item: TabItem) => string | number;
+  onChange: () => void;
+};
 
 function renderComponent(props: TabsProps): RenderResult {
   return render(<Tabs {...props} />);
@@ -27,23 +32,18 @@ const items: TabItem[] = [
 
 describe('Tabs', () => {
   const props = {
+    value: items[1],
     items,
     getLabel: (item: TabItem): string => item.name,
-    value: items[1],
+    onChange: (): void => {},
   };
 
   test('рендерится без ошибок', () => {
-    renderComponent({
-      items: props.items,
-      getLabel: props.getLabel,
-    });
+    renderComponent(props);
   });
 
   test('количество табов совпадает с количеством переданных', () => {
-    const component = renderComponent({
-      items: props.items,
-      getLabel: props.getLabel,
-    });
+    const component = renderComponent(props);
 
     const tabs = component.container.querySelectorAll('.Tabs-Tab');
 
@@ -51,11 +51,7 @@ describe('Tabs', () => {
   });
 
   test('активный таб отображается верно', () => {
-    const component = renderComponent({
-      items: props.items,
-      getLabel: props.getLabel,
-      value: props.value,
-    });
+    const component = renderComponent(props);
 
     const activeTab = component.container.querySelectorAll('.TabsTab_checked');
 
@@ -67,9 +63,7 @@ describe('Tabs', () => {
     const onChange = jest.fn();
 
     const component = renderComponent({
-      items: props.items,
-      getLabel: props.getLabel,
-      value: props.value,
+      ...props,
       onChange,
     });
 
