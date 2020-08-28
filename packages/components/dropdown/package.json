@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-dropdown",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@gpn-prototypes/vega-hooks": "^0.5.0",
-    "@gpn-prototypes/vega-root": "^0.2.1",
+    "@gpn-prototypes/vega-root": "^0.2.2",
     "@popperjs/core": "^2.4.0",
     "bem-cn": "^3.0.1",
     "react-popper": "^2.2.3"
