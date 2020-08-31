@@ -1505,7 +1505,7 @@
     react-transition-group "^4.4.1"
     tslib "^1.11.1"
 
-"@gpn-design/uikit@^1.6.0", "@gpn-design/uikit@^1.7.1":
+"@gpn-design/uikit@^1.7.1":
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.7.1.tgz#bed2d152807681c6f42b3aa0ce7aff819910588e"
   integrity sha512-MZ+vI9F7JouWkMjdLWLWixNCak09QsWBrufwzzTQRJtmIbnnOuvHjpU5hQ5RWEOccOsG14b+4p10ikYnolLLvg==
