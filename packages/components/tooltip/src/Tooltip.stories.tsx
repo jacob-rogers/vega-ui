@@ -52,7 +52,8 @@ storiesOf('ui/Tooltip', module)
       author: 'Сonsta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/tooltip',
+        href:
+          'https://ui-kit.gpn.vercel.app/?path=/story/components-tooltip--tooltip-positioned-by-anchor-story',
         text: 'Документация',
       },
     },
