@@ -18,7 +18,7 @@ export const List: React.FC<ListProps> = (props) => {
     onPositionChange = (): void => {},
     draggable = true,
     children,
-    stroke,
+    stroke = 'rgba(255, 255, 255, 0.2)',
     ...rest
   } = props;
   const [icon] = useImage(arrowIcon);
@@ -32,13 +32,7 @@ export const List: React.FC<ListProps> = (props) => {
       draggable={draggable}
       onDragMove={(e): void => onPositionChange(e.target.position())}
     >
-      <Rect
-        cornerRadius={2}
-        height={100}
-        width={STEP_WIDTH}
-        strokeWidth={2}
-        stroke={stroke ?? 'rgba(255, 255, 255, 0.2)'}
-      />
+      <Rect cornerRadius={2} height={100} width={STEP_WIDTH} strokeWidth={2} stroke={stroke} />
       {icon && <Image image={icon} x={STEP_WIDTH - 20} y={LIST_PADDING} />}
       <Text
         align="center"

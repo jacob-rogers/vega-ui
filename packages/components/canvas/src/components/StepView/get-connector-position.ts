@@ -11,7 +11,7 @@ const getRelativeYPosition = (step: CanvasTree): number =>
   step.getData().type === 'step' ? LIST_PADDING : STEP_HEIGHT / 2;
 
 export const getAbsoluteConnectorsPosition = (step: CanvasTree): ConnectorsPosition => {
-  const { position, width } = step.getData();
+  const { position, width = STEP_WIDTH } = step.getData();
   const y = getRelativeYPosition(step) + position.y;
 
   return {
@@ -20,7 +20,7 @@ export const getAbsoluteConnectorsPosition = (step: CanvasTree): ConnectorsPosit
       y,
     },
     children: {
-      x: (width ?? STEP_WIDTH) + position.x,
+      x: width + position.x,
       y,
     },
   };
@@ -28,14 +28,14 @@ export const getAbsoluteConnectorsPosition = (step: CanvasTree): ConnectorsPosit
 
 export const getRelativeConnectorsPosition = (step: CanvasTree): ConnectorsPosition => {
   const y = getRelativeYPosition(step);
-  const { width } = step.getData();
+  const { width = STEP_WIDTH } = step.getData();
   return {
     parent: {
       x: 0,
       y,
     },
     children: {
-      x: width ?? STEP_WIDTH,
+      x: width,
       y,
     },
   };
