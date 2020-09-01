@@ -1,6 +1,5 @@
 import { LIST_PADDING, STEP_HEIGHT, STEP_WIDTH } from '../../constants';
-import { CanvasTree } from '../../entities';
-import { Position } from '../../types';
+import { CanvasTree, Position } from '../../types';
 
 type ConnectorsPosition = {
   parent: Position;

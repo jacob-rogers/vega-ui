@@ -3,5 +3,5 @@ export * from './ListItem';
 export * from './Text';
 export * from './Button';
 export * from './Connector';
-export * from './StepView';
-export * from './StepList';
+export * from './CanvasItem';
+export * from './CanvasItems';

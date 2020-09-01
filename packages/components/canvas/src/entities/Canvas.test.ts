@@ -1,14 +1,16 @@
-import { Canvas, Context } from './Canvas';
+import { CanvasData } from '../types';
+
+import { Canvas } from './Canvas';
 import { Tree } from './Tree';
 
 const createCanvas = (): Canvas => {
-  const data: Context = { title: 'Шаг 1', position: {}, type: 'root' };
+  const data: CanvasData = { title: 'Шаг 1', position: { x: 0, y: 0 }, type: 'root' };
 
-  const tree = Tree.of<Context>({ data });
-  const secondTree = Tree.of<Context>({ data: { ...data, type: 'step' } });
-  const thirdTree = Tree.of<Context>({ data });
-  const fouthTree = Tree.of<Context>({ data: secondTree.getData() });
-  const fifthTree = Tree.of<Context>({ data: secondTree.getData() });
+  const tree = Tree.of<CanvasData>({ data });
+  const secondTree = Tree.of<CanvasData>({ data: { ...data, type: 'step' } });
+  const thirdTree = Tree.of<CanvasData>({ data });
+  const fouthTree = Tree.of<CanvasData>({ data: secondTree.getData() });
+  const fifthTree = Tree.of<CanvasData>({ data: secondTree.getData() });
 
   tree.addChild(secondTree);
 

@@ -4,10 +4,10 @@ import { useKey } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { cnCanvas } from './cn-canvas';
-import { Button, RADIUS, StepList } from './components';
-import { ActiveData, CanvasContext, SelectedData } from './context';
-import { Canvas, Context, Tree } from './entities';
-import { KonvaMouseEvent } from './types';
+import { Button, CanvasItems, RADIUS } from './components';
+import { CanvasContext } from './context';
+import { Canvas, Tree } from './entities';
+import { ActiveData, CanvasData, KonvaMouseEvent, SelectedData } from './types';
 
 import './Canvas.css';
 
@@ -63,13 +63,13 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     if (activeData) {
       const id = e.target.id();
       if (id.length) {
-        const [stepId, connectionType] = id.split('_');
-        const targetStep = canvas.searchTree(stepId);
-        if (targetStep && connectionType !== activeData.connector?.type) {
+        const [itemId, connectionType] = id.split('_');
+        const targetItem = canvas.searchTree(itemId);
+        if (targetItem && connectionType !== activeData.connector?.type) {
           const trees =
             connectionType === 'parent'
-              ? [activeData.step, targetStep]
-              : [targetStep, activeData.step];
+              ? [activeData.item, targetItem]
+              : [targetItem, activeData.item];
 
           canvas.connect(trees[0], trees[1]);
         }
@@ -92,8 +92,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   }, [canvas, selectedData]);
 
-  const removeSelectedStep = useCallback((): void => {
-    if (selectedData?.type === 'step') {
+  const removeSelectedItem = useCallback((): void => {
+    if (selectedData?.type === 'item') {
       const { id } = selectedData;
       const tree = canvas.searchTree(id);
       if (tree) {
@@ -103,13 +103,13 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   }, [canvas, selectedData]);
 
   const handleRemoveSelectedItem = useCallback(() => {
-    removeSelectedStep();
+    removeSelectedItem();
     removeSelectedLine();
     setSelectedData(null);
-  }, [removeSelectedLine, removeSelectedStep]);
+  }, [removeSelectedLine, removeSelectedItem]);
 
   const handleStepAdding = useCallback(() => {
-    const tree = Tree.of<Context>({
+    const tree = Tree.of<CanvasData>({
       data: {
         type: 'step',
         title: 'Шаг',
@@ -161,7 +161,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           )}
         </Layer>
         <Layer>
-          <StepList canvas={canvas} />
+          <CanvasItems canvas={canvas} />
         </Layer>
         <Layer>
           <Button

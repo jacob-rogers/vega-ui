@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useUnmount } from '@gpn-prototypes/vega-hooks';
 
 import { CanvasView } from './CanvasView';
-import { Canvas as CanvasEntity, CanvasTree, CanvasUpdate } from './entities';
+import { Canvas as CanvasEntity } from './entities';
+import { CanvasTree, CanvasUpdate } from './types';
 
 import './Canvas.css';
 

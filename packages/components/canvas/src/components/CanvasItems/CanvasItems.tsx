@@ -1,14 +1,15 @@
 import React from 'react';
 
 import { useCanvas } from '../../context';
-import { Canvas, CanvasTree } from '../../entities';
-import { getAbsoluteConnectorsPosition, StepView } from '../StepView';
+import { Canvas } from '../../entities';
+import { CanvasTree } from '../../types';
+import { CanvasItem, getAbsoluteConnectorsPosition } from '../CanvasItem';
 
-type StepListProps = {
+type CanvasItemsProps = {
   canvas: Canvas;
 };
 
-export const StepList: React.FC<StepListProps> = (props) => {
+export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   const { canvas } = props;
   const { stageRef, setActiveData } = useCanvas();
 
@@ -34,7 +35,7 @@ export const StepList: React.FC<StepListProps> = (props) => {
       const parentClosest = parentDelta < childDelta;
       if (!parentClosest) {
         setActiveData({
-          step: parent,
+          item: parent,
           connector: {
             type: 'children',
             position: parentConnectors.children,
@@ -42,7 +43,7 @@ export const StepList: React.FC<StepListProps> = (props) => {
         });
       } else {
         setActiveData({
-          step: child,
+          item: child,
           connector: {
             type: 'parent',
             position: childConnectors.parent,
@@ -56,8 +57,8 @@ export const StepList: React.FC<StepListProps> = (props) => {
     <>
       {canvas.extract().map((tree) => {
         return (
-          <StepView
-            step={tree}
+          <CanvasItem
+            item={tree}
             key={tree.getId()}
             onPositionChange={(position): void => canvas.onTreePositionChange(tree, position)}
             onWidthUpdate={(width): void => canvas.setData(tree, { width })}
