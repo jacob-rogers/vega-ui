@@ -1,5 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { Layer, Line, Stage } from 'react-konva';
+import { useKey } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { cnCanvas } from './cn-canvas';
@@ -80,6 +81,38 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
+  const removeSelectedLine = useCallback((): void => {
+    if (selectedData?.type === 'line') {
+      const { childId } = selectedData;
+      const child = canvas.searchTree(childId);
+
+      if (child) {
+        canvas.disconnect(child);
+      }
+    }
+  }, [canvas, selectedData]);
+
+  const removeSelectedStep = useCallback((): void => {
+    if (selectedData?.type === 'step') {
+      const { id } = selectedData;
+      const tree = canvas.searchTree(id);
+      if (tree) {
+        canvas.remove(tree);
+      }
+    }
+  }, [canvas, selectedData]);
+
+  const handleRemoveSelectedItem = useCallback(() => {
+    if (selectedData?.type === 'step') {
+      removeSelectedStep();
+    }
+
+    if (selectedData?.type === 'line') {
+      removeSelectedLine();
+    }
+    setSelectedData(null);
+  }, [selectedData, removeSelectedLine, removeSelectedStep]);
+
   const handleStepAdding = useCallback(() => {
     const tree = Tree.of<Context>({
       data: {
@@ -91,14 +124,13 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     canvas.add(tree);
   }, [canvas]);
 
-  const handleMouseDown = useCallback(
-    (e: KonvaMouseEvent) => {
-      if (selectedData && !e.target.id()) {
-        setSelectedData(null);
-      }
-    },
-    [selectedData],
-  );
+  const handleMouseDown = (): void => {
+    if (selectedData) {
+      setSelectedData(null);
+    }
+  };
+
+  useKey([8, 46], handleRemoveSelectedItem, { keyevent: 'keydown' });
 
   return (
     <Stage
@@ -109,7 +141,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       ref={stageRef}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      onMouseDown={handleMouseDown}
+      onClick={handleMouseDown}
     >
       <CanvasContext.Provider
         value={{

@@ -16,7 +16,7 @@ export type CanvasUpdate =
   | { type: 'add-tree'; id: string }
   | { type: 'change'; id: string; changes: Partial<Context> }
   | { type: 'remove-tree'; id: string }
-  | { type: 'disconnect-tree'; id: string; oldParentId: string }
+  | { type: 'disconnect-tree'; id: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
   | { type: 'clear' };
 
@@ -83,6 +83,17 @@ export class Canvas {
 
   public remove(tree: CanvasTree): void {
     this.trees.delete(tree);
+    if (tree.getParent()) {
+      this.disconnect(tree);
+    }
+    if (tree.getChildren().length) {
+      tree.getChildren().forEach((child) => {
+        const childTree = this.searchTree(child);
+        if (childTree) {
+          this.disconnect(childTree);
+        }
+      });
+    }
     this.notifier.notify({
       type: 'remove-tree',
       id: tree.getId(),
@@ -118,13 +129,12 @@ export class Canvas {
 
     if (parent) {
       parent.removeChild(childTree);
-      childTree.setParent(null);
-      this.notifier.notify({
-        type: 'disconnect-tree',
-        id: childTree.getId(),
-        oldParentId: parent.getId(),
-      });
     }
+    childTree.setParent(null);
+    this.notifier.notify({
+      type: 'disconnect-tree',
+      id: childTree.getId(),
+    });
   }
 
   public setData(tree: CanvasTree, data: Partial<Context>): void {

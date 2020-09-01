@@ -41,7 +41,12 @@ export const ConnectionLineView: React.FC<ConnectionLineViewProps> = (props) => 
       stroke={fill}
       strokeWidth={3}
       onMouseDown={onMouseDown}
-      onClick={onClick}
+      onClick={(e): void => {
+        e.cancelBubble = true;
+        if (onClick) {
+          onClick(e);
+        }
+      }}
       onMouseEnter={(): void => {
         setCursor('pointer');
       }}
