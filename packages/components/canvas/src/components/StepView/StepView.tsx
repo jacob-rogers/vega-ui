@@ -135,7 +135,10 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     onMouseLeave: (): void => {
       setCursor('default');
     },
-    onClick: handleStepClick,
+    onClick: (e: KonvaMouseEvent): void => {
+      e.cancelBubble = true;
+      handleStepClick();
+    },
     children: stepContent,
     stroke: isSelectedStep ? SELECTED_COLOR : undefined,
   };
