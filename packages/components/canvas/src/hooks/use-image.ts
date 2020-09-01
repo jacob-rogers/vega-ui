@@ -41,7 +41,7 @@ export const useImage = (
       img.removeEventListener('load', onLoad);
       img.removeEventListener('error', onError);
     };
-  });
+  }, [src, crossOrigin]);
 
   return [image, status];
 };

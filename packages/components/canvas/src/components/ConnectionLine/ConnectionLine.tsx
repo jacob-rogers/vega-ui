@@ -1,54 +1,50 @@
 import React from 'react';
-import { Line } from 'react-konva';
 
 import { useCanvas } from '../../context';
+import { CanvasTree } from '../../entities';
 import { KonvaMouseEvent, Position } from '../../types';
-import { RADIUS } from '../Connector';
+import { ConnectionLineView } from '../ConnectionLineView';
 
 type ConnectionLineProps = {
-  parent: Position;
-  child: Position;
-  onMouseDown: (e: KonvaMouseEvent) => void;
-  onClick: (e: KonvaMouseEvent) => void;
-  fill?: string;
+  parent: { connector: Position; tree: CanvasTree };
+  child: { connector: Position; tree: CanvasTree };
+  onMouseDown?: (e: KonvaMouseEvent) => void;
 };
 
 export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
-  const { parent, child, onMouseDown, onClick, fill = '#fff' } = props;
+  const {
+    parent: { tree: parentTree, connector: parentConnector },
+    child: { tree: childTree, connector: childConnector },
+    onMouseDown,
+  } = props;
 
-  const { setCursor } = useCanvas();
+  const { selectedData, handleSelectedDataChange } = useCanvas();
 
-  const dx = child.x - parent.x;
-  const dy = child.y - child.y;
-
-  const angle = Math.atan2(-dy, dx);
-
-  const arrowStart = {
-    x: parent.x + -RADIUS * Math.cos(angle + Math.PI),
-    y: parent.y + RADIUS * Math.sin(angle + Math.PI),
-  };
-
-  const arrowEnd = {
-    x: child.x + -RADIUS * Math.cos(angle),
-    y: child.y + RADIUS * Math.sin(angle),
-  };
+  const isSelectedLine =
+    selectedData?.type === 'line' &&
+    selectedData.parentId === parentTree.getId() &&
+    selectedData.childId === childTree.getId();
 
   return (
-    <Line
-      tension={0.2}
-      points={[arrowStart.x, arrowStart.y, arrowEnd.x, arrowEnd.y]}
-      stroke="#fff"
-      fill={fill}
-      strokeWidth={3}
-      onMouseDown={onMouseDown}
-      onClick={onClick}
-      onMouseEnter={(): void => {
-        setCursor('pointer');
+    <ConnectionLineView
+      fill={isSelectedLine ? '#0078D2' : '#fff'}
+      parent={parentConnector}
+      child={childConnector}
+      onClick={(): void => {
+        handleSelectedDataChange({
+          type: 'line',
+          parentId: parentTree.getId(),
+          childId: childTree.getId(),
+        });
       }}
-      onMouseLeave={(): void => {
-        setCursor('default');
+      onMouseDown={(e): void => {
+        if (isSelectedLine) {
+          if (onMouseDown) {
+            onMouseDown(e);
+          }
+          handleSelectedDataChange(null);
+        }
       }}
-      pointerWidth={6}
     />
   );
 };

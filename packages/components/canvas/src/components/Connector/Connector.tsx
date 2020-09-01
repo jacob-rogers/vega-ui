@@ -1,43 +1,33 @@
-import React, { useRef, useState } from 'react';
-import { Circle } from 'react-konva';
+import React, { useState } from 'react';
 import { useOnChange } from '@gpn-prototypes/vega-hooks';
-import Konva from 'konva';
 
 import { useCanvas } from '../../context';
-import { BaseProps, ConnectorType, Position } from '../../types';
+import { ConnectorType, Position } from '../../types';
+import { ConnectorView } from '../ConnectorView';
 
-type KonvaCircleProps = Omit<React.ComponentProps<typeof Circle>, 'x' | 'y' | 'width' | 'height'>;
+export type ConnectorEvent = { type: ConnectorType };
 
-interface ConnectorProps extends KonvaCircleProps, Omit<BaseProps, 'label'> {
-  type: 'parent' | 'children';
-  isActive: boolean | null;
-  onChangeActive: (type: ConnectorType) => void;
+type ConnectorProps = {
+  id: string;
+  isActive?: boolean;
+  onActiveChange: (e: ConnectorEvent) => void;
+  isSelected?: boolean;
   position: Position;
-  disabled?: boolean;
-}
+  type: ConnectorType;
+};
 
 export const RADIUS = 6;
 const INITIAL_STROKE = 'rgba(255, 255, 255, 0.2)';
+export const STROKE_ON_SELECTED = '#0078D2';
 const STROKE_ON_HOVER = '#fff';
 const INITIAL_FILL = '#161A1D';
 
 export const Connector: React.FC<ConnectorProps> = (props) => {
-  const {
-    position,
-    fill: fillProp,
-    stroke: strokeProp,
-    isActive,
-    onChangeActive,
-    type,
-    disabled = false,
-    ...rest
-  } = props;
+  const { id, onActiveChange, isActive, isSelected, position, type } = props;
 
   const [stroke, setStroke] = useState(INITIAL_STROKE);
 
   const { setCursor } = useCanvas();
-
-  const ref = useRef<Konva.Circle>(null);
 
   useOnChange(isActive, () => {
     setStroke(isActive ? STROKE_ON_HOVER : INITIAL_STROKE);
@@ -59,26 +49,31 @@ export const Connector: React.FC<ConnectorProps> = (props) => {
     }
   };
 
-  const handleChangeActive = (): void | undefined => {
-    if (disabled) {
-      return undefined;
+  const handleChangeActive = (): void => {
+    return onActiveChange({ type });
+  };
+
+  const getStroke = (): string => {
+    if (isSelected) {
+      return STROKE_ON_SELECTED;
     }
-    return onChangeActive(type);
+
+    if (isActive) {
+      return STROKE_ON_HOVER;
+    }
+
+    return stroke;
   };
 
   return (
-    <Circle
-      {...rest}
-      x={position.x}
-      y={position.y}
-      onMouseEnter={handleMouseEnter}
+    <ConnectorView
+      id={id}
+      stroke={getStroke()}
+      fill={INITIAL_FILL}
+      position={position}
       onMouseLeave={handleMouseLeave}
+      onMouseEnter={handleMouseEnter}
       onMouseDown={handleChangeActive}
-      fill={fillProp ?? INITIAL_FILL}
-      ref={ref}
-      stroke={strokeProp ?? stroke}
-      strokeWidth={2}
-      radius={RADIUS}
     />
   );
 };

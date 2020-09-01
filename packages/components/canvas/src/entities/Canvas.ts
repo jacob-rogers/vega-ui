@@ -9,6 +9,7 @@ export type Context = {
   title: string;
   type: 'step' | 'root' | 'end';
   position: Position;
+  width?: number;
 };
 
 export type CanvasUpdate =
@@ -17,8 +18,7 @@ export type CanvasUpdate =
   | { type: 'remove-tree'; id: string }
   | { type: 'disconnect-tree'; id: string; oldParentId: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
-  | { type: 'clear' }
-  | { type: 'update' };
+  | { type: 'clear' };
 
 export type CanvasTree = Tree<Context>;
 
@@ -58,10 +58,11 @@ export class Canvas {
   }
 
   public searchTree(id: string | null): CanvasTree | undefined {
-    if (!id) {
+    if (id === null) {
       return undefined;
     }
-    return Array.from(this.trees).find((tree) => tree.getId() === id);
+    const targetTree = Array.from(this.trees).find((tree) => tree.getId() === id);
+    return targetTree;
   }
 
   public extract(): CanvasTree[] {
@@ -108,7 +109,12 @@ export class Canvas {
   }
 
   public disconnect(childTree: CanvasTree): void {
-    const parent = this.searchTree(childTree.getParent());
+    const parentId = childTree.getParent();
+    if (parentId === null) {
+      return;
+    }
+
+    const parent = this.searchTree(parentId);
 
     if (parent) {
       parent.removeChild(childTree);
@@ -132,9 +138,5 @@ export class Canvas {
 
   public onTreePositionChange(tree: CanvasTree, position: Position): void {
     this.setData(tree, { position });
-  }
-
-  public onUpdate(): void {
-    this.notifier.notify({ type: 'update' });
   }
 }
