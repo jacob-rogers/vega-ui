@@ -8,17 +8,17 @@ type Opts = {
 };
 
 export const useKey = (
-  key: string | number,
+  keys: Array<string | number>,
   callback: Handler,
   { keyevent = 'keyup', element = document }: Opts = {},
 ): void => {
   const handleEvent = useCallback(
     (event: PossibleEvent): void => {
-      if ([event.which, event.key, event.code].includes(key)) {
+      if (keys.includes(event.which) || keys.includes(event.code) || keys.includes(event.key)) {
         callback(event);
       }
     },
-    [callback, key],
+    [callback, keys],
   );
 
   useEffect(() => {

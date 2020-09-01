@@ -61,7 +61,7 @@ export const Sidebar: Sidebar<SidebarProps> = ({
     }
   };
 
-  useKey('Escape', handleOverlayClick);
+  useKey(['Escape'], handleOverlayClick);
 
   const cssTransitionProps = {
     timeout: 300,
