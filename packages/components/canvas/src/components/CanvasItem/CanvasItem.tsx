@@ -2,8 +2,7 @@ import React, { useCallback } from 'react';
 
 import { SELECTED_COLOR } from '../../constants';
 import { useCanvas } from '../../context';
-import { CanvasTree } from '../../entities';
-import { KonvaMouseEvent, Position } from '../../types';
+import { CanvasTree, KonvaMouseEvent, Position } from '../../types';
 import { ConnectionLine } from '../ConnectionLine';
 import { Connector, ConnectorEvent } from '../Connector';
 import { List } from '../List';
@@ -14,8 +13,8 @@ import {
   getRelativeConnectorsPosition,
 } from './get-connector-position';
 
-export type StepViewProps = {
-  step: CanvasTree;
+export type CanvasItemProps = {
+  item: CanvasTree;
   parent?: CanvasTree;
   stepChildren: Array<CanvasTree | undefined>;
   onMouseDown: (e: KonvaMouseEvent) => void;
@@ -26,9 +25,9 @@ export type StepViewProps = {
 
 type ConnectionKey = 'parentId' | 'childId';
 
-export const StepView: React.FC<StepViewProps> = (props) => {
+export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const {
-    step,
+    item,
     onMouseDown,
     onPositionChange,
     onWidthUpdate,
@@ -36,14 +35,14 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     parent,
     stepChildren,
   } = props;
-  const stepData = step.getData();
+  const data = item.getData();
   const { activeData, setActiveData, selectedData, setSelectedData, setCursor } = useCanvas();
 
-  const stepId = step.getId();
+  const id = item.getId();
 
-  const hasActiveConnnector = Boolean(activeData && activeData.step.getId() === stepId);
+  const hasActiveConnnector = Boolean(activeData && activeData.item.getId() === id);
 
-  const { type } = stepData;
+  const { type } = data;
   const handleUpdateWidth = useCallback(
     (newWidth: number): void => {
       onWidthUpdate(newWidth);
@@ -56,18 +55,18 @@ export const StepView: React.FC<StepViewProps> = (props) => {
 
   const isList = type === 'step';
 
-  const absoluteConnectorsPosition = getAbsoluteConnectorsPosition(step);
+  const absoluteConnectorsPosition = getAbsoluteConnectorsPosition(item);
 
-  const relativeConnectorsPosition = getRelativeConnectorsPosition(step);
+  const relativeConnectorsPosition = getRelativeConnectorsPosition(item);
 
   const handleConnectorActive = useCallback(
     (connector: ConnectorEvent): void => {
       setActiveData({
-        step,
+        item,
         connector: { type: connector.type, position: absoluteConnectorsPosition[connector.type] },
       });
     },
-    [absoluteConnectorsPosition, setActiveData, step],
+    [absoluteConnectorsPosition, setActiveData, item],
   );
 
   const connectorProps = {
@@ -76,11 +75,11 @@ export const StepView: React.FC<StepViewProps> = (props) => {
 
   const keys: ConnectionKey[] = ['childId', 'parentId'];
 
-  const isSelectedStep = selectedData?.type === 'step' && selectedData.id === stepId;
+  const isSelectedItem = selectedData?.type === 'item' && selectedData.id === id;
 
   const [parentConnectorrSelected, childConnectorSelected] = keys.map((key) => {
     if (selectedData !== null) {
-      return isSelectedStep || (selectedData.type === 'line' && selectedData[key] === stepId);
+      return isSelectedItem || (selectedData.type === 'line' && selectedData[key] === id);
     }
     return false;
   });
@@ -97,7 +96,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
           isActive={parentConnectorActive || parent !== undefined}
           isSelected={parentConnectorrSelected}
           type="parent"
-          id={`${stepId}_parent`}
+          id={`${id}_parent`}
           position={relativeConnectorsPosition.parent}
         />
       )}
@@ -107,7 +106,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
           isActive={childConnectorActive || stepChildren.length > 0}
           isSelected={childConnectorSelected}
           type="children"
-          id={`${stepId}_children`}
+          id={`${id}_children`}
           position={relativeConnectorsPosition.children}
         />
       )}
@@ -115,20 +114,20 @@ export const StepView: React.FC<StepViewProps> = (props) => {
   );
 
   const handleStepClick = useCallback((): void => {
-    if (!isSelectedStep) {
+    if (!isSelectedItem) {
       setSelectedData({
-        type: 'step',
-        id: stepId,
+        type: 'item',
+        id,
       });
     }
-  }, [setSelectedData, stepId, isSelectedStep]);
+  }, [setSelectedData, id, isSelectedItem]);
 
   const baseProps = {
     draggable: !activeData,
-    position: stepData.position,
+    position: data.position,
     onMouseDown,
     onPositionChange,
-    label: stepData.title,
+    label: data.title,
     onMouseEnter: (): void => {
       setCursor('pointer');
     },
@@ -140,7 +139,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
       handleStepClick();
     },
     children: stepContent,
-    stroke: isSelectedStep ? SELECTED_COLOR : undefined,
+    stroke: isSelectedItem ? SELECTED_COLOR : undefined,
   };
 
   return (
@@ -158,9 +157,9 @@ export const StepView: React.FC<StepViewProps> = (props) => {
         return (
           <ConnectionLine
             key={child.getId()}
-            parent={{ connector: absoluteConnectorsPosition.children, tree: step }}
+            parent={{ connector: absoluteConnectorsPosition.children, tree: item }}
             child={{ connector: getAbsoluteConnectorsPosition(child).parent, tree: child }}
-            onMouseDown={(): void => onConnectionLineMouseDown(step, child)}
+            onMouseDown={(): void => onConnectionLineMouseDown(item, child)}
           />
         );
       })}

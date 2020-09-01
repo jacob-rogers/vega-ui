@@ -4,16 +4,17 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Canvas, Change } from './Canvas';
-import { CanvasTree, CanvasUpdate, Context, Tree } from './entities';
+import { Tree } from './entities';
+import { CanvasData, CanvasTree, CanvasUpdate } from './types';
 
-const startNode = Tree.of<Context>({
+const startNode = Tree.of<CanvasData>({
   data: {
     position: { x: 10, y: 300 },
     title: 'Начало',
     type: 'root',
   },
 });
-const endNode = Tree.of<Context>({
+const endNode = Tree.of<CanvasData>({
   data: {
     position: { x: 600, y: 300 },
     title: 'Конец',
