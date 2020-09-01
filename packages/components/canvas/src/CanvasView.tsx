@@ -91,11 +91,14 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     canvas.add(tree);
   }, [canvas]);
 
-  const handleMouseDown = useCallback(() => {
-    if (selectedData) {
-      setSelectedData(null);
-    }
-  }, [selectedData]);
+  const handleMouseDown = useCallback(
+    (e: KonvaMouseEvent) => {
+      if (selectedData && !e.target.id()) {
+        setSelectedData(null);
+      }
+    },
+    [selectedData],
+  );
 
   return (
     <Stage
@@ -111,11 +114,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       <CanvasContext.Provider
         value={{
           stageRef,
-          handleActiveDataChange,
+          setActiveData: handleActiveDataChange,
           activeData,
           setCursor,
           selectedData,
-          handleSelectedDataChange: (newData): void => setSelectedData(newData),
+          setSelectedData,
         }}
       >
         <Layer>

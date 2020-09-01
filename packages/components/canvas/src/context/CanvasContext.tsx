@@ -21,8 +21,8 @@ export type SelectedData =
 const noop = (): void => {};
 
 type API = {
-  handleSelectedDataChange: (newSelected: SelectedData | null) => void;
-  handleActiveDataChange: (newActive: ActiveData | null) => void;
+  setSelectedData: (newSelected: SelectedData | null) => void;
+  setActiveData: (newActive: ActiveData | null) => void;
   setCursor: (newCursor: string) => void;
   stageRef: MutableRefObject<Konva.Stage | null>;
   activeData: ActiveData | null;
@@ -32,8 +32,8 @@ type API = {
 export const CanvasContext = createContext<API>({
   stageRef: { current: null },
   setCursor: noop,
-  handleActiveDataChange: noop,
-  handleSelectedDataChange: noop,
+  setSelectedData: noop,
+  setActiveData: noop,
   activeData: null,
   selectedData: null,
 });

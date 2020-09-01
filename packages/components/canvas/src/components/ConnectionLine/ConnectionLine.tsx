@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { DEFAULT_LINE_COLOR, SELECTED_COLOR } from '../../constants';
 import { useCanvas } from '../../context';
@@ -19,33 +19,43 @@ export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
     onMouseDown,
   } = props;
 
-  const { selectedData, handleSelectedDataChange } = useCanvas();
+  const { selectedData, setSelectedData } = useCanvas();
 
-  const isSelectedLine =
-    selectedData?.type === 'line' &&
-    selectedData.parentId === parentTree.getId() &&
-    selectedData.childId === childTree.getId();
+  const isSelectedLine = useMemo(() => {
+    return (
+      selectedData?.type === 'line' &&
+      selectedData.parentId === parentTree.getId() &&
+      selectedData.childId === childTree.getId()
+    );
+  }, [childTree, parentTree, selectedData]);
+
+  const handleClick = useCallback(() => {
+    setSelectedData({
+      type: 'line',
+      parentId: parentTree.getId(),
+      childId: childTree.getId(),
+    });
+  }, [childTree, parentTree, setSelectedData]);
+
+  const handleMouseDown = useCallback(
+    (e) => {
+      if (isSelectedLine) {
+        if (onMouseDown) {
+          onMouseDown(e);
+        }
+        setSelectedData(null);
+      }
+    },
+    [isSelectedLine, onMouseDown, setSelectedData],
+  );
 
   return (
     <ConnectionLineView
       fill={isSelectedLine ? SELECTED_COLOR : DEFAULT_LINE_COLOR}
       parent={parentConnector}
       child={childConnector}
-      onClick={(): void => {
-        handleSelectedDataChange({
-          type: 'line',
-          parentId: parentTree.getId(),
-          childId: childTree.getId(),
-        });
-      }}
-      onMouseDown={(e): void => {
-        if (isSelectedLine) {
-          if (onMouseDown) {
-            onMouseDown(e);
-          }
-          handleSelectedDataChange(null);
-        }
-      }}
+      onClick={handleClick}
+      onMouseDown={handleMouseDown}
     />
   );
 };
