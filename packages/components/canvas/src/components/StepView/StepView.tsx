@@ -1,113 +1,129 @@
 import React, { useCallback, useState } from 'react';
 
-import { LIST_PADDING, STEP_HEIGHT, STEP_WIDTH } from '../../constants';
 import { useCanvas } from '../../context';
 import { CanvasTree } from '../../entities';
-import { ConnectorType, Position } from '../../types';
+import { KonvaMouseEvent, Position } from '../../types';
 import { ConnectionLine } from '../ConnectionLine';
-import { Connector } from '../Connector';
+import { Connector, ConnectorEvent, STROKE_ON_SELECTED } from '../Connector';
 import { List } from '../List';
 import { ListItem } from '../ListItem';
 
+import {
+  getAbsoluteConnectorsPosition,
+  getRelativeConnectorsPosition,
+} from './get-connector-position';
+
 export type StepViewProps = {
   step: CanvasTree;
+  parent?: CanvasTree;
+  stepChildren: Array<CanvasTree | undefined>;
+  onMouseDown: (e: KonvaMouseEvent) => void;
+  onPositionChange: (position: Position) => void;
+  onWidthUpdate: (width: number) => void;
+  onConnectionLineMouseDown: (parent: CanvasTree, child: CanvasTree) => void;
 };
 
-type ConnectorsPosition = {
-  parent: Position;
-  children: Position;
-};
-
-type Options = {
-  stepWidth?: number;
-};
-
-const CONNECTOR_STROKE = '#fff';
-
-const getConnectorsPosition = (step: CanvasTree, options?: Options): ConnectorsPosition => {
-  const relativeY = step.getData().type === 'step' ? LIST_PADDING : STEP_HEIGHT / 2;
-  const { position } = step.getData();
-  const { x: stepPositionX = 0, y: stepPositionY = 0 } = position;
-  const y = relativeY + stepPositionY;
-
-  const stepWidth = options?.stepWidth ?? 0;
-
-  const parent = {
-    x: stepPositionX,
-    y,
-  };
-
-  const children = {
-    x: stepWidth + stepPositionX,
-    y,
-  };
-
-  return { parent, children };
-};
+type ConnectionKey = 'parentId' | 'childId';
 
 export const StepView: React.FC<StepViewProps> = (props) => {
-  const { step } = props;
+  const {
+    step,
+    onMouseDown,
+    onPositionChange,
+    onWidthUpdate,
+    onConnectionLineMouseDown,
+    parent,
+    stepChildren,
+  } = props;
   const stepData = step.getData();
-  const { canvas, activeData, handleActiveDataChange, setCursor, selectedData } = useCanvas();
+  const { activeData, handleActiveDataChange, selectedData, setCursor } = useCanvas();
 
-  const hasActiveConnnector = Boolean(activeData && activeData.step.getId() === step.getId());
+  const stepId = step.getId();
 
-  const stepChildren = step.getChildren();
+  const hasActiveConnnector = Boolean(activeData && activeData.step.getId() === stepId);
 
   const { type } = stepData;
-  const [stepWidth, setStepWidth] = useState(0);
-
-  const handleUpdateWidth = useCallback((newWidth: number): void => {
-    setStepWidth(newWidth);
-  }, []);
+  const handleUpdateWidth = useCallback(
+    (newWidth: number): void => {
+      onWidthUpdate(newWidth);
+    },
+    [onWidthUpdate],
+  );
 
   const canHasChildren = type !== 'end';
   const canHasParent = type !== 'root';
 
   const isList = type === 'step';
 
-  const baseProps = {
-    draggable: !hasActiveConnnector,
-    position: stepData.position,
-    onPositionChange: (position: Position): void => canvas.onTreePositionChange(step, position),
-    onDragEnd: (): void => canvas.onUpdate(),
-    label: stepData.title,
-    onMouseDown: (): void => {
-      setCursor('pointer');
-      const steps = canvas.extract().slice();
-      const index = steps.indexOf(step);
-      steps.splice(index, 1);
-      steps.push(step);
-      canvas.setTrees(new Set(steps));
-    },
-  };
+  const absoluteConnectorsPosition = getAbsoluteConnectorsPosition(step);
 
-  const parent = canvas.searchTree(step.getParent());
+  const relativeConnectorsPosition = getRelativeConnectorsPosition(step);
 
-  const width = isList ? STEP_WIDTH : stepWidth;
-
-  const absoluteConnectorsPosition = getConnectorsPosition(step, { stepWidth: width });
-
-  const onLineMouseDown = (childId: string): void => {
-    const childTree = canvas.searchTree(childId);
-    if (childTree) {
-      handleActiveDataChange({
-        step,
-        connector: { type: 'children', position: absoluteConnectorsPosition.children },
-      });
-      canvas.disconnect(childTree);
-    }
-  };
-
-  const handleConnectorActive = (connectorType: ConnectorType): void => {
+  const handleConnectorActive = (connector: ConnectorEvent): void => {
     handleActiveDataChange({
       step,
-      connector: { type: connectorType, position: absoluteConnectorsPosition[connectorType] },
+      connector: { type: connector.type, position: absoluteConnectorsPosition[connector.type] },
     });
   };
 
   const connectorProps = {
-    onChangeActive: handleConnectorActive,
+    onActiveChange: handleConnectorActive,
+  };
+
+  const keys: ConnectionKey[] = ['childId', 'parentId'];
+
+  const isSelectedStep = selectedData?.type === 'step' && selectedData.id === stepId;
+
+  const [parentConnectorrSelected, childConnectorSelected] = keys.map((key) => {
+    if (selectedData !== null) {
+      return isSelectedStep || (selectedData.type === 'line' && selectedData[key] === stepId);
+    }
+    return false;
+  });
+
+  const [parentConnectorActive, childConnectorActive] = ['parent', 'children'].map((key) => {
+    return hasActiveConnnector && activeData?.connector.type === key;
+  });
+
+  const stepContent = (
+    <>
+      {canHasParent && (
+        <Connector
+          {...connectorProps}
+          isActive={parentConnectorActive || parent !== undefined}
+          isSelected={parentConnectorrSelected}
+          type="parent"
+          id={`${stepId}_parent`}
+          position={relativeConnectorsPosition.parent}
+        />
+      )}
+      {canHasChildren && (
+        <Connector
+          {...connectorProps}
+          isActive={childConnectorActive || stepChildren.length > 0}
+          isSelected={childConnectorSelected}
+          type="children"
+          id={`${stepId}_children`}
+          position={relativeConnectorsPosition.children}
+        />
+      )}
+    </>
+  );
+
+  const baseProps = {
+    draggable: !activeData,
+    position: stepData.position,
+    onMouseDown,
+    onPositionChange,
+    label: stepData.title,
+    onMouseEnter: (): void => {
+      setCursor('pointer');
+    },
+    onMouseLeave: (): void => {
+      setCursor('default');
+    },
+    children: stepContent,
+    stroke: isSelectedStep ? STROKE_ON_SELECTED : undefined,
   };
 
   return (
@@ -117,38 +133,17 @@ export const StepView: React.FC<StepViewProps> = (props) => {
       ) : (
         <List {...baseProps} />
       )}
-      {canHasParent && (
-        <Connector
-          {...connectorProps}
-          disabled={Boolean(step.getParent())}
-          isActive={hasActiveConnnector && activeData?.connector.type === 'parent'}
-          type="parent"
-          id={`${step.getId()}_parent`}
-          position={absoluteConnectorsPosition.parent}
-          stroke={parent ? CONNECTOR_STROKE : undefined}
-        />
-      )}
-      {canHasChildren && (
-        <Connector
-          {...connectorProps}
-          isActive={hasActiveConnnector && activeData?.connector.type === 'children'}
-          type="children"
-          id={`${step.getId()}_children`}
-          position={absoluteConnectorsPosition.children}
-          stroke={stepChildren.length ? CONNECTOR_STROKE : undefined}
-        />
-      )}
-      {step.getChildren().map((child) => {
-        const childTree = canvas.searchTree(child);
-        if (!childTree) {
+      {stepChildren.map((child) => {
+        if (child === undefined) {
           return null;
         }
+
         return (
           <ConnectionLine
-            key={child}
-            parent={absoluteConnectorsPosition.children}
-            child={getConnectorsPosition(childTree).parent}
-            onMouseDown={(): void => onLineMouseDown(child)}
+            key={child.getId()}
+            parent={{ connector: absoluteConnectorsPosition.children, tree: step }}
+            child={{ connector: getAbsoluteConnectorsPosition(child).parent, tree: child }}
+            onMouseDown={(): void => onConnectionLineMouseDown(step, child)}
           />
         );
       })}

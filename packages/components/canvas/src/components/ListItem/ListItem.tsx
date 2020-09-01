@@ -27,6 +27,7 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
     fontSize = 14,
     children,
     onWidthUpdate,
+    stroke,
     ...rest
   } = props;
   const textRef = useRef<Konva.Text>(null);
@@ -50,7 +51,15 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
       draggable={draggable}
       onDragMove={(e): void => onPositionChange(e.target.position())}
     >
-      <Rect cornerRadius={2} height={height} width={width} fill={fill} />
+      <Rect
+        cornerRadius={2}
+        stroke={stroke}
+        strokeWidth={2}
+        strokeEnabled={Boolean(stroke)}
+        height={height}
+        width={width}
+        fill={fill}
+      />
       <Text
         align="center"
         verticalAlign="middle"

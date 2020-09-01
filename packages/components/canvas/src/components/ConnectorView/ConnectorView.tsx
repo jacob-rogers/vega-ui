@@ -1,0 +1,31 @@
+import React from 'react';
+import { Circle } from 'react-konva';
+
+import { BaseProps } from '../../types';
+
+type KonvaCircleProps = Omit<React.ComponentProps<typeof Circle>, 'x' | 'y' | 'width' | 'height'>;
+
+type ConnectorViewProps = KonvaCircleProps & Omit<BaseProps, 'label'>;
+
+export const RADIUS = 6;
+const INITIAL_STROKE = 'rgba(255, 255, 255, 0.2)';
+const INITIAL_FILL = '#161A1D';
+
+export const ConnectorView: React.FC<ConnectorViewProps> = (props) => {
+  const { position, fill, stroke, onMouseEnter, onMouseLeave, onMouseDown, ...rest } = props;
+
+  return (
+    <Circle
+      {...rest}
+      x={position.x}
+      y={position.y}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onMouseDown={onMouseDown}
+      fill={fill ?? INITIAL_FILL}
+      stroke={stroke ?? INITIAL_STROKE}
+      strokeWidth={2}
+      radius={RADIUS}
+    />
+  );
+};
