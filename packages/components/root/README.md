@@ -26,23 +26,28 @@ export const App = () => {
 ### API компонента
 
 ```ts
-type PortalParams = {
-  className?: string;
-  id: string;
-} & DivProps;
-
 type RootProps = {
-  defaultTheme?: 'default' | 'dark' | 'display'; // начальная тема
+  // Тема по умолчанию - default. В дальнейшем тему можно изменить с помощью хука useTheme
+  defaultTheme?: 'default' | 'dark' | 'display';
+  // Массив порталов, которые будут зарендерены при монтировании компонента
+  initialPortals?: PortalParams[];
+  // className будет установлен корневому div элементу
+  className?: string;
   children: React.ReactNode;
-  initialPortals: { name: string; className?: string; parentSelector?: string } // порталы, которые будут зарендерены при монтировании компонента
 };
+type PortalParams = {
+  name: string;
+  className?: string;
+  parentSelector?: string;
+};
+
 ```
 
 ### API usePortal
 
-Возвращает портал-контейнер для рендера в нем компонентов.
+Возвращает портал для рендера в нем компонентов.
 
-На вход принимает `ts { name: string; className?: string; parentSelector?: string } `. Параметры `parentSelector` и `className` необходимы на случай, если портал не найден, тогда он будет создан.
+Принимает объект типа `PortalParams` (описание cм. выше). Параметры `parentSelector` и `className` необходимы на случай, если портал не найден, тогда он будет создан.
 
 Пример использования:
 
@@ -59,11 +64,11 @@ const MyComponent = () => {
 
 ### API usePortalRender
 
-Предоставляет методы для рендера порталов.
+Предоставляет метод `renderPortalWithTheme` для рендера порталов с поддержкой темы. Является заменой createPortal.
 
 ```ts
 type PortalRenderAPI = {
-  renderPortalWithTheme: (children: React.ReactNode, container: Element) => ReactPortal // метод для рендера портала в контейнере с темой. Является заменой createPortal.
+  renderPortalWithTheme: (children: React.ReactNode, container: Element, className?: string) => ReactPortal 
 }
 ```
 

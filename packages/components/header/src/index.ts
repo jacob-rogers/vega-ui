@@ -1,2 +1,2 @@
 export { Header } from './Header';
-export { NavItem } from './types';
+export { NavItemType } from './types';

@@ -12,15 +12,16 @@ import {
 
 export type RootProps = {
   defaultTheme?: ThemeName;
-  children: React.ReactNode;
   initialPortals?: PortalParams[];
+  className?: string;
+  children: React.ReactNode;
 };
 
 const Root: React.FC<RootProps> = (props) => {
-  const { defaultTheme, children, initialPortals = [] } = props;
+  const { defaultTheme, initialPortals = [], className, children } = props;
 
   return (
-    <ThemeRoot themeName={defaultTheme}>
+    <ThemeRoot themeName={defaultTheme} className={className}>
       <PortalsRoot initialPortals={initialPortals}>{children}</PortalsRoot>
     </ThemeRoot>
   );

@@ -8,15 +8,13 @@ type PortalsRootProps = {
 };
 
 export const PortalsRoot: React.FC<PortalsRootProps> = (props) => {
-  const { children, initialPortals } = props;
+  const { initialPortals, children } = props;
 
   const { ref, append, createContainer, remove } = usePortals(initialPortals);
 
   return (
-    <>
-      <PortalsContext.Provider value={{ ref, append, createContainer, remove }}>
-        {children}
-      </PortalsContext.Provider>
-    </>
+    <PortalsContext.Provider value={{ ref, append, createContainer, remove }}>
+      {children}
+    </PortalsContext.Provider>
   );
 };

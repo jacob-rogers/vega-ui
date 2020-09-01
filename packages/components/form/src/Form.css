@@ -5,7 +5,7 @@
     display: grid;
 
     width: 100%;
-    grid-template-columns: 1fr;
+    grid-template-columns: 100%;
 
     &:first-child {
       margin-top: 0;
@@ -13,6 +13,14 @@
 
     &_space_none {
       margin-top: 0;
+    }
+
+    &_space_xs {
+      margin-top: var(--space-xs);
+    }
+
+    &_space_s {
+      margin-top: var(--space-s);
     }
 
     &_space_m {
@@ -32,6 +40,16 @@
       grid-column-gap: 0;
     }
 
+    &_gap_xs {
+      grid-column-gap: var(--space-xs);
+      grid-row-gap: var(--space-xs);
+    }
+
+    &_gap_s {
+      grid-column-gap: var(--space-s);
+      grid-row-gap: var(--space-s);
+    }
+
     &_gap_m {
       grid-column-gap: var(--space-m);
       grid-row-gap: var(--space-m);
@@ -48,15 +66,15 @@
     }
 
     &_col_2 {
-      grid-template-columns: repeat(2, minmax(auto, 2fr));
+      grid-template-columns: repeat(2, minmax(auto, 1fr));
     }
 
     &_col_3 {
-      grid-template-columns: repeat(3, minmax(auto, 3fr));
+      grid-template-columns: repeat(3, minmax(auto, 1fr));
     }
 
     &_col_4 {
-      grid-template-columns: repeat(4, minmax(auto, 4fr));
+      grid-template-columns: repeat(4, minmax(auto, 1fr));
     }
   }
 

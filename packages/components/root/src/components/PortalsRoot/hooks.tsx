@@ -33,8 +33,13 @@ export const usePortalRender = (): { renderPortalWithTheme: RenderPortalWithThem
   const { theme } = useTheme();
 
   const renderPortalWithTheme = useCallback(
-    (children: React.ReactNode, container: Element) => {
-      return createPortal(<Theme preset={getThemeByName(theme)}>{children}</Theme>, container);
+    (children: React.ReactNode, container: Element, className?: string) => {
+      return createPortal(
+        <Theme preset={getThemeByName(theme)} className={className}>
+          {children}
+        </Theme>,
+        container,
+      );
     },
     [theme],
   );

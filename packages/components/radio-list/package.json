@@ -1,6 +1,6 @@
 {
-  "name": "@gpn-prototypes/vega-layout",
-  "version": "0.2.1",
+  "name": "@gpn-prototypes/vega-radio-list",
+  "version": "0.0.2",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -11,21 +11,18 @@
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com/gpn-prototypes/vega-ui.git",
-    "directory": "packages/components/layout"
+    "directory": "packages/components/radio-list"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "react": "^16.8.0"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-button": "^0.1.4",
-    "@gpn-prototypes/vega-dropdown": "^1.2.4",
-    "@gpn-prototypes/vega-icons": "^0.1.4",
-    "@gpn-prototypes/vega-navigation-list": "^1.0.1",
-    "@gpn-prototypes/vega-root": "^0.1.0",
+    "@gpn-prototypes/vega-icons": "^0.1.3",
+    "@gpn-prototypes/vega-text": "^0.1.3",
     "bem-cn": "^3.0.1"
   }
 }

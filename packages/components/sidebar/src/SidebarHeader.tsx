@@ -40,7 +40,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         {hasMinimizeButton && (
           <Button
             type="button"
-            aria-label="Свернуть"
+            title="Свернуть"
             size="xs"
             view="clear"
             form="brick"
@@ -52,7 +52,7 @@ export const SidebarHeader: React.FC<SidebarHeaderProps> = ({
         )}
         <Button
           type="button"
-          aria-label="Закрыть"
+          title="Закрыть"
           size="xs"
           view="clear"
           form="brick"

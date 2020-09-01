@@ -1,0 +1,49 @@
+.VegaRadioList {
+  padding: var(--space-s) 0;
+
+  box-sizing: border-box;
+
+  width: 100%;
+
+  font-family: var(--font-primary);
+
+  background-color: var(--color-bg-default);
+
+  &__Item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__Text {
+    padding: var(--space-2xs) var(--space-2xs);
+
+    cursor: pointer;
+
+    &_active {
+      background: var(--color-bg-stripe);
+    }
+
+    &:hover {
+      background: var(--color-control-bg-clear-hover);
+    }
+  }
+}
+
+.visuallyhidden {
+  position: absolute;
+
+  margin: -1px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  clip: rect(0 0 0 0);
+
+  width: 1px;
+
+  height: 1px;
+
+  border: 0;
+}
