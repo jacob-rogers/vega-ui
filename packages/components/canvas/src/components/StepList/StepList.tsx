@@ -10,7 +10,7 @@ type StepListProps = {
 
 export const StepList: React.FC<StepListProps> = (props) => {
   const { canvas } = props;
-  const { stageRef, handleActiveDataChange } = useCanvas();
+  const { stageRef, setActiveData } = useCanvas();
 
   const handleStepMouseDown = (tree: CanvasTree): void => {
     const steps = canvas.extract().slice();
@@ -33,7 +33,7 @@ export const StepList: React.FC<StepListProps> = (props) => {
 
       const parentClosest = parentDelta < childDelta;
       if (!parentClosest) {
-        handleActiveDataChange({
+        setActiveData({
           step: parent,
           connector: {
             type: 'children',
@@ -41,7 +41,7 @@ export const StepList: React.FC<StepListProps> = (props) => {
           },
         });
       } else {
-        handleActiveDataChange({
+        setActiveData({
           step: child,
           connector: {
             type: 'parent',

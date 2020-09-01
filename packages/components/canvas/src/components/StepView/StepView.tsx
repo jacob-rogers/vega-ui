@@ -37,7 +37,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     stepChildren,
   } = props;
   const stepData = step.getData();
-  const { activeData, handleActiveDataChange, selectedData, setCursor } = useCanvas();
+  const { activeData, setActiveData, selectedData, setSelectedData, setCursor } = useCanvas();
 
   const stepId = step.getId();
 
@@ -60,12 +60,15 @@ export const StepView: React.FC<StepViewProps> = (props) => {
 
   const relativeConnectorsPosition = getRelativeConnectorsPosition(step);
 
-  const handleConnectorActive = (connector: ConnectorEvent): void => {
-    handleActiveDataChange({
-      step,
-      connector: { type: connector.type, position: absoluteConnectorsPosition[connector.type] },
-    });
-  };
+  const handleConnectorActive = useCallback(
+    (connector: ConnectorEvent): void => {
+      setActiveData({
+        step,
+        connector: { type: connector.type, position: absoluteConnectorsPosition[connector.type] },
+      });
+    },
+    [absoluteConnectorsPosition, setActiveData, step],
+  );
 
   const connectorProps = {
     onActiveChange: handleConnectorActive,
@@ -111,6 +114,15 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     </>
   );
 
+  const handleStepClick = useCallback((): void => {
+    if (!isSelectedStep) {
+      setSelectedData({
+        type: 'step',
+        id: stepId,
+      });
+    }
+  }, [setSelectedData, stepId, isSelectedStep]);
+
   const baseProps = {
     draggable: !activeData,
     position: stepData.position,
@@ -123,6 +135,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
     onMouseLeave: (): void => {
       setCursor('default');
     },
+    onClick: handleStepClick,
     children: stepContent,
     stroke: isSelectedStep ? SELECTED_COLOR : undefined,
   };
