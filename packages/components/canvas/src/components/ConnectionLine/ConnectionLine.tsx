@@ -2,8 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 
 import { DEFAULT_LINE_COLOR, SELECTED_COLOR } from '../../constants';
 import { useCanvas } from '../../context';
-import { CanvasTree } from '../../entities';
-import { KonvaMouseEvent, Position } from '../../types';
+import { CanvasTree, KonvaMouseEvent, Position } from '../../types';
 import { ConnectionLineView } from '../ConnectionLineView';
 
 type ConnectionLineProps = {

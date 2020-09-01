@@ -1,30 +1,14 @@
-import { Position } from '../types';
+import {
+  CanvasData,
+  CanvasNotifier,
+  CanvasSet,
+  CanvasTree,
+  CanvasUpdate,
+  Position,
+} from '../types';
 
 import { Listener, Notifier } from './Notifier';
 import { Tree, TreeData } from './Tree';
-
-export type Connection = 'children' | 'parent';
-
-export type Context = {
-  title: string;
-  type: 'step' | 'root' | 'end';
-  position: Position;
-  width?: number;
-};
-
-export type CanvasUpdate =
-  | { type: 'add-tree'; id: string }
-  | { type: 'change'; id: string; changes: Partial<Context> }
-  | { type: 'remove-tree'; id: string }
-  | { type: 'disconnect-tree'; id: string }
-  | { type: 'connect-tree'; parentId: string; childId: string }
-  | { type: 'clear' };
-
-export type CanvasTree = Tree<Context>;
-
-export type CanvasSet = Set<CanvasTree>;
-
-export type CanvasNotifier = Notifier<CanvasUpdate>;
 
 export class Canvas {
   private trees: CanvasSet;
@@ -35,7 +19,7 @@ export class Canvas {
     this.trees = new Set(trees);
   }
 
-  static prepareTrees(trees: Array<CanvasTree | TreeData<Context>>): CanvasTree[] {
+  static prepareTrees(trees: Array<CanvasTree | TreeData<CanvasData>>): CanvasTree[] {
     return trees.map((tree) => {
       if (tree instanceof Tree) {
         return tree;
@@ -45,7 +29,7 @@ export class Canvas {
     });
   }
 
-  static of(trees: Array<CanvasTree | TreeData<Context>>): Canvas {
+  static of(trees: Array<CanvasTree | TreeData<CanvasData>>): Canvas {
     return new Canvas(Canvas.prepareTrees(trees));
   }
 
@@ -137,7 +121,7 @@ export class Canvas {
     });
   }
 
-  public setData(tree: CanvasTree, data: Partial<Context>): void {
+  public setData(tree: CanvasTree, data: Partial<CanvasData>): void {
     tree.setData(data);
     this.notifier.notify({
       type: 'change',
