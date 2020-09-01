@@ -32,11 +32,7 @@ export const MyComponent = () => {
     },
   ];
 
-  const [valueTab, setValueTab] = useState([
-    {
-      name: 'Второй вариант',
-    },
-  ]);
+  const [value, setValue] = useState(tabs[0]);
 
   return (
     <>
@@ -45,11 +41,10 @@ export const MyComponent = () => {
         view="bordered"
         withIcon
         items={tabs}
-        value={valueTab}
-        getItemKey={(item) => item.name}
-        getItemLabel={(item) => item.name}
-        getItemIcon={withIcon ? (item) => item.icon : undefined}
-        onChange={({ value }) => setValueTab(value)}
+        value={value}
+        getLabel={(item) => item.name}
+        getIcon={(item) => item.icon}
+        onChange={({ value }) => setValue(value)}
       />
     </>
   );
@@ -58,17 +53,4 @@ export const MyComponent = () => {
 
 ### API компонента
 
-```ts
-type TabsProps = {
-  size: 's' | 'm'; // размер табов
-  view: 'bordered' | 'clear'; // отображать нижнюю границу
-  withIcon: boolean; // отображать текст и иконки
-  onlyIcon: boolean; // отображать только иконки
-  items: ItemTabs[]; // табы
-  value: ItemTabs[]; // активный таб
-  onChange: ({ value }) => void;
-  getItemKey: (item: ItemTab) => any; // метод для указания key таба
-  getItemLabel: (item: ItemTab) => any; // метод для указания текста таба
-  getItemIcon: (item: ItemTab) => any; // метод для отображения иконки в табе
-};
-```
+API компонента полностью совпадает с API компонента [ChoiceGroup](https://ui-kit.gpn.vercel.app/?path=/docs/components-choicegroup--playground) из ui-kit.

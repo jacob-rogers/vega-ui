@@ -32,23 +32,22 @@ storiesOf('ui/ChoiceGroup', module)
       author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/choicegroup',
+        href: 'https://ui-kit.gpn.vercel.app/?path=/story/components-choicegroup--playground',
         text: 'Документация',
       },
     },
   })
   .add('по умолчанию', () => {
-    const [selectValue, setValue] = useState<Item[] | null>(null);
+    const [selectValue, setValue] = useState<Item | null>(null);
 
     return (
       <>
         <ChoiceGroup<Item>
           items={items}
           value={selectValue}
-          getItemKey={(item): string => item.name}
-          getItemLabel={(item): string => item.name}
-          onChange={({ value }): void => setValue(value)}
-          getItemIcon={(item): React.FC<IconProps> | undefined => item.icon}
+          getLabel={(item): string => item.name}
+          onChange={({ value }: { value: Item | null }): void => setValue(value)}
+          getIcon={(item): React.FC<IconProps> | undefined => item.icon}
           name="ChoiceGroup"
         />
       </>
