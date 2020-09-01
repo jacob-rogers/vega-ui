@@ -1,7 +1,7 @@
 import { createContext, MutableRefObject, useContext } from 'react';
 import Konva from 'konva';
 
-import { Canvas, CanvasTree } from '../entities';
+import { CanvasTree } from '../entities';
 import { ConnectorType, Position } from '../types';
 
 export type StepConnectorData = {
@@ -21,7 +21,7 @@ export type SelectedData =
 const noop = (): void => {};
 
 type API = {
-  canvas: Canvas;
+  handleSelectedDataChange: (newSelected: SelectedData | null) => void;
   handleActiveDataChange: (newActive: ActiveData | null) => void;
   setCursor: (newCursor: string) => void;
   stageRef: MutableRefObject<Konva.Stage | null>;
@@ -30,10 +30,10 @@ type API = {
 };
 
 export const CanvasContext = createContext<API>({
-  canvas: Canvas.of([]),
   stageRef: { current: null },
   setCursor: noop,
   handleActiveDataChange: noop,
+  handleSelectedDataChange: noop,
   activeData: null,
   selectedData: null,
 });

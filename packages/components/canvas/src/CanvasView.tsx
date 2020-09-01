@@ -3,7 +3,7 @@ import { Layer, Line, Stage } from 'react-konva';
 import Konva from 'konva';
 
 import { cnCanvas } from './cn-canvas';
-import { Button, RADIUS, StepView } from './components';
+import { Button, RADIUS, StepList } from './components';
 import { ActiveData, CanvasContext, SelectedData } from './context';
 import { Canvas, Context, Tree } from './entities';
 import { KonvaMouseEvent } from './types';
@@ -61,7 +61,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const handleMouseUp = (e: KonvaMouseEvent): void => {
     if (activeData) {
       const id = e.target.id();
-
       if (id.length) {
         const [stepId, connectionType] = id.split('_');
         const targetStep = canvas.searchTree(stepId);
@@ -77,8 +76,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
       setActiveData(null);
       setConnectingLinePoints(null);
+      setCursor('default');
     }
-    setCursor('default');
   };
 
   const handleStepAdding = useCallback(() => {
@@ -111,12 +110,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     >
       <CanvasContext.Provider
         value={{
-          canvas,
           stageRef,
           handleActiveDataChange,
           activeData,
           setCursor,
           selectedData,
+          handleSelectedDataChange: (newData): void => setSelectedData(newData),
         }}
       >
         <Layer>
@@ -130,9 +129,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
               tension={0.2}
             />
           )}
-          {canvas.extract().map((tree) => {
-            return <StepView step={tree} key={tree.getId()} />;
-          })}
+        </Layer>
+        <Layer>
+          <StepList canvas={canvas} />
         </Layer>
         <Layer>
           <Button

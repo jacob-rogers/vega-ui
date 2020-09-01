@@ -18,6 +18,7 @@ export const List: React.FC<ListProps> = (props) => {
     onPositionChange = (): void => {},
     draggable = true,
     children,
+    stroke,
     ...rest
   } = props;
   const [icon] = useImage(arrowIcon);
@@ -36,7 +37,7 @@ export const List: React.FC<ListProps> = (props) => {
         height={100}
         width={STEP_WIDTH}
         strokeWidth={2}
-        stroke="rgba(255, 255, 255, 0.2)"
+        stroke={stroke ?? 'rgba(255, 255, 255, 0.2)'}
       />
       {icon && <Image image={icon} x={STEP_WIDTH - 20} y={LIST_PADDING} />}
       <Text
