@@ -3,14 +3,15 @@ import {withKnobs} from '@storybook/addon-knobs';
 import {storiesOf} from '@storybook/react';
 
 import {Tree} from './Tree';
-import {RootTreeProps} from './types';
+import {RootProps} from './types';
 
-const rootProps: RootTreeProps = {
+const rootProps: RootProps = [{
   name: 'Усть-Енисей',
+  isDraggable: false,
   nodeList: [
     {
       name: 'Поднятие 44-23',
-      onlyDropZone: true,
+      isDraggable: false,
       nodeList: [
         {
           name: 'Залежь - 78',
@@ -46,7 +47,7 @@ const rootProps: RootTreeProps = {
     },
     {
       name: 'Поднятие 55-100',
-      onlyDropZone: true,
+      isDraggable: false,
       nodeList: [
         {
           name: 'Залежь - 78',
@@ -67,7 +68,7 @@ const rootProps: RootTreeProps = {
     },
     {
       name: 'Поднятие 23-32',
-      onlyDropZone: true,
+      isDraggable: false,
       nodeList: [
         {
           name: 'Залежь - 44',
@@ -109,14 +110,16 @@ const rootProps: RootTreeProps = {
       ],
     },
   ],
-};
+}];
 
 storiesOf('ui/Tree', module)
   .addDecorator(withKnobs)
   .addParameters({metadata: {author: 'CSSSR', status: 'Approved'}})
   .add('по умолчанию', () =>
     <Tree
-      name={rootProps.name}
-      nodeList={rootProps.nodeList}
-      isDraggable={true}
+      nodeList={rootProps}
+      handleRename={() => alert('Renamed')}
+      handleCopy={() => alert('Copied')}
+      handleDelete={() => alert('Deleted')}
+      handlePaste={() => alert('Inserted')}
     />);

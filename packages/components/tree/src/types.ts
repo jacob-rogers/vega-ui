@@ -1,11 +1,10 @@
 import React from 'react';
 
 export interface BaseNode {
-  name: string;
+  name?: string;
   id?: string | number;
   selectedItems?: React.Ref<HTMLElement>[] | null;
   isDraggable?: boolean;
-  onlyDropZone?: boolean;
   handleDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
   handleDragOver?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
   handleDragDrop?(event: React.DragEvent): void;
@@ -16,6 +15,8 @@ export interface BaseNode {
   handleDelete?: () => void;
   handlePaste?: () => void;
   handleSelectItem?: (ref: React.Ref<HTMLElement | HTMLDivElement>) => void;
+  hiddenItems?: React.RefObject<HTMLElement>[] | null;
+  handleHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
 }
 
 export interface NodeTreeType extends BaseNode {
@@ -24,8 +25,13 @@ export interface NodeTreeType extends BaseNode {
   dropZone?: React.Ref<HTMLElement> | null;
 }
 
-export interface RootTreeProps extends BaseNode {
-  nodeList: NodeTreeType[];
+export type RootProps = [NodeTreeType]
+
+export interface LeafType extends BaseNode {
+  name: string;
 }
 
-export type LeafType = BaseNode;
+export type NavigationEyeProps = {
+  hidden: boolean;
+  handleHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
+}

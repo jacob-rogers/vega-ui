@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, {useRef, useState} from 'react';
 
 import cnTree from './cn-tree';
-import { NodeTreeType } from './types';
+import {NodeTreeType} from './types';
+import NavigationEye from "./NavigationEye";
 
 export const TreeNode: React.FC<NodeTreeType> = (props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
+  const [hidden, setIsHidden] = useState<boolean>(false);
 
   const targetRef = useRef<HTMLLIElement | null>(null);
   const dropZoneRef = useRef<HTMLUListElement | null>(null);
@@ -14,6 +16,14 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
 
     setExpanded(!expanded);
   };
+
+  const handleHide = (event: React.MouseEvent | React.KeyboardEvent): void => {
+    event.stopPropagation();
+
+    if (typeof props.handleHideItem === 'function') {
+      props.handleHideItem(targetRef);
+    }
+  }
 
   const handleSelect = (): void => {
     if (typeof props.handleSelectItem === 'function') {
@@ -30,10 +40,6 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
   };
 
   const handleDragStart = (event: React.DragEvent): void => {
-    if (props.onlyDropZone) {
-      return;
-    }
-
     if (typeof props.handleDragStart === 'function') {
       props.handleDragStart(event, targetRef);
     }
@@ -51,6 +57,34 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
     }
   };
 
+  const renderNavigationIcon = () => {
+    if (props.hiddenItems?.includes(targetRef)) {
+      if (!hidden) setIsHidden(true);
+
+      return (<NavigationEye
+        hidden={hidden}
+        handleHide={handleHide}
+      />)
+    }
+
+    if (props.hiddenItems?.some((ref) => {
+      return ref.current?.contains(targetRef.current as Node)
+    })) {
+      if (!hidden) setIsHidden(true);
+
+      return (<div className={cnTree('NavigationDot')}/>)
+    }
+
+    if (hidden) {
+      setIsHidden(false);
+    }
+
+    return (<NavigationEye
+      hidden={hidden}
+      handleHide={handleHide}
+    />)
+  }
+
   return (
     <li className={cnTree('TreeNode')}
         draggable={props.isDraggable === false ? "false" : "true"}
@@ -62,19 +96,22 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
     >
       <div
         className={cnTree('NavigationItem',
-          { Selected: props.selectedItems?.includes(targetRef),
-            Droppable: props.dropZone === dropZoneRef
+          {
+            Selected: props.selectedItems?.includes(targetRef),
+            Droppable: props.dropZone === dropZoneRef,
+            Hidden: hidden
           })}
         role="treeitem"
         aria-label="List name"
         tabIndex={0}
         onClick={handleSelect}
-        onKeyDown={() => {}}
+        onKeyDown={() => {
+        }}
         onDoubleClick={handleExpand}
         onContextMenu={handleContextMenuOpen}
       >
         <div
-          className={cnTree('NavigationArrow', { expanded })}
+          className={cnTree('NavigationArrow', {expanded})}
           onClick={handleExpand}
           onKeyPress={handleExpand}
           aria-label="List controller"
@@ -83,11 +120,14 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
         />
 
         <div>{props.name}</div>
+
+        {renderNavigationIcon()}
+
       </div>
 
       <ul
         ref={dropZoneRef}
-        className={cnTree('NodeList', { expanded })}
+        className={cnTree('NodeList', {expanded})}
       >
         {props.children}
       </ul>

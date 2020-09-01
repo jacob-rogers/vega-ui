@@ -1,10 +1,21 @@
-import React, { useRef } from 'react';
+import React, {useRef, useState} from 'react';
 
 import cnTree from './cn-tree';
 import { LeafType } from './types';
+import NavigationEye from "./NavigationEye";
+
 
 export const Leaf: React.FC<LeafType> = (props) => {
+  const [hidden, setIsHidden] = useState<boolean>(false);
   const ref = useRef<HTMLLIElement | null>(null);
+
+  const handleHide = (event: React.MouseEvent | React.KeyboardEvent): void => {
+    event.stopPropagation();
+
+    if (typeof props.handleHideItem === 'function') {
+      props.handleHideItem(ref);
+    }
+  }
 
   const handleDragStart = (event: React.DragEvent): void => {
     if (typeof props.handleDragStart === 'function') {
@@ -26,9 +37,35 @@ export const Leaf: React.FC<LeafType> = (props) => {
     }
   };
 
+  const renderNavigationIcon = () => {
+    if (props.hiddenItems?.includes(ref)) {
+      if (!hidden) setIsHidden(true);
+
+      return (<NavigationEye
+        hidden={hidden}
+        handleHide={handleHide}
+      />)
+    }
+
+    if (props.hiddenItems?.some((_ref) => {
+      return _ref.current?.contains(ref.current as Node)
+    })) {
+      if (!hidden) setIsHidden(true);
+
+      return (<div className={cnTree('NavigationDot')}/>)
+    }
+
+    if (hidden) setIsHidden(false);
+
+    return (<NavigationEye
+      hidden={hidden}
+      handleHide={handleHide}
+    />)
+  }
+
   return (
     <li
-      className={cnTree('Leaf', { Selected: props.selectedItems?.includes(ref) })}
+      className={cnTree('Leaf', { Selected: props.selectedItems?.includes(ref), Hidden: hidden })}
       draggable={props.isDraggable === false ? "false" : "true"}
       onDragStart={handleDragStart}
       ref={ref}
@@ -41,6 +78,8 @@ export const Leaf: React.FC<LeafType> = (props) => {
         onContextMenu={handleContextMenuOpen}
       >
         <div>{props.name}</div>
+
+        {renderNavigationIcon()}
       </div>
     </li>
   );

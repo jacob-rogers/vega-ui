@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect , useLayoutEffect} from 'react';
 
 const MOUSEDOWN = 'mousedown';
 const TOUCHSTART = 'touchstart';
@@ -46,4 +46,21 @@ export function useMultiSelect(handler: KeyUpHandler) {
       document.removeEventListener('keyup', handler);
     };
   }, [handler]);
+}
+
+export function usePortal() {
+  useLayoutEffect(() => {
+    const portalContainer = document.createElement('div');
+    portalContainer.className = 'contextMenuPortal';
+
+    const root = document.getElementById('root');
+
+    if (root) {
+      root.appendChild(portalContainer);
+    }
+
+    return () => {
+      document.body.removeChild(portalContainer);
+    }
+  }, [])
 }
