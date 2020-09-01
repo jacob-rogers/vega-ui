@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { DEFAULT_LINE_COLOR, SELECTED_COLOR } from '../../constants';
 import { useCanvas } from '../../context';
 import { CanvasTree } from '../../entities';
 import { KonvaMouseEvent, Position } from '../../types';
@@ -27,7 +28,7 @@ export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
 
   return (
     <ConnectionLineView
-      fill={isSelectedLine ? '#0078D2' : '#fff'}
+      fill={isSelectedLine ? SELECTED_COLOR : DEFAULT_LINE_COLOR}
       parent={parentConnector}
       child={childConnector}
       onClick={(): void => {

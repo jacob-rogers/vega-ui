@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 
+import { SELECTED_COLOR } from '../../constants';
 import { useCanvas } from '../../context';
 import { CanvasTree } from '../../entities';
 import { KonvaMouseEvent, Position } from '../../types';
 import { ConnectionLine } from '../ConnectionLine';
-import { Connector, ConnectorEvent, STROKE_ON_SELECTED } from '../Connector';
+import { Connector, ConnectorEvent } from '../Connector';
 import { List } from '../List';
 import { ListItem } from '../ListItem';
 
@@ -123,7 +124,7 @@ export const StepView: React.FC<StepViewProps> = (props) => {
       setCursor('default');
     },
     children: stepContent,
-    stroke: isSelectedStep ? STROKE_ON_SELECTED : undefined,
+    stroke: isSelectedStep ? SELECTED_COLOR : undefined,
   };
 
   return (
