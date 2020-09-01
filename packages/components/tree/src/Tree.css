@@ -5,7 +5,7 @@
   background-color: var(--color-bg-default);
 }
 
-.VegaTree__RootTreeNode {
+.VegaTree__TreeRootNode {
   position: relative;
 }
 
@@ -210,4 +210,9 @@ ul {
   padding: 3px;
 
   transform: rotate(45deg);
+}
+
+.VegaTree__Icon {
+  margin-right: 8px;
+  margin-left: 6px;
 }

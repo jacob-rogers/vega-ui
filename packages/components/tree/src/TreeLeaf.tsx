@@ -2,10 +2,10 @@ import React, {useRef, useState} from 'react';
 
 import cnTree from './cn-tree';
 import { LeafType } from './types';
-import NavigationEye from "./NavigationEye";
+import TreeNavigationEye from "./TreeNavigationEye";
 
 
-export const Leaf: React.FC<LeafType> = (props) => {
+export const TreeLeaf: React.FC<LeafType> = (props) => {
   const [hidden, setIsHidden] = useState<boolean>(false);
   const ref = useRef<HTMLLIElement | null>(null);
 
@@ -41,7 +41,7 @@ export const Leaf: React.FC<LeafType> = (props) => {
     if (props.hiddenItems?.includes(ref)) {
       if (!hidden) setIsHidden(true);
 
-      return (<NavigationEye
+      return (<TreeNavigationEye
         hidden={hidden}
         handleHide={handleHide}
       />)
@@ -57,7 +57,7 @@ export const Leaf: React.FC<LeafType> = (props) => {
 
     if (hidden) setIsHidden(false);
 
-    return (<NavigationEye
+    return (<TreeNavigationEye
       hidden={hidden}
       handleHide={handleHide}
     />)
@@ -77,6 +77,10 @@ export const Leaf: React.FC<LeafType> = (props) => {
         onClick={handleSelect}
         onContextMenu={handleContextMenuOpen}
       >
+
+        {props.iconId && props.icons
+        && <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>}
+
         <div>{props.name}</div>
 
         {renderNavigationIcon()}

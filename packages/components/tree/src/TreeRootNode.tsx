@@ -3,18 +3,21 @@ import React, {useRef, useState} from 'react';
 import TreeContextMenu, {ContextMenuData} from './components/TreeContextMenu';
 import cnTree from './cn-tree';
 import {useMultiSelect} from './hooks';
-import {Leaf} from './Leaf';
+import {TreeLeaf} from './TreeLeaf';
 import {TreeNode} from './TreeNode';
 import {LeafType, NodeTreeType} from './types';
 
 
-export const RootTreeNode: React.FC<NodeTreeType> = (props) => {
+export const TreeRootNode: React.FC<NodeTreeType> = (props) => {
   const [currentDraggingElement, setCurrentDraggingElement] = useState<React.RefObject<HTMLElement> | null>(null);
   const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
+
   const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
   const [contextMenuData, setContextMenuData] = useState<ContextMenuData | null>(null);
+
   const [isMultiSelect, setIsMultiSelect] = useState<boolean>(false);
   const [selectedItems, setSelectedItems] = useState<Array<React.Ref<HTMLElement> | null>>([]);
+
   const [hiddenItems, setHiddenItems] = useState<Array<React.RefObject<HTMLElement>> | null>([]);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -126,10 +129,11 @@ export const RootTreeNode: React.FC<NodeTreeType> = (props) => {
       if ('nodeList' in node) {
         const element = (
           <TreeNode
-            isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
+            name={node.name}
             nodeList={node.nodeList}
             key={node.name}
             dropZone={dropZone}
+            isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
             handleDragStart={handleDragStart}
             handleDragOver={handleDragOver}
             handleDragDrop={handleDragDrop}
@@ -139,7 +143,8 @@ export const RootTreeNode: React.FC<NodeTreeType> = (props) => {
             handleHideItem={handleHideItem}
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
-            name={node.name}
+            iconId={node.iconId}
+            icons={props.icons}
           >
             {node.nodeList && renderTree(node.nodeList)}
           </TreeNode>
@@ -152,7 +157,7 @@ export const RootTreeNode: React.FC<NodeTreeType> = (props) => {
 
       if (node?.name) {
         acc.push(
-          <Leaf
+          <TreeLeaf
             isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
             handleDragStart={handleDragStart}
             key={node.name}
@@ -162,6 +167,8 @@ export const RootTreeNode: React.FC<NodeTreeType> = (props) => {
             handleHideItem={handleHideItem}
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
+            icons={props.icons}
+            iconId={node.iconId}
           />,
         );
 
@@ -174,7 +181,7 @@ export const RootTreeNode: React.FC<NodeTreeType> = (props) => {
 
   return (
       <div
-        className={cnTree('RootTreeNode')}
+        className={cnTree('TreeRootNode')}
         ref={rootRef}
       >
         <ul

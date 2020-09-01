@@ -3,7 +3,7 @@ import cnTree from "./cn-tree";
 import {NavigationEyeProps} from './types';
 
 
-const NavigationEye: React.FC<NavigationEyeProps> = (props) => {
+const TreeNavigationEye: React.FC<NavigationEyeProps> = (props) => {
   return (
     <div
       className={cnTree('NavigationEye', {hidden: props.hidden})}
@@ -16,4 +16,4 @@ const NavigationEye: React.FC<NavigationEyeProps> = (props) => {
   )
 }
 
-export default NavigationEye;
+export default TreeNavigationEye;

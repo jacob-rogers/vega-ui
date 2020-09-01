@@ -41,7 +41,7 @@ interface Branch {
   };
 }
 
-interface Leaf<T> {
+interface TreeLeaf<T> {
   type: 'leaf';
   data: {
     widget: string; // название (селектор) выбранного виджета
@@ -50,7 +50,7 @@ interface Leaf<T> {
 }
 
 interface State {
-  [idx: number]: Branch | Leaf;
+  [idx: number]: Branch | TreeLeaf;
 }
 ```
 

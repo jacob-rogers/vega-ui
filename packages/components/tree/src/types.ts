@@ -3,6 +3,10 @@ import React from 'react';
 export interface BaseNode {
   name?: string;
   id?: string | number;
+  iconId?: string | number;
+  icons?: {
+    [iconId: string]: React.ReactElement
+  };
   selectedItems?: React.Ref<HTMLElement>[] | null;
   isDraggable?: boolean;
   handleDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;

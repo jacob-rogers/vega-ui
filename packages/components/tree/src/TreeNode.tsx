@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 
 import cnTree from './cn-tree';
 import {NodeTreeType} from './types';
-import NavigationEye from "./NavigationEye";
+import TreeNavigationEye from "./TreeNavigationEye";
 
 export const TreeNode: React.FC<NodeTreeType> = (props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -61,7 +61,7 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
     if (props.hiddenItems?.includes(targetRef)) {
       if (!hidden) setIsHidden(true);
 
-      return (<NavigationEye
+      return (<TreeNavigationEye
         hidden={hidden}
         handleHide={handleHide}
       />)
@@ -79,7 +79,7 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
       setIsHidden(false);
     }
 
-    return (<NavigationEye
+    return (<TreeNavigationEye
       hidden={hidden}
       handleHide={handleHide}
     />)
@@ -105,8 +105,7 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
         aria-label="List name"
         tabIndex={0}
         onClick={handleSelect}
-        onKeyDown={() => {
-        }}
+        onKeyPress={() => {}}
         onDoubleClick={handleExpand}
         onContextMenu={handleContextMenuOpen}
       >
@@ -118,6 +117,9 @@ export const TreeNode: React.FC<NodeTreeType> = (props) => {
           role="button"
           tabIndex={0}
         />
+
+        {props.iconId && props.icons
+          && <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>}
 
         <div>{props.name}</div>
 

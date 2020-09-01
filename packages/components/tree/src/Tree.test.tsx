@@ -2,9 +2,9 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
 import { Tree } from './Tree';
-import { RootTreeProps } from './types';
+import { RootProps } from './types';
 
-const items: RootTreeProps = {
+const items: RootProps = [{
   name: 'Усть-Енисей',
   nodeList: [
     {
@@ -63,10 +63,10 @@ const items: RootTreeProps = {
       ],
     },
   ],
-};
+}];
 
-function renderComponent(props?: RootTreeProps): RenderResult {
-  return render(<Tree {...items} />);
+function renderComponent(props?: RootProps): RenderResult {
+  return render(<Tree nodeList={items} />);
 }
 
 describe('Tree', () => {
