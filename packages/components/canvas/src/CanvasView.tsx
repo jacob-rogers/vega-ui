@@ -103,15 +103,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   }, [canvas, selectedData]);
 
   const handleRemoveSelectedItem = useCallback(() => {
-    if (selectedData?.type === 'step') {
-      removeSelectedStep();
-    }
-
-    if (selectedData?.type === 'line') {
-      removeSelectedLine();
-    }
+    removeSelectedStep();
+    removeSelectedLine();
     setSelectedData(null);
-  }, [selectedData, removeSelectedLine, removeSelectedStep]);
+  }, [removeSelectedLine, removeSelectedStep]);
 
   const handleStepAdding = useCallback(() => {
     const tree = Tree.of<Context>({
