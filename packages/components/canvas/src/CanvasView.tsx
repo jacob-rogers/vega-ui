@@ -1,6 +1,6 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { RefObject, useCallback, useRef, useState } from 'react';
 import { Layer, Stage } from 'react-konva';
-import { useKey } from '@gpn-prototypes/vega-hooks';
+import { useKey, useMount } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
@@ -14,20 +14,27 @@ import './Canvas.css';
 
 type CanvasViewProps = {
   canvas: Canvas;
+  parentRef: RefObject<HTMLElement>;
 };
 
+type Optional<T> = T | null;
+
 type Coordinates = { parent: Position; child: Position };
+type Sizes = { width: number; height: number };
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
-  const { canvas } = props;
+  const { canvas, parentRef } = props;
   const [cursor, setCursor] = useState('default');
 
-  const [connectingLinePoints, setConnectingLinePoints] = useState<Coordinates | null>(null);
-  const [activeData, setActiveData] = useState<ActiveData | null>(null);
-  const [selectedData, setSelectedData] = useState<SelectedData | null>(null);
+  const [connectingLinePoints, setConnectingLinePoints] = useState<Optional<Coordinates>>(null);
+  const [activeData, setActiveData] = useState<Optional<ActiveData>>(null);
+  const [selectedData, setSelectedData] = useState<Optional<SelectedData>>(null);
+  const [stageSizes, setStageSizes] = useState<Sizes>({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
 
   const stageRef = useRef<Konva.Stage>(null);
-
   const handleMouseMove = (): void => {
     if (connectingLinePoints && stageRef.current) {
       const pos = stageRef.current.getPointerPosition();
@@ -39,6 +46,15 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       }
     }
   };
+
+  useMount(() => {
+    if (parentRef.current) {
+      setStageSizes({
+        width: parentRef.current.offsetWidth,
+        height: parentRef.current.offsetHeight,
+      });
+    }
+  });
 
   const handleActiveDataChange = (newActiveData: ActiveData | null): void => {
     setActiveData(newActiveData);
@@ -129,9 +145,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     <Stage
       style={{ cursor }}
       className={cnCanvas.toString()}
-      width={window.innerWidth}
-      height={window.innerHeight}
       ref={stageRef}
+      width={stageSizes.width}
+      height={stageSizes.height}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onClick={handleMouseDown}
@@ -161,7 +177,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           <Button
             label="Добавить шаг"
             onClick={handleStepAdding}
-            position={{ x: 10, y: window.innerHeight - 150 }}
+            position={{ x: 10, y: stageSizes.height - 150 }}
           />
         </Layer>
       </CanvasContext.Provider>
