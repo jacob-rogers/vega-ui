@@ -8,7 +8,7 @@ export interface BaseNode {
     [iconId: string]: React.ReactElement;
   };
   rootRef?: React.RefObject<HTMLElement>;
-  selectedItems?: React.Ref<HTMLElement>[] | null;
+  selectedItems?: React.RefObject<HTMLElement>[] | null;
   isDraggable?: boolean;
   handleDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
   handleDragOver?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
@@ -19,7 +19,7 @@ export interface BaseNode {
   handleCopy?: () => void;
   handleDelete?: () => void;
   handlePaste?: () => void;
-  handleSelectItem?: (ref: React.Ref<HTMLElement | HTMLDivElement>) => void;
+  handleSelectItem?: (ref: React.RefObject<HTMLElement | HTMLDivElement>) => void;
   hiddenItems?: React.RefObject<HTMLElement>[] | null;
   handleHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
 }

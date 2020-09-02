@@ -19,7 +19,9 @@ export const Tree: React.FC<NodeTree> = (props) => {
   const [contextMenuData, setContextMenuData] = useState<ContextMenuData | null>(null);
 
   const [isMultiSelect, setIsMultiSelect] = useState<boolean>(false);
-  const [selectedItems, setSelectedItems] = useState<Array<React.Ref<HTMLElement> | null>>([]);
+  const [selectedItems, setSelectedItems] = useState<Array<React.RefObject<HTMLElement>> | null>(
+    [],
+  );
 
   const [hiddenItems, setHiddenItems] = useState<Array<React.RefObject<HTMLElement>> | null>([]);
 
@@ -28,14 +30,14 @@ export const Tree: React.FC<NodeTree> = (props) => {
   useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown' });
   useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup' });
 
-  const handleSelectItem = (ref: React.Ref<HTMLElement>): void => {
-    if (isMultiSelect && !selectedItems.includes(ref)) {
+  const handleSelectItem = (ref: React.RefObject<HTMLElement>): void => {
+    if (isMultiSelect && selectedItems && !selectedItems.includes(ref)) {
       setSelectedItems([...selectedItems, ref]);
 
       return;
     }
 
-    if (isMultiSelect && selectedItems.includes(ref)) {
+    if (isMultiSelect && selectedItems && selectedItems.includes(ref)) {
       const newState = selectedItems.filter((refItem: React.Ref<HTMLElement>) => refItem !== ref);
 
       setSelectedItems([...newState]);
@@ -43,7 +45,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
       return;
     }
 
-    if (selectedItems.includes(ref)) {
+    if (selectedItems?.includes(ref)) {
       setSelectedItems([]);
 
       return;
@@ -92,6 +94,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
   ): void => {
     e.stopPropagation();
 
+    handleSelectItem(ref);
     setCurrentDraggingElement(ref);
   };
 
