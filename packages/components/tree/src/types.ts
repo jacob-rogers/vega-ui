@@ -5,7 +5,7 @@ export interface BaseNode {
   id?: string | number;
   iconId?: string | number;
   icons?: {
-    [iconId: string]: React.ReactElement
+    [iconId: string]: React.ReactElement;
   };
   selectedItems?: React.Ref<HTMLElement>[] | null;
   isDraggable?: boolean;
@@ -29,7 +29,7 @@ export interface NodeTree extends BaseNode {
   dropZone?: React.Ref<HTMLElement> | null;
 }
 
-export type RootProps = [NodeTree]
+export type RootProps = [NodeTree];
 
 export interface LeafTree extends BaseNode {
   name: string;
@@ -38,4 +38,4 @@ export interface LeafTree extends BaseNode {
 export type NavigationEyeProps = {
   hidden: boolean;
   handleHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
-}
+};

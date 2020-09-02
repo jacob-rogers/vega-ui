@@ -1,9 +1,8 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 
 import cnTree from './cn-tree';
 import { LeafTree } from './types';
-import TreeNavigationEye from "./TreeNavigationEye";
-
+import TreeNavigationEye from './TreeNavigationEye';
 
 export const TreeLeaf: React.FC<LeafTree> = (props) => {
   const [hidden, setIsHidden] = useState<boolean>(false);
@@ -15,7 +14,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     if (typeof props.handleHideItem === 'function') {
       props.handleHideItem(ref);
     }
-  }
+  };
 
   const handleDragStart = (event: React.DragEvent): void => {
     if (typeof props.handleDragStart === 'function') {
@@ -41,32 +40,28 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     if (props.hiddenItems?.includes(ref)) {
       if (!hidden) setIsHidden(true);
 
-      return (<TreeNavigationEye
-        hidden={hidden}
-        handleHide={handleHide}
-      />)
+      return <TreeNavigationEye hidden={hidden} handleHide={handleHide} />;
     }
 
-    if (props.hiddenItems?.some((_ref) => {
-      return _ref.current?.contains(ref.current as Node)
-    })) {
+    if (
+      props.hiddenItems?.some((_ref) => {
+        return _ref.current?.contains(ref.current as Node);
+      })
+    ) {
       if (!hidden) setIsHidden(true);
 
-      return (<div className={cnTree('NavigationDot')}/>)
+      return <div className={cnTree('NavigationDot')} />;
     }
 
     if (hidden) setIsHidden(false);
 
-    return (<TreeNavigationEye
-      hidden={hidden}
-      handleHide={handleHide}
-    />)
-  }
+    return <TreeNavigationEye hidden={hidden} handleHide={handleHide} />;
+  };
 
   return (
     <li
       className={cnTree('Leaf', { Selected: props.selectedItems?.includes(ref), Hidden: hidden })}
-      draggable={props.isDraggable === false ? "false" : "true"}
+      draggable={props.isDraggable === false ? 'false' : 'true'}
       onDragStart={handleDragStart}
       ref={ref}
     >
@@ -77,9 +72,9 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
         onClick={handleSelect}
         onContextMenu={handleContextMenuOpen}
       >
-
-        {props.iconId && props.icons
-        && <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>}
+        {props.iconId && props.icons && (
+          <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>
+        )}
 
         <div>{props.name}</div>
 

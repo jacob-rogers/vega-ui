@@ -1,15 +1,16 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react';
 import './Tree.css';
-import TreeContextMenu, {ContextMenuData} from './components/TreeContextMenu';
+import TreeContextMenu, { ContextMenuData } from './components/TreeContextMenu';
 import cnTree from './cn-tree';
-import {TreeLeaf} from './TreeLeaf';
-import {TreeNode} from './TreeNode';
-import {LeafTree, NodeTree} from './types';
+import { TreeLeaf } from './TreeLeaf';
+import { TreeNode } from './TreeNode';
+import { LeafTree, NodeTree } from './types';
 import { useKey } from '@gpn-prototypes/vega-hooks';
 
-
 export const Tree: React.FC<NodeTree> = (props) => {
-  const [currentDraggingElement, setCurrentDraggingElement] = useState<React.RefObject<HTMLElement> | null>(null);
+  const [currentDraggingElement, setCurrentDraggingElement] = useState<React.RefObject<
+    HTMLElement
+  > | null>(null);
   const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
 
   const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
@@ -22,8 +23,8 @@ export const Tree: React.FC<NodeTree> = (props) => {
 
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown'});
-  useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup'});
+  useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown' });
+  useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup' });
 
   const handleSelectItem = (ref: React.Ref<HTMLElement>) => {
     if (isMultiSelect && !selectedItems.includes(ref)) {
@@ -65,7 +66,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
     }
 
     setHiddenItems([ref]);
-  }
+  };
 
   const handleContextMenu = (event: React.MouseEvent, ref: React.Ref<HTMLElement>) => {
     event.preventDefault();
@@ -73,7 +74,9 @@ export const Tree: React.FC<NodeTree> = (props) => {
     setContextMenuData({
       callerRef: ref,
       style: {
-        left: rootRef.current ? event.clientX - rootRef.current.getBoundingClientRect().left : '-999',
+        left: rootRef.current
+          ? event.clientX - rootRef.current.getBoundingClientRect().left
+          : '-999',
         top: rootRef.current ? event.clientY - rootRef.current.getBoundingClientRect().top : '-999',
       },
     });
@@ -91,13 +94,17 @@ export const Tree: React.FC<NodeTree> = (props) => {
     e.stopPropagation();
     e.preventDefault();
 
-    setDropZone(ref)
+    setDropZone(ref);
   };
 
   const handleDragDrop = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
 
-    if (dropZone && currentDraggingElement && !dropZone?.current?.contains(currentDraggingElement?.current as Node)) {
+    if (
+      dropZone &&
+      currentDraggingElement &&
+      !dropZone?.current?.contains(currentDraggingElement?.current as Node)
+    ) {
       dropZone.current?.appendChild(currentDraggingElement.current as Node);
     }
   };
@@ -107,7 +114,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
 
     setDropZone(null);
     setCurrentDraggingElement(null);
-  }
+  };
 
   const renderTree = (t: NodeTree[]) => {
     return t.reduce((acc: Array<React.ReactElement>, node: NodeTree | LeafTree) => {
@@ -166,17 +173,8 @@ export const Tree: React.FC<NodeTree> = (props) => {
 
   return (
     <div className={cnTree()}>
-
-      <div
-        className={cnTree('TreeRootNode')}
-        ref={rootRef}
-      >
-
-        <ul
-          role="tree"
-          tabIndex={0}
-          className={cnTree('RootList')}
-        >
+      <div className={cnTree('TreeRootNode')} ref={rootRef}>
+        <ul role="tree" tabIndex={0} className={cnTree('RootList')}>
           {props.nodeList && renderTree(props.nodeList)}
         </ul>
 
@@ -190,9 +188,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
             handlePaste={props.handlePaste}
           />
         )}
-
       </div>
-
     </div>
   );
 };

@@ -108,7 +108,8 @@
   background-color: var(--color-control-bg-active);
 }
 
-.VegaTree__TreeNode, ul {
+.VegaTree__TreeNode,
+ul {
   list-style: none;
   outline: none;
   padding-left: var(--space-s);

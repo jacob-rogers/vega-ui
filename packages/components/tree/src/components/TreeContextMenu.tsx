@@ -26,7 +26,7 @@ const TreeContextMenu: React.FC<ContextMenuProps> = (props) => {
 
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
 
-  useOnClickOutside({ref: contextMenuRef, handler: () => setIsOpenContextMenu(false)});
+  useOnClickOutside({ ref: contextMenuRef, handler: () => setIsOpenContextMenu(false) });
 
   const handleRenameAction = (): void => {
     if (typeof props.handleRename === 'function') {
