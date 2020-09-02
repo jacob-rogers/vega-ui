@@ -35,14 +35,22 @@ export const ConnectionLineView: React.FC<ConnectionLineViewProps> = (props) => 
     y: child.y + RADIUS * Math.sin(angle),
   };
 
-  const curve = { x: parent.x + dx / 2, y: child.y - dy / 2 };
+  const bezierPoint1 = { x: parent.x + dx / 4, y: parent.y + dy / 4 };
+  const bezierPoint2 = { x: child.x - dx / 4, y: child.y + dy / 4 };
 
   const renderLine = (ctx: Context, shape: ShapeType<ShapeConfig>): void => {
     ctx.beginPath();
 
     ctx.moveTo(arrowStart.x, arrowStart.y);
 
-    ctx.quadraticCurveTo(curve.x, curve.y, arrowEnd.x, arrowEnd.y);
+    ctx.bezierCurveTo(
+      bezierPoint1.x,
+      bezierPoint1.y,
+      bezierPoint2.x,
+      bezierPoint2.y,
+      arrowEnd.x,
+      arrowEnd.y,
+    );
 
     ctx.stroke();
     ctx.fillStrokeShape(shape);
