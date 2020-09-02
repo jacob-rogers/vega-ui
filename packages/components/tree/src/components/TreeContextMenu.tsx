@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 
 import cnTree from '../cn-tree';
-import { useOnClickOutside } from '../hooks';
+import { useOnClickOutside } from '@gpn-prototypes/vega-hooks';
 
 export type ContextMenuData = {
   callerRef?: React.Ref<HTMLElement>;
@@ -26,13 +26,7 @@ const TreeContextMenu: React.FC<ContextMenuProps> = (props) => {
 
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
 
-  useOnClickOutside(contextMenuRef, (event) => {
-    if (!contextMenuRef.current || contextMenuRef.current.contains(event.target as Node)) {
-      return;
-    }
-
-    setIsOpenContextMenu(false);
-  });
+  useOnClickOutside({ref: contextMenuRef, handler: () => setIsOpenContextMenu(false)});
 
   const handleRenameAction = (): void => {
     if (typeof props.handleRename === 'function') {

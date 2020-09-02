@@ -1,10 +1,10 @@
 import React, {useRef, useState} from 'react';
 
 import cnTree from './cn-tree';
-import {NodeTreeType} from './types';
+import {NodeTree} from './types';
 import TreeNavigationEye from "./TreeNavigationEye";
 
-export const TreeNode: React.FC<NodeTreeType> = (props) => {
+export const TreeNode: React.FC<NodeTree> = (props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [hidden, setIsHidden] = useState<boolean>(false);
 

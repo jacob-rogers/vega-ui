@@ -23,15 +23,15 @@ export interface BaseNode {
   handleHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
 }
 
-export interface NodeTreeType extends BaseNode {
-  nodeList?: NodeTreeType[];
+export interface NodeTree extends BaseNode {
+  nodeList?: NodeTree[];
   children?: React.ReactNode;
   dropZone?: React.Ref<HTMLElement> | null;
 }
 
-export type RootProps = [NodeTreeType]
+export type RootProps = [NodeTree]
 
-export interface LeafType extends BaseNode {
+export interface LeafTree extends BaseNode {
   name: string;
 }
 

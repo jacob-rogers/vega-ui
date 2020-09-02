@@ -1,11 +1,11 @@
 import React, {useRef, useState} from 'react';
 
 import cnTree from './cn-tree';
-import { LeafType } from './types';
+import { LeafTree } from './types';
 import TreeNavigationEye from "./TreeNavigationEye";
 
 
-export const TreeLeaf: React.FC<LeafType> = (props) => {
+export const TreeLeaf: React.FC<LeafTree> = (props) => {
   const [hidden, setIsHidden] = useState<boolean>(false);
   const ref = useRef<HTMLLIElement | null>(null);
 
