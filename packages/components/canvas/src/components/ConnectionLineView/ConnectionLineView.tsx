@@ -1,5 +1,7 @@
 import React from 'react';
-import { Line } from 'react-konva';
+import { Shape } from 'react-konva';
+import { Context } from 'konva/types/Context';
+import { Shape as ShapeType, ShapeConfig } from 'konva/types/Shape';
 
 import { useCanvas } from '../../context';
 import { KonvaMouseEvent, Position } from '../../types';
@@ -33,11 +35,21 @@ export const ConnectionLineView: React.FC<ConnectionLineViewProps> = (props) => 
     y: child.y + RADIUS * Math.sin(angle),
   };
 
+  const curve = { x: parent.x + dx / 2, y: child.y - dy / 2 };
+
+  const renderLine = (ctx: Context, shape: ShapeType<ShapeConfig>): void => {
+    ctx.beginPath();
+
+    ctx.moveTo(arrowStart.x, arrowStart.y);
+
+    ctx.quadraticCurveTo(curve.x, curve.y, arrowEnd.x, arrowEnd.y);
+
+    ctx.stroke();
+    ctx.fillStrokeShape(shape);
+  };
+
   return (
-    <Line
-      tension={0.2}
-      points={[arrowStart.x, arrowStart.y, arrowEnd.x, arrowEnd.y]}
-      fill={fill}
+    <Shape
       stroke={fill}
       strokeWidth={3}
       onMouseDown={onMouseDown}
@@ -53,7 +65,7 @@ export const ConnectionLineView: React.FC<ConnectionLineViewProps> = (props) => 
       onMouseLeave={(): void => {
         setCursor('default');
       }}
-      pointerWidth={6}
+      sceneFunc={renderLine}
     />
   );
 };

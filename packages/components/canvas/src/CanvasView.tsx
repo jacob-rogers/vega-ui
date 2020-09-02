@@ -1,13 +1,14 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Layer, Line, Stage } from 'react-konva';
+import { Layer, Stage } from 'react-konva';
 import { useKey } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
+import { ConnectionLineView } from './components/ConnectionLineView';
 import { cnCanvas } from './cn-canvas';
-import { Button, CanvasItems, RADIUS } from './components';
+import { Button, CanvasItems } from './components';
 import { CanvasContext } from './context';
 import { Canvas, Tree } from './entities';
-import { ActiveData, CanvasData, KonvaMouseEvent, SelectedData } from './types';
+import { ActiveData, CanvasData, KonvaMouseEvent, Position, SelectedData } from './types';
 
 import './Canvas.css';
 
@@ -15,7 +16,7 @@ type CanvasViewProps = {
   canvas: Canvas;
 };
 
-type Coordinates = [number, number, number, number];
+type Coordinates = { parent: Position; child: Position };
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const { canvas } = props;
@@ -30,9 +31,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const handleMouseMove = (): void => {
     if (connectingLinePoints && stageRef.current) {
       const pos = stageRef.current.getPointerPosition();
-      const newCoordinates = connectingLinePoints.slice() as Coordinates;
       if (pos) {
-        setConnectingLinePoints([newCoordinates[0], newCoordinates[1], pos.x, pos.y]);
+        setConnectingLinePoints({
+          ...connectingLinePoints,
+          child: pos,
+        });
       }
     }
   };
@@ -45,15 +48,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       const { connector } = newActiveData;
 
       if (stageRef.current) {
-        const { type, position } = connector;
-        const pos = stageRef.current.getPointerPosition();
-        if (pos) {
-          setConnectingLinePoints([
-            position.x + (type === 'parent' ? -RADIUS : RADIUS),
-            position.y,
-            pos.x,
-            pos.y,
-          ]);
+        const { position } = connector;
+        const pointerPosition = stageRef.current.getPointerPosition();
+        if (pointerPosition) {
+          setConnectingLinePoints({ parent: position, child: pointerPosition });
         }
       }
     }
@@ -150,13 +148,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       >
         <Layer>
           {connectingLinePoints && (
-            <Line
-              points={connectingLinePoints}
-              stroke="#fff"
-              fill="#fff"
-              strokeWidth={3}
-              pointerWidth={6}
-              tension={0.2}
+            <ConnectionLineView
+              parent={connectingLinePoints.parent}
+              child={connectingLinePoints.child}
             />
           )}
         </Layer>
