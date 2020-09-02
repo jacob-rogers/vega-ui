@@ -10,9 +10,6 @@ import { LeafTree, NodeTree } from './types';
 import './Tree.css';
 
 export const Tree: React.FC<NodeTree> = (props) => {
-  const [currentDraggingElement, setCurrentDraggingElement] = useState<React.RefObject<
-    HTMLElement
-  > | null>(null);
   const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
 
   const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
@@ -94,8 +91,9 @@ export const Tree: React.FC<NodeTree> = (props) => {
   ): void => {
     e.stopPropagation();
 
-    handleSelectItem(ref);
-    setCurrentDraggingElement(ref);
+    if (!selectedItems?.includes(ref)) {
+      handleSelectItem(ref);
+    }
   };
 
   const handleDragOver = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>): void => {
@@ -108,13 +106,16 @@ export const Tree: React.FC<NodeTree> = (props) => {
   const handleDragDrop = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
 
-    if (
-      dropZone &&
-      currentDraggingElement &&
-      !dropZone?.current?.contains(currentDraggingElement?.current as Node)
-    ) {
-      // eslint-disable-next-line no-unused-expressions
-      dropZone.current?.appendChild(currentDraggingElement.current as Node);
+    if (dropZone && selectedItems) {
+      selectedItems.forEach((item) => {
+        if (
+          !dropZone.current?.contains(item.current as Node) &&
+          item.current?.draggable !== false
+        ) {
+          // eslint-disable-next-line no-unused-expressions
+          dropZone.current?.appendChild(item.current as Node);
+        }
+      });
     }
   };
 
@@ -122,7 +123,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
     e.stopPropagation();
 
     setDropZone(null);
-    setCurrentDraggingElement(null);
+    // setSelectedItems(null);
   };
 
   const renderTree = (t: NodeTree[]): React.ReactElement[] => {
