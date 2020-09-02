@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
 import { Tree } from './Tree';
-import { RootProps } from './types';
+import {NodeTree, RootProps} from './types';
 
 const items: RootProps = [
   {
@@ -67,12 +67,12 @@ const items: RootProps = [
   },
 ];
 
-function renderComponent(props?: RootProps): RenderResult {
-  return render(<Tree nodeList={props} />);
+function renderComponent(props: NodeTree): RenderResult {
+  return render(<Tree nodeList={props.nodeList} />);
 }
 
 describe('Tree', () => {
   test('рендерится без ошибок', () => {
-    renderComponent({ ...items });
+    renderComponent({ nodeList: items });
   });
 });
