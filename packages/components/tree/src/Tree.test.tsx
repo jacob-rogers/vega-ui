@@ -68,7 +68,7 @@ const items: RootProps = [
 ];
 
 function renderComponent(props?: RootProps): RenderResult {
-  return render(<Tree nodeList={items} />);
+  return render(<Tree nodeList={props} />);
 }
 
 describe('Tree', () => {

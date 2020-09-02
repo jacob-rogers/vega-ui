@@ -1,11 +1,13 @@
 import React, { useRef, useState } from 'react';
-import './Tree.css';
+import { useKey } from '@gpn-prototypes/vega-hooks';
+
 import TreeContextMenu, { ContextMenuData } from './components/TreeContextMenu';
 import cnTree from './cn-tree';
 import { TreeLeaf } from './TreeLeaf';
 import { TreeNode } from './TreeNode';
 import { LeafTree, NodeTree } from './types';
-import { useKey } from '@gpn-prototypes/vega-hooks';
+
+import './Tree.css';
 
 export const Tree: React.FC<NodeTree> = (props) => {
   const [currentDraggingElement, setCurrentDraggingElement] = useState<React.RefObject<
@@ -50,7 +52,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
     setSelectedItems([ref]);
   };
 
-  const handleHideItem = (ref: React.RefObject<HTMLElement>) => {
+  const handleHideItem = (ref: React.RefObject<HTMLElement>): void => {
     if (hiddenItems?.includes(ref)) {
       const newState = hiddenItems.filter((refItem) => refItem !== ref);
 
@@ -68,7 +70,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
     setHiddenItems([ref]);
   };
 
-  const handleContextMenu = (event: React.MouseEvent, ref: React.Ref<HTMLElement>) => {
+  const handleContextMenu = (event: React.MouseEvent, ref: React.Ref<HTMLElement>): void => {
     event.preventDefault();
 
     setContextMenuData({
@@ -84,13 +86,13 @@ export const Tree: React.FC<NodeTree> = (props) => {
     setIsOpenContextMenu(true);
   };
 
-  const handleDragStart = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>) => {
+  const handleDragStart = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>): void => {
     e.stopPropagation();
 
     setCurrentDraggingElement(ref);
   };
 
-  const handleDragOver = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>) => {
+  const handleDragOver = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>): void => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -105,18 +107,19 @@ export const Tree: React.FC<NodeTree> = (props) => {
       currentDraggingElement &&
       !dropZone?.current?.contains(currentDraggingElement?.current as Node)
     ) {
+      // eslint-disable-next-line no-unused-expressions
       dropZone.current?.appendChild(currentDraggingElement.current as Node);
     }
   };
 
-  const handleDragEnd = (e: React.BaseSyntheticEvent) => {
+  const handleDragEnd = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
 
     setDropZone(null);
     setCurrentDraggingElement(null);
   };
 
-  const renderTree = (t: NodeTree[]) => {
+  const renderTree = (t: NodeTree[]): React.ReactElement[] => {
     return t.reduce((acc: Array<React.ReactElement>, node: NodeTree | LeafTree) => {
       if ('nodeList' in node) {
         const element = (

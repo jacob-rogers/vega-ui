@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 
 import cnTree from './cn-tree';
-import { LeafTree } from './types';
 import TreeNavigationEye from './TreeNavigationEye';
+import { LeafTree, NavigationEyeProps } from './types';
 
 export const TreeLeaf: React.FC<LeafTree> = (props) => {
   const [hidden, setIsHidden] = useState<boolean>(false);
@@ -22,13 +22,13 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     }
   };
 
-  const handleSelect = () => {
+  const handleSelect = (): void => {
     if (typeof props.handleSelectItem === 'function') {
       props.handleSelectItem(ref);
     }
   };
 
-  const handleContextMenuOpen = (event: React.MouseEvent) => {
+  const handleContextMenuOpen = (event: React.MouseEvent): void => {
     if (typeof props.handleContextMenu === 'function') {
       handleSelect();
 
@@ -36,7 +36,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     }
   };
 
-  const renderNavigationIcon = () => {
+  const renderNavigationIcon = (): React.ReactElement<NavigationEyeProps> => {
     if (props.hiddenItems?.includes(ref)) {
       if (!hidden) setIsHidden(true);
 
@@ -68,7 +68,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
       <div
         role="treeitem"
         tabIndex={0}
-        onKeyDown={() => {}}
+        onKeyDown={(): void => {}}
         onClick={handleSelect}
         onContextMenu={handleContextMenuOpen}
       >

@@ -1,7 +1,8 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+
 import { Tree } from './Tree';
 import { RootProps } from './types';
 
@@ -208,9 +209,9 @@ storiesOf('ui/Tree', module)
     <Tree
       icons={icons}
       nodeList={rootProps}
-      handleRename={() => action('Renamed')('Item')}
-      handleCopy={() => action('Copied')('Item')}
-      handleDelete={() => action('Deleted')('Item')}
-      handlePaste={() => action('Inserted')('Item')}
+      handleRename={(): void => action('Renamed')('Item')}
+      handleCopy={(): void => action('Copied')('Item')}
+      handleDelete={(): void => action('Deleted')('Item')}
+      handlePaste={(): void => action('Inserted')('Item')}
     />
   ));

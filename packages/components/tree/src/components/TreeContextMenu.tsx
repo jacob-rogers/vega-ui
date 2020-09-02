@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
+import { useOnClickOutside } from '@gpn-prototypes/vega-hooks';
 
 import cnTree from '../cn-tree';
-import { useOnClickOutside } from '@gpn-prototypes/vega-hooks';
 
 export type ContextMenuData = {
   callerRef?: React.Ref<HTMLElement>;

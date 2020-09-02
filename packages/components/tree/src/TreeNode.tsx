@@ -1,8 +1,8 @@
 import React, { useRef, useState } from 'react';
 
 import cnTree from './cn-tree';
-import { NodeTree } from './types';
 import TreeNavigationEye from './TreeNavigationEye';
+import { NavigationEyeProps, NodeTree } from './types';
 
 export const TreeNode: React.FC<NodeTree> = (props) => {
   const [expanded, setExpanded] = useState<boolean>(false);
@@ -57,7 +57,7 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
     }
   };
 
-  const renderNavigationIcon = () => {
+  const renderNavigationIcon = (): React.ReactElement<NavigationEyeProps> => {
     if (props.hiddenItems?.includes(targetRef)) {
       if (!hidden) setIsHidden(true);
 
@@ -101,7 +101,7 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
         aria-label="List name"
         tabIndex={0}
         onClick={handleSelect}
-        onKeyPress={() => {}}
+        onKeyPress={(): void => {}}
         onDoubleClick={handleExpand}
         onContextMenu={handleContextMenuOpen}
       >
