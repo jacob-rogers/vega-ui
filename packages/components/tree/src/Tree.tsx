@@ -28,7 +28,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
   useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown' });
   useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup' });
 
-  const handleSelectItem = (ref: React.Ref<HTMLElement>) => {
+  const handleSelectItem = (ref: React.Ref<HTMLElement>): void => {
     if (isMultiSelect && !selectedItems.includes(ref)) {
       setSelectedItems([...selectedItems, ref]);
 
@@ -86,7 +86,10 @@ export const Tree: React.FC<NodeTree> = (props) => {
     setIsOpenContextMenu(true);
   };
 
-  const handleDragStart = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>): void => {
+  const handleDragStart = (
+    e: React.BaseSyntheticEvent,
+    ref: React.RefObject<HTMLElement>,
+  ): void => {
     e.stopPropagation();
 
     setCurrentDraggingElement(ref);
@@ -128,6 +131,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
             nodeList={node.nodeList}
             key={node.name}
             dropZone={dropZone}
+            rootRef={rootRef}
             isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
             handleDragStart={handleDragStart}
             handleDragOver={handleDragOver}
@@ -153,10 +157,11 @@ export const Tree: React.FC<NodeTree> = (props) => {
       if (node?.name) {
         acc.push(
           <TreeLeaf
+            name={node.name}
+            key={node.name}
+            rootRef={rootRef}
             isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
             handleDragStart={handleDragStart}
-            key={node.name}
-            name={node.name}
             handleContextMenu={handleContextMenu}
             handleSelectItem={handleSelectItem}
             handleHideItem={handleHideItem}

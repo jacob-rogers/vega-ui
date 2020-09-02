@@ -60,7 +60,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
 
   return (
     <li
-      className={cnTree('Leaf', { Selected: props.selectedItems?.includes(ref), Hidden: hidden })}
+      className={cnTree('Leaf', { Hidden: hidden })}
       draggable={props.isDraggable === false ? 'false' : 'true'}
       onDragStart={handleDragStart}
       ref={ref}
@@ -68,6 +68,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
       <div
         role="treeitem"
         tabIndex={0}
+        className={cnTree('LeafContent', { Selected: props.selectedItems?.includes(ref) })}
         onKeyDown={(): void => {}}
         onClick={handleSelect}
         onContextMenu={handleContextMenuOpen}
@@ -76,7 +77,14 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
           <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>
         )}
 
-        <div>{props.name}</div>
+        <div className={cnTree('ItemName')}>{props.name}</div>
+
+        <div
+          className={cnTree('Backlight')}
+          style={{
+            width: props.rootRef?.current?.offsetWidth ?? '100%',
+          }}
+        />
 
         {renderNavigationIcon()}
       </div>

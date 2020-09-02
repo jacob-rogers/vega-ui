@@ -118,7 +118,14 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
           <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>
         )}
 
-        <div>{props.name}</div>
+        <div className={cnTree('ItemName')}>{props.name}</div>
+
+        <div
+          className={cnTree('Backlight')}
+          style={{
+            width: props.rootRef?.current?.offsetWidth ?? '100%',
+          }}
+        />
 
         {renderNavigationIcon()}
       </div>

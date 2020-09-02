@@ -54,6 +54,10 @@
   margin-bottom: 5px;
 }
 
+.VegaTree__ItemName {
+  z-index: 1;
+}
+
 .VegaTree:hover .VegaTree__NodeList_expanded::before {
   content: '';
 
@@ -95,24 +99,25 @@
   background-position: center;
 }
 
+.VegaTree__TreeNode, .VegaTree__NodeList {
+  list-style: none;
+  outline: none;
+  padding-left: var(--space-s);
+}
+
+
 .VegaTree__Backlight {
   z-index: 0;
   position: absolute;
-  left: 0;
+  display: none;
+  right: 0;
 
-  width: 100%;
   height: var(--space-xl);
+  background-color: var(--color-control-bg-focus);
 }
 
 .VegaTree__Backlight_selected {
   background-color: var(--color-control-bg-active);
-}
-
-.VegaTree__TreeNode,
-ul {
-  list-style: none;
-  outline: none;
-  padding-left: var(--space-s);
 }
 
 .VegaTree__Leaf {
@@ -122,20 +127,11 @@ ul {
   padding-left: var(--space-s);
 }
 
-.VegaTree__Leaf:hover {
-  background-color: var(--color-control-bg-focus);
-}
-
-.VegaTree__Leaf_Selected,
-.VegaTree__Leaf_Selected:hover {
-  background-color: var(--color-control-bg-active);
-}
-
 .VegaTree__Leaf_Hidden {
   color: var(--color-typo-ghost);
 }
 
-.VegaTree__Leaf > div {
+.VegaTree__LeafContent {
   font-size: var(--size-text-s);
   outline: none;
   line-height: var(--line-height-text-m);
@@ -143,6 +139,15 @@ ul {
   display: flex;
   align-items: center;
   min-height: var(--space-xl);
+}
+
+.VegaTree__LeafContent:hover > .VegaTree__Backlight {
+  display: block;
+}
+
+.VegaTree__LeafContent_Selected > .VegaTree__Backlight {
+  display: block;
+  background-color: var(--color-control-bg-active) !important;
 }
 
 .VegaTree__NodeList {
@@ -169,13 +174,13 @@ ul {
   outline: none;
 }
 
-.VegaTree__NavigationItem:hover {
-  background-color: var(--color-control-bg-focus);
+.VegaTree__NavigationItem:hover > .VegaTree__Backlight {
+  display: block;
 }
 
-.VegaTree__NavigationItem_Selected,
-.VegaTree__NavigationItem_Selected:hover {
-  background-color: var(--color-control-bg-active);
+.VegaTree__NavigationItem_Selected > .VegaTree__Backlight {
+  display: block;
+  background-color: var(--color-control-bg-active) !important;
 }
 
 .VegaTree__NavigationItem_Droppable {
@@ -221,4 +226,5 @@ ul {
 .VegaTree__Icon {
   margin-right: var(--space-xs);
   margin-left: 6px;
+  z-index: 1;
 }

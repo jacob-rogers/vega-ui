@@ -7,6 +7,7 @@ export interface BaseNode {
   icons?: {
     [iconId: string]: React.ReactElement;
   };
+  rootRef?: React.RefObject<HTMLElement>;
   selectedItems?: React.Ref<HTMLElement>[] | null;
   isDraggable?: boolean;
   handleDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;

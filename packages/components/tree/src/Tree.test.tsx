@@ -2,7 +2,7 @@ import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
 import { Tree } from './Tree';
-import {NodeTree, RootProps} from './types';
+import { NodeTree, RootProps } from './types';
 
 const items: RootProps = [
   {
