@@ -99,6 +99,7 @@
     "@babel/preset-typescript": "^7.10.1",
     "@emotion/babel-preset-css-prop": "^10.0.27",
     "@emotion/core": "^10.0.35",
+    "copy-webpack-plugin": "^6.1.0",
     "@emotion/styled": "^10.0.27",
     "@gpn-prototypes/frontend-configs": "^1.2.5",
     "@gpn-prototypes/vega-changelog": "^3.2.4",
