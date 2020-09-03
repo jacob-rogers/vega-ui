@@ -9,6 +9,7 @@ type ConnectionLineProps = {
   parent: { connector: Position; tree: CanvasTree };
   child: { connector: Position; tree: CanvasTree };
   onMouseDown?: (e: KonvaMouseEvent) => void;
+  onClick?: (e: KonvaMouseEvent) => void;
 };
 
 export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
@@ -16,6 +17,7 @@ export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
     parent: { tree: parentTree, connector: parentConnector },
     child: { tree: childTree, connector: childConnector },
     onMouseDown,
+    onClick,
   } = props;
 
   const { selectedData, setSelectedData } = useCanvas();
@@ -28,13 +30,19 @@ export const ConnectionLine: React.FC<ConnectionLineProps> = (props) => {
     );
   }, [childTree, parentTree, selectedData]);
 
-  const handleClick = useCallback(() => {
-    setSelectedData({
-      type: 'line',
-      parentId: parentTree.getId(),
-      childId: childTree.getId(),
-    });
-  }, [childTree, parentTree, setSelectedData]);
+  const handleClick = useCallback(
+    (e) => {
+      if (onClick) {
+        onClick(e);
+      }
+      setSelectedData({
+        type: 'line',
+        parentId: parentTree.getId(),
+        childId: childTree.getId(),
+      });
+    },
+    [childTree, parentTree, setSelectedData, onClick],
+  );
 
   const handleMouseDown = useCallback(
     (e) => {

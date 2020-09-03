@@ -11,14 +11,13 @@ type CanvasItemsProps = {
 
 export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   const { canvas } = props;
-  const { stageRef, setActiveData } = useCanvas();
+  const { stageRef, setActiveData, selectedData, setSelectedData } = useCanvas();
 
   const handleStepMouseDown = (tree: CanvasTree): void => {
-    const steps = canvas.extract().slice();
-    const index = steps.indexOf(tree);
-    steps.splice(index, 1);
-    steps.push(tree);
-    canvas.setTrees(new Set(steps));
+    if (selectedData !== null) {
+      setSelectedData(null);
+    }
+    canvas.setTrees(new Set(Canvas.moveToTop(tree, canvas.extract())));
   };
 
   const handleConnectionLineMouseDown = (parent: CanvasTree, child: CanvasTree): void => {
@@ -30,7 +29,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
       const parentDelta = pointerX - parentConnectors.children.x;
       const childDelta = childConnectors.parent.x - pointerX;
 
-      canvas.disconnect(child);
+      canvas.disconnect(child, parent);
 
       const parentClosest = parentDelta < childDelta;
       if (!parentClosest) {
@@ -53,6 +52,11 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
     }
   };
 
+  const handleConnectionLineClick = (parent: CanvasTree, child: CanvasTree): void => {
+    const children = Canvas.moveToTop(child.getId(), parent.getChildren());
+    canvas.setChildrenIds(parent, children);
+  };
+
   return (
     <>
       {canvas.extract().map((tree) => {
@@ -64,8 +68,9 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             onWidthUpdate={(width): void => canvas.setData(tree, { width })}
             onMouseDown={(): void => handleStepMouseDown(tree)}
             onConnectionLineMouseDown={handleConnectionLineMouseDown}
-            parent={canvas.searchTree(tree.getParent())}
-            stepChildren={tree.getChildren().map((child) => canvas.searchTree(child))}
+            parents={tree.getParents().map((parent) => canvas.searchTree(parent))}
+            itemChildren={tree.getChildren().map((child) => canvas.searchTree(child))}
+            onConnectionLineClick={handleConnectionLineClick}
           />
         );
       })}

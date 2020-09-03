@@ -97,11 +97,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   const removeSelectedLine = useCallback((): void => {
     if (selectedData?.type === 'line') {
-      const { childId } = selectedData;
+      const { childId, parentId } = selectedData;
       const child = canvas.searchTree(childId);
+      const parent = canvas.searchTree(parentId);
 
-      if (child) {
-        canvas.disconnect(child);
+      if (child && parent) {
+        canvas.disconnect(child, parent);
       }
     }
   }, [canvas, selectedData]);

@@ -1,3 +1,5 @@
+import { v4 } from 'uuid';
+
 import { Tree } from './Tree';
 
 const leaf = { data: {} };
@@ -12,12 +14,27 @@ describe('Tree', () => {
     });
   });
 
-  test('addChild', () => {
-    const tree = Tree.of(leaf);
+  describe('addChild', () => {
+    const root = Tree.of({ data: null });
+    const child = Tree.of({ data: null });
 
-    tree.addChild(Tree.of({ data: {} }));
+    afterEach(() => {
+      root.removeChild(child);
+    });
 
-    expect(tree.getChildren().length).toBe(1);
+    test('добавляет ребенка, если такого еще нет', () => {
+      expect(root.getChildren().length).toBe(0);
+      root.addChild(root);
+      expect(root.getChildren().length).toBe(1);
+    });
+
+    test('не добавляет ребенка, если тот уже существует', () => {
+      root.addChild(root);
+      expect(root.getChildren().length).toBe(1);
+      root.addChild(root);
+
+      expect(root.getChildren().length).toBe(1);
+    });
   });
 
   test('removeChild', () => {
@@ -30,16 +47,82 @@ describe('Tree', () => {
     expect(root.getChildren().length).toBe(0);
   });
 
-  test('setParent', () => {
+  describe('addParent', () => {
     const root = Tree.of({ data: null });
     const child = Tree.of({ data: null });
-    const secondChild = Tree.of({ data: null });
 
-    child.setParent(root);
-    secondChild.setParent(root);
+    afterEach(() => {
+      child.removeParent(root);
+    });
 
-    secondChild.setParent(child);
+    test('добавляет родителя, если такого еще нет', () => {
+      expect(child.getParents().length).toBe(0);
+      child.addParent(root);
+      expect(child.getParents().length).toBe(1);
+    });
 
-    expect(secondChild.getParent()).toBe(child.getId());
+    test('не добавляет родителя, если тот уже существует', () => {
+      child.addParent(root);
+      expect(child.getParents().length).toBe(1);
+      child.addParent(root);
+
+      expect(child.getParents().length).toBe(1);
+    });
+  });
+
+  test('removeParent', () => {
+    const root = Tree.of({ data: null });
+    const child = Tree.of({ data: null });
+
+    child.addParent(root);
+    expect(child.getParents().length).toBe(1);
+
+    child.removeParent(root);
+
+    expect(child.getParents().length).toBe(0);
+  });
+
+  test('setChildren', () => {
+    const root = Tree.of({ data: null });
+
+    const children = [Tree.of({ data: null }), Tree.of({ data: null }), Tree.of({ data: null })];
+
+    const childrenIds = children.map((child) => child.getId());
+
+    root.setChildren(children);
+
+    expect(root.getChildren()).toEqual(childrenIds);
+  });
+
+  test('setChildrenIds', () => {
+    const root = Tree.of({ data: null });
+
+    const children = [v4(), v4(), v4()];
+
+    root.setChildrenIds(children);
+
+    expect(root.getChildren()).toEqual(children);
+  });
+
+  test('isRoot', () => {
+    const root = Tree.of({ data: null });
+    const child = Tree.of({ data: null });
+
+    expect(child.isRoot()).toBe(true);
+
+    child.addParent(root);
+
+    expect(child.isRoot()).toBe(false);
+  });
+
+  test('isLeaf', () => {
+    const root = Tree.of({ data: null });
+    const child = Tree.of({ data: null });
+
+    expect(root.isLeaf()).toBe(true);
+
+    root.addChild(child);
+
+    expect(root.isLeaf()).toBe(false);
   });
 });

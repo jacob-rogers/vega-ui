@@ -15,12 +15,13 @@ import {
 
 export type CanvasItemProps = {
   item: CanvasTree;
-  parent?: CanvasTree;
-  stepChildren: Array<CanvasTree | undefined>;
+  parents: Array<CanvasTree | undefined>;
+  itemChildren: Array<CanvasTree | undefined>;
   onMouseDown: (e: KonvaMouseEvent) => void;
   onPositionChange: (position: Position) => void;
   onWidthUpdate: (width: number) => void;
   onConnectionLineMouseDown: (parent: CanvasTree, child: CanvasTree) => void;
+  onConnectionLineClick: (parent: CanvasTree, child: CanvasTree) => void;
 };
 
 type ConnectionKey = 'parentId' | 'childId';
@@ -32,8 +33,9 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onPositionChange,
     onWidthUpdate,
     onConnectionLineMouseDown,
-    parent,
-    stepChildren,
+    parents,
+    itemChildren,
+    onConnectionLineClick,
   } = props;
   const data = item.getData();
   const { activeData, setActiveData, selectedData, setSelectedData, setCursor } = useCanvas();
@@ -93,7 +95,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
       {canHasParent && (
         <Connector
           {...connectorProps}
-          isActive={parentConnectorActive || parent !== undefined}
+          isActive={parentConnectorActive || parents.length > 0}
           isSelected={parentConnectorrSelected}
           type="parent"
           id={`${id}_parent`}
@@ -103,7 +105,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
       {canHasChildren && (
         <Connector
           {...connectorProps}
-          isActive={childConnectorActive || stepChildren.length > 0}
+          isActive={childConnectorActive || itemChildren.length > 0}
           isSelected={childConnectorSelected}
           type="children"
           id={`${id}_children`}
@@ -149,7 +151,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
       ) : (
         <List {...baseProps} />
       )}
-      {stepChildren.map((child) => {
+      {itemChildren.map((child) => {
         if (child === undefined) {
           return null;
         }
@@ -160,6 +162,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
             parent={{ connector: absoluteConnectorsPosition.children, tree: item }}
             child={{ connector: getAbsoluteConnectorsPosition(child).parent, tree: child }}
             onMouseDown={(): void => onConnectionLineMouseDown(item, child)}
+            onClick={(): void => onConnectionLineClick(item, child)}
           />
         );
       })}
