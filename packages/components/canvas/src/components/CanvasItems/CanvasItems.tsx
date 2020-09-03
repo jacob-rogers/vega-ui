@@ -30,7 +30,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
       const parentDelta = pointerX - parentConnectors.children.x;
       const childDelta = childConnectors.parent.x - pointerX;
 
-      canvas.disconnect(child);
+      canvas.disconnect(child, parent);
 
       const parentClosest = parentDelta < childDelta;
       if (!parentClosest) {
@@ -64,7 +64,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             onWidthUpdate={(width): void => canvas.setData(tree, { width })}
             onMouseDown={(): void => handleStepMouseDown(tree)}
             onConnectionLineMouseDown={handleConnectionLineMouseDown}
-            parent={canvas.searchTree(tree.getParent())}
+            parents={tree.getParents().map((parent) => canvas.searchTree(parent))}
             stepChildren={tree.getChildren().map((child) => canvas.searchTree(child))}
           />
         );

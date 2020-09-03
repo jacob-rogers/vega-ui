@@ -2,7 +2,7 @@ import { v4 as uuid } from 'uuid';
 
 export type TreeData<T> = {
   id?: string;
-  parentId?: string | null;
+  parentIds?: string[];
   childrenIds?: string[];
   data: T;
 };
@@ -12,19 +12,19 @@ export class Tree<T = unknown> {
 
   private childrenIds: string[];
 
-  private parentId: string | null;
+  private parentIds: string[];
 
   private id: string;
 
-  private constructor(data: T, childrenIds: string[], parentId: string | null, id: string) {
+  private constructor(data: T, childrenIds: string[], parentIds: string[], id: string) {
     this.data = data;
     this.childrenIds = childrenIds;
-    this.parentId = parentId;
+    this.parentIds = parentIds;
     this.id = id;
   }
 
   public isRoot(): boolean {
-    return this.parentId === null;
+    return this.parentIds.length === 0;
   }
 
   public isLeaf(): boolean {
@@ -32,8 +32,8 @@ export class Tree<T = unknown> {
   }
 
   static of<T = unknown>(treeData: TreeData<T>): Tree<T> {
-    const { data, id = uuid(), childrenIds = [], parentId = null } = treeData;
-    return new Tree(data, childrenIds, parentId, id);
+    const { data, id = uuid(), childrenIds = [], parentIds = [] } = treeData;
+    return new Tree(data, childrenIds, parentIds, id);
   }
 
   public getData(): T {
@@ -53,19 +53,16 @@ export class Tree<T = unknown> {
     return this.childrenIds;
   }
 
-  public getParent(): string | null {
-    return this.parentId;
+  public getParents(): string[] {
+    return this.parentIds;
   }
 
   public addChild(tree: Tree<T>): Tree<T> {
-    tree.setParent(this);
-    this.childrenIds.push(tree.getId());
-    return this;
+    return this.addConnection(tree, 'child');
   }
 
-  public setParent(tree: Tree<T> | null): Tree<T> {
-    this.parentId = tree instanceof Tree ? tree.getId() : tree;
-    return this;
+  public addParent(tree: Tree<T>): Tree<T> {
+    return this.addConnection(tree, 'parent');
   }
 
   public setChildren(trees: Tree<T>[]): Tree<T> {
@@ -77,10 +74,27 @@ export class Tree<T = unknown> {
   }
 
   public removeChild(tree: Tree<T>): Tree<T> {
-    const idx = this.childrenIds.findIndex((child) => child === tree.getId());
+    return this.removeConnection(tree, 'child');
+  }
+
+  public removeParent(tree: Tree<T>): Tree<T> {
+    return this.removeConnection(tree, 'parent');
+  }
+
+  private removeConnection(tree: Tree<T>, type: 'parent' | 'child'): Tree<T> {
+    const targetConnections = type === 'parent' ? this.parentIds : this.childrenIds;
+    const idx = targetConnections.findIndex((connection) => connection === tree.getId());
     if (idx !== -1) {
-      this.childrenIds.splice(idx, 1);
+      targetConnections.splice(idx, 1);
     }
     return this;
+  }
+
+  private addConnection(tree: Tree<T>, type: 'parent' | 'child'): Tree<T> {
+    const targetConnections = type === 'parent' ? this.parentIds : this.childrenIds;
+    if (!targetConnections.includes(tree.getId())) {
+      targetConnections.push(tree.getId());
+    }
+    return tree;
   }
 }

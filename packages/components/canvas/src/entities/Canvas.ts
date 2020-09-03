@@ -67,17 +67,18 @@ export class Canvas {
 
   public remove(tree: CanvasTree): void {
     this.trees.delete(tree);
-    if (tree.getParent()) {
-      this.disconnect(tree);
-    }
-    if (tree.getChildren().length) {
-      tree.getChildren().forEach((child) => {
-        const childTree = this.searchTree(child);
-        if (childTree) {
-          this.disconnect(childTree);
-        }
-      });
-    }
+    tree.getParents().forEach((parent) => {
+      const parentTree = this.searchTree(parent);
+      if (parentTree) {
+        this.disconnect(tree, parentTree);
+      }
+    });
+    tree.getChildren().forEach((child) => {
+      const childTree = this.searchTree(child);
+      if (childTree) {
+        this.disconnect(childTree, tree);
+      }
+    });
     this.notifier.notify({
       type: 'remove-tree',
       id: tree.getId(),
@@ -93,28 +94,18 @@ export class Canvas {
   }
 
   public connect(parentTree: CanvasTree, childTree: CanvasTree): void {
-    if (childTree.isRoot()) {
-      parentTree.addChild(childTree);
-      this.notifier.notify({
-        type: 'connect-tree',
-        childId: childTree.getId(),
-        parentId: parentTree.getId(),
-      });
-    }
+    parentTree.addChild(childTree);
+    childTree.addParent(parentTree);
+    this.notifier.notify({
+      type: 'connect-tree',
+      childId: childTree.getId(),
+      parentId: parentTree.getId(),
+    });
   }
 
-  public disconnect(childTree: CanvasTree): void {
-    const parentId = childTree.getParent();
-    if (parentId === null) {
-      return;
-    }
-
-    const parent = this.searchTree(parentId);
-
-    if (parent) {
-      parent.removeChild(childTree);
-    }
-    childTree.setParent(null);
+  public disconnect(childTree: CanvasTree, parentTree: CanvasTree): void {
+    parentTree.removeChild(childTree);
+    childTree.removeParent(parentTree);
     this.notifier.notify({
       type: 'disconnect-tree',
       id: childTree.getId(),
