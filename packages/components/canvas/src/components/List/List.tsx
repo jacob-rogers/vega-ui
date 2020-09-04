@@ -15,14 +15,16 @@ export type ListProps = Omit<BaseProps, 'height'> & React.ComponentProps<typeof 
 
 const setup = {
   type: 'step',
+  id: 0,
   name: 'Шаг 1',
   events: [
     {
+      id: 0,
       name: 'Сейсмика 1',
       content: [
-        { type: 'object', name: 'Залежь - 79' },
-        { type: 'object', name: 'Залежь - 19' },
-        { type: 'object', name: 'Залежь - 89' },
+        { type: 'object', id: 0, name: 'Залежь - 79' },
+        { type: 'object', id: 1, name: 'Залежь - 19' },
+        { type: 'object', id: 2, name: 'Залежь - 89' },
       ],
     },
   ],
@@ -97,7 +99,7 @@ export const List: React.FC<ListProps> = (props) => {
         const eventPosX = metrics.step.padding.left;
 
         return (
-          <Group x={eventPosX} y={eventPosY}>
+          <Group x={eventPosX} y={eventPosY} key={event.id}>
             <Group ref={refEventGroup}>
               <Rect
                 width={metrics.step.event.width}
@@ -133,7 +135,7 @@ export const List: React.FC<ListProps> = (props) => {
                 (metrics.step.object.height + metrics.step.object.marginBottom) * objectIndex;
 
               return (
-                <Group x={objPosX} y={objPosY}>
+                <Group x={objPosX} y={objPosY} key={object.id}>
                   <Rect
                     width={metrics.step.object.width}
                     height={metrics.step.object.height}
