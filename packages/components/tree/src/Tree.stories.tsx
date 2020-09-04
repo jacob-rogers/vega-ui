@@ -209,9 +209,9 @@ storiesOf('ui/Tree', module)
     <Tree
       icons={icons}
       nodeList={rootProps}
-      handleRename={(): void => action('Renamed')('Item')}
-      handleCopy={(): void => action('Copied')('Item')}
-      handleDelete={(): void => action('Deleted')('Item')}
-      handlePaste={(): void => action('Inserted')('Item')}
+      onRenameItem={(): void => action('Renamed')('Item')}
+      onCopyItem={(): void => action('Copied')('Item')}
+      onDeleteItem={(): void => action('Deleted')('Item')}
+      onPasteItem={(): void => action('Inserted')('Item')}
     />
   ));

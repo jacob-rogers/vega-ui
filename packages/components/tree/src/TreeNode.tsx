@@ -1,15 +1,48 @@
 import React, { useRef, useState } from 'react';
 
 import cnTree from './cn-tree';
-import TreeNavigationEye from './TreeNavigationEye';
-import { NavigationEyeProps, NodeTree } from './types';
+import { TreeItemContainer } from './TreeItemContainer';
+import { NodeTree } from './types';
+import { useTreeHandlers } from './use-tree-handlers';
+import { useVisibilityIdentifier } from './use-visability-identifier';
 
 export const TreeNode: React.FC<NodeTree> = (props) => {
-  const [expanded, setExpanded] = useState<boolean>(false);
-  const [hidden, setIsHidden] = useState<boolean>(false);
+  const {
+    name,
+    onHideItem,
+    onContextMenu,
+    onSelectItem,
+    onDragStart,
+    onDragEnd,
+    onDragOver,
+    onDragDrop,
+    children,
+    selectedItems,
+    hiddenItems,
+    isDraggable,
+    dropZone,
+    iconId,
+    icons,
+    rootRef,
+  } = props;
+
+  const [expanded, setExpanded] = useState(false);
 
   const targetRef = useRef<HTMLLIElement | null>(null);
   const dropZoneRef = useRef<HTMLUListElement | null>(null);
+
+  const { handleDragStart, handleSelect, handleHide, handleContextMenuOpen } = useTreeHandlers({
+    ref: targetRef,
+    dropZoneRef,
+    onContextMenu,
+    onSelectItem,
+    onHideItem,
+    onDragStart,
+    onDragOver,
+    onDragDrop,
+  });
+
+  const visibilityIdentifier = useVisibilityIdentifier({ ref: targetRef, handleHide, hiddenItems });
 
   const handleExpand = (event: React.MouseEvent | React.KeyboardEvent): void => {
     event.stopPropagation();
@@ -17,122 +50,73 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
     setExpanded(!expanded);
   };
 
-  const handleHide = (event: React.MouseEvent | React.KeyboardEvent): void => {
-    event.stopPropagation();
-
-    if (typeof props.handleHideItem === 'function') {
-      props.handleHideItem(targetRef);
-    }
-  };
-
-  const handleSelect = (): void => {
-    if (typeof props.handleSelectItem === 'function') {
-      props.handleSelectItem(targetRef);
-    }
-  };
-
-  const handleContextMenuOpen = (event: React.MouseEvent): void => {
-    if (typeof props.handleContextMenu === 'function') {
-      handleSelect();
-
-      props.handleContextMenu(event, targetRef);
-    }
-  };
-
-  const handleDragStart = (event: React.DragEvent): void => {
-    if (typeof props.handleDragStart === 'function') {
-      props.handleDragStart(event, targetRef);
-    }
-  };
-
   const handleDragOver = (event: React.DragEvent): void => {
-    if (typeof props.handleDragOver === 'function') {
-      props.handleDragOver(event, dropZoneRef);
+    if (onDragOver) {
+      onDragOver(event, dropZoneRef);
     }
   };
 
   const handleDrop = (event: React.DragEvent): void => {
-    if (typeof props.handleDragDrop === 'function') {
-      props.handleDragDrop(event);
+    if (onDragDrop) {
+      onDragDrop(event);
     }
-  };
-
-  const renderNavigationIcon = (): React.ReactElement<NavigationEyeProps> => {
-    if (props.hiddenItems?.includes(targetRef)) {
-      if (!hidden) setIsHidden(true);
-
-      return <TreeNavigationEye hidden={hidden} handleHide={handleHide} />;
-    }
-
-    if (
-      props.hiddenItems?.some((ref) => {
-        return ref.current?.contains(targetRef.current as Node);
-      })
-    ) {
-      if (!hidden) setIsHidden(true);
-
-      return <div className={cnTree('NavigationDot')} />;
-    }
-
-    if (hidden) {
-      setIsHidden(false);
-    }
-
-    return <TreeNavigationEye hidden={hidden} handleHide={handleHide} />;
   };
 
   return (
-    <li
+    <TreeItemContainer
       className={cnTree('TreeNode')}
-      draggable={props.isDraggable === false ? 'false' : 'true'}
-      ref={targetRef}
+      draggable={isDraggable}
+      onDragStart={handleDragStart}
+      targetRef={targetRef}
+      onClick={handleSelect}
+      onContextMenu={handleContextMenuOpen}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
-      onDragStart={handleDragStart}
-      onDragEnd={props.handleDragEnd}
+      onDragEnd={onDragEnd}
+      aria-label="List name"
     >
       <div
         className={cnTree('NavigationItem', {
-          Selected: props.selectedItems?.includes(targetRef),
-          Droppable: props.dropZone === dropZoneRef,
-          Hidden: hidden,
+          Selected: selectedItems?.includes(targetRef),
+          Droppable: dropZone === dropZoneRef,
+          Hidden: !!visibilityIdentifier.visibilityIdentifierData,
         })}
         role="treeitem"
         aria-label="List name"
-        tabIndex={0}
-        onClick={handleSelect}
-        onKeyPress={(): void => {}}
         onDoubleClick={handleExpand}
-        onContextMenu={handleContextMenuOpen}
+        tabIndex={0}
+        onKeyPress={(): void => {}}
       >
-        <div
+        <button
           className={cnTree('NavigationArrow', { expanded })}
           onClick={handleExpand}
           onKeyPress={handleExpand}
           aria-label="List controller"
-          role="button"
+          type="button"
           tabIndex={0}
         />
 
-        {props.iconId && props.icons && (
-          <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>
-        )}
+        {iconId && icons && <div className={cnTree('Icon')}>{icons[iconId]}</div>}
 
-        <div className={cnTree('ItemName')}>{props.name}</div>
+        <div className={cnTree('ItemName')}>{name}</div>
 
         <div
           className={cnTree('Backlight')}
           style={{
-            width: props.rootRef?.current?.offsetWidth ?? '100%',
+            width: rootRef?.current?.offsetWidth ?? '100%',
           }}
         />
 
-        {renderNavigationIcon()}
+        {visibilityIdentifier.renderNavigationIcon()}
       </div>
 
       <ul ref={dropZoneRef} className={cnTree('NodeList', { expanded })}>
-        {props.children}
+        {children}
       </ul>
-    </li>
+    </TreeItemContainer>
   );
+};
+
+TreeNode.defaultProps = {
+  isDraggable: 'true',
 };

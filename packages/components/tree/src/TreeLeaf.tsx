@@ -1,93 +1,66 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 
 import cnTree from './cn-tree';
-import TreeNavigationEye from './TreeNavigationEye';
-import { LeafTree, NavigationEyeProps } from './types';
+import { TreeItemContainer } from './TreeItemContainer';
+import { LeafTree } from './types';
+import { useTreeHandlers } from './use-tree-handlers';
+import { useVisibilityIdentifier } from './use-visability-identifier';
 
 export const TreeLeaf: React.FC<LeafTree> = (props) => {
-  const [hidden, setIsHidden] = useState<boolean>(false);
-  const ref = useRef<HTMLLIElement | null>(null);
+  const {
+    name,
+    onHideItem,
+    onContextMenu,
+    onSelectItem,
+    onDragStart,
+    selectedItems,
+    hiddenItems,
+    isDraggable,
+    iconId,
+    icons,
+    rootRef,
+  } = props;
 
-  const handleHide = (event: React.MouseEvent | React.KeyboardEvent): void => {
-    event.stopPropagation();
+  const targetRef = useRef<HTMLLIElement | null>(null);
 
-    if (typeof props.handleHideItem === 'function') {
-      props.handleHideItem(ref);
-    }
-  };
+  const { handleSelect, handleHide, handleContextMenuOpen, handleDragStart } = useTreeHandlers({
+    ref: targetRef,
+    onContextMenu,
+    onSelectItem,
+    onHideItem,
+    onDragStart,
+  });
 
-  const handleDragStart = (event: React.DragEvent): void => {
-    if (typeof props.handleDragStart === 'function') {
-      props.handleDragStart(event, ref);
-    }
-  };
-
-  const handleSelect = (): void => {
-    if (typeof props.handleSelectItem === 'function') {
-      props.handleSelectItem(ref);
-    }
-  };
-
-  const handleContextMenuOpen = (event: React.MouseEvent): void => {
-    if (typeof props.handleContextMenu === 'function') {
-      handleSelect();
-
-      props.handleContextMenu(event, ref);
-    }
-  };
-
-  const renderNavigationIcon = (): React.ReactElement<NavigationEyeProps> => {
-    if (props.hiddenItems?.includes(ref)) {
-      if (!hidden) setIsHidden(true);
-
-      return <TreeNavigationEye hidden={hidden} handleHide={handleHide} />;
-    }
-
-    if (
-      props.hiddenItems?.some((_ref) => {
-        return _ref.current?.contains(ref.current as Node);
-      })
-    ) {
-      if (!hidden) setIsHidden(true);
-
-      return <div className={cnTree('NavigationDot')} />;
-    }
-
-    if (hidden) setIsHidden(false);
-
-    return <TreeNavigationEye hidden={hidden} handleHide={handleHide} />;
-  };
+  const visibilityIdentifier = useVisibilityIdentifier({ ref: targetRef, handleHide, hiddenItems });
 
   return (
-    <li
-      className={cnTree('Leaf', { Hidden: hidden })}
-      draggable={props.isDraggable === false ? 'false' : 'true'}
+    <TreeItemContainer
+      className={cnTree('Leaf', { Hidden: !!visibilityIdentifier.visibilityIdentifierData })}
+      draggable={isDraggable === false ? 'false' : 'true'}
       onDragStart={handleDragStart}
-      ref={ref}
+      targetRef={targetRef}
+      onClick={handleSelect}
+      onContextMenu={handleContextMenuOpen}
     >
       <div
         role="treeitem"
         tabIndex={0}
-        className={cnTree('LeafContent', { Selected: props.selectedItems?.includes(ref) })}
+        className={cnTree('LeafContent', { Selected: selectedItems?.includes(targetRef) })}
         onKeyDown={(): void => {}}
-        onClick={handleSelect}
-        onContextMenu={handleContextMenuOpen}
       >
-        {props.iconId && props.icons && (
-          <div className={cnTree('Icon')}>{props.icons[props.iconId]}</div>
-        )}
+        {iconId && icons && <div className={cnTree('Icon')}>{icons[iconId]}</div>}
 
-        <div className={cnTree('ItemName')}>{props.name}</div>
+        <div className={cnTree('ItemName')}>{name}</div>
 
         <div
           className={cnTree('Backlight')}
           style={{
-            width: props.rootRef?.current?.offsetWidth ?? '100%',
+            width: rootRef?.current?.offsetWidth ?? '100%',
           }}
         />
 
-        {renderNavigationIcon()}
+        {visibilityIdentifier.renderNavigationIcon()}
       </div>
-    </li>
+    </TreeItemContainer>
   );
 };

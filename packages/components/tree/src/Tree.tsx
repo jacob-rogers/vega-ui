@@ -12,10 +12,10 @@ import './Tree.css';
 export const Tree: React.FC<NodeTree> = (props) => {
   const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
 
-  const [isOpenContextMenu, setIsOpenContextMenu] = useState<boolean>(false);
+  const [isOpenContextMenu, setIsOpenContextMenu] = useState(false);
   const [contextMenuData, setContextMenuData] = useState<ContextMenuData | null>(null);
 
-  const [isMultiSelect, setIsMultiSelect] = useState<boolean>(false);
+  const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Array<React.RefObject<HTMLElement>> | null>(
     [],
   );
@@ -69,7 +69,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
     setHiddenItems([ref]);
   };
 
-  const handleContextMenu = (event: React.MouseEvent, ref: React.Ref<HTMLElement>): void => {
+  const handleContextMenu = (event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void => {
     event.preventDefault();
 
     setContextMenuData({
@@ -123,7 +123,6 @@ export const Tree: React.FC<NodeTree> = (props) => {
     e.stopPropagation();
 
     setDropZone(null);
-    // setSelectedItems(null);
   };
 
   const renderTree = (t: NodeTree[]): React.ReactElement[] => {
@@ -137,13 +136,13 @@ export const Tree: React.FC<NodeTree> = (props) => {
             dropZone={dropZone}
             rootRef={rootRef}
             isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
-            handleDragStart={handleDragStart}
-            handleDragOver={handleDragOver}
-            handleDragDrop={handleDragDrop}
-            handleDragEnd={handleDragEnd}
-            handleContextMenu={handleContextMenu}
-            handleSelectItem={handleSelectItem}
-            handleHideItem={handleHideItem}
+            onDragStart={handleDragStart}
+            onDragOver={handleDragOver}
+            onDragDrop={handleDragDrop}
+            onDragEnd={handleDragEnd}
+            onContextMenu={handleContextMenu}
+            onSelectItem={handleSelectItem}
+            onHideItem={handleHideItem}
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
             iconId={node.iconId}
@@ -158,17 +157,17 @@ export const Tree: React.FC<NodeTree> = (props) => {
         return acc;
       }
 
-      if (node?.name) {
+      if (node.name) {
         acc.push(
           <TreeLeaf
             name={node.name}
             key={node.name}
             rootRef={rootRef}
             isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
-            handleDragStart={handleDragStart}
-            handleContextMenu={handleContextMenu}
-            handleSelectItem={handleSelectItem}
-            handleHideItem={handleHideItem}
+            onDragStart={handleDragStart}
+            onContextMenu={handleContextMenu}
+            onSelectItem={handleSelectItem}
+            onHideItem={handleHideItem}
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
             icons={props.icons}
@@ -194,10 +193,10 @@ export const Tree: React.FC<NodeTree> = (props) => {
           <TreeContextMenu
             contextMenuData={contextMenuData}
             setIsOpenContextMenu={setIsOpenContextMenu}
-            handleRename={props.handleRename}
-            handleCopy={props.handleCopy}
-            handleDelete={props.handleDelete}
-            handlePaste={props.handlePaste}
+            handleRename={props.onRenameItem}
+            handleCopy={props.onCopyItem}
+            handleDelete={props.onDeleteItem}
+            handlePaste={props.onPasteItem}
           />
         )}
       </div>

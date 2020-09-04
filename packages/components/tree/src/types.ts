@@ -9,19 +9,26 @@ export interface BaseNode {
   };
   rootRef?: React.RefObject<HTMLElement>;
   selectedItems?: React.RefObject<HTMLElement>[] | null;
-  isDraggable?: boolean;
-  handleDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
-  handleDragOver?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
-  handleDragDrop?(event: React.DragEvent): void;
-  handleDragEnd?(event: React.DragEvent): void;
-  handleContextMenu?(event: React.MouseEvent, ref: React.Ref<HTMLElement>): void;
-  handleRename?: () => void;
-  handleCopy?: () => void;
-  handleDelete?: () => void;
-  handlePaste?: () => void;
-  handleSelectItem?: (ref: React.RefObject<HTMLElement | HTMLDivElement>) => void;
+  isDraggable?: boolean | 'true' | 'false';
+  dndConstraintFor?: 'upper' | 'lower' | 'both';
+
+  onDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
+
+  onDragOver?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
+
+  onDragDrop?(event: React.DragEvent): void;
+
+  onDragEnd?(event: React.DragEvent): void;
+
+  onContextMenu?(event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void;
+
+  onRenameItem?: () => void;
+  onCopyItem?: () => void;
+  onDeleteItem?: () => void;
+  onPasteItem?: () => void;
+  onSelectItem?: (ref: React.RefObject<HTMLElement | HTMLDivElement>) => void;
   hiddenItems?: React.RefObject<HTMLElement>[] | null;
-  handleHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
+  onHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
 }
 
 export interface NodeTree extends BaseNode {
@@ -38,5 +45,5 @@ export interface LeafTree extends BaseNode {
 
 export type NavigationEyeProps = {
   hidden: boolean;
-  handleHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
+  onHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
 };
