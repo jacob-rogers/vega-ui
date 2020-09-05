@@ -2,6 +2,7 @@ import React from 'react';
 
 type UseTreeHandlersProps = {
   ref: React.RefObject<HTMLElement>;
+  isDraggable?: boolean;
   onHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
   onSelectItem?: (ref: React.RefObject<HTMLElement | HTMLDivElement>) => void;
 
@@ -18,7 +19,6 @@ type UseTreeHandlersProps = {
 };
 
 type treeHandlersApi = {
-  expanded?: boolean;
   handleSelect: (event: React.MouseEvent | React.KeyboardEvent) => void;
   handleExpand?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   handleHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
@@ -29,7 +29,7 @@ type treeHandlersApi = {
 };
 
 export const useTreeHandlers = (props: UseTreeHandlersProps): treeHandlersApi => {
-  const { ref, onHideItem, onSelectItem, onContextMenu, onDragStart } = props;
+  const { ref, onHideItem, onSelectItem, onContextMenu, onDragStart, isDraggable } = props;
 
   const handleHide = (event: React.MouseEvent | React.KeyboardEvent): void => {
     event.stopPropagation();
@@ -56,6 +56,10 @@ export const useTreeHandlers = (props: UseTreeHandlersProps): treeHandlersApi =>
   };
 
   const handleDragStart = (event: React.DragEvent): void => {
+    if (!isDraggable) {
+      return;
+    }
+
     if (onDragStart) {
       onDragStart(event, ref);
     }

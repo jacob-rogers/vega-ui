@@ -2,7 +2,7 @@ import React from 'react';
 
 export type TreeItemContainerProps = JSX.IntrinsicElements['li'] & {
   className?: string;
-  draggable?: boolean | 'true' | 'false';
+  draggable?: boolean;
   targetRef: React.RefObject<HTMLLIElement>;
   children?: React.ReactNode;
 };
@@ -23,7 +23,7 @@ export const TreeItemContainer: React.FC<TreeItemContainerProps> = (props) => {
     <li
       {...liProps}
       className={className}
-      draggable={draggable}
+      draggable={draggable && 'true'}
       onDragStart={onDragStart}
       ref={targetRef}
       onClick={onClick}

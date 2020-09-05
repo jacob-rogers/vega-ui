@@ -2,11 +2,11 @@ import React, { useRef, useState } from 'react';
 
 import cnTree from './cn-tree';
 import { TreeItemContainer } from './TreeItemContainer';
-import { NodeTree } from './types';
+import { NodeItem } from './types';
 import { useTreeHandlers } from './use-tree-handlers';
 import { useVisibilityIdentifier } from './use-visability-identifier';
 
-export const TreeNode: React.FC<NodeTree> = (props) => {
+export const TreeNode: React.FC<NodeItem> = (props) => {
   const {
     name,
     onHideItem,
@@ -36,6 +36,7 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
     dropZoneRef,
     onContextMenu,
     onSelectItem,
+    isDraggable,
     onHideItem,
     onDragStart,
     onDragOver,
@@ -68,7 +69,6 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
       draggable={isDraggable}
       onDragStart={handleDragStart}
       targetRef={targetRef}
-      onClick={handleSelect}
       onContextMenu={handleContextMenuOpen}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
@@ -81,6 +81,7 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
           Droppable: dropZone === dropZoneRef,
           Hidden: !!visibilityIdentifier.visibilityIdentifierData,
         })}
+        onClick={handleSelect}
         role="treeitem"
         aria-label="List name"
         onDoubleClick={handleExpand}
@@ -103,7 +104,7 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
         <div
           className={cnTree('Backlight')}
           style={{
-            width: rootRef?.current?.offsetWidth ?? '100%',
+            width: rootRef?.current?.getBoundingClientRect().width ?? '100%',
           }}
         />
 
@@ -115,8 +116,4 @@ export const TreeNode: React.FC<NodeTree> = (props) => {
       </ul>
     </TreeItemContainer>
   );
-};
-
-TreeNode.defaultProps = {
-  isDraggable: 'true',
 };

@@ -5,11 +5,22 @@ import TreeContextMenu, { ContextMenuData } from './components/TreeContextMenu';
 import cnTree from './cn-tree';
 import { TreeLeaf } from './TreeLeaf';
 import { TreeNode } from './TreeNode';
-import { LeafTree, NodeTree } from './types';
+import { LeafTree, NodeItem } from './types';
 
 import './Tree.css';
 
-export const Tree: React.FC<NodeTree> = (props) => {
+export const Tree: React.FC<NodeItem> = (props) => {
+  const {
+    isDndEnable = true,
+    icons,
+    nodeList,
+    onRenameItem,
+    onCopyItem,
+    onDeleteItem,
+    onPasteItem,
+    isContextMenuEnable = false,
+  } = props;
+
   const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
 
   const [isOpenContextMenu, setIsOpenContextMenu] = useState(false);
@@ -70,17 +81,21 @@ export const Tree: React.FC<NodeTree> = (props) => {
   };
 
   const handleContextMenu = (event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void => {
+    if (isContextMenuEnable === false) {
+      return;
+    }
+
     event.preventDefault();
 
-    setContextMenuData({
-      callerRef: ref,
-      style: {
-        left: rootRef.current
-          ? event.clientX - rootRef.current.getBoundingClientRect().left
-          : '-999',
-        top: rootRef.current ? event.clientY - rootRef.current.getBoundingClientRect().top : '-999',
-      },
-    });
+    if (rootRef.current) {
+      setContextMenuData({
+        callerRef: ref,
+        style: {
+          left: event.clientX - rootRef.current.getBoundingClientRect().left,
+          top: event.clientY - rootRef.current.getBoundingClientRect().top,
+        },
+      });
+    }
 
     setIsOpenContextMenu(true);
   };
@@ -125,8 +140,8 @@ export const Tree: React.FC<NodeTree> = (props) => {
     setDropZone(null);
   };
 
-  const renderTree = (t: NodeTree[]): React.ReactElement[] => {
-    return t.reduce((acc: Array<React.ReactElement>, node: NodeTree | LeafTree) => {
+  const renderTree = (t: NodeItem[]): React.ReactElement[] => {
+    return t.reduce((acc: Array<React.ReactElement>, node: NodeItem | LeafTree) => {
       if ('nodeList' in node) {
         const element = (
           <TreeNode
@@ -135,7 +150,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
             key={node.name}
             dropZone={dropZone}
             rootRef={rootRef}
-            isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
+            isDraggable={isDndEnable && node.isDraggable !== false}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
             onDragDrop={handleDragDrop}
@@ -146,7 +161,7 @@ export const Tree: React.FC<NodeTree> = (props) => {
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
             iconId={node.iconId}
-            icons={props.icons}
+            icons={icons}
           >
             {node.nodeList && renderTree(node.nodeList)}
           </TreeNode>
@@ -163,14 +178,14 @@ export const Tree: React.FC<NodeTree> = (props) => {
             name={node.name}
             key={node.name}
             rootRef={rootRef}
-            isDraggable={props.isDraggable === false ? props.isDraggable : node.isDraggable}
+            isDraggable={isDndEnable && node.isDraggable !== false}
             onDragStart={handleDragStart}
             onContextMenu={handleContextMenu}
             onSelectItem={handleSelectItem}
             onHideItem={handleHideItem}
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
-            icons={props.icons}
+            icons={icons}
             iconId={node.iconId}
           />,
         );
@@ -186,17 +201,17 @@ export const Tree: React.FC<NodeTree> = (props) => {
     <div className={cnTree()}>
       <div className={cnTree('TreeRootNode')} ref={rootRef}>
         <ul role="tree" tabIndex={0} className={cnTree('RootList')}>
-          {props.nodeList && renderTree(props.nodeList)}
+          {nodeList && renderTree(nodeList)}
         </ul>
 
         {isOpenContextMenu && contextMenuData && (
           <TreeContextMenu
             contextMenuData={contextMenuData}
             setIsOpenContextMenu={setIsOpenContextMenu}
-            handleRename={props.onRenameItem}
-            handleCopy={props.onCopyItem}
-            handleDelete={props.onDeleteItem}
-            handlePaste={props.onPasteItem}
+            handleRename={onRenameItem}
+            handleCopy={onCopyItem}
+            handleDelete={onDeleteItem}
+            handlePaste={onPasteItem}
           />
         )}
       </div>

@@ -7,9 +7,11 @@ export interface BaseNode {
   icons?: {
     [iconId: string]: React.ReactElement;
   };
+  isDndEnable?: boolean;
+  isContextMenuEnable?: boolean;
   rootRef?: React.RefObject<HTMLElement>;
   selectedItems?: React.RefObject<HTMLElement>[] | null;
-  isDraggable?: boolean | 'true' | 'false';
+  isDraggable?: boolean;
   dndConstraintFor?: 'upper' | 'lower' | 'both';
 
   onDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
@@ -31,13 +33,13 @@ export interface BaseNode {
   onHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
 }
 
-export interface NodeTree extends BaseNode {
-  nodeList?: NodeTree[];
+export interface NodeItem extends BaseNode {
+  nodeList?: NodeItem[] | LeafTree[] | Array<NodeItem | LeafTree>;
   children?: React.ReactNode;
   dropZone?: React.Ref<HTMLElement> | null;
 }
 
-export type RootProps = [NodeTree];
+export type RootProps = [NodeItem];
 
 export interface LeafTree extends BaseNode {
   name: string;

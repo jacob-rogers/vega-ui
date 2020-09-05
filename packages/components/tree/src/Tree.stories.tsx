@@ -208,6 +208,7 @@ storiesOf('ui/Tree', module)
   .add('по умолчанию', () => (
     <Tree
       icons={icons}
+      isContextMenuEnable
       nodeList={rootProps}
       onRenameItem={(): void => action('Renamed')('Item')}
       onCopyItem={(): void => action('Copied')('Item')}

@@ -26,6 +26,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
   const { handleSelect, handleHide, handleContextMenuOpen, handleDragStart } = useTreeHandlers({
     ref: targetRef,
     onContextMenu,
+    isDraggable,
     onSelectItem,
     onHideItem,
     onDragStart,
@@ -36,15 +37,15 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
   return (
     <TreeItemContainer
       className={cnTree('Leaf', { Hidden: !!visibilityIdentifier.visibilityIdentifierData })}
-      draggable={isDraggable === false ? 'false' : 'true'}
+      draggable={isDraggable}
       onDragStart={handleDragStart}
       targetRef={targetRef}
-      onClick={handleSelect}
       onContextMenu={handleContextMenuOpen}
     >
       <div
         role="treeitem"
         tabIndex={0}
+        onClick={handleSelect}
         className={cnTree('LeafContent', { Selected: selectedItems?.includes(targetRef) })}
         onKeyDown={(): void => {}}
       >
