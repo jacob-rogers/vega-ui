@@ -21,16 +21,16 @@
 
 .VegaTree__ContextMenu {
   position: absolute;
+
+  z-index: var(--context-menu-z-portal);
+
+  box-sizing: border-box;
   width: 220px;
 
   background-color: var(--color-bg-default);
   border: 1px solid var(--color-bg-border);
-
-  box-sizing: border-box;
-  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 32, 51, 0.18);
   border-radius: var(--space-2xs);
-
-  z-index: var(--context-menu-z-portal);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 32, 51, 0.18);
 }
 
 .VegaTree__ContextMenuList {
@@ -47,32 +47,36 @@
 }
 
 .VegaTree__ContextMenuItem {
-  cursor: pointer;
-  text-align: left;
   padding-left: 5px;
 
   font-size: var(--size-text-s);
   line-height: var(--line-height-text-l);
+  text-align: left;
+
+  cursor: pointer;
 
   color: var(--color-typo-primary);
 }
 
 .VegaTree__ContextMenuItem_withSeparator {
-  border-bottom: 1px solid var(--color-bg-ghost);
   margin-bottom: 5px;
+
+  border-bottom: 1px solid var(--color-bg-ghost);
 }
 
 .VegaTree__ItemName {
   z-index: var(--navigation-item-z);
 }
 
-.VegaTree:hover .VegaTree__NodeList_expanded::before {
+.VegaTree:hover .VegaTree__NodeList_withLeftLines::before {
   content: '';
 
-  border-left: 1px solid var(--color-bg-stripe);
-  height: 100%;
   position: absolute;
   left: 11px;
+
+  height: 100%;
+
+  border-left: 1px solid var(--color-bg-stripe);
 }
 
 .VegaTree__NavigationEye {
@@ -82,18 +86,23 @@
 .VegaTree__NavigationEye,
 .VegaTree__NavigationEye_hidden,
 .VegaTree__NavigationDot {
-  align-items: center;
-  justify-content: center;
-  width: var(--space-xl);
-  height: var(--space-xl);
-  transform: scale(1.3);
   margin-right: 6px;
-  outline: none;
   margin-left: auto;
   padding: 0;
+
+  justify-content: center;
+  align-items: center;
+
+  width: var(--space-xl);
+  height: var(--space-xl);
+
   cursor: pointer;
-  border: none;
+
   background: transparent;
+  border: none;
+  outline: none;
+
+  transform: scale(1.3);
 }
 
 .VegaTree:hover .VegaTree__NavigationEye {
@@ -107,18 +116,22 @@
 
 .VegaTree__TreeNode,
 .VegaTree__NodeList {
-  list-style: none;
-  outline: none;
   padding-left: var(--space-s);
+
+  list-style: none;
+
+  outline: none;
 }
 
 .VegaTree__Backlight {
-  z-index: var(--navigation-backlight-z);
   position: absolute;
-  display: none;
+  z-index: var(--navigation-backlight-z);
   right: 0;
 
+  display: none;
+
   height: var(--space-xl);
+
   background-color: var(--color-control-bg-focus);
 }
 
@@ -127,10 +140,12 @@
 }
 
 .VegaTree__Leaf {
+  padding-left: var(--space-s);
+
   cursor: pointer;
   user-select: none;
+
   outline: none;
-  padding-left: var(--space-s);
 }
 
 .VegaTree__Leaf_Hidden {
@@ -138,13 +153,16 @@
 }
 
 .VegaTree__LeafContent {
-  font-size: var(--size-text-s);
-  outline: none;
-  line-height: var(--line-height-text-m);
-  font-style: normal;
   display: flex;
   align-items: center;
+
   min-height: var(--space-xl);
+
+  font-size: var(--size-text-s);
+  font-style: normal;
+  line-height: var(--line-height-text-m);
+
+  outline: none;
 }
 
 .VegaTree__LeafContent:hover > .VegaTree__Backlight {
@@ -153,29 +171,36 @@
 
 .VegaTree__LeafContent_Selected > .VegaTree__Backlight {
   display: block;
+
   background-color: var(--color-control-bg-active) !important;
 }
 
 .VegaTree__NodeList {
-  display: none;
   margin: 0;
+
+  display: none;
 }
 
 .VegaTree__NodeList_expanded {
-  display: block;
   position: relative;
+
+  display: block;
 }
 
 .VegaTree__NavigationItem {
-  color: var(--color-typo-primary);
-  user-select: none;
-  font-size: var(--size-text-s);
-  line-height: var(--line-height-text-m);
-  font-style: normal;
-  cursor: pointer;
   display: flex;
   align-items: center;
+
   min-height: var(--space-xl);
+
+  font-size: var(--size-text-s);
+  font-style: normal;
+  line-height: var(--line-height-text-m);
+
+  cursor: pointer;
+  user-select: none;
+
+  color: var(--color-typo-primary);
   outline: none;
 }
 
@@ -185,6 +210,7 @@
 
 .VegaTree__NavigationItem_Selected > .VegaTree__Backlight {
   display: block;
+
   background-color: var(--color-control-bg-active) !important;
 }
 
@@ -198,41 +224,51 @@
 
 .VegaTree__NavigationArrow {
   z-index: var(--navigation-item-z);
+
   padding: 0 0 0 var(--space-xs);
-  outline: none;
+
   cursor: pointer;
-  border: none;
+
   background: transparent;
+  border: none;
+  outline: none;
 }
 
 .VegaTree__NavigationArrow::before {
   content: '';
-  border: solid;
-  border-color: var(--color-typo-ghost);
-  border-width: 0 3px 3px 0;
-  display: inline-block;
+
   margin-right: 7px;
   margin-bottom: 1px;
   padding: 3px;
+
+  display: inline-block;
+
+  border: solid;
+  border-width: 0 3px 3px 0;
+  border-color: var(--color-typo-ghost);
 
   transform: rotate(-45deg);
 }
 
 .VegaTree__NavigationArrow_expanded::before {
   content: '';
-  border: solid;
-  border-color: var(--color-typo-ghost);
-  border-width: 0 3px 3px 0;
-  display: inline-block;
+
   margin-right: var(--space-2xs);
   margin-bottom: 3px;
   padding: 3px;
+
+  display: inline-block;
+
+  border: solid;
+  border-width: 0 3px 3px 0;
+  border-color: var(--color-typo-ghost);
 
   transform: rotate(45deg);
 }
 
 .VegaTree__Icon {
+  z-index: var(--navigation-item-z);
+
   margin-right: var(--space-xs);
   margin-left: 6px;
-  z-index: var(--navigation-item-z);
 }

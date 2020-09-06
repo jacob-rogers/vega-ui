@@ -18,7 +18,7 @@ type ContextMenuProps = {
   handleRename?: () => void;
   handleCopy?: () => void;
   handleDelete?: () => void;
-  handlePaste?: () => void;
+  handlePaste?: (transferringId: string | number, receivingId: string | number) => void;
 };
 
 const TreeContextMenu: React.FC<ContextMenuProps> = (props) => {
@@ -40,11 +40,11 @@ const TreeContextMenu: React.FC<ContextMenuProps> = (props) => {
     }
   };
 
-  const handlePasteAction = (): void => {
-    if (typeof props.handlePaste === 'function') {
-      props.handlePaste();
-    }
-  };
+  // const handlePasteAction = (): void => {
+  //   if (typeof props.handlePaste === 'function') {
+  //     props.handlePaste();
+  //   }
+  // };
 
   const handleDeleteAction = (): void => {
     if (typeof props.handleDelete === 'function') {
@@ -87,7 +87,7 @@ const TreeContextMenu: React.FC<ContextMenuProps> = (props) => {
         <Button
           label="Вставить"
           aria-label="Вставить"
-          onClick={handlePasteAction}
+          onClick={(): void => {}}
           size="l"
           form="default"
           width="full"

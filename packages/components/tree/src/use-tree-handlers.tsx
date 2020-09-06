@@ -7,25 +7,15 @@ type UseTreeHandlersProps = {
   onSelectItem?: (ref: React.RefObject<HTMLElement | HTMLDivElement>) => void;
 
   onContextMenu?(event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void;
-  dropZoneRef?: React.RefObject<HTMLElement>;
 
   onDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
-
-  onDragOver?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
-
-  onDragDrop?(event: React.DragEvent): void;
-
-  onDragEnd?(event: React.DragEvent): void;
 };
 
 type treeHandlersApi = {
   handleSelect: (event: React.MouseEvent | React.KeyboardEvent) => void;
-  handleExpand?: (event: React.MouseEvent | React.KeyboardEvent) => void;
   handleHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
   handleContextMenuOpen: (event: React.MouseEvent) => void;
   handleDragStart?: (event: React.DragEvent) => void;
-  handleDragOver?: (event: React.DragEvent) => void;
-  handleDrop?: (event: React.DragEvent) => void;
 };
 
 export const useTreeHandlers = (props: UseTreeHandlersProps): treeHandlersApi => {
@@ -65,12 +55,10 @@ export const useTreeHandlers = (props: UseTreeHandlersProps): treeHandlersApi =>
     }
   };
 
-  const handlers: treeHandlersApi = {
+  return {
     handleSelect,
     handleHide,
     handleContextMenuOpen,
     handleDragStart,
   };
-
-  return handlers;
 };

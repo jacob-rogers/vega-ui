@@ -9,6 +9,8 @@ export interface BaseNode {
   };
   isDndEnable?: boolean;
   isContextMenuEnable?: boolean;
+  withVisibilitySwitcher?: boolean;
+  isShownLeftLines?: boolean;
   rootRef?: React.RefObject<HTMLElement>;
   selectedItems?: React.RefObject<HTMLElement>[] | null;
   isDraggable?: boolean;
@@ -16,7 +18,9 @@ export interface BaseNode {
 
   onDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
 
-  onDragOver?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
+  onDragEnter?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
+
+  onDragOver?(event: React.DragEvent): void;
 
   onDragDrop?(event: React.DragEvent): void;
 
@@ -27,7 +31,7 @@ export interface BaseNode {
   onRenameItem?: () => void;
   onCopyItem?: () => void;
   onDeleteItem?: () => void;
-  onPasteItem?: () => void;
+  onPasteItem?: (transferringId: string | number, receivingId: string | number) => void;
   onSelectItem?: (ref: React.RefObject<HTMLElement | HTMLDivElement>) => void;
   hiddenItems?: React.RefObject<HTMLElement>[] | null;
   onHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;

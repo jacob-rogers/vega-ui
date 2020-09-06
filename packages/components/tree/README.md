@@ -167,11 +167,13 @@ type TreeProps = {
     icons?: {
       [iconId: string]: React.ReactElement;
     }; // Коллекция иконок
+    isShownLeftLines?: boolean; // Отвечает за показ линий слева от узлов дерева. По умолчанию TRUE.
+    withVisibilitySwitcher?: boolean; // Позволяет отключить иконку Глаза (при нажатии меняет стилизацию своего родителя). По умолчанию TRUE.
     isContextMenuEnable?: boolean; // Возможность добавить контекстное меню. По умолчанию выключено.
-    isDndEnable?: boolean; // возможность выключить функциональность DragAndDrop (по умолчанию включен)
-    onRenameItem?: (id) => void; // Вызовет функцию, передав туда ID, при запросе переименовать какой-то элемент
-    onCopyItem?: () => void; // Аналогично для копирования
-    onDeleteItem?: () => void; // Аналогично для удаления
-    onPasteItem?: () => void; // Аналогично для вставки
+    isDndEnable?: boolean; // Возможность выключить функциональность DragAndDrop (по умолчанию включено)
+    onRenameItem?: (id) => void; // Вызовет функцию, передав туда ID, при запросе переименовать узел дерева
+    onCopyItem?: (id) => void; // Аналогично для копирования
+    onDeleteItem?: (id) => void; // Аналогично для удаления
+    onPasteItem?: (transferringId, receivingId) => void; // Сработает при вставке и перенесении через DND узла в другой узел. Прокинет id переносимого элемента и принимающего.
 };
 ```

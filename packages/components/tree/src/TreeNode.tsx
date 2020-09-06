@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 
 import cnTree from './cn-tree';
+import TreeContext from './context';
 import { TreeItemContainer } from './TreeItemContainer';
 import { NodeItem } from './types';
 import { useTreeHandlers } from './use-tree-handlers';
@@ -9,11 +10,13 @@ import { useVisibilityIdentifier } from './use-visability-identifier';
 export const TreeNode: React.FC<NodeItem> = (props) => {
   const {
     name,
+    id,
     onHideItem,
     onContextMenu,
     onSelectItem,
     onDragStart,
     onDragEnd,
+    onDragEnter,
     onDragOver,
     onDragDrop,
     children,
@@ -22,9 +25,10 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
     isDraggable,
     dropZone,
     iconId,
-    icons,
     rootRef,
   } = props;
+
+  const { withVisibilitySwitcher, isShownLeftLines, icons } = useContext(TreeContext);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -33,14 +37,11 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
 
   const { handleDragStart, handleSelect, handleHide, handleContextMenuOpen } = useTreeHandlers({
     ref: targetRef,
-    dropZoneRef,
     onContextMenu,
     onSelectItem,
     isDraggable,
     onHideItem,
     onDragStart,
-    onDragOver,
-    onDragDrop,
   });
 
   const visibilityIdentifier = useVisibilityIdentifier({ ref: targetRef, handleHide, hiddenItems });
@@ -51,9 +52,15 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
     setExpanded(!expanded);
   };
 
+  const handleDragEnter = (event: React.DragEvent): void => {
+    if (onDragEnter) {
+      onDragEnter(event, dropZoneRef);
+    }
+  };
+
   const handleDragOver = (event: React.DragEvent): void => {
     if (onDragOver) {
-      onDragOver(event, dropZoneRef);
+      onDragOver(event);
     }
   };
 
@@ -68,9 +75,11 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
       className={cnTree('TreeNode')}
       draggable={isDraggable}
       onDragStart={handleDragStart}
+      id={id?.toString()}
+      onDragOver={handleDragOver}
       targetRef={targetRef}
       onContextMenu={handleContextMenuOpen}
-      onDragOver={handleDragOver}
+      onDragEnter={handleDragEnter}
       onDrop={handleDrop}
       onDragEnd={onDragEnd}
       aria-label="List name"
@@ -108,10 +117,14 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
           }}
         />
 
-        {visibilityIdentifier.renderNavigationIcon()}
+        {withVisibilitySwitcher && visibilityIdentifier.renderNavigationIcon()}
       </div>
 
-      <ul ref={dropZoneRef} className={cnTree('NodeList', { expanded })}>
+      <ul
+        ref={dropZoneRef}
+        data-container-id={id?.toString()}
+        className={cnTree('NodeList', { expanded, withLeftLines: isShownLeftLines && expanded })}
+      >
         {children}
       </ul>
     </TreeItemContainer>

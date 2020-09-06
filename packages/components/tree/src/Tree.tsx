@@ -3,6 +3,7 @@ import { useKey } from '@gpn-prototypes/vega-hooks';
 
 import TreeContextMenu, { ContextMenuData } from './components/TreeContextMenu';
 import cnTree from './cn-tree';
+import TreeContext from './context';
 import { TreeLeaf } from './TreeLeaf';
 import { TreeNode } from './TreeNode';
 import { LeafTree, NodeItem } from './types';
@@ -19,6 +20,8 @@ export const Tree: React.FC<NodeItem> = (props) => {
     onDeleteItem,
     onPasteItem,
     isContextMenuEnable = false,
+    withVisibilitySwitcher = true,
+    isShownLeftLines = true,
   } = props;
 
   const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
@@ -81,7 +84,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
   };
 
   const handleContextMenu = (event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void => {
-    if (isContextMenuEnable === false) {
+    if (!isContextMenuEnable) {
       return;
     }
 
@@ -111,7 +114,14 @@ export const Tree: React.FC<NodeItem> = (props) => {
     }
   };
 
-  const handleDragOver = (e: React.BaseSyntheticEvent, ref: React.RefObject<HTMLElement>): void => {
+  const handleDragOver = (e: React.BaseSyntheticEvent): void => {
+    e.preventDefault();
+  };
+
+  const handleDragEnter = (
+    e: React.BaseSyntheticEvent,
+    ref: React.RefObject<HTMLElement>,
+  ): void => {
     e.stopPropagation();
     e.preventDefault();
 
@@ -127,6 +137,12 @@ export const Tree: React.FC<NodeItem> = (props) => {
           !dropZone.current?.contains(item.current as Node) &&
           item.current?.draggable !== false
         ) {
+          if (onPasteItem) {
+            onPasteItem(
+              item.current?.id as string,
+              dropZone.current?.dataset.containerId as string,
+            );
+          }
           // eslint-disable-next-line no-unused-expressions
           dropZone.current?.appendChild(item.current as Node);
         }
@@ -145,6 +161,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
       if ('nodeList' in node) {
         const element = (
           <TreeNode
+            id={node.id}
             name={node.name}
             nodeList={node.nodeList}
             key={node.name}
@@ -153,6 +170,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
             isDraggable={isDndEnable && node.isDraggable !== false}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
+            onDragEnter={handleDragEnter}
             onDragDrop={handleDragDrop}
             onDragEnd={handleDragEnd}
             onContextMenu={handleContextMenu}
@@ -161,7 +179,6 @@ export const Tree: React.FC<NodeItem> = (props) => {
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
             iconId={node.iconId}
-            icons={icons}
           >
             {node.nodeList && renderTree(node.nodeList)}
           </TreeNode>
@@ -175,6 +192,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
       if (node.name) {
         acc.push(
           <TreeLeaf
+            id={node.id}
             name={node.name}
             key={node.name}
             rootRef={rootRef}
@@ -185,7 +203,6 @@ export const Tree: React.FC<NodeItem> = (props) => {
             onHideItem={handleHideItem}
             selectedItems={selectedItems}
             hiddenItems={hiddenItems}
-            icons={icons}
             iconId={node.iconId}
           />,
         );
@@ -198,23 +215,25 @@ export const Tree: React.FC<NodeItem> = (props) => {
   };
 
   return (
-    <div className={cnTree()}>
-      <div className={cnTree('TreeRootNode')} ref={rootRef}>
-        <ul role="tree" tabIndex={0} className={cnTree('RootList')}>
-          {nodeList && renderTree(nodeList)}
-        </ul>
+    <TreeContext.Provider value={{ withVisibilitySwitcher, isShownLeftLines, icons }}>
+      <div className={cnTree()}>
+        <div className={cnTree('TreeRootNode')} ref={rootRef}>
+          <ul role="tree" tabIndex={0} className={cnTree('RootList')}>
+            {nodeList && renderTree(nodeList)}
+          </ul>
 
-        {isOpenContextMenu && contextMenuData && (
-          <TreeContextMenu
-            contextMenuData={contextMenuData}
-            setIsOpenContextMenu={setIsOpenContextMenu}
-            handleRename={onRenameItem}
-            handleCopy={onCopyItem}
-            handleDelete={onDeleteItem}
-            handlePaste={onPasteItem}
-          />
-        )}
+          {isOpenContextMenu && contextMenuData && (
+            <TreeContextMenu
+              contextMenuData={contextMenuData}
+              setIsOpenContextMenu={setIsOpenContextMenu}
+              handleRename={onRenameItem}
+              handleCopy={onCopyItem}
+              handleDelete={onDeleteItem}
+              handlePaste={onPasteItem}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </TreeContext.Provider>
   );
 };

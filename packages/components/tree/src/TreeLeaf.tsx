@@ -1,6 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import cnTree from './cn-tree';
+import TreeContext from './context';
 import { TreeItemContainer } from './TreeItemContainer';
 import { LeafTree } from './types';
 import { useTreeHandlers } from './use-tree-handlers';
@@ -8,6 +9,7 @@ import { useVisibilityIdentifier } from './use-visability-identifier';
 
 export const TreeLeaf: React.FC<LeafTree> = (props) => {
   const {
+    id,
     name,
     onHideItem,
     onContextMenu,
@@ -17,9 +19,10 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     hiddenItems,
     isDraggable,
     iconId,
-    icons,
     rootRef,
   } = props;
+
+  const { withVisibilitySwitcher, icons } = useContext(TreeContext);
 
   const targetRef = useRef<HTMLLIElement | null>(null);
 
@@ -39,6 +42,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
       className={cnTree('Leaf', { Hidden: !!visibilityIdentifier.visibilityIdentifierData })}
       draggable={isDraggable}
       onDragStart={handleDragStart}
+      id={id?.toString()}
       targetRef={targetRef}
       onContextMenu={handleContextMenuOpen}
     >
@@ -60,7 +64,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
           }}
         />
 
-        {visibilityIdentifier.renderNavigationIcon()}
+        {withVisibilitySwitcher && visibilityIdentifier.renderNavigationIcon()}
       </div>
     </TreeItemContainer>
   );
