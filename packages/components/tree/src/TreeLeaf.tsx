@@ -1,8 +1,8 @@
-import React, { useContext, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import cnTree from './cn-tree';
-import TreeContext from './context';
 import { TreeItemContainer } from './TreeItemContainer';
+import { TreeItemContent } from './TreeItemContent';
 import { LeafTree } from './types';
 import { useTreeHandlers } from './use-tree-handlers';
 import { useVisibilityIdentifier } from './use-visability-identifier';
@@ -20,10 +20,6 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     isDraggable,
     iconId,
   } = props;
-
-  const { treeContainerWidth, withVisibilitySwitcher, icons, functionIcons } = useContext(
-    TreeContext,
-  );
 
   const targetRef = useRef<HTMLLIElement | null>(null);
 
@@ -47,28 +43,13 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
       targetRef={targetRef}
       onContextMenu={handleContextMenuOpen}
     >
-      <div
-        role="treeitem"
-        tabIndex={0}
-        onClick={handleSelect}
+      <TreeItemContent
         className={cnTree('LeafContent', { Selected: selectedItems?.includes(targetRef) })}
-        onKeyDown={(): void => {}}
-      >
-        {iconId && icons && <div className={cnTree('Icon')}>{icons[iconId]}</div>}
-
-        <div className={cnTree('ItemName')}>{name}</div>
-
-        <div
-          className={cnTree('Backlight')}
-          style={{
-            width: treeContainerWidth,
-          }}
-        />
-
-        {functionIcons && functionIcons}
-
-        {withVisibilitySwitcher && visibilityIdentifier.renderNavigationIcon()}
-      </div>
+        onClick={handleSelect}
+        name={name}
+        iconId={iconId}
+        renderNavigationIcon={visibilityIdentifier.renderNavigationIcon}
+      />
     </TreeItemContainer>
   );
 };

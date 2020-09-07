@@ -3,6 +3,7 @@ import React, { useContext, useRef, useState } from 'react';
 import cnTree from './cn-tree';
 import TreeContext from './context';
 import { TreeItemContainer } from './TreeItemContainer';
+import { TreeItemContent } from './TreeItemContent';
 import { NodeItem } from './types';
 import { useTreeHandlers } from './use-tree-handlers';
 import { useVisibilityIdentifier } from './use-visability-identifier';
@@ -27,13 +28,7 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
     iconId,
   } = props;
 
-  const {
-    treeContainerWidth,
-    withVisibilitySwitcher,
-    isShownLeftLines,
-    icons,
-    functionIcons,
-  } = useContext(TreeContext);
+  const { isShownLeftLines } = useContext(TreeContext);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -89,18 +84,17 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
       onDragEnd={onDragEnd}
       aria-label="List name"
     >
-      <div
+      <TreeItemContent
         className={cnTree('NavigationItem', {
           Selected: selectedItems?.includes(targetRef),
           Droppable: dropZone === dropZoneRef,
           Hidden: !!visibilityIdentifier.visibilityIdentifierData,
         })}
         onClick={handleSelect}
-        role="treeitem"
-        aria-label="List name"
+        name={name}
+        iconId={iconId}
+        renderNavigationIcon={visibilityIdentifier.renderNavigationIcon}
         onDoubleClick={handleExpand}
-        tabIndex={0}
-        onKeyPress={(): void => {}}
       >
         <button
           className={cnTree('NavigationArrow', { expanded })}
@@ -110,22 +104,7 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
           type="button"
           tabIndex={0}
         />
-
-        {iconId && icons && <div className={cnTree('Icon')}>{icons[iconId]}</div>}
-
-        <div className={cnTree('ItemName')}>{name}</div>
-
-        <div
-          className={cnTree('Backlight')}
-          style={{
-            width: treeContainerWidth,
-          }}
-        />
-
-        {functionIcons && functionIcons}
-
-        {withVisibilitySwitcher && visibilityIdentifier.renderNavigationIcon()}
-      </div>
+      </TreeItemContent>
 
       <ul
         ref={dropZoneRef}
