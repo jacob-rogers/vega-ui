@@ -19,10 +19,11 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     hiddenItems,
     isDraggable,
     iconId,
-    rootRef,
   } = props;
 
-  const { withVisibilitySwitcher, icons, functionIcons } = useContext(TreeContext);
+  const { treeContainerWidth, withVisibilitySwitcher, icons, functionIcons } = useContext(
+    TreeContext,
+  );
 
   const targetRef = useRef<HTMLLIElement | null>(null);
 
@@ -60,7 +61,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
         <div
           className={cnTree('Backlight')}
           style={{
-            width: rootRef?.current?.offsetWidth ?? '100%',
+            width: treeContainerWidth,
           }}
         />
 

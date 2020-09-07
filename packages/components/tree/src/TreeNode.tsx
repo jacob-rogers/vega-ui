@@ -25,12 +25,15 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
     isDraggable,
     dropZone,
     iconId,
-    rootRef,
   } = props;
 
-  const { withVisibilitySwitcher, isShownLeftLines, icons, functionIcons } = useContext(
-    TreeContext,
-  );
+  const {
+    treeContainerWidth,
+    withVisibilitySwitcher,
+    isShownLeftLines,
+    icons,
+    functionIcons,
+  } = useContext(TreeContext);
 
   const [expanded, setExpanded] = useState(false);
 
@@ -115,7 +118,7 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
         <div
           className={cnTree('Backlight')}
           style={{
-            width: rootRef?.current?.getBoundingClientRect().width ?? '100%',
+            width: treeContainerWidth,
           }}
         />
 

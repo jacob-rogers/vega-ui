@@ -2,6 +2,7 @@ import React from 'react';
 
 type TreeApi = {
   withVisibilitySwitcher?: boolean;
+  treeContainerWidth?: number | string;
   isShownLeftLines?: boolean;
   icons?: {
     [iconId: string]: React.ReactElement;

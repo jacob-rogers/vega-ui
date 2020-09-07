@@ -54,3 +54,22 @@ export type NavigationEyeProps = {
   hidden: boolean;
   onHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
 };
+
+export type ContextMenuData = {
+  callerRef?: React.Ref<HTMLElement>;
+  style?: {
+    left: number | string;
+    top: number | string;
+  };
+};
+
+export type ContextMenuProps = {
+  contextMenuData: ContextMenuData | null;
+  closeContextMenu: () => void;
+  handleRename?: () => void;
+  handleCopy?: () => void;
+  handleDelete?: () => void;
+  handlePaste?: (transferringId: string | number, receivingId: string | number) => void;
+};
+
+export type ContextMenuListProps = Omit<ContextMenuProps, 'contextMenuData' | 'closeContextMenu'>;

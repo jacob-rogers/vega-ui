@@ -1,12 +1,14 @@
 import React, { useRef, useState } from 'react';
 import { useKey } from '@gpn-prototypes/vega-hooks';
 
-import TreeContextMenu, { ContextMenuData } from './components/TreeContextMenu';
+import { TreeContextMenu } from './components/TreeContextMenu';
+import { useContextMenu } from './components/TreeContextMenu/use-context-menu';
 import cnTree from './cn-tree';
 import TreeContext from './context';
 import { TreeLeaf } from './TreeLeaf';
 import { TreeNode } from './TreeNode';
 import { LeafTree, NodeItem } from './types';
+import { useOnChangeTreeWidth } from './use-on-change-width';
 
 import './Tree.css';
 
@@ -27,9 +29,6 @@ export const Tree: React.FC<NodeItem> = (props) => {
 
   const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
 
-  const [isOpenContextMenu, setIsOpenContextMenu] = useState(false);
-  const [contextMenuData, setContextMenuData] = useState<ContextMenuData | null>(null);
-
   const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Array<React.RefObject<HTMLElement>> | null>(
     [],
@@ -38,6 +37,17 @@ export const Tree: React.FC<NodeItem> = (props) => {
   const [hiddenItems, setHiddenItems] = useState<Array<React.RefObject<HTMLElement>> | null>([]);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
+
+  const treeContainerWidth = useOnChangeTreeWidth(rootRef);
+
+  const {
+    isOpenContextMenu,
+    contextMenuData,
+    handleContextMenu,
+    closeContextMenu,
+  } = useContextMenu({
+    isContextMenuEnable,
+  });
 
   useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown' });
   useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup' });
@@ -84,26 +94,6 @@ export const Tree: React.FC<NodeItem> = (props) => {
     setHiddenItems([ref]);
   };
 
-  const handleContextMenu = (event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void => {
-    if (!isContextMenuEnable) {
-      return;
-    }
-
-    event.preventDefault();
-
-    if (rootRef.current) {
-      setContextMenuData({
-        callerRef: ref,
-        style: {
-          left: event.clientX - rootRef.current.getBoundingClientRect().left,
-          top: event.clientY - rootRef.current.getBoundingClientRect().top,
-        },
-      });
-    }
-
-    setIsOpenContextMenu(true);
-  };
-
   const handleDragStart = (
     e: React.BaseSyntheticEvent,
     ref: React.RefObject<HTMLElement>,
@@ -132,23 +122,19 @@ export const Tree: React.FC<NodeItem> = (props) => {
   const handleDragDrop = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
 
-    if (dropZone && selectedItems) {
-      selectedItems.forEach((item) => {
-        if (
-          !dropZone.current?.contains(item.current as Node) &&
-          item.current?.draggable !== false
-        ) {
-          if (onPasteItem) {
-            onPasteItem(
-              item.current?.id as string,
-              dropZone.current?.dataset.containerId as string,
-            );
-          }
-          // eslint-disable-next-line no-unused-expressions
-          dropZone.current?.appendChild(item.current as Node);
-        }
-      });
+    if (!dropZone || !selectedItems) {
+      return;
     }
+
+    selectedItems.forEach((item) => {
+      if (!dropZone.current?.contains(item.current as Node) && item.current?.draggable !== false) {
+        if (onPasteItem) {
+          onPasteItem(item.current?.id as string, dropZone.current?.dataset.containerId as string);
+        }
+        // eslint-disable-next-line no-unused-expressions
+        dropZone.current?.appendChild(item.current as Node);
+      }
+    });
   };
 
   const handleDragEnd = (e: React.BaseSyntheticEvent): void => {
@@ -167,7 +153,6 @@ export const Tree: React.FC<NodeItem> = (props) => {
             nodeList={node.nodeList}
             key={node.name}
             dropZone={dropZone}
-            rootRef={rootRef}
             isDraggable={isDndEnable && node.isDraggable !== false}
             onDragStart={handleDragStart}
             onDragOver={handleDragOver}
@@ -196,7 +181,6 @@ export const Tree: React.FC<NodeItem> = (props) => {
             id={node.id}
             name={node.name}
             key={node.name}
-            rootRef={rootRef}
             isDraggable={isDndEnable && node.isDraggable !== false}
             onDragStart={handleDragStart}
             onContextMenu={handleContextMenu}
@@ -217,7 +201,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
 
   return (
     <TreeContext.Provider
-      value={{ withVisibilitySwitcher, isShownLeftLines, icons, functionIcons }}
+      value={{ treeContainerWidth, withVisibilitySwitcher, isShownLeftLines, icons, functionIcons }}
     >
       <div className={cnTree()}>
         <div className={cnTree('TreeRootNode')} ref={rootRef}>
@@ -228,7 +212,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
           {isOpenContextMenu && contextMenuData && (
             <TreeContextMenu
               contextMenuData={contextMenuData}
-              setIsOpenContextMenu={setIsOpenContextMenu}
+              closeContextMenu={closeContextMenu}
               handleRename={onRenameItem}
               handleCopy={onCopyItem}
               handleDelete={onDeleteItem}
