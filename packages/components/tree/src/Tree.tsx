@@ -19,6 +19,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
     onCopyItem,
     onDeleteItem,
     onPasteItem,
+    functionIcons,
     isContextMenuEnable = false,
     withVisibilitySwitcher = true,
     isShownLeftLines = true,
@@ -215,7 +216,9 @@ export const Tree: React.FC<NodeItem> = (props) => {
   };
 
   return (
-    <TreeContext.Provider value={{ withVisibilitySwitcher, isShownLeftLines, icons }}>
+    <TreeContext.Provider
+      value={{ withVisibilitySwitcher, isShownLeftLines, icons, functionIcons }}
+    >
       <div className={cnTree()}>
         <div className={cnTree('TreeRootNode')} ref={rootRef}>
           <ul role="tree" tabIndex={0} className={cnTree('RootList')}>

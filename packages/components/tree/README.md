@@ -167,6 +167,7 @@ type TreeProps = {
     icons?: {
       [iconId: string]: React.ReactElement;
     }; // Коллекция иконок
+    functionIcons?: React.ReactElement[] // Возможно рендерить кастомные функциональные иконки (пример: иконка Глаз, позволяющая скрывать элемент Дерева)
     isShownLeftLines?: boolean; // Отвечает за показ линий слева от узлов дерева. По умолчанию TRUE.
     withVisibilitySwitcher?: boolean; // Позволяет отключить иконку Глаза (при нажатии меняет стилизацию своего родителя). По умолчанию TRUE.
     isContextMenuEnable?: boolean; // Возможность добавить контекстное меню. По умолчанию выключено.

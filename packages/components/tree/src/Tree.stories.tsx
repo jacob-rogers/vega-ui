@@ -237,14 +237,12 @@ storiesOf('ui/Tree', module)
     <Tree
       icons={icons}
       isContextMenuEnable
-      withVisibilitySwitcher={false}
       nodeList={rootProps}
       onRenameItem={(): void => action('Renamed')('Item')}
       onCopyItem={(): void => action('Copied')('Item')}
       onDeleteItem={(): void => action('Deleted')('Item')}
       onPasteItem={(transferringId, receivingId): void => {
-        console.log(transferringId, receivingId);
-        action('Inserted')('Item');
+        action('Inserted')(transferringId, receivingId);
       }}
     />
   ));

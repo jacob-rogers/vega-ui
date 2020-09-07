@@ -28,7 +28,9 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
     rootRef,
   } = props;
 
-  const { withVisibilitySwitcher, isShownLeftLines, icons } = useContext(TreeContext);
+  const { withVisibilitySwitcher, isShownLeftLines, icons, functionIcons } = useContext(
+    TreeContext,
+  );
 
   const [expanded, setExpanded] = useState(false);
 
@@ -116,6 +118,8 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
             width: rootRef?.current?.getBoundingClientRect().width ?? '100%',
           }}
         />
+
+        {functionIcons && functionIcons}
 
         {withVisibilitySwitcher && visibilityIdentifier.renderNavigationIcon()}
       </div>

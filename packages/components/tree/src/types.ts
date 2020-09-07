@@ -15,6 +15,7 @@ export interface BaseNode {
   selectedItems?: React.RefObject<HTMLElement>[] | null;
   isDraggable?: boolean;
   dndConstraintFor?: 'upper' | 'lower' | 'both';
+  functionIcons?: React.ReactElement[];
 
   onDragStart?(event: React.DragEvent, ref: React.Ref<HTMLElement>): void;
 

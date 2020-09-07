@@ -6,6 +6,7 @@ type TreeApi = {
   icons?: {
     [iconId: string]: React.ReactElement;
   };
+  functionIcons?: React.ReactElement[];
 };
 
 const TreeContext = React.createContext<TreeApi>({});

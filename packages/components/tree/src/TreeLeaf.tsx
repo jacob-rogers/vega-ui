@@ -22,7 +22,7 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
     rootRef,
   } = props;
 
-  const { withVisibilitySwitcher, icons } = useContext(TreeContext);
+  const { withVisibilitySwitcher, icons, functionIcons } = useContext(TreeContext);
 
   const targetRef = useRef<HTMLLIElement | null>(null);
 
@@ -63,6 +63,8 @@ export const TreeLeaf: React.FC<LeafTree> = (props) => {
             width: rootRef?.current?.offsetWidth ?? '100%',
           }}
         />
+
+        {functionIcons && functionIcons}
 
         {withVisibilitySwitcher && visibilityIdentifier.renderNavigationIcon()}
       </div>
