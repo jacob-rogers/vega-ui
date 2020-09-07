@@ -73,6 +73,11 @@ export class Tree<T = unknown> {
     return this;
   }
 
+  public setChildrenIds(ids: string[]): Tree<T> {
+    this.childrenIds = ids;
+    return this;
+  }
+
   public removeChild(tree: Tree<T>): Tree<T> {
     return this.removeConnection(tree, 'child');
   }

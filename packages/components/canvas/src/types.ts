@@ -50,7 +50,8 @@ export type CanvasUpdate =
   | { type: 'remove-tree'; id: string }
   | { type: 'disconnect-tree'; id: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
-  | { type: 'clear' };
+  | { type: 'clear' }
+  | { type: 'update-children'; id: string; newChildren: string[] };
 
 export type CanvasTree = Tree<CanvasData>;
 
