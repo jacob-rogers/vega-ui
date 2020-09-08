@@ -3,9 +3,8 @@
 Компонент-обертка для [компонента Popover из дизайн-системы ГПН](https://ui-kit.gpn.vercel.app/?path=/story/ui-kit-popover--popover-positioned-by-anchor-story)
 
 ### Установка
-```
-    yarn add @gpn-prototypes/vega-popover
-```
+
+        yarn add @gpn-prototypes/vega-popover
 
 ### Примеры использования
 
@@ -26,4 +25,3 @@ export const MyComponent = () => {
 ```
 
 ### [API](https://ui-kit.gpn.vercel.app/?path=/docs/ui-kit-popover--popover-positioned-by-anchor-story#%D1%81%D0%BF%D0%B8%D1%81%D0%BE%D0%BA-%D1%81%D0%B2%D0%BE%D0%B9%D1%81%D1%82%D0%B2)
-

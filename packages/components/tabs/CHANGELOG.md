@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.14](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tabs@0.0.13...@gpn-prototypes/vega-tabs@0.0.14) (2020-09-03)
+
+
+### Bug Fixes
+
+* **global:** исправил историю для ChoiceGroup, исправил документацию для Tabs ([42b77a8](https://github.com/gpn-prototypes/vega-ui/commit/42b77a8ce824411bf29172e24e5634a25e0aba0f))
+
+
+
+
+
 ## [0.0.13](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tabs@0.0.12...@gpn-prototypes/vega-tabs@0.0.13) (2020-07-31)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-tabs

@@ -23,7 +23,7 @@ export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
       trigger={({ toggle, isOpen, props: { ref, ...triggerProps } }): React.ReactNode => {
         return (
           <Button
-            innerRef={ref}
+            ref={ref}
             onClick={toggle}
             label={activeItem?.label}
             aria-label="Открыть список виджетов"

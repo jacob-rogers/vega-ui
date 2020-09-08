@@ -15,7 +15,7 @@ export const LayoutOptions: React.FC<LayoutOptionsProps> = (props) => {
       trigger={({ toggle, props: { ref, ...triggerProps } }): React.ReactNode => {
         return (
           <Button
-            innerRef={ref}
+            ref={ref}
             onClick={toggle}
             onlyIcon
             iconSize="s"

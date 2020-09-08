@@ -1,0 +1,8 @@
+.VegaCanvas {
+  background: linear-gradient(180deg, #161a1d 0%, rgba(22, 26, 29, 0) 51.04%, #161a1d 100%);
+
+  &__LoaderContainer {
+    width: 100%;
+    height: 100%;
+  }
+}

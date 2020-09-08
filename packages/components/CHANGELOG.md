@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.12.2...@gpn-prototypes/vega-ui@2.12.3) (2020-09-03)
+
+
+### Bug Fixes
+
+* **global:** доработал историю Popover ([b684fab](https://github.com/gpn-prototypes/vega-ui/commit/b684fab788bfe568e78e017d40770ad5e230a628))
+* **global:** исправил историю для ChoiceGroup, исправил документацию для Tabs ([42b77a8](https://github.com/gpn-prototypes/vega-ui/commit/42b77a8ce824411bf29172e24e5634a25e0aba0f))
+
+
+
+
+
 ## [2.12.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.12.1...@gpn-prototypes/vega-ui@2.12.2) (2020-08-28)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui

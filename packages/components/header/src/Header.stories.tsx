@@ -41,9 +41,9 @@ storiesOf('ui/Header', module)
       { name: 'Помощь', url: '' },
     ];
 
-    const [activeItem, setActiveItem] = React.useState(navItems.filter((ni) => ni.isActive));
+    const [activeItem, setActiveItem] = React.useState(navItems.find((ni) => ni.isActive));
 
-    const handleChangeActive = (item: NavItemType[]): void => {
+    const handleChangeActive = (item: NavItemType): void => {
       setActiveItem(item);
     };
 

@@ -6,12 +6,11 @@ import { storiesOf } from '@storybook/react';
 
 import { Tabs } from './Tabs';
 
-type IconElement = (props: IconProps) => JSX.Element;
+type IconElement = React.FC<IconProps>;
 
 type Item = {
   name: string;
   icon?: IconElement;
-  count?: number;
 };
 
 type StoriesProps = {
@@ -33,7 +32,6 @@ const items = [
   {
     name: 'Третий вариант',
     icon: IconCamera,
-    count: 3,
   },
   {
     name: 'Очень длинный четвёртый вариант',
@@ -54,21 +52,7 @@ const items = [
 ];
 
 function Stories({ size, view, onlyIcon, withIcon }: StoriesProps): React.ReactElement {
-  const [valueTab, setValueTab] = useState<Item[] | null>([
-    {
-      name: 'Первый',
-      icon: IconPhoto,
-    },
-  ]);
-
-  const stylesCounter = {
-    display: 'inline-block',
-    padding: '0 3px',
-    marginLeft: '5px',
-    backgroundColor: '#efefef',
-    color: '#555',
-    borderRadius: '2px',
-  };
+  const [valueTab, setValueTab] = useState<Item | null>(items[0]);
 
   const getIcon = (item: Item): IconElement | undefined => (withIcon ? item.icon : undefined);
 
@@ -76,15 +60,8 @@ function Stories({ size, view, onlyIcon, withIcon }: StoriesProps): React.ReactE
     <Tabs<Item>
       items={items}
       value={valueTab}
-      getItemKey={(item): string => item.name}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      getItemLabel={(item): any => (
-        <>
-          <span>{item.name}</span>
-          {item.count && <span style={stylesCounter}>{item.count}</span>}
-        </>
-      )}
-      getItemIcon={getIcon}
+      getLabel={(item: Item): string => item.name}
+      getIcon={getIcon}
       onChange={({ value }): void => setValueTab(value)}
       size={size}
       view={view}
