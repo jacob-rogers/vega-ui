@@ -5,7 +5,7 @@ import { act, fireEvent, render, RenderResult, screen } from '@testing-library/r
 import { Grid } from './grid';
 import { Layout, LayoutProps } from './Layout';
 
-const defaultWidgets: LayoutProps['widgets'] = [];
+const defaultWidgets: LayoutProps['widgets'] = [{ name: 'div', component: 'div' }];
 
 function renderComponent(props: Partial<LayoutProps> = {}): RenderResult {
   return render(
