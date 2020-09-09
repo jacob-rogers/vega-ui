@@ -36,6 +36,15 @@ export class Tree<T = unknown> {
     return new Tree(data, childrenIds, parentIds, id);
   }
 
+  public canConnectedWith(tree: Tree<T>): boolean {
+    const treeId = tree.getId();
+    return !(
+      this.childrenIds.includes(treeId) ||
+      this.parentIds.includes(treeId) ||
+      this.id === treeId
+    );
+  }
+
   public getData(): T {
     return this.data;
   }

@@ -108,19 +108,15 @@ export class Canvas {
   }
 
   public connect(parentTree: CanvasTree, childTree: CanvasTree): void {
-    if (
-      childTree.getChildren().includes(parentTree.getId()) ||
-      childTree.getId() === parentTree.getId()
-    ) {
-      return;
+    if (parentTree.canConnectedWith(childTree)) {
+      parentTree.addChild(childTree);
+      childTree.addParent(parentTree);
+      this.notifier.notify({
+        type: 'connect-tree',
+        childId: childTree.getId(),
+        parentId: parentTree.getId(),
+      });
     }
-    parentTree.addChild(childTree);
-    childTree.addParent(parentTree);
-    this.notifier.notify({
-      type: 'connect-tree',
-      childId: childTree.getId(),
-      parentId: parentTree.getId(),
-    });
   }
 
   public disconnect(childTree: CanvasTree, parentTree: CanvasTree): void {

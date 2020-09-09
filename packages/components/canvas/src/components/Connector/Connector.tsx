@@ -13,6 +13,7 @@ type ConnectorProps = {
   isActive?: boolean;
   onActiveChange: (e: ConnectorEvent) => void;
   isSelected?: boolean;
+  disabled?: boolean;
   position: Position;
   type: ConnectorType;
 };
@@ -21,7 +22,7 @@ export const RADIUS = 6;
 const INITIAL_FILL = '#161A1D';
 
 export const Connector: React.FC<ConnectorProps> = (props) => {
-  const { id, onActiveChange, isActive, isSelected, position, type } = props;
+  const { id, onActiveChange, isActive, isSelected, position, type, disabled } = props;
 
   const [stroke, setStroke] = useState(CONNECTOR_DEFAULT_COLOR);
 
@@ -32,9 +33,11 @@ export const Connector: React.FC<ConnectorProps> = (props) => {
   });
 
   const handleMouseEnter = (): void => {
-    setCursor('pointer');
-    if (stroke !== CONNECTOR_HOVER_COLOR) {
-      setStroke(CONNECTOR_HOVER_COLOR);
+    if (!disabled) {
+      setCursor('pointer');
+      if (stroke !== CONNECTOR_HOVER_COLOR) {
+        setStroke(CONNECTOR_HOVER_COLOR);
+      }
     }
   };
 

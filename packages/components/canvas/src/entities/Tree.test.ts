@@ -125,4 +125,33 @@ describe('Tree', () => {
 
     expect(root.isLeaf()).toBe(false);
   });
+
+  describe('canConnectedWith', () => {
+    const tree = Tree.of({ data: null });
+    const child = Tree.of({ data: null });
+
+    afterEach(() => {
+      tree.removeChild(child);
+      child.removeParent(tree);
+    });
+
+    test('возвращает false, если передать самого себе', () => {
+      expect(tree.canConnectedWith(tree)).toBe(false);
+    });
+
+    test('возвращает false, если вызвать с существующим ребенком', () => {
+      tree.addChild(child);
+      expect(tree.canConnectedWith(child)).toBe(false);
+    });
+
+    test('возвращает false, если вызвать с существующим родителем', () => {
+      child.addParent(tree);
+      expect(child.canConnectedWith(tree)).toBe(false);
+    });
+
+    test('возвращает true, если попытаться вызвать с еще несуществующей связью', () => {
+      expect(tree.canConnectedWith(child)).toBe(true);
+      expect(child.canConnectedWith(tree)).toBe(true);
+    });
+  });
 });

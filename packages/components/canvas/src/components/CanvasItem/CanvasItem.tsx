@@ -77,19 +77,26 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onActiveChange: handleConnectorActive,
   };
 
-  const keys: ConnectionKey[] = ['childId', 'parentId'];
+  const connectionKeys: ConnectionKey[] = ['childId', 'parentId'];
+  const keys = ['parent', 'children'];
 
   const isSelectedItem = selectedData?.type === 'item' && selectedData.id === id;
 
-  const [parentConnectorrSelected, childConnectorSelected] = keys.map((key) => {
+  const [parentConnectorSelected, childConnectorSelected] = connectionKeys.map((key) => {
     if (selectedData !== null) {
       return isSelectedItem || (selectedData.type === 'line' && selectedData[key] === id);
     }
     return false;
   });
 
-  const [parentConnectorActive, childConnectorActive] = ['parent', 'children'].map((key) => {
+  const [parentConnectorActive, childConnectorActive] = keys.map((key) => {
     return hasActiveConnnector && activeData?.connector.type === key;
+  });
+
+  const bothConnectorsDisabled = activeData && !activeData.item.canConnectedWith(item);
+
+  const [disableParentConnector, disableChildConnector] = keys.map((key) => {
+    return bothConnectorsDisabled || activeData?.connector.type === key;
   });
 
   const stepContent = (
@@ -98,8 +105,9 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
         <Connector
           {...connectorProps}
           isActive={parentConnectorActive || itemParents.length > 0}
-          isSelected={parentConnectorrSelected}
+          isSelected={parentConnectorSelected}
           type="parent"
+          disabled={disableParentConnector}
           id={`${id}_parent`}
           position={relativeConnectorsPosition.parent}
         />
@@ -110,6 +118,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
           isActive={childConnectorActive || itemChildren.length > 0}
           isSelected={childConnectorSelected}
           type="children"
+          disabled={disableChildConnector}
           id={`${id}_children`}
           position={relativeConnectorsPosition.children}
         />
@@ -139,7 +148,9 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onPositionChange,
     label: data.title,
     onMouseEnter: (): void => {
-      setCursor('pointer');
+      if (!disableChildConnector && !disableParentConnector) {
+        setCursor('pointer');
+      }
     },
     onMouseLeave: (): void => {
       setCursor('default');
