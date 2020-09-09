@@ -34,11 +34,7 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
 
   const widget = widgets.find((i) => i.name === view.getWidgetName());
 
-  if (!widget) {
-    throw new Error(`Отсутствуе widget с именем ${view.getWidgetName()}`);
-  }
-
-  const Component = widget.component;
+  const Component = widget?.component;
 
   const handleOptionClick = (action: ChangeAction): void => {
     if (action === 'close') {
