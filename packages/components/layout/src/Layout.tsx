@@ -22,7 +22,7 @@ export const Layout: React.FC<LayoutProps> = (props) => {
     const [widget] = widgets;
     return Grid.create(
       state ?? {
-        0: Node.createLeaf({ widget: widget?.component }),
+        0: Node.createLeaf({ widget: widget?.name }),
       },
     );
   }, [state, widgets]);

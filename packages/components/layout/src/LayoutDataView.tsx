@@ -8,9 +8,11 @@ import { LayoutMenu } from './LayoutMenu';
 import { LayoutOptions } from './LayoutOptions';
 import { LayoutWindow } from './LayoutWindow';
 
+export type WidgetComponent = string | React.ComponentType;
+
 export interface LayoutWidget {
   name: string;
-  component: string;
+  component: WidgetComponent;
 }
 
 interface LayoutDataViewProps {
@@ -25,12 +27,18 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
     () =>
       widgets.map((widget) => ({
         label: widget.name,
-        value: widget.component,
+        value: widget.name,
       })),
     [widgets],
   );
 
-  const Component = view.getWidgetName();
+  const widget = widgets.find((i) => i.name === view.getWidgetName());
+
+  if (!widget) {
+    throw new Error(`Отсутствуе widget с именем ${view.getWidgetName()}`);
+  }
+
+  const Component = widget.component;
 
   const handleOptionClick = (action: ChangeAction): void => {
     if (action === 'close') {
