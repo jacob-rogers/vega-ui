@@ -49,8 +49,8 @@ export const Tree: React.FC<NodeItem> = (props) => {
     isContextMenuEnable,
   });
 
-  useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown' });
-  useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup' });
+  useKey(['Control'], () => setIsMultiSelect(true), { keyevent: 'keydown' });
+  useKey(['Control'], () => setIsMultiSelect(false), { keyevent: 'keyup' });
 
   const handleSelectItem = (ref: React.RefObject<HTMLElement>): void => {
     if (isMultiSelect && selectedItems && !selectedItems.includes(ref)) {
