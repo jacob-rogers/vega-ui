@@ -1,8 +1,15 @@
 import React from 'react';
-import { render, RenderResult } from '@testing-library/react';
+import { fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
 
 import { Tree } from './Tree';
+import { BlueLineSvg, OrangeLineSvg, RedLineSvg } from './Tree.stories';
 import { NodeItem, RootProps } from './types';
+
+export const icons = {
+  'blue-line': BlueLineSvg,
+  'orange-line': OrangeLineSvg,
+  'red-line': RedLineSvg,
+};
 
 const items: RootProps = [
   {
@@ -64,115 +71,152 @@ const items: RootProps = [
           },
         ],
       },
-      {
-        name: 'Поднятие 55-100',
-        iconId: 'orange-line',
-        id: 3,
-        isDraggable: false,
-        nodeList: [
-          {
-            name: 'Залежь - 78',
-            iconId: 'blue-line',
-            id: 7,
-          },
-          {
-            name: 'Залежь - 79',
-            iconId: 'blue-line',
-            id: 17,
-          },
-          {
-            name: 'Залежь - 56',
-            iconId: 'blue-line',
-            id: 24,
-          },
-          {
-            name: 'Залежь - 11',
-            iconId: 'blue-line',
-            id: 25,
-          },
-          {
-            name: 'Залежь - 1',
-            iconId: 'blue-line',
-            id: 26,
-          },
-        ],
-      },
-      {
-        name: 'Поднятие 23-32',
-        iconId: 'orange-line',
-        isDraggable: false,
-        id: 4,
-        nodeList: [
-          {
-            name: 'Залежь - 44',
-            iconId: 'blue-line',
-            id: 27,
-          },
-          {
-            name: 'Залежь - 79',
-            iconId: 'blue-line',
-            id: 31,
-          },
-          {
-            name: 'Залежь - 45',
-            iconId: 'blue-line',
-            id: 32,
-          },
-          {
-            name: 'Залежь - 46',
-            iconId: 'blue-line',
-            id: 33,
-            nodeList: [
-              {
-                name: 'Ловушка - 1',
-                iconId: 'red-line',
-                id: 41,
-                nodeList: [
-                  {
-                    name: 'Данные по Ловушка - 1',
-                    id: 34,
-                  },
-                ],
-              },
-              {
-                name: 'Ловушка - 2',
-                iconId: 'red-line',
-                id: 43,
-              },
-              {
-                name: 'Ловушка - 3',
-                iconId: 'red-line',
-                id: 44,
-              },
-              {
-                name: 'Ловушка - 4',
-                iconId: 'red-line',
-                id: 45,
-              },
-              {
-                name: 'Ловушка - 5',
-                iconId: 'red-line',
-                id: 46,
-              },
-            ],
-          },
-          {
-            name: 'Залежь - 1',
-            iconId: 'blue-line',
-            id: 47,
-          },
-        ],
-      },
     ],
   },
 ];
 
 function renderComponent(props: NodeItem): RenderResult {
-  return render(<Tree nodeList={props.nodeList} />);
+  return render(<Tree {...props} />);
 }
 
 describe('Tree', () => {
   test('рендерится без ошибок', () => {
     renderComponent({ nodeList: items });
+  });
+
+  test('рендерится только с одним узлом', async () => {
+    renderComponent({ nodeList: [{ name: 'Усть-Енисей' }] });
+
+    const item = screen.getAllByRole('treeitem')[0];
+
+    expect(item).toBeInTheDocument();
+  });
+
+  test('рендерится с пустым nodeList', async () => {
+    renderComponent({ nodeList: [] });
+
+    const tree = screen.getByRole('tree');
+
+    expect(tree).toBeInTheDocument();
+  });
+
+  test('рендерится с иконками', async () => {
+    renderComponent({ icons, nodeList: items });
+
+    const icon = document.querySelectorAll('.VegaTree__Icon')[0];
+
+    expect(icon).toBeInTheDocument();
+  });
+
+  test('при клике выделяется', async () => {
+    renderComponent({ nodeList: items });
+
+    const item = screen.getAllByRole('treeitem')[1];
+
+    fireEvent.click(item);
+
+    await waitFor(() => {
+      expect(item.className.includes('VegaTree__NavigationItem_Selected')).toBe(true);
+    });
+  });
+
+  test('при двойном клике открывается список элементов дерева', async () => {
+    renderComponent({ nodeList: items });
+
+    const item = screen.getAllByRole('treeitem')[1];
+
+    fireEvent.doubleClick(item);
+
+    await waitFor(() => {
+      expect(
+        document
+          .querySelector('[data-container-id~="1"]')
+          ?.className.includes('VegaTree__NodeList_expanded'),
+      ).toBe(true);
+    });
+  });
+
+  test('при клике на иконку стрелки список элементов открывается и закрывается', async () => {
+    renderComponent({ nodeList: items });
+
+    const item = screen.getAllByRole('menuitem')[0];
+
+    fireEvent.click(item);
+
+    await waitFor(() => {
+      expect(
+        document
+          .querySelector('[data-container-id~="1"]')
+          ?.className.includes('VegaTree__NodeList_expanded'),
+      ).toBe(true);
+    });
+
+    fireEvent.click(item);
+
+    await waitFor(() => {
+      expect(
+        document
+          .querySelector('[data-container-id~="1"]')
+          ?.className.includes('VegaTree__NodeList_expanded'),
+      ).toBe(false);
+    });
+  });
+
+  test('при клике на иконку глаза элемент меняет стилизацию', async () => {
+    renderComponent({ nodeList: items });
+
+    const container = screen.getAllByRole('treeitem')[1];
+    const item = screen.getAllByRole('switch')[0];
+
+    fireEvent.click(item);
+
+    await waitFor(() => {
+      expect(container.className.includes('VegaTree__NavigationItem_Hidden')).toBe(true);
+    });
+
+    fireEvent.click(item);
+
+    await waitFor(() => {
+      expect(container.className.includes('VegaTree__NavigationItem_Hidden')).toBe(false);
+    });
+  });
+
+  test('функционал drag and drop работает', async () => {
+    const nodes = [
+      {
+        name: 'From',
+        id: 'from',
+        isDraggable: false,
+        nodeList: [
+          {
+            name: 'Drag Item',
+            id: 'drag-item',
+          },
+        ],
+      },
+      {
+        name: 'To',
+        isDraggable: false,
+        id: 'to',
+        nodeList: [],
+      },
+    ];
+
+    renderComponent({ nodeList: nodes });
+
+    const dragItem = document.getElementById('drag-item');
+    const dragContainer = document.querySelector('[data-container-id~="from"]');
+    const dropContainer = document.querySelector('[data-container-id~="to"]');
+
+    if (dragItem && dropContainer) {
+      fireEvent.dragStart(dragItem);
+
+      fireEvent.dragEnter(dropContainer);
+
+      fireEvent.drop(dropContainer);
+    }
+
+    expect(dropContainer?.contains(dragItem)).toBe(true);
+    expect(dragContainer?.contains(dragItem)).toBe(false);
   });
 });

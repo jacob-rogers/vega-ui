@@ -7,7 +7,7 @@ import cnTree from './cn-tree';
 import TreeContext from './context';
 import { TreeLeaf } from './TreeLeaf';
 import { TreeNode } from './TreeNode';
-import { LeafTree, NodeItem } from './types';
+import { DropZone, LeafTree, NodeItem } from './types';
 import { useOnChangeTreeWidth } from './use-on-change-width';
 
 import './Tree.css';
@@ -16,7 +16,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
   const {
     isDndEnable = true,
     icons,
-    nodeList,
+    nodeList = [],
     onRenameItem,
     onCopyItem,
     onDeleteItem,
@@ -27,7 +27,7 @@ export const Tree: React.FC<NodeItem> = (props) => {
     isShownLeftLines = true,
   } = props;
 
-  const [dropZone, setDropZone] = useState<React.RefObject<HTMLElement> | null>(null);
+  const [dropZone, setDropZone] = useState<DropZone | null>(null);
 
   const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Array<React.RefObject<HTMLElement>> | null>(
@@ -116,24 +116,38 @@ export const Tree: React.FC<NodeItem> = (props) => {
     e.stopPropagation();
     e.preventDefault();
 
-    setDropZone(ref);
+    const newState = { ref, accessible: true };
+
+    if (
+      selectedItems?.some((item) => {
+        return (
+          ref.current?.contains(item.current as Node) ||
+          ref.current === item.current ||
+          item.current?.draggable === false
+        );
+      })
+    ) {
+      newState.accessible = false;
+    }
+
+    setDropZone(newState);
   };
 
   const handleDragDrop = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
 
-    if (!dropZone || !selectedItems) {
+    if (!dropZone || !dropZone.accessible || !selectedItems) {
       return;
     }
 
     selectedItems.forEach((item) => {
-      if (!dropZone.current?.contains(item.current as Node) && item.current?.draggable !== false) {
-        if (onPasteItem) {
-          onPasteItem(item.current?.id as string, dropZone.current?.dataset.containerId as string);
-        }
-        // eslint-disable-next-line no-unused-expressions
-        dropZone.current?.appendChild(item.current as Node);
+      const { ref } = dropZone;
+
+      if (onPasteItem) {
+        onPasteItem(item.current?.id as string, ref?.current?.dataset.containerId as string);
       }
+      // eslint-disable-next-line no-unused-expressions
+      ref?.current?.appendChild(item.current as Node);
     });
   };
 

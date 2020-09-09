@@ -38,10 +38,15 @@ export interface BaseNode {
   onHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
 }
 
+export type DropZone = {
+  ref: React.RefObject<HTMLElement> | null;
+  accessible: boolean;
+};
+
 export interface NodeItem extends BaseNode {
   nodeList?: NodeItem[] | LeafTree[] | Array<NodeItem | LeafTree>;
   children?: React.ReactNode;
-  dropZone?: React.Ref<HTMLElement> | null;
+  dropZone?: DropZone | null;
 }
 
 export type RootProps = [NodeItem];

@@ -33,6 +33,8 @@ const TreeNavigationEye: React.FC<NavigationEyeProps> = ({ onHide, hidden }) => 
       onClick={onHide}
       aria-label="Скрыть ветвь"
       tabIndex={0}
+      role="switch"
+      aria-checked={hidden ?? 'false'}
     >
       {hidden ? <CloseEye /> : <Eye />}
     </button>

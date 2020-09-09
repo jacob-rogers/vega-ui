@@ -17,6 +17,8 @@
 
 .VegaTree__RootList {
   padding-left: 0;
+
+  list-style: none;
 }
 
 .VegaTree__ContextMenu {
@@ -172,7 +174,7 @@
 .VegaTree__LeafContent_Selected > .VegaTree__Backlight {
   display: block;
 
-  background-color: var(--color-control-bg-active) !important;
+  background-color: var(--color-control-bg-active);
 }
 
 .VegaTree__NodeList {
@@ -211,11 +213,17 @@
 .VegaTree__NavigationItem_Selected > .VegaTree__Backlight {
   display: block;
 
-  background-color: var(--color-control-bg-active) !important;
+  background-color: var(--color-control-bg-active);
 }
 
-.VegaTree__NavigationItem_Droppable {
+.VegaTree__NavigationItem_AccessibleDropZone {
   border-bottom: 2px solid var(--color-bg-normal);
+}
+
+.VegaTree__NavigationItem_InaccessibleDropZone {
+  cursor: not-allowed;
+
+  border-bottom: 2px solid var(--color-bg-alert);
 }
 
 .VegaTree__NavigationItem_Hidden {

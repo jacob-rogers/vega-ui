@@ -6,7 +6,7 @@ import { storiesOf } from '@storybook/react';
 import { Tree } from './Tree';
 import { RootProps } from './types';
 
-const OrangeLineSvg = (
+export const OrangeLineSvg = (
   <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0 3.5C0 3.5 3.5 0.5 7.5 0.5C11.5 0.5 12 3.5 12 3.5" stroke="#F38B00" />
     <path
@@ -18,7 +18,7 @@ const OrangeLineSvg = (
   </svg>
 );
 
-const BlueLineSvg = (
+export const BlueLineSvg = (
   <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M0 3.5C0 3.5 3.5 0.5 7.5 0.5C11.5 0.5 12 3.5 12 3.5"
@@ -37,7 +37,7 @@ const BlueLineSvg = (
   </svg>
 );
 
-const RedLineSvg = (
+export const RedLineSvg = (
   <svg width="12" height="11" viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M4.5 3.50012C0.5 3.50012 0 6.50012 0 6.50012V3.50012C2 2.33346 5.29928 -0.140019 8.5 0.500124C10.5 0.900124 11.6667 2.33346 12 3.00012V6.50012C12 6.50012 8.5 3.50012 4.5 3.50012Z"

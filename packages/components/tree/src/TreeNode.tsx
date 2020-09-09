@@ -87,7 +87,8 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
       <TreeItemContent
         className={cnTree('NavigationItem', {
           Selected: selectedItems?.includes(targetRef),
-          Droppable: dropZone === dropZoneRef,
+          AccessibleDropZone: dropZone?.ref === dropZoneRef && dropZone.accessible,
+          InaccessibleDropZone: dropZone?.ref === dropZoneRef && dropZone?.accessible === false,
           Hidden: !!visibilityIdentifier.visibilityIdentifierData,
         })}
         onClick={handleSelect}
@@ -99,6 +100,7 @@ export const TreeNode: React.FC<NodeItem> = (props) => {
         <button
           className={cnTree('NavigationArrow', { expanded })}
           onClick={handleExpand}
+          role="menuitem"
           onKeyPress={handleExpand}
           aria-label="List controller"
           type="button"
