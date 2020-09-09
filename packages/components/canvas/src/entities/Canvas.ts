@@ -108,9 +108,8 @@ export class Canvas {
   }
 
   public connect(parentTree: CanvasTree, childTree: CanvasTree): void {
-    if (parentTree.canConnectedWith(childTree)) {
-      parentTree.addChild(childTree);
-      childTree.addParent(parentTree);
+    const success = parentTree.connect(childTree);
+    if (success) {
       this.notifier.notify({
         type: 'connect-tree',
         childId: childTree.getId(),
@@ -120,8 +119,7 @@ export class Canvas {
   }
 
   public disconnect(childTree: CanvasTree, parentTree: CanvasTree): void {
-    parentTree.removeChild(childTree);
-    childTree.removeParent(parentTree);
+    parentTree.disconnect(childTree);
     this.notifier.notify({
       type: 'disconnect-tree',
       id: childTree.getId(),

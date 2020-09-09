@@ -111,4 +111,18 @@ export class Tree<T = unknown> {
     }
     return tree;
   }
+
+  public connect(tree: Tree<T>): boolean {
+    if (this.canConnectedWith(tree)) {
+      this.addChild(tree);
+      tree.addParent(this);
+      return true;
+    }
+    return false;
+  }
+
+  public disconnect(tree: Tree<T>): void {
+    this.removeChild(tree);
+    tree.removeParent(this);
+  }
 }
