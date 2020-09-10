@@ -75,6 +75,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     height: 0,
   });
   const [contentRect, setContentRect] = useState({ x: 0, y: 0, width: 0, height: 0 });
+  const [debugInfo, setDebugInfo] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
@@ -214,7 +215,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     if (container === null || stage === null) {
       return;
     }
-
+    // eslint-disable-next-line no-console
     console.log('updateStagePosition');
 
     const dx = container.scrollLeft - STAGE_PADDING;
@@ -254,7 +255,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
 
     INITIAL_SCROLL_IS_CALLED = true;
-
+    // eslint-disable-next-line no-console
     console.log('setInitialScroll');
 
     /*
@@ -283,7 +284,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     if (container === null || stage === null || stageSize.width === 0 || stageSize.height === 0) {
       return;
     }
-
+    // eslint-disable-next-line no-console
     console.log('updateContentRect');
 
     const collection = stage.find('.List');
@@ -330,11 +331,17 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   useEffect(() => {
     setInitialScroll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stageSize, contentRect]); // Вызвать один раз, но когда есть stageSize и contentRect
 
   useEffect(() => {
     updateContentRect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stageSize]); // Вызвать один раз, но когда есть stageSize
+
+  const handleDebugInfoSwitch = (): void => {
+    setDebugInfo(!debugInfo);
+  };
 
   return (
     <div ref={containerRef} className={cnCanvas()} onScroll={updateStagePosition}>
@@ -372,15 +379,19 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
               )}
             </Layer>
             <Layer>
-              <Rect
-                x={contentRect.x}
-                y={contentRect.y}
-                width={contentRect.width}
-                height={contentRect.height}
-                stroke="red"
-                strokeWidth={5}
-              />
-              <Rect x={-5} y={-5} width={10} height={10} fill="green" />
+              {debugInfo && (
+                <>
+                  <Rect
+                    x={contentRect.x}
+                    y={contentRect.y}
+                    width={contentRect.width}
+                    height={contentRect.height}
+                    stroke="red"
+                    strokeWidth={5}
+                  />
+                  <Rect x={-5} y={-5} width={10} height={10} fill="green" />
+                </>
+              )}
               <CanvasItems canvas={canvas} />
             </Layer>
             <Layer>
@@ -388,6 +399,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
                 label="Добавить шаг"
                 onClick={handleStepAdding}
                 position={{ x: 50, y: Math.max(stageSize.height - 100, 0) }}
+              />
+              <Button
+                label="Debug Info"
+                onClick={handleDebugInfoSwitch}
+                position={{ x: 180, y: Math.max(stageSize.height - 100, 0) }}
               />
             </Layer>
           </CanvasContext.Provider>
