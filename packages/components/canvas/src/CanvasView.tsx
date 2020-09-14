@@ -24,48 +24,10 @@ export const defaultState: State = {
   linePoints: null,
 };
 
-type ContentRect = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
-function getContentRect(elements: Konva.Node[], minWidth: number, minHeight: number): ContentRect {
-  const rect = {
-    x: 0,
-    y: 0,
-    width: minWidth,
-    height: minHeight,
-  };
-
-  for (let i = 0; i < elements.length; i += 1) {
-    const element = elements[i];
-
-    if (element.x() < rect.x) {
-      rect.width = rect.x + rect.width - element.x();
-      rect.x = element.x();
-    }
-
-    if (element.y() < rect.y) {
-      rect.height = rect.y + rect.height - element.y();
-      rect.y = element.y();
-    }
-
-    if (rect.x + rect.width < element.x() + element.width()) {
-      rect.width = element.x() + element.width() - rect.x;
-    }
-
-    if (rect.y + rect.height < element.y() + element.height()) {
-      rect.height = element.y() + element.height() - rect.y;
-    }
-  }
-
-  return rect;
-}
-
 const translateValues = { x: 0, y: 0 };
 let INITIAL_SCROLL_IS_CALLED = false;
+
+const scaleBy = 1.01;
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const { canvas, parentRef } = props;
@@ -150,6 +112,45 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   const handleDebugInfoSwitch = (): void => {
     setDebugInfo(!debugInfo);
+  };
+
+  const handleWheel = (event: Konva.KonvaEventObject<WheelEvent>): void => {
+    event.evt.preventDefault();
+
+    const stage = stageRef.current;
+    const container = containerRef.current;
+
+    if (stage === null || container === null) {
+      return;
+    }
+
+    const pointer = stage.getPointerPosition();
+
+    if (pointer === null) {
+      return;
+    }
+
+    const oldScale = stage.scaleX();
+
+    const mousePointTo = {
+      x: (pointer.x - stage.x()) / oldScale,
+      y: (pointer.y - stage.y()) / oldScale,
+    };
+
+    const newScale = event.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+
+    stage.scale({ x: newScale, y: newScale });
+
+    const newPos = {
+      x: pointer.x - mousePointTo.x * newScale,
+      y: pointer.y - mousePointTo.y * newScale,
+    };
+
+    const testX = stage.x() - newPos.x;
+    const testY = stage.y() - newPos.y;
+
+    container.scrollLeft += Math.round(testX);
+    container.scrollTop += Math.round(testY);
   };
 
   return (
