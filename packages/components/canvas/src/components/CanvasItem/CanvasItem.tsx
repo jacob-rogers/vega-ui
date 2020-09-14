@@ -1,4 +1,5 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
+import { useOnChange } from '@gpn-prototypes/vega-hooks';
 
 import { SELECTED_COLOR } from '../../constants';
 import { useCanvas } from '../../context';
@@ -19,6 +20,9 @@ export type CanvasItemProps = {
   itemChildren: CanvasTree[];
   onDragStart?: (e: KonvaMouseEvent) => void;
   onClick?: (e: KonvaMouseEvent) => void;
+  onMouseUp?: (e: KonvaMouseEvent) => void;
+  onMouseEnter?: (e: KonvaMouseEvent) => void;
+  onMouseLeave?: (e: KonvaMouseEvent) => void;
   onPositionChange: (position: Position) => void;
   onWidthUpdate: (width: number) => void;
   onConnectionLineMouseDown: (parent: CanvasTree, child: CanvasTree) => void;
@@ -31,7 +35,10 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const {
     item,
     onDragStart,
+    onMouseUp,
     onPositionChange,
+    onMouseEnter,
+    onMouseLeave,
     onClick,
     onWidthUpdate,
     onConnectionLineMouseDown,
@@ -44,9 +51,11 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
 
   const hasActiveData = activeData !== null;
 
+  const [stroke, setStroke] = useState<string | undefined>(undefined);
+
   const id = item.getId();
 
-  const hasActiveConnnector = Boolean(activeData && activeData.item.getId() === id);
+  const hasActiveConnnector = hasActiveData && activeData?.item.getId() === id;
 
   const { type } = data;
   const handleUpdateWidth = useCallback(
@@ -86,7 +95,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
 
   const [parentConnectorSelected, childConnectorSelected] = connectionKeys.map((key) => {
     if (selectedData !== null) {
-      return isSelectedItem || (selectedData.type === 'line' && selectedData[key] === id);
+      return selectedData.type === 'line' && selectedData[key] === id;
     }
     return false;
   });
@@ -100,6 +109,10 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const [disableParentConnector, disableChildConnector] = keys.map((key) => {
     return bothConnectorsDisabled || activeData?.connector.type === key;
   });
+
+  const connectorsEnabled = !disableParentConnector && !disableChildConnector;
+
+  const canConnected = hasActiveData && !hasActiveConnnector && !bothConnectorsDisabled;
 
   const stepContent = (
     <>
@@ -146,23 +159,59 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     [setSelectedData, id, isSelectedItem, onClick],
   );
 
-  const baseProps = {
+  useOnChange(isSelectedItem, () => {
+    setStroke(isSelectedItem ? SELECTED_COLOR : undefined);
+  });
+
+  const handleMouseLeave = (e: KonvaMouseEvent): void => {
+    setCursor('default');
+
+    if (canConnected) {
+      setStroke(undefined);
+    }
+
+    if (onMouseLeave) {
+      onMouseLeave(e);
+    }
+  };
+
+  const handleMouseEnter = (e: KonvaMouseEvent): void => {
+    if (connectorsEnabled) {
+      setCursor('pointer');
+    }
+
+    if (canConnected) {
+      setStroke(SELECTED_COLOR);
+    }
+
+    if (onMouseEnter) {
+      onMouseEnter(e);
+    }
+  };
+
+  const handleMouseUp = (e: KonvaMouseEvent): void => {
+    if (canConnected && stroke === SELECTED_COLOR) {
+      setStroke(undefined);
+    }
+
+    if (onMouseUp) {
+      onMouseUp(e);
+    }
+  };
+
+  const baseProps: React.ComponentProps<typeof List> = {
     draggable: !activeData,
     position: data.position,
+    onMouseUp: handleMouseUp,
     onPositionChange,
     label: data.title,
-    onMouseEnter: (): void => {
-      if (!disableChildConnector && !disableParentConnector) {
-        setCursor('pointer');
-      }
-    },
-    onMouseLeave: (): void => {
-      setCursor('default');
-    },
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
     onClick: handleClick,
-    onDragStart,
     children: stepContent,
-    stroke: isSelectedItem ? SELECTED_COLOR : undefined,
+    onDragStart,
+
+    stroke,
   };
 
   return (

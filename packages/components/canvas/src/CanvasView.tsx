@@ -73,25 +73,35 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
-  const handleMouseUp = (e: KonvaMouseEvent): void => {
+  const abortActiveData = (): void => {
+    setActiveData(null);
+    setConnectingLinePoints(null);
+    setCursor('default');
+  };
+
+  const connectActiveItem = (id: string): void => {
     if (activeData) {
-      const id = e.target.id();
-      if (id.length) {
-        const [itemId, connectionType] = id.split('_');
-        const targetItem = canvas.searchTree(itemId);
-        if (targetItem && connectionType !== activeData.connector?.type) {
-          const trees =
-            connectionType === 'parent'
-              ? [activeData.item, targetItem]
-              : [targetItem, activeData.item];
+      const [itemId, connectionType] = id.split('_');
+      const targetItem = canvas.searchTree(itemId);
+      if (targetItem && connectionType !== activeData.connector?.type) {
+        const trees =
+          connectionType === 'parent'
+            ? [activeData.item, targetItem]
+            : [targetItem, activeData.item];
 
-          canvas.connect(trees[0], trees[1]);
-        }
+        canvas.connect(trees[0], trees[1]);
       }
+    }
+  };
 
-      setActiveData(null);
-      setConnectingLinePoints(null);
-      setCursor('default');
+  const handleMouseUp = (e: KonvaMouseEvent): void => {
+    const id = e.target.id();
+    if (id.length) {
+      connectActiveItem(id);
+    }
+
+    if (activeData) {
+      abortActiveData();
     }
   };
 
@@ -161,20 +171,17 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           setCursor,
           selectedData,
           setSelectedData,
+          abortActiveData,
         }}
       >
         <Layer>
+          <CanvasItems canvas={canvas} />
           {connectingLinePoints && (
             <ConnectionLineView
               parent={connectingLinePoints.parent}
               child={connectingLinePoints.child}
             />
           )}
-        </Layer>
-        <Layer>
-          <CanvasItems canvas={canvas} />
-        </Layer>
-        <Layer>
           <Button
             label="Добавить шаг"
             onClick={handleStepAdding}
