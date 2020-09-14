@@ -15,6 +15,7 @@ type API = {
   abortActiveData: () => void;
   setConnectingLinePoints: (points: { parent: Position; child: Position } | null) => void;
   connectingLinePoints: { parent: Position; child: Position } | null;
+  updateContentRect: () => void;
 };
 
 export const CanvasContext = createContext<API>({
@@ -27,6 +28,7 @@ export const CanvasContext = createContext<API>({
   abortActiveData: noop,
   setConnectingLinePoints: noop,
   connectingLinePoints: null,
+  updateContentRect: noop,
 });
 
 export const useCanvas = (): API => useContext(CanvasContext);

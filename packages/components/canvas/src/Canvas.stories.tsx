@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { useInterval, useLocalStorage } from '@gpn-prototypes/vega-hooks';
 import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
@@ -33,7 +33,6 @@ storiesOf('ui/Canvas', module)
     const [treeState, setTreeState] = useLocalStorage<CanvasTree[]>('treeState', defaultTreeState);
     const [localState, setLocalState] = useState(treeState);
     const [changes, setChanges] = useState<CanvasUpdate[]>([]);
-    const ref = useRef<HTMLDivElement>(null);
 
     useInterval(500, () => {
       if (changes.length) {
@@ -53,8 +52,8 @@ storiesOf('ui/Canvas', module)
     };
 
     return (
-      <div ref={ref} style={{ height: 900, width: '100%' }} id="test">
-        <Canvas parentRef={ref} state={localState} onChange={updateTree} />
+      <div style={{ width: '100%', height: 600 }} id="test">
+        <Canvas state={localState} onChange={updateTree} />
       </div>
     );
   })

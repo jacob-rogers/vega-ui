@@ -1,6 +1,11 @@
 import React from 'react';
 import { Group, Image, Rect } from 'react-konva';
 
+<<<<<<< HEAD
+=======
+import { LIST_PADDING, STEP_HEIGHT, STEP_WIDTH } from '../../constants';
+import { useCanvas } from '../../context';
+>>>>>>> 99423ecf... feat(Canvas): добавил бесконечную прокрутку
 import { useImage } from '../../hooks';
 import { BaseProps } from '../../types';
 import { Text } from '../Text';
@@ -48,15 +53,19 @@ export const List: React.FC<ListProps> = (props) => {
 
   const stepNameWidth = metrics.step.width - metrics.step.padding.left - metrics.step.padding.right;
 
+  const { updateContentRect } = useCanvas();
+
   return (
     <Group
       {...rest}
+      name="List"
       x={position.x}
       y={position.y}
       width={metrics.step.width}
       height={stepHeight}
       draggable={draggable}
       onDragMove={(e): void => onPositionChange(e.target.position())}
+      onDragEnd={updateContentRect}
     >
       <Rect
         cornerRadius={metrics.step.cornerRadius}
