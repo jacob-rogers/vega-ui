@@ -14,6 +14,7 @@ type ConnectorProps = {
   onActiveChange: (e: ConnectorEvent) => void;
   isSelected?: boolean;
   disabled?: boolean;
+  connectionEnable?: boolean;
   position: Position;
   type: ConnectorType;
 };
@@ -22,7 +23,16 @@ export const RADIUS = 6;
 const INITIAL_FILL = '#161A1D';
 
 export const Connector: React.FC<ConnectorProps> = (props) => {
-  const { id, onActiveChange, isActive, isSelected, position, type, disabled } = props;
+  const {
+    id,
+    onActiveChange,
+    isActive,
+    isSelected,
+    position,
+    type,
+    disabled = false,
+    connectionEnable = false,
+  } = props;
 
   const [stroke, setStroke] = useState(CONNECTOR_DEFAULT_COLOR);
 
@@ -59,7 +69,7 @@ export const Connector: React.FC<ConnectorProps> = (props) => {
       return SELECTED_COLOR;
     }
 
-    if (isActive) {
+    if (isActive || connectionEnable) {
       return CONNECTOR_HOVER_COLOR;
     }
 

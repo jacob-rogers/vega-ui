@@ -42,6 +42,8 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const data = item.getData();
   const { activeData, setActiveData, selectedData, setSelectedData, setCursor } = useCanvas();
 
+  const hasActiveData = activeData !== null;
+
   const id = item.getId();
 
   const hasActiveConnnector = Boolean(activeData && activeData.item.getId() === id);
@@ -93,7 +95,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     return hasActiveConnnector && activeData?.connector.type === key;
   });
 
-  const bothConnectorsDisabled = activeData && !activeData.item.canConnectedWith(item);
+  const bothConnectorsDisabled = hasActiveData && !activeData?.item.canConnectedWith(item);
 
   const [disableParentConnector, disableChildConnector] = keys.map((key) => {
     return bothConnectorsDisabled || activeData?.connector.type === key;
@@ -108,6 +110,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
           isSelected={parentConnectorSelected}
           type="parent"
           disabled={disableParentConnector}
+          connectionEnable={hasActiveData && !disableParentConnector}
           id={`${id}_parent`}
           position={relativeConnectorsPosition.parent}
         />
@@ -119,6 +122,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
           isSelected={childConnectorSelected}
           type="children"
           disabled={disableChildConnector}
+          connectionEnable={hasActiveData && !disableChildConnector}
           id={`${id}_children`}
           position={relativeConnectorsPosition.children}
         />
