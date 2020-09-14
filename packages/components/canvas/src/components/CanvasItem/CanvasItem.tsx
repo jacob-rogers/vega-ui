@@ -15,8 +15,8 @@ import {
 
 export type CanvasItemProps = {
   item: CanvasTree;
-  parents: Array<CanvasTree | undefined>;
-  itemChildren: Array<CanvasTree | undefined>;
+  parents: CanvasTree[];
+  itemChildren: CanvasTree[];
   onMouseDown: (e: KonvaMouseEvent) => void;
   onPositionChange: (position: Position) => void;
   onWidthUpdate: (width: number) => void;
@@ -89,6 +89,8 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const [parentConnectorActive, childConnectorActive] = ['parent', 'children'].map((key) => {
     return hasActiveConnnector && activeData?.connector.type === key;
   });
+
+  console.log(parents);
 
   const stepContent = (
     <>
