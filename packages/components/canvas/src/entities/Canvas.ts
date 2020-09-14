@@ -51,13 +51,8 @@ export class Canvas {
     this.trees = trees;
   }
 
-  public searchTree(id: string): CanvasTree {
-    const targetTree = Array.from(this.trees).find((tree) => tree.getId() === id);
-
-    if (targetTree === undefined) {
-      throw new Error(`Элемент с id ${id} не существует`);
-    }
-    return targetTree;
+  public searchTree(id: string): CanvasTree | undefined {
+    return Array.from(this.trees).find((tree) => tree.getId() === id);
   }
 
   public extract(): CanvasTree[] {
@@ -153,5 +148,19 @@ export class Canvas {
       id: tree.getId(),
       newChildren: childrenIds,
     });
+  }
+
+  public getChildren(tree: CanvasTree): CanvasTree[] {
+    return tree
+      .getChildren()
+      .map((child) => this.searchTree(child))
+      .filter((child) => child !== undefined) as CanvasTree[];
+  }
+
+  public getParents(tree: CanvasTree): CanvasTree[] {
+    return tree
+      .getParents()
+      .map((parent) => this.searchTree(parent))
+      .filter((parent) => parent !== undefined) as CanvasTree[];
   }
 }

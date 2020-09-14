@@ -68,8 +68,8 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             onWidthUpdate={(width): void => canvas.setData(tree, { width })}
             onMouseDown={(): void => handleStepMouseDown(tree)}
             onConnectionLineMouseDown={handleConnectionLineMouseDown}
-            parents={tree.getParents().map((parent) => canvas.searchTree(parent))}
-            itemChildren={tree.getChildren().map((child) => canvas.searchTree(child))}
+            parents={canvas.getParents(tree)}
+            itemChildren={canvas.getChildren(tree)}
             onConnectionLineClick={handleConnectionLineClick}
           />
         );
