@@ -1,26 +1,21 @@
 import { metrics } from './metrics';
+import { Event } from './types';
 
-type Events = {
-  name: string;
-  content: {
-    type: string;
-    name: string;
-  }[];
+export type EventReferencePoints = {
+  posY: number;
+  height: number;
+  containerHeight: number;
 };
 
 export type StepReferencePoints = {
   stepHeight: number;
-  eventPoints: {
-    posY: number;
-    height: number;
-    containerHeight: number;
-  }[];
+  eventPoints: EventReferencePoints[];
 };
 
 const containerPaddings =
   metrics.step.container.padding.top + metrics.step.container.padding.bottom;
 
-export const getStepReferencePoints = (events: Events[]): StepReferencePoints => {
+export const getStepReferencePoints = (events: Event[]): StepReferencePoints => {
   if (events.length === 0) {
     return {
       stepHeight: metrics.step.emptyHeight,

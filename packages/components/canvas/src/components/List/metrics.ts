@@ -65,7 +65,7 @@ export const metrics = {
         left: 11,
       },
     },
-    arrow: {
+    icon: {
       top: 12,
       left: 227,
     },
