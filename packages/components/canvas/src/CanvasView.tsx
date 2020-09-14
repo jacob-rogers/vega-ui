@@ -20,7 +20,7 @@ type CanvasViewProps = {
 type Optional<T> = T | null;
 
 type Coordinates = { parent: Position; child: Position };
-type Sizes = { width: number; height: number };
+type Size = { width: number; height: number };
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const { canvas, parentRef } = props;
@@ -29,7 +29,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const [connectingLinePoints, setConnectingLinePoints] = useState<Optional<Coordinates>>(null);
   const [activeData, setActiveData] = useState<Optional<ActiveData>>(null);
   const [selectedData, setSelectedData] = useState<Optional<SelectedData>>(null);
-  const [stageSizes, setStageSizes] = useState<Sizes>({
+  const [stageSize, setStageSize] = useState<Size>({
     width: window.innerWidth,
     height: window.innerHeight,
   });
@@ -49,7 +49,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   useMount(() => {
     if (parentRef.current) {
-      setStageSizes({
+      setStageSize({
         width: parentRef.current.offsetWidth,
         height: parentRef.current.offsetHeight,
       });
@@ -146,8 +146,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       style={{ cursor }}
       className={cnCanvas.toString()}
       ref={stageRef}
-      width={stageSizes.width}
-      height={stageSizes.height}
+      width={stageSize.width}
+      height={stageSize.height}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
       onClick={handleMouseDown}
@@ -177,7 +177,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           <Button
             label="Добавить шаг"
             onClick={handleStepAdding}
-            position={{ x: 10, y: stageSizes.height - 150 }}
+            position={{ x: 10, y: stageSize.height - 150 }}
           />
         </Layer>
       </CanvasContext.Provider>
