@@ -2,6 +2,7 @@ import React from 'react';
 import { Group, Image, Rect } from 'react-konva';
 
 import { LIST_PADDING, STEP_HEIGHT, STEP_WIDTH } from '../../constants';
+import { useCanvas } from '../../context';
 import { useImage } from '../../hooks';
 import { BaseProps } from '../../types';
 import { ListItem } from '../ListItem';
@@ -23,14 +24,19 @@ export const List: React.FC<ListProps> = (props) => {
   } = props;
   const [icon] = useImage(arrowIcon);
 
+  const { updateContentRect } = useCanvas();
+
   return (
     <Group
       {...rest}
+      name="List"
       x={position.x}
       y={position.y}
       width={STEP_WIDTH}
+      height={100}
       draggable={draggable}
       onDragMove={(e): void => onPositionChange(e.target.position())}
+      onDragEnd={updateContentRect}
     >
       <Rect cornerRadius={2} height={100} width={STEP_WIDTH} strokeWidth={2} stroke={stroke} />
       {icon && <Image image={icon} x={STEP_WIDTH - 20} y={LIST_PADDING} />}

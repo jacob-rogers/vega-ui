@@ -4,6 +4,7 @@ import { useMount } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { LIST_PADDING, STEP_HEIGHT, STEP_PADDING } from '../../constants';
+import { useCanvas } from '../../context';
 import { BaseProps } from '../../types';
 import { Text } from '../Text';
 
@@ -33,6 +34,8 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
   const textRef = useRef<Konva.Text>(null);
   const [width, setWidth] = useState(centerText ? 0 : widthProp);
 
+  const { updateContentRect } = useCanvas();
+
   useMount(() => {
     if (textRef.current && centerText) {
       const newWidth = textRef.current.getTextWidth() + STEP_PADDING;
@@ -46,10 +49,14 @@ export const ListItem: React.FC<ListItemProps> = (props) => {
   return (
     <Group
       {...rest}
+      name="List"
       x={position.x}
       y={position.y}
+      width={width}
+      height={height}
       draggable={draggable}
       onDragMove={(e): void => onPositionChange(e.target.position())}
+      onDragEnd={updateContentRect}
     >
       <Rect
         cornerRadius={2}

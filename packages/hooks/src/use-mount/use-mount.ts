@@ -13,7 +13,7 @@ export function useMount(fn: Function = (): void => {}): React.MutableRefObject<
         result();
       }
 
-      isMountedRef.current = true;
+      isMountedRef.current = false;
     };
   }, []);
   return isMountedRef;

@@ -1,4 +1,4 @@
-import React, { RefObject, useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { useUnmount } from '@gpn-prototypes/vega-hooks';
 
 import { CanvasView } from './CanvasView';
@@ -15,11 +15,10 @@ export type Change = {
 type CanvasProps = {
   state?: CanvasTree[];
   onChange?: (change: Change) => void;
-  parentRef: RefObject<HTMLElement>;
 };
 
 export const Canvas: React.FC<CanvasProps> = (props) => {
-  const { state = [], onChange, parentRef } = props;
+  const { state = [], onChange } = props;
 
   const canvas = useMemo(() => CanvasEntity.of(state), [state]);
 
@@ -47,5 +46,5 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
     canvas.removeAllListeners();
   });
 
-  return <CanvasView parentRef={parentRef} canvas={canvas} />;
+  return <CanvasView canvas={canvas} />;
 };

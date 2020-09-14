@@ -12,6 +12,7 @@ type API = {
   stageRef: MutableRefObject<Konva.Stage | null>;
   activeData: ActiveData | null;
   selectedData: SelectedData | null;
+  updateContentRect: () => void;
 };
 
 export const CanvasContext = createContext<API>({
@@ -21,6 +22,7 @@ export const CanvasContext = createContext<API>({
   setActiveData: noop,
   activeData: null,
   selectedData: null,
+  updateContentRect: noop,
 });
 
 export const useCanvas = (): API => useContext(CanvasContext);
