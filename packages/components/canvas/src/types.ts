@@ -17,6 +17,10 @@ export type BaseProps = {
   onPositionChange?: (position: Position) => void;
 };
 
+export type CanvasTree = Tree<CanvasData>;
+
+export type CanvasSet = Set<CanvasTree>;
+
 export type KonvaMouseEvent = Konva.KonvaEventObject<MouseEvent>;
 
 export type ConnectorType = 'parent' | 'children';
@@ -51,9 +55,5 @@ export type CanvasUpdate =
   | { type: 'disconnect-tree'; id: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
   | { type: 'clear' };
-
-export type CanvasTree = Tree<CanvasData>;
-
-export type CanvasSet = Set<CanvasTree>;
 
 export type CanvasNotifier = Notifier<CanvasUpdate>;
