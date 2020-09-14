@@ -15,7 +15,7 @@ afterEach(() => {
 });
 
 const SomeComponent: React.FC<Props> = ({ onKeyClick, keyevent = 'keyup' }) => {
-  useKey(['Enter'], onKeyClick, { keyevent });
+  useKey('Enter', onKeyClick, { keyevent });
   return <div>test component</div>;
 };
 

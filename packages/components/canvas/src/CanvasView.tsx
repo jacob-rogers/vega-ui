@@ -139,7 +139,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
-  useKey([8, 46], handleRemoveSelectedItem, { keyevent: 'keydown' });
+  useKey(['Delete', 'Backspace'], handleRemoveSelectedItem, { keyevent: 'keydown' });
 
   return (
     <Stage

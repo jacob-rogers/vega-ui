@@ -8,10 +8,11 @@ type Opts = {
 };
 
 export const useKey = (
-  keys: Array<string | number>,
+  key: Array<string | number> | string | number,
   callback: Handler,
   { keyevent = 'keyup', element = document }: Opts = {},
 ): void => {
+  const keys = Array.isArray(key) ? key : [key];
   const handleEvent = useCallback(
     (event: PossibleEvent): void => {
       if (keys.includes(event.which) || keys.includes(event.code) || keys.includes(event.key)) {
