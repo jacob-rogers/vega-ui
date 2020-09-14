@@ -9,6 +9,7 @@ import { Button, CanvasItems } from './components';
 import { CanvasContext } from './context';
 import { Canvas, Tree } from './entities';
 import { ActiveData, CanvasData, KonvaMouseEvent, Position, SelectedData } from './types';
+import { getContentRect } from './utils';
 
 import './Canvas.css';
 
@@ -20,46 +21,6 @@ type Optional<T> = T | null;
 
 type Coordinates = { parent: Position; child: Position };
 type Size = { width: number; height: number };
-
-type ContentRect = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-};
-
-function getContentRect(elements: Konva.Node[], minWidth: number, minHeight: number): ContentRect {
-  const rect = {
-    x: 0,
-    y: 0,
-    width: minWidth,
-    height: minHeight,
-  };
-
-  for (let i = 0; i < elements.length; i += 1) {
-    const element = elements[i];
-
-    if (element.x() < rect.x) {
-      rect.width = rect.x + rect.width - element.x();
-      rect.x = element.x();
-    }
-
-    if (element.y() < rect.y) {
-      rect.height = rect.y + rect.height - element.y();
-      rect.y = element.y();
-    }
-
-    if (rect.x + rect.width < element.x() + element.width()) {
-      rect.width = element.x() + element.width() - rect.x;
-    }
-
-    if (rect.y + rect.height < element.y() + element.height()) {
-      rect.height = element.y() + element.height() - rect.y;
-    }
-  }
-
-  return rect;
-}
 
 const translateValues = { x: 0, y: 0 };
 let INITIAL_SCROLL_IS_CALLED = false;
