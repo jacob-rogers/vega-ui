@@ -15,9 +15,9 @@ import {
 
 export type CanvasItemProps = {
   item: CanvasTree;
-  parents: CanvasTree[];
+  itemParents: CanvasTree[];
   itemChildren: CanvasTree[];
-  onMouseDown: (e: KonvaMouseEvent) => void;
+  onDragStart?: (e: KonvaMouseEvent) => void;
   onPositionChange: (position: Position) => void;
   onWidthUpdate: (width: number) => void;
   onConnectionLineMouseDown: (parent: CanvasTree, child: CanvasTree) => void;
@@ -29,11 +29,11 @@ type ConnectionKey = 'parentId' | 'childId';
 export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const {
     item,
-    onMouseDown,
+    onDragStart,
     onPositionChange,
     onWidthUpdate,
     onConnectionLineMouseDown,
-    parents,
+    itemParents,
     itemChildren,
     onConnectionLineClick,
   } = props;
@@ -90,14 +90,12 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     return hasActiveConnnector && activeData?.connector.type === key;
   });
 
-  console.log(parents);
-
   const stepContent = (
     <>
       {canHasParent && (
         <Connector
           {...connectorProps}
-          isActive={parentConnectorActive || parents.length > 0}
+          isActive={parentConnectorActive || itemParents.length > 0}
           isSelected={parentConnectorrSelected}
           type="parent"
           id={`${id}_parent`}
@@ -117,19 +115,22 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     </>
   );
 
-  const handleStepClick = useCallback((): void => {
-    if (!isSelectedItem) {
-      setSelectedData({
-        type: 'item',
-        id,
-      });
-    }
-  }, [setSelectedData, id, isSelectedItem]);
+  const handleClick = useCallback(
+    (e: KonvaMouseEvent): void => {
+      e.cancelBubble = true;
+      if (!isSelectedItem) {
+        setSelectedData({
+          type: 'item',
+          id,
+        });
+      }
+    },
+    [setSelectedData, id, isSelectedItem],
+  );
 
   const baseProps = {
     draggable: !activeData,
     position: data.position,
-    onMouseDown,
     onPositionChange,
     label: data.title,
     onMouseEnter: (): void => {
@@ -138,10 +139,8 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onMouseLeave: (): void => {
       setCursor('default');
     },
-    onClick: (e: KonvaMouseEvent): void => {
-      e.cancelBubble = true;
-      handleStepClick();
-    },
+    onClick: handleClick,
+    onDragStart,
     children: stepContent,
     stroke: isSelectedItem ? SELECTED_COLOR : undefined,
   };
