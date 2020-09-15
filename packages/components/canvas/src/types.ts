@@ -55,6 +55,7 @@ export type CanvasUpdate =
   | { type: 'disconnect-tree'; id: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
   | { type: 'clear' }
-  | { type: 'update-children'; id: string; newChildren: string[] };
+  | { type: 'update-children'; id: string; newChildren: string[] }
+  | { type: 'update-trees'; newTrees: CanvasTree[] };
 
 export type CanvasNotifier = Notifier<CanvasUpdate>;

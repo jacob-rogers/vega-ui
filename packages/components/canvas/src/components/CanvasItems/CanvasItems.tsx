@@ -13,7 +13,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   const { canvas } = props;
   const { stageRef, setActiveData } = useCanvas();
 
-  const handleItemDragStart = (item: CanvasTree): void => {
+  const moveItemToTop = (item: CanvasTree): void => {
     canvas.setTrees(new Set(Canvas.moveToTop(item, canvas.extract())));
   };
 
@@ -52,6 +52,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   const handleConnectionLineClick = (parent: CanvasTree, child: CanvasTree): void => {
     const children = Canvas.moveToTop(child.getId(), parent.getChildren());
     canvas.setChildrenIds(parent, children);
+    moveItemToTop(child);
   };
 
   return (
@@ -63,7 +64,8 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             key={tree.getId()}
             onPositionChange={(position): void => canvas.onTreePositionChange(tree, position)}
             onWidthUpdate={(width): void => canvas.setData(tree, { width })}
-            onDragStart={(): void => handleItemDragStart(tree)}
+            onDragStart={(): void => moveItemToTop(tree)}
+            onClick={(): void => moveItemToTop(tree)}
             onConnectionLineMouseDown={handleConnectionLineMouseDown}
             itemParents={canvas.getParents(tree)}
             itemChildren={canvas.getChildren(tree)}

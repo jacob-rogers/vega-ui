@@ -18,6 +18,7 @@ export type CanvasItemProps = {
   itemParents: CanvasTree[];
   itemChildren: CanvasTree[];
   onDragStart?: (e: KonvaMouseEvent) => void;
+  onClick?: (e: KonvaMouseEvent) => void;
   onPositionChange: (position: Position) => void;
   onWidthUpdate: (width: number) => void;
   onConnectionLineMouseDown: (parent: CanvasTree, child: CanvasTree) => void;
@@ -31,6 +32,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     item,
     onDragStart,
     onPositionChange,
+    onClick,
     onWidthUpdate,
     onConnectionLineMouseDown,
     itemParents,
@@ -124,8 +126,11 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
           id,
         });
       }
+      if (onClick) {
+        onClick(e);
+      }
     },
-    [setSelectedData, id, isSelectedItem],
+    [setSelectedData, id, isSelectedItem, onClick],
   );
 
   const baseProps = {

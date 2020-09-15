@@ -49,6 +49,10 @@ export class Canvas {
 
   public setTrees(trees: CanvasSet): void {
     this.trees = trees;
+    this.notifier.notify({
+      type: 'update-trees',
+      newTrees: Array.from(trees),
+    });
   }
 
   public searchTree(id: string): CanvasTree | undefined {
