@@ -11,7 +11,7 @@ type CanvasItemsProps = {
 
 export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   const { canvas } = props;
-  const { stageRef, setActiveData, selectedData, setSelectedData } = useCanvas();
+  const { stageRef, setActiveData } = useCanvas();
 
   const handleItemDragStart = (item: CanvasTree): void => {
     canvas.setTrees(new Set(Canvas.moveToTop(item, canvas.extract())));
