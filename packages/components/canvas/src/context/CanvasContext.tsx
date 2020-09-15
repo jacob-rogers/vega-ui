@@ -1,7 +1,7 @@
 import { createContext, MutableRefObject, useContext } from 'react';
 import Konva from 'konva';
 
-import { ActiveData, SelectedData } from '../types';
+import { ActiveData, Position, SelectedData } from '../types';
 
 const noop = (): void => {};
 
@@ -13,6 +13,8 @@ type API = {
   activeData: ActiveData | null;
   selectedData: SelectedData | null;
   abortActiveData: () => void;
+  setConnectingLinePoints: (points: { parent: Position; child: Position } | null) => void;
+  connectingLinePoints: { parent: Position; child: Position } | null;
 };
 
 export const CanvasContext = createContext<API>({
@@ -23,6 +25,8 @@ export const CanvasContext = createContext<API>({
   activeData: null,
   selectedData: null,
   abortActiveData: noop,
+  setConnectingLinePoints: noop,
+  connectingLinePoints: null,
 });
 
 export const useCanvas = (): API => useContext(CanvasContext);

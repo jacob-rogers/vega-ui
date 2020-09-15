@@ -172,6 +172,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           selectedData,
           setSelectedData,
           abortActiveData,
+          setConnectingLinePoints,
+          connectingLinePoints,
         }}
       >
         <Layer>
