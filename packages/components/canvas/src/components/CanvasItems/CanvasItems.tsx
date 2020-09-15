@@ -28,7 +28,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
 
       canvas.disconnect(child, parent);
 
-      const parentClosest = parentDelta < childDelta;
+      const parentClosest = Math.abs(parentDelta) < Math.abs(childDelta);
       if (!parentClosest) {
         setActiveData({
           item: parent,
