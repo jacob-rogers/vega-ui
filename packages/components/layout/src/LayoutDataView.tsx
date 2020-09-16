@@ -12,6 +12,7 @@ export type WidgetComponent = string | React.ComponentType;
 
 export interface LayoutWidget {
   name: string;
+  label: string;
   component: WidgetComponent;
 }
 
@@ -26,7 +27,7 @@ export const LayoutDataView: React.FC<LayoutDataViewProps> = (props) => {
   const widgetOptions = React.useMemo(
     () =>
       widgets.map((widget) => ({
-        label: widget.name,
+        label: widget.label,
         value: widget.name,
       })),
     [widgets],

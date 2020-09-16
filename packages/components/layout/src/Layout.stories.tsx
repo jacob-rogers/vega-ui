@@ -4,12 +4,7 @@ import styled from '@emotion/styled';
 import { action } from '@storybook/addon-actions';
 import { storiesOf } from '@storybook/react';
 
-import { Layout } from './Layout';
-
-const widgets = [
-  { name: 'Widget one', component: 'vega-widget-one' },
-  { name: 'Widget two', component: 'vega-widget-two' },
-];
+import { Layout, LayoutProps } from './Layout';
 
 class WidgetOne extends HTMLElement {
   static widgetName = 'vega-widget-one';
@@ -19,21 +14,21 @@ class WidgetOne extends HTMLElement {
   }
 }
 
-class WidgetTwo extends HTMLElement {
-  static widgetName = 'vega-widget-two';
-
-  connectedCallback(): void {
-    this.innerHTML = '<h1>Widget Two</h1>';
-  }
-}
-
 if (window.customElements.get(WidgetOne.widgetName) === undefined) {
   window.customElements.define(WidgetOne.widgetName, WidgetOne);
 }
 
-if (window.customElements.get(WidgetTwo.widgetName) === undefined) {
-  window.customElements.define(WidgetTwo.widgetName, WidgetTwo);
-}
+const WidgetTwo: React.FC<{}> = () => (
+  <>
+    <h1>Widget Two</h1>
+    <p>I&apos;m react component!</p>
+  </>
+);
+
+const widgets: LayoutProps['widgets'] = [
+  { label: 'Widget one', name: 'vega-widget-one', component: 'vega-widget-one' },
+  { label: 'Widget two', name: 'vega-widget-two', component: WidgetTwo },
+];
 
 const Container = styled.div`
   width: 100%;
