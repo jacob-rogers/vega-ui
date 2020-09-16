@@ -49,18 +49,18 @@ testcase('линия магнитится к элементу', () => {
 
   step('берем за элемент "начало"', () => {
     browser.waitForElementPresent('.VegaCanvas', 2000);
-    browser.moveToElement('.VegaCanvas', beginItemCoordinates.x + 74, beginItemCoordinates.y + 12);
+    browser.moveToElement('.VegaCanvas', beginItemCoordinates.x + 75, beginItemCoordinates.y + 14);
     browser.mouseButtonDown(0);
   });
 
   step('тянем линию к элементу "конец"', () => {
-    browser.moveToElement('.VegaCanvas', endItemCoordinates.x + 10, endItemCoordinates.y + 12);
+    browser.moveToElement('.VegaCanvas', endItemCoordinates.x + 10, endItemCoordinates.y + 14);
   });
 
-  expect('линия примагнитилась к элементу "конец"', () => {
+  expected('линия примагнитилась к элементу "конец"', () => {
     browser.assert.screenshotElement(
       '.VegaCanvas',
       'линия магнитится к элементу на канвасе'
-    )
+    );
   })
 });
