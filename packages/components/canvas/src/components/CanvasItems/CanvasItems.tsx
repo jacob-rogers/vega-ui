@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useCanvas } from '../../context';
 import { Canvas } from '../../entities';
-import { CanvasTree } from '../../types';
+import { CanvasTree, KonvaMouseEvent } from '../../types';
 import { CanvasItem, getAbsoluteConnectorsPosition } from '../CanvasItem';
 
 type CanvasItemsProps = {
@@ -71,6 +71,39 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
     moveItemToTop(child);
   };
 
+  const handleItemMouseEnter = (item: CanvasTree): void => {
+    const { parent, children } = getAbsoluteConnectorsPosition(item);
+
+    if (activeData !== null && connectingLinePoints !== null) {
+      if (activeData.connector.type === 'parent') {
+        setConnectingLinePoints({
+          ...connectingLinePoints,
+          child: children,
+        });
+      }
+
+      if (activeData.connector.type === 'children') {
+        setConnectingLinePoints({
+          ...connectingLinePoints,
+          child: parent,
+        });
+      }
+    }
+  };
+
+  const handleItemMouseMove = (e: KonvaMouseEvent, item: CanvasTree): void => {
+    const data = item.getData();
+    const cancelBubbleMouseOver =
+      activeData !== null &&
+      activeData?.item.canConnectedWith(item) &&
+      !(activeData.connector.type === 'parent' && data.type === 'end') &&
+      !(activeData.connector.type === 'children' && data.type === 'root');
+
+    if (cancelBubbleMouseOver) {
+      e.cancelBubble = true;
+    }
+  };
+
   return (
     <>
       {canvas.extract().map((tree) => {
@@ -83,6 +116,8 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             onDragStart={(): void => moveItemToTop(tree)}
             onClick={(): void => moveItemToTop(tree)}
             onMouseUp={(): void => handleItemMouseUp(tree)}
+            onMouseEnter={(): void => handleItemMouseEnter(tree)}
+            onMouseMove={(e): void => handleItemMouseMove(e, tree)}
             onConnectionLineMouseDown={handleConnectionLineMouseDown}
             itemParents={canvas.getParents(tree)}
             itemChildren={canvas.getChildren(tree)}

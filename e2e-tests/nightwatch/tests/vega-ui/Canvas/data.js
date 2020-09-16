@@ -1,6 +1,11 @@
-const beginStepCoordinates = {
+const beginItemCoordinates = {
   x: 10,
   y: 300,
 };
 
-module.exports = { beginStepCoordinates };
+const endItemCoordinates = {
+  x: 600,
+  y: 300,
+};
+
+module.exports = { beginItemCoordinates, endItemCoordinates };

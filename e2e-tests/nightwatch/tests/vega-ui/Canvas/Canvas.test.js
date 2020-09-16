@@ -1,4 +1,4 @@
-const { beginStepCoordinates } = require('./data');
+const { beginItemCoordinates, endItemCoordinates } = require('./data');
 
 const storyURL = `/iframe.html?id=ui-canvas--%D0%BF%D0%BE-%D1%83%D0%BC%D0%BE%D0%BB%D1%87%D0%B0%D0%BD%D0%B8%D1%8E`;
 
@@ -24,7 +24,7 @@ testcase('элемент изменяет свое положение', () => {
 
   step('берем за элемент "начало"', () => {
     browser.waitForElementPresent('.VegaCanvas', 2000);
-    browser.moveToElement('.VegaCanvas', beginStepCoordinates.x + 5, beginStepCoordinates.y + 5);
+    browser.moveToElement('.VegaCanvas', beginItemCoordinates.x + 5, beginItemCoordinates.y + 5);
     browser.mouseButtonDown(0);
   });
 
@@ -38,5 +38,29 @@ testcase('элемент изменяет свое положение', () => {
       '.VegaCanvas',
       'элемент на канвасе меняет свое положение'
     );
+  })
+});
+
+
+testcase('линия магнитится к элементу', () => {
+  step('переходим в story с canvas', () => {
+    browser.url(`${browser.launchUrl}${storyURL}`);
+  });
+
+  step('берем за элемент "начало"', () => {
+    browser.waitForElementPresent('.VegaCanvas', 2000);
+    browser.moveToElement('.VegaCanvas', beginItemCoordinates.x + 74, beginItemCoordinates.y + 12);
+    browser.mouseButtonDown(0);
+  });
+
+  step('тянем линию к элементу "конец"', () => {
+    browser.moveToElement('.VegaCanvas', endItemCoordinates.x + 10, endItemCoordinates.y + 12);
+  });
+
+  expect('линия примагнитилась к элементу "конец"', () => {
+    browser.assert.screenshotElement(
+      '.VegaCanvas',
+      'линия магнитится к элементу на канвасе'
+    )
   })
 });
