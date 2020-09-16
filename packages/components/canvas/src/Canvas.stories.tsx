@@ -41,6 +41,11 @@ storiesOf('ui/Canvas', module)
     });
 
     const updateTree = (change: Change): void => {
+      if (change.update.type === 'clear') {
+        setLocalState([]);
+        setTreeState([]);
+        return;
+      }
       setChanges([...changes, change.update]);
       setLocalState(change.state);
     };

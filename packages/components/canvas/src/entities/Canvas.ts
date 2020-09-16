@@ -161,4 +161,10 @@ export class Canvas {
       .map((parent) => this.searchTree(parent))
       .filter((parent) => parent !== undefined) as CanvasTree[];
   }
+
+  public clear(): void {
+    this.notifier.notify({
+      type: 'clear',
+    });
+  }
 }

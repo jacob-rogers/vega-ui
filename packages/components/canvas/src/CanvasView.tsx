@@ -189,6 +189,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
             onClick={handleStepAdding}
             position={{ x: 10, y: stageSize.height - 150 }}
           />
+          <Button
+            label="Очистить полотно"
+            onClick={(): void => canvas.clear()}
+            position={{ x: stageSize.width - 150, y: stageSize.height - 150 }}
+          />
         </Layer>
       </CanvasContext.Provider>
     </Stage>

@@ -6,7 +6,7 @@ import { useUnmount } from '../use-unmount';
 type API<T> = [T, (value: T) => void];
 
 export function useLocalStorage<T>(key: string, initialValue: T): API<T> {
-  const [storedValue, setStoredValue] = useState(() => {
+  const [storedValue, setStoredValue] = useState<T>(() => {
     try {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
