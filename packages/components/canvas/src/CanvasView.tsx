@@ -25,6 +25,8 @@ type Size = { width: number; height: number };
 const translateValues = { x: 0, y: 0 };
 let INITIAL_SCROLL_IS_CALLED = false;
 
+const scaleBy = 1.01;
+
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const { canvas } = props;
   const [cursor, setCursor] = useState('default');
@@ -304,6 +306,45 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     setDebugInfo(!debugInfo);
   };
 
+  const handleWheel = (event: Konva.KonvaEventObject<WheelEvent>): void => {
+    event.evt.preventDefault();
+
+    const stage = stageRef.current;
+    const container = containerRef.current;
+
+    if (stage === null || container === null) {
+      return;
+    }
+
+    const pointer = stage.getPointerPosition();
+
+    if (pointer === null) {
+      return;
+    }
+
+    const oldScale = stage.scaleX();
+
+    const mousePointTo = {
+      x: (pointer.x - stage.x()) / oldScale,
+      y: (pointer.y - stage.y()) / oldScale,
+    };
+
+    const newScale = event.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+
+    stage.scale({ x: newScale, y: newScale });
+
+    const newPos = {
+      x: pointer.x - mousePointTo.x * newScale,
+      y: pointer.y - mousePointTo.y * newScale,
+    };
+
+    const testX = stage.x() - newPos.x;
+    const testY = stage.y() - newPos.y;
+
+    container.scrollLeft += Math.round(testX);
+    container.scrollTop += Math.round(testY);
+  };
+
   return (
     <div ref={containerRef} className={cnCanvas()} onScroll={updateStagePosition}>
       <div
@@ -316,6 +357,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           className={cnCanvas('Stage')}
           width={stageWidth}
           height={stageHeight}
+          onWheel={handleWheel}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onClick={handleMouseDown}
