@@ -5,9 +5,11 @@ import { act, fireEvent, render, RenderResult, screen } from '@testing-library/r
 import { Grid } from './grid';
 import { Layout, LayoutProps } from './Layout';
 
+const DivComponent: React.FC = () => <div />;
+
 const defaultWidgets: LayoutProps['widgets'] = [
   { label: 'Div', name: 'div', component: 'div' },
-  { label: 'React component', name: 'rc-div', component: () => <div /> },
+  { label: 'React component', name: 'rc-div', component: DivComponent },
 ];
 
 function renderComponent(props: Partial<LayoutProps> = {}): RenderResult {
