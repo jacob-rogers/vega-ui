@@ -4,7 +4,6 @@ import { useOnChange } from '@gpn-prototypes/vega-hooks';
 import { SELECTED_COLOR } from '../../constants';
 import { useCanvas } from '../../context';
 import { CanvasTree, KonvaMouseEvent, Position } from '../../types';
-import { ConnectionLine } from '../ConnectionLine';
 import { Connector, ConnectorEvent } from '../Connector';
 import { List } from '../List';
 import { ListItem } from '../ListItem';
@@ -16,8 +15,6 @@ import {
 
 export type CanvasItemProps = {
   item: CanvasTree;
-  itemParents: CanvasTree[];
-  itemChildren: CanvasTree[];
   onDragStart?: (e: KonvaMouseEvent) => void;
   onClick?: (e: KonvaMouseEvent) => void;
   onMouseUp?: (e: KonvaMouseEvent) => void;
@@ -26,8 +23,6 @@ export type CanvasItemProps = {
   onMouseMove?: (e: KonvaMouseEvent) => void;
   onPositionChange: (position: Position) => void;
   onWidthUpdate: (width: number) => void;
-  onConnectionLineMouseDown: (parent: CanvasTree, child: CanvasTree) => void;
-  onConnectionLineClick: (parent: CanvasTree, child: CanvasTree) => void;
 };
 
 type ConnectionKey = 'parentId' | 'childId';
@@ -43,10 +38,6 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onMouseMove,
     onClick,
     onWidthUpdate,
-    onConnectionLineMouseDown,
-    itemParents,
-    itemChildren,
-    onConnectionLineClick,
   } = props;
   const data = item.getData();
   const { activeData, setActiveData, selectedData, setSelectedData, setCursor } = useCanvas();
@@ -121,7 +112,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
       {canHasParent && (
         <Connector
           {...connectorProps}
-          isActive={parentConnectorActive || itemParents.length > 0}
+          isActive={parentConnectorActive || item.getParents().length > 0}
           isSelected={parentConnectorSelected}
           type="parent"
           disabled={disableParentConnector}
@@ -133,7 +124,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
       {canHasChildren && (
         <Connector
           {...connectorProps}
-          isActive={childConnectorActive || itemChildren.length > 0}
+          isActive={childConnectorActive || item.getChildren().length > 0}
           isSelected={childConnectorSelected}
           type="children"
           disabled={disableChildConnector}
@@ -216,28 +207,9 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     stroke,
   };
 
-  return (
-    <>
-      {!isList ? (
-        <ListItem {...baseProps} onWidthUpdate={handleUpdateWidth} width={72} />
-      ) : (
-        <List {...baseProps} />
-      )}
-      {itemChildren.map((child) => {
-        if (child === undefined) {
-          return null;
-        }
-
-        return (
-          <ConnectionLine
-            key={child.getId()}
-            parent={{ connector: absoluteConnectorsPosition.children, tree: item }}
-            child={{ connector: getAbsoluteConnectorsPosition(child).parent, tree: child }}
-            onMouseDown={(): void => onConnectionLineMouseDown(item, child)}
-            onClick={(): void => onConnectionLineClick(item, child)}
-          />
-        );
-      })}
-    </>
+  return !isList ? (
+    <ListItem {...baseProps} onWidthUpdate={handleUpdateWidth} width={72} />
+  ) : (
+    <List {...baseProps} />
   );
 };

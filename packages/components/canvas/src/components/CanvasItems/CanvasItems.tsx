@@ -4,6 +4,7 @@ import { useCanvas } from '../../context';
 import { Canvas } from '../../entities';
 import { CanvasTree, KonvaMouseEvent } from '../../types';
 import { CanvasItem, getAbsoluteConnectorsPosition } from '../CanvasItem';
+import { ConnectionLine } from '../ConnectionLine';
 
 type CanvasItemsProps = {
   canvas: Canvas;
@@ -107,6 +108,18 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   return (
     <>
       {canvas.extract().map((tree) => {
+        const children = canvas.getChildren(tree);
+        return children.map((child) => (
+          <ConnectionLine
+            key={child.getId()}
+            parent={{ connector: getAbsoluteConnectorsPosition(tree).children, tree }}
+            child={{ connector: getAbsoluteConnectorsPosition(child).parent, tree: child }}
+            onMouseDown={(): void => handleConnectionLineMouseDown(tree, child)}
+            onClick={(): void => handleConnectionLineClick(tree, child)}
+          />
+        ));
+      })}
+      {canvas.extract().map((tree) => {
         return (
           <CanvasItem
             item={tree}
@@ -118,10 +131,6 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             onMouseUp={(): void => handleItemMouseUp(tree)}
             onMouseEnter={(): void => handleItemMouseEnter(tree)}
             onMouseMove={(e): void => handleItemMouseMove(e, tree)}
-            onConnectionLineMouseDown={handleConnectionLineMouseDown}
-            itemParents={canvas.getParents(tree)}
-            itemChildren={canvas.getChildren(tree)}
-            onConnectionLineClick={handleConnectionLineClick}
           />
         );
       })}

@@ -37,6 +37,7 @@ export const List: React.FC<ListProps> = (props) => {
     onPositionChange = (): void => {},
     draggable = true,
     children,
+    fill = '#22272B',
     stroke = 'rgba(255, 255, 255, 0.2)',
     ...rest
   } = props;
