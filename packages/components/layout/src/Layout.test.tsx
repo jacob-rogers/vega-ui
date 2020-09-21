@@ -4,6 +4,7 @@ import { act, fireEvent, render, RenderResult, screen } from '@testing-library/r
 
 import { Grid } from './grid';
 import { Layout, LayoutProps } from './Layout';
+import { LayoutWidgetsOverrides } from './LayoutDataView';
 
 const defaultWidgets: LayoutProps['widgets'] = [];
 
@@ -73,7 +74,7 @@ describe('Layout', () => {
 
     if (Grid.isDataView(view)) {
       view.split('down');
-      view.setWidgetName('div');
+      view.setWidget('div');
       view.setContext({ 'aria-label': label });
     }
 
@@ -146,6 +147,45 @@ describe('Layout', () => {
       });
 
       expect(findDataViews().length).toBe(1);
+    });
+  });
+
+  describe('Widgets', () => {
+    const widgets = [
+      { name: 'Widget 1', component: 'vega-widget-one' },
+      { name: 'Widget 2', component: 'vega-widget-two' },
+    ];
+
+    const widgetsOverrides: LayoutWidgetsOverrides = {
+      'vega-widget-two': (props) => <div {...props}>Widget 2</div>,
+    };
+
+    test('рендерит custom element', async () => {
+      const grid = Grid.create();
+      const view = grid.get(0);
+      const label = 'vega-custom-element-widget';
+
+      if (Grid.isDataView(view)) {
+        view.setWidget('vega-widget-one');
+        view.setContext({ 'aria-label': label });
+      }
+
+      renderComponent({ state: grid.extract(), widgets });
+      expect(await screen.findByLabelText(label)).toBeInTheDocument();
+    });
+
+    test('рендерит react компонент', async () => {
+      const grid = Grid.create();
+      const view = grid.get(0);
+      const label = 'vega-react-widget';
+
+      if (Grid.isDataView(view)) {
+        view.setWidget('vega-widget-two');
+        view.setContext({ 'aria-label': label });
+      }
+
+      renderComponent({ state: grid.extract(), widgets, widgetsOverrides });
+      expect(await screen.findByLabelText(label)).toBeInTheDocument();
     });
   });
 });

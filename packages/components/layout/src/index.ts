@@ -1,3 +1,3 @@
 export { Layout } from './Layout';
-export { LayoutWidget } from './LayoutDataView';
+export { LayoutWidget, LayoutWidgetsOverrides } from './LayoutDataView';
 export { GridUpdate, GridState, Node } from './grid';

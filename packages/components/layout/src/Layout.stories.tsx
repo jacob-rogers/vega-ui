@@ -19,20 +19,8 @@ class WidgetOne extends HTMLElement {
   }
 }
 
-class WidgetTwo extends HTMLElement {
-  static widgetName = 'vega-widget-two';
-
-  connectedCallback(): void {
-    this.innerHTML = '<h1>Widget Two</h1>';
-  }
-}
-
 if (window.customElements.get(WidgetOne.widgetName) === undefined) {
   window.customElements.define(WidgetOne.widgetName, WidgetOne);
-}
-
-if (window.customElements.get(WidgetTwo.widgetName) === undefined) {
-  window.customElements.define(WidgetTwo.widgetName, WidgetTwo);
 }
 
 const Container = styled.div`
@@ -56,7 +44,13 @@ storiesOf('ui/Layout', module)
   .add('по умолчанию', () => {
     return (
       <Container>
-        <Layout widgets={widgets} onChange={action('onChange')} />
+        <Layout
+          widgets={widgets}
+          widgetsOverrides={{
+            'vega-widget-two': (): React.ReactElement => <h1>Widget 2</h1>,
+          }}
+          onChange={action('onChange')}
+        />
       </Container>
     );
   });

@@ -36,7 +36,7 @@ export class DataView {
     this.notifier = notifier;
   }
 
-  getWidgetName(): string | undefined {
+  getWidget(): string | undefined {
     return this.leaf.data.widget;
   }
 
@@ -44,12 +44,12 @@ export class DataView {
     return this.leaf.data.context ?? defaults;
   }
 
-  setWidgetName(name: string): void {
-    this.leaf.data.widget = name;
+  setWidget(widget: string): void {
+    this.leaf.data.widget = widget;
     this.notifier.notify({
       idx: this.idx,
       type: 'change',
-      changes: { widget: name },
+      changes: { widget },
     });
   }
 
