@@ -1,14 +1,14 @@
-import React, { RefObject, useCallback, useRef, useState } from 'react';
+import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Layer, Stage } from 'react-konva';
-import { useKey, useMount } from '@gpn-prototypes/vega-hooks';
+import { useKey, useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
 import { cnCanvas } from './cn-canvas';
 import { Button, CanvasItems } from './components';
 import { CanvasContext } from './context';
-import { Canvas, Tree } from './entities';
-import { ActiveData, CanvasData, KonvaMouseEvent, Position, SelectedData } from './types';
+import { Canvas, CanvasView as CanvasViewEntity, State, Tree, ViewUpdate } from './entities';
+import { CanvasData, Connection, KonvaMouseEvent } from './types';
 
 import './Canvas.css';
 
@@ -17,81 +17,59 @@ type CanvasViewProps = {
   parentRef: RefObject<HTMLElement>;
 };
 
-type Optional<T> = T | null;
-
-type Coordinates = { parent: Position; child: Position };
-type Size = { width: number; height: number };
+export const defaultState: State = {
+  cursor: 'default',
+  activeData: null,
+  selectedData: null,
+  stageSize: { width: window.innerWidth, height: window.innerHeight },
+  linePoints: null,
+};
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const { canvas, parentRef } = props;
-  const [cursor, setCursor] = useState('default');
-
-  const [connectingLinePoints, setConnectingLinePoints] = useState<Optional<Coordinates>>(null);
-  const [activeData, setActiveData] = useState<Optional<ActiveData>>(null);
-  const [selectedData, setSelectedData] = useState<Optional<SelectedData>>(null);
-  const [stageSize, setStageSize] = useState<Size>({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
-
   const stageRef = useRef<Konva.Stage>(null);
+  const [state, setState] = useState(defaultState);
+
+  const view = useMemo(() => CanvasViewEntity.of(state, stageRef.current, canvas), [canvas, state]);
+
   const handleMouseMove = (): void => {
-    if (connectingLinePoints && stageRef.current) {
-      const pos = stageRef.current.getPointerPosition();
-      if (pos) {
-        setConnectingLinePoints({
-          ...connectingLinePoints,
-          child: pos,
-        });
-      }
-    }
+    view.drawConnectingLine();
   };
 
   useMount(() => {
     if (parentRef.current) {
-      setStageSize({
-        width: parentRef.current.offsetWidth,
-        height: parentRef.current.offsetHeight,
+      view.updateState({
+        stageSize: {
+          width: parentRef.current.offsetWidth,
+          height: parentRef.current.offsetHeight,
+        },
       });
     }
   });
 
-  const handleActiveDataChange = (newActiveData: ActiveData | null): void => {
-    setActiveData(newActiveData);
+  const handleChange = useCallback((updates: ViewUpdate): void => {
+    setState({ ...updates.newState });
+  }, []);
 
-    if (newActiveData) {
-      setCursor('pointer');
-      const { connector } = newActiveData;
+  useEffect(() => {
+    view.addListener(handleChange);
+  }, [view, handleChange]);
 
-      if (stageRef.current) {
-        const { position } = connector;
-        const pointerPosition = stageRef.current.getPointerPosition();
-        if (pointerPosition) {
-          setConnectingLinePoints({ parent: position, child: pointerPosition });
-        }
-      }
-    }
-  };
+  useUnmount(() => {
+    canvas.removeAllListeners();
+  });
 
   const abortActiveData = (): void => {
-    setActiveData(null);
-    setConnectingLinePoints(null);
-    setCursor('default');
+    view.updateState({
+      activeData: null,
+      cursor: 'default',
+      linePoints: null,
+    });
   };
 
   const connectActiveItem = (id: string): void => {
-    if (activeData) {
-      const [itemId, connectionType] = id.split('_');
-      const targetItem = canvas.searchTree(itemId);
-      if (targetItem && connectionType !== activeData.connector?.type) {
-        const trees =
-          connectionType === 'parent'
-            ? [activeData.item, targetItem]
-            : [targetItem, activeData.item];
-
-        canvas.connect(trees[0], trees[1]);
-      }
-    }
+    const [itemId, connectionType] = id.split('_');
+    view.connectActiveItem(itemId, connectionType as Connection);
   };
 
   const handleMouseUp = (e: KonvaMouseEvent): void => {
@@ -100,38 +78,14 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       connectActiveItem(id);
     }
 
-    if (activeData) {
+    if (state.activeData) {
       abortActiveData();
     }
   };
 
-  const removeSelectedLine = useCallback((): void => {
-    if (selectedData?.type === 'line') {
-      const { childId, parentId } = selectedData;
-      const child = canvas.searchTree(childId);
-      const parent = canvas.searchTree(parentId);
-
-      if (child && parent) {
-        canvas.disconnect(child, parent);
-      }
-    }
-  }, [canvas, selectedData]);
-
-  const removeSelectedItem = useCallback((): void => {
-    if (selectedData?.type === 'item') {
-      const { id } = selectedData;
-      const tree = canvas.searchTree(id);
-      if (tree) {
-        canvas.remove(tree);
-      }
-    }
-  }, [canvas, selectedData]);
-
   const handleRemoveSelectedItem = useCallback(() => {
-    removeSelectedItem();
-    removeSelectedLine();
-    setSelectedData(null);
-  }, [removeSelectedLine, removeSelectedItem]);
+    view.removeSelectedItem();
+  }, [view]);
 
   const handleStepAdding = useCallback(() => {
     const tree = Tree.of<CanvasData>({
@@ -145,12 +99,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   }, [canvas]);
 
   const handleMouseDown = (): void => {
-    if (selectedData) {
-      setSelectedData(null);
-    }
+    view.updateState({ selectedData: null });
   };
 
   useKey(['Delete', 'Backspace'], handleRemoveSelectedItem, { keyevent: 'keydown' });
+
+  const { activeData, cursor, stageSize, selectedData, linePoints } = view.getState();
 
   return (
     <Stage
@@ -165,25 +119,22 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     >
       <CanvasContext.Provider
         value={{
-          stageRef,
-          setActiveData: handleActiveDataChange,
+          stage: view.getStage(),
+          setActiveData: (newData): void => view.changeActiveData(newData),
           activeData,
-          setCursor,
+          setCursor: (newCursor): void => view.updateState({ cursor: newCursor }),
           selectedData,
-          setSelectedData,
+          setSelectedData: (newData): void => {
+            view.updateState({ selectedData: newData });
+          },
           abortActiveData,
-          setConnectingLinePoints,
-          connectingLinePoints,
+          setConnectingLinePoints: (newData): void => view.updateState({ linePoints: newData }),
+          connectingLinePoints: linePoints,
         }}
       >
         <Layer>
           <CanvasItems canvas={canvas} />
-          {connectingLinePoints && (
-            <ConnectionLineView
-              parent={connectingLinePoints.parent}
-              child={connectingLinePoints.child}
-            />
-          )}
+          {linePoints && <ConnectionLineView parent={linePoints.parent} child={linePoints.child} />}
           <Button
             label="Добавить шаг"
             onClick={handleStepAdding}

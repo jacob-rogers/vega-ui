@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useCanvas } from '../../context';
 import { Canvas } from '../../entities';
-import { CanvasTree, KonvaMouseEvent } from '../../types';
+import { CanvasTree, KonvaMouseEvent, Position } from '../../types';
 import { CanvasItem, getAbsoluteConnectorsPosition } from '../CanvasItem';
 import { ConnectionLine } from '../ConnectionLine';
 
@@ -10,10 +10,14 @@ type CanvasItemsProps = {
   canvas: Canvas;
 };
 
+const positionEquals = (pos1: Position, pos2: Position): boolean => {
+  return pos1.x === pos2.x && pos1.y === pos2.y;
+};
+
 export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   const { canvas } = props;
   const {
-    stageRef,
+    stage,
     activeData,
     setActiveData,
     abortActiveData,
@@ -26,10 +30,10 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   };
 
   const handleConnectionLineMouseDown = (parent: CanvasTree, child: CanvasTree): void => {
-    if (stageRef.current) {
+    if (stage !== null) {
       const parentConnectors = getAbsoluteConnectorsPosition(parent);
       const childConnectors = getAbsoluteConnectorsPosition(child);
-      const pointerPosition = stageRef.current.getPointerPosition();
+      const pointerPosition = stage.getPointerPosition();
       const pointerX = Number(pointerPosition?.x);
       const parentDelta = pointerX - parentConnectors.children.x;
       const childDelta = childConnectors.parent.x - pointerX;
@@ -72,18 +76,24 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
     moveItemToTop(child);
   };
 
-  const handleItemMouseEnter = (item: CanvasTree): void => {
+  const magnetizeItem = (item: CanvasTree): void => {
     const { parent, children } = getAbsoluteConnectorsPosition(item);
 
     if (activeData !== null && connectingLinePoints !== null) {
-      if (activeData.connector.type === 'parent') {
+      if (
+        activeData.connector.type === 'parent' &&
+        !positionEquals(connectingLinePoints.child, children)
+      ) {
         setConnectingLinePoints({
           ...connectingLinePoints,
           child: children,
         });
       }
 
-      if (activeData.connector.type === 'children') {
+      if (
+        activeData.connector.type === 'children' &&
+        !positionEquals(connectingLinePoints.child, parent)
+      ) {
         setConnectingLinePoints({
           ...connectingLinePoints,
           child: parent,
@@ -103,6 +113,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
     if (cancelBubbleMouseOver) {
       e.cancelBubble = true;
     }
+    magnetizeItem(item);
   };
 
   return (
@@ -129,7 +140,6 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             onDragStart={(): void => moveItemToTop(tree)}
             onClick={(): void => moveItemToTop(tree)}
             onMouseUp={(): void => handleItemMouseUp(tree)}
-            onMouseEnter={(): void => handleItemMouseEnter(tree)}
             onMouseMove={(e): void => handleItemMouseMove(e, tree)}
           />
         );

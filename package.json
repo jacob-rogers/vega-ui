@@ -126,6 +126,7 @@
     "hygen": "^6.0.4",
     "lerna": "^3.20.2",
     "lint-staged": "^10.2.4",
+    "jest-canvas-mock": "^2.2.0",
     "postcss-cli": "^7.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

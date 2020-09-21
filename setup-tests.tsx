@@ -1,6 +1,7 @@
 import React from 'react';
 
 import '@testing-library/jest-dom';
+import 'jest-canvas-mock';
 
 jest.mock('react-transition-group', () => {
   const FakeTransition = jest.fn(({ children }) => children);

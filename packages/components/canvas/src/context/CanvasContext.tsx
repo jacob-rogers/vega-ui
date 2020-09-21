@@ -1,4 +1,4 @@
-import { createContext, MutableRefObject, useContext } from 'react';
+import { createContext, useContext } from 'react';
 import Konva from 'konva';
 
 import { ActiveData, Position, SelectedData } from '../types';
@@ -9,7 +9,7 @@ type API = {
   setSelectedData: (newSelected: SelectedData | null) => void;
   setActiveData: (newActive: ActiveData | null) => void;
   setCursor: (newCursor: string) => void;
-  stageRef: MutableRefObject<Konva.Stage | null>;
+  stage: Konva.Stage | null;
   activeData: ActiveData | null;
   selectedData: SelectedData | null;
   abortActiveData: () => void;
@@ -18,7 +18,7 @@ type API = {
 };
 
 export const CanvasContext = createContext<API>({
-  stageRef: { current: null },
+  stage: null,
   setCursor: noop,
   setSelectedData: noop,
   setActiveData: noop,

@@ -1,21 +1,13 @@
-import {
-  CanvasData,
-  CanvasNotifier,
-  CanvasSet,
-  CanvasTree,
-  CanvasUpdate,
-  Position,
-} from '../types';
+import { CanvasData, CanvasSet, CanvasTree, CanvasUpdate, Position } from '../types';
 
-import { Listener, Notifier } from './Notifier';
+import { Notifiable } from './Notifiable';
 import { Tree, TreeData } from './Tree';
 
-export class Canvas {
+export class Canvas extends Notifiable<CanvasUpdate> {
   private trees: CanvasSet;
 
-  private notifier: CanvasNotifier = new Notifier();
-
   private constructor(trees: CanvasTree[]) {
+    super();
     this.trees = new Set(trees);
   }
 
@@ -61,14 +53,6 @@ export class Canvas {
 
   public extract(): CanvasTree[] {
     return Array.from(this.trees);
-  }
-
-  public addListener(listener: Listener<CanvasUpdate>): VoidFunction {
-    return this.notifier.addListener(listener);
-  }
-
-  public removeAllListeners(): void {
-    this.notifier.removeAllListeners();
   }
 
   public get(): CanvasSet {

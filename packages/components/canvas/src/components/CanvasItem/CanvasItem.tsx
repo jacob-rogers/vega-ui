@@ -168,17 +168,13 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     }
   };
 
-  const handleMouseEnter = (e: KonvaMouseEvent): void => {
+  const handleMouseEnter = (): void => {
     if (connectorsEnabled) {
       setCursor('pointer');
     }
 
     if (canConnected) {
       setStroke(SELECTED_COLOR);
-    }
-
-    if (onMouseEnter) {
-      onMouseEnter(e);
     }
   };
 
