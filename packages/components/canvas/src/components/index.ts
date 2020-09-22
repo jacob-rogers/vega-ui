@@ -5,3 +5,4 @@ export * from './Button';
 export * from './Connector';
 export * from './CanvasItem';
 export * from './CanvasItems';
+export * from './OptionsPanel';

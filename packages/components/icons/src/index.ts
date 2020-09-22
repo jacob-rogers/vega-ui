@@ -122,3 +122,4 @@ export { FileIconUndefined } from '@consta/uikit/FileIconUndefined';
 export { FileIconWav } from '@consta/uikit/FileIconWav';
 export { FileIconXls } from '@consta/uikit/FileIconXls';
 export { FileIconZip } from '@consta/uikit/FileIconZip';
+export { createIcon } from '@consta/uikit/__internal__/cjs-src/icons/createIcon/createIcon.js';

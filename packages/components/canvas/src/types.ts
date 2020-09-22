@@ -39,9 +39,11 @@ export type SelectedData =
   | { type: 'item'; id: string }
   | { type: 'line'; parentId: string; childId: string };
 
+export type ItemType = 'step' | 'root' | 'end';
+
 export type CanvasData = {
   title: string;
-  type: 'step' | 'root' | 'end';
+  type: ItemType;
   position: Position;
   width?: number;
 };

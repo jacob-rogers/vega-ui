@@ -1,0 +1,11 @@
+import React from 'react';
+
+export const IconNodesSizeM = (props: React.SVGProps<SVGSVGElement>): React.ReactElement => (
+  <svg viewBox="0 0 24 24" {...props}>
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M1 5C0.447715 5 0 5.44772 0 6V18C0 18.5523 0.447715 19 1 19H8C8.55229 19 9 18.5523 9 18V15C7.34315 15 6 13.6569 6 12C6 10.3431 7.34315 9 9 9V6C9 5.44772 8.55229 5 8 5H1ZM11 12C11 13.1046 10.1046 14 9 14C7.89543 14 7 13.1046 7 12C7 10.8954 7.89543 10 9 10C10.1046 10 11 10.8954 11 12ZM16.0303 11.3662L20.0051 15.3411L23.98 11.3662L23.2729 10.6591L20.0051 13.9269L16.7374 10.6591L16.0303 11.3662Z"
+    />
+  </svg>
+);

@@ -5,4 +5,28 @@
     width: 100%;
     height: 100%;
   }
+
+  &__OptionsPanel {
+    display: flex;
+    box-shadow: 0 1px 4px rgba(0, 32, 51, 0.18);
+    background: var(--color-bg-default);
+    width: calc(100% - var(--space-2xs) * 2);
+    padding: var(--space-2xs);
+    border-radius: calc(var(--space-2xs) + var(--space-3xs));
+  }
+
+  &__Option {
+    &_active {
+      background: var(--color-control-bg-active);
+    }
+  }
+
+  &__CreateOptionsList {
+    background: var(--color-bg-default);
+    border-radius: var(--space-2xs);
+    margin-bottom: calc(var(--space-2xs) * 2);
+    margin-top: calc(var(--space-2xs) * 2);
+    padding: var(--space-2xs);
+    box-shadow: 0 1px 4px rgba(0, 32, 51, 0.18);
+  }
 }

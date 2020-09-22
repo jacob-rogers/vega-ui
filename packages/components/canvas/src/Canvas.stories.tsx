@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { useInterval, useLocalStorage } from '@gpn-prototypes/vega-hooks';
+import { action } from '@storybook/addon-actions';
 import { withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Canvas, Change } from './Canvas';
+import { OptionsPanel } from './components';
 import { Tree } from './entities';
 import { CanvasData, CanvasTree, CanvasUpdate } from './types';
 
@@ -55,4 +57,13 @@ storiesOf('ui/Canvas', module)
         <Canvas parentRef={ref} state={localState} onChange={updateTree} />
       </div>
     );
-  });
+  })
+  .add('панель управления полотном', () => (
+    <div style={{ height: 800, width: 200, background: '#fff' }}>
+      <OptionsPanel
+        activeValue="selection"
+        disabledOptions={['dragging']}
+        onChange={(change): void => action('onChange')(change)}
+      />
+    </div>
+  ));
