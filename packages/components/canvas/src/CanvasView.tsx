@@ -25,9 +25,19 @@ export const defaultState: State = {
 };
 
 const translateValues = { x: 0, y: 0 };
-let INITIAL_SCROLL_IS_CALLED = false;
 
-const scaleBy = 1.01;
+const SCROLL_PADDING = 10;
+const SCROLL_RATIO = 1.04;
+const PINNING_KEY_CODE = 'Space';
+
+const pinning = {
+  isKeyPressed: false,
+  isMousePressed: false,
+  data: {
+    clientX: 0,
+    clientY: 0,
+  },
+};
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const { canvas, parentRef } = props;
@@ -110,48 +120,90 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   const { activeData, cursor, stageSize, selectedData, linePoints } = view.getState();
 
-  const handleDebugInfoSwitch = (): void => {
-    setDebugInfo(!debugInfo);
+    const y = -contentRect.y * layer.scaleY() + PADDING_VERTICAL - availableHeight * delta;
+
+    layer.y(y);
+    layer.batchDraw();
   };
 
-  const handleWheel = (event: Konva.KonvaEventObject<WheelEvent>): void => {
-    event.evt.preventDefault();
+  const initialHorizontalScrollbarX = getHorizontalScrollbarX();
+  const initialVerticalScrollbarY = getVerticalScrollbarY();
 
-    const stage = stageRef.current;
-    const container = containerRef.current;
+  const getBgSize = () => {
+    const layer = layerRef.current;
 
-    if (stage === null || container === null) {
-      return;
+    if (!layer) {
+      return {
+        x: contentRect.x - PADDING_HORIZONTAL,
+        y: contentRect.y - PADDING_VERTICAL,
+        width: contentRect.width + 2 * PADDING_HORIZONTAL,
+        height: contentRect.height + 2 * PADDING_VERTICAL,
+      };
     }
 
-    const pointer = stage.getPointerPosition();
+    const scale = layer.scaleX();
 
-    if (pointer === null) {
-      return;
+    const bgSize = {
+      x: contentRect.x - PADDING_HORIZONTAL * (1 / scale),
+      y: contentRect.y - PADDING_VERTICAL * (1 / scale),
+      width: contentRect.width + 2 * PADDING_HORIZONTAL * (1 / scale),
+      height: contentRect.height + 2 * PADDING_VERTICAL * (1 / scale),
+    };
+
+    const blockSize = 116;
+
+    const intX = Math.trunc(bgSize.x / blockSize);
+    const intY = Math.trunc(bgSize.y / blockSize);
+
+    /*
+
+    Math.trunc
+    Math.ceil
+    Math.floor
+
+    */
+
+    if (bgSize.x % blockSize < 0) {
+      bgSize.x = blockSize * (intX - 1);
     }
 
-    const oldScale = stage.scaleX();
+    if (bgSize.x % blockSize > 0) {
+      bgSize.x = blockSize * intX;
+    }
 
-    const mousePointTo = {
-      x: (pointer.x - stage.x()) / oldScale,
-      y: (pointer.y - stage.y()) / oldScale,
-    };
+    if (bgSize.y % blockSize < 0) {
+      bgSize.y = blockSize * (intY - 1);
+    }
 
-    const newScale = event.evt.deltaY < 0 ? oldScale * scaleBy : oldScale / scaleBy;
+    if (bgSize.y % blockSize > 0) {
+      bgSize.y = blockSize * intY;
+    }
 
-    stage.scale({ x: newScale, y: newScale });
+    const x1 = contentRect.x - PADDING_HORIZONTAL * (1 / scale) + bgSize.width;
+    const y1 = contentRect.y - PADDING_VERTICAL * (1 / scale) + bgSize.height;
+    const intX1 = Math.trunc(x1 / blockSize);
+    const intY1 = Math.trunc(y1 / blockSize);
 
-    const newPos = {
-      x: pointer.x - mousePointTo.x * newScale,
-      y: pointer.y - mousePointTo.y * newScale,
-    };
+    if (x1 % blockSize < 0) {
+      bgSize.width = blockSize * intX1 - bgSize.x;
+    }
 
-    const testX = stage.x() - newPos.x;
-    const testY = stage.y() - newPos.y;
+    if (x1 % blockSize > 0) {
+      bgSize.width = blockSize * (intX1 + 1) - bgSize.x;
+    }
 
-    container.scrollLeft += Math.round(testX);
-    container.scrollTop += Math.round(testY);
+    if (y1 % blockSize < 0) {
+      bgSize.height = blockSize * intY1 - bgSize.y;
+    }
+
+    if (y1 % blockSize > 0) {
+      bgSize.height = blockSize * (intY1 + 1) - bgSize.y;
+    }
+
+    return bgSize;
   };
+
+  const bgSize = getBgSize();
 
   return (
     <Stage

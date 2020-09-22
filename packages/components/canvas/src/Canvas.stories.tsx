@@ -52,7 +52,7 @@ storiesOf('ui/Canvas', module)
     };
 
     return (
-      <div style={{ width: '100%', height: 600 }} id="test">
+      <div style={{ width: '100%', height: 400 }} id="test">
         <Canvas state={localState} onChange={updateTree} />
       </div>
     );

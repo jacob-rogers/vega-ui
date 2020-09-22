@@ -15,7 +15,7 @@ export const useKey = (
   const keys = Array.isArray(key) ? key : [key];
   const handleEvent = useCallback(
     (event: PossibleEvent): void => {
-      if (keys.includes(event.which) || keys.includes(event.code) || keys.includes(event.key)) {
+      if (keys.includes(event.code) || keys.includes(event.key)) {
         callback(event);
       }
     },
