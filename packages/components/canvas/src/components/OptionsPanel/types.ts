@@ -11,5 +11,6 @@ export type Changes = { type: Omit<Option, 'create'> } | { type: 'create'; itemT
 
 export type OptionView<T = Option> = {
   type: T;
+  label?: string;
   icon: React.FC<IconProps>;
 };

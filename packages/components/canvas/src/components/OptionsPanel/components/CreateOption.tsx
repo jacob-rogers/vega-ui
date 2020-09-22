@@ -15,6 +15,12 @@ type CreateOptionProps = Omit<OptionProps, 'onClick'> & {
   onCreate(type: ItemType): void;
 };
 
+export const items: OptionView<ItemType>[] = [
+  { type: 'root', icon: Icons.IconNodeStart, label: 'Начало проекта' },
+  { type: 'end', icon: Icons.IconNodeEnd, label: 'Шаг проекта' },
+  { type: 'step', icon: Icons.IconNodeStep, label: 'Конец проекта' },
+];
+
 export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
   const [dropdownOpen, dropdownToggle] = useToggle(false);
   const { portal } = usePortal();
@@ -23,12 +29,6 @@ export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
     props.onCreate(type);
     dropdownToggle(false);
   };
-
-  const items: OptionView<ItemType>[] = [
-    { type: 'root', icon: Icons.IconNodeStart },
-    { type: 'end', icon: Icons.IconNodeEnd },
-    { type: 'step', icon: Icons.IconNodeStep },
-  ];
 
   return (
     <Dropdown
@@ -40,19 +40,29 @@ export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
     >
       <Dropdown.Trigger>
         {({ toggle, props: { ref } }): React.ReactNode => (
-          <Option isActive={dropdownOpen} onClick={toggle} innerRef={ref} {...props} />
+          <Option
+            role="menuitem"
+            isActive={dropdownOpen}
+            onClick={toggle}
+            innerRef={ref}
+            {...props}
+          />
         )}
       </Dropdown.Trigger>
       <Dropdown.Menu>
         {({ props: menuProps }): React.ReactNode => {
           return (
-            <div {...menuProps}>
+            <div role="menu" aria-label="Меню для создания элементов" {...menuProps}>
               <NavigationList className={cnCanvas('CreateOptionsList')}>
                 {items.map((item) => {
                   return (
                     <NavigationList.Item key={item.type}>
                       {(): React.ReactNode => (
-                        <Option onClick={(): void => handleItemClick(item.type)} option={item} />
+                        <Option
+                          role="menuitem"
+                          onClick={(): void => handleItemClick(item.type)}
+                          option={item}
+                        />
                       )}
                     </NavigationList.Item>
                   );

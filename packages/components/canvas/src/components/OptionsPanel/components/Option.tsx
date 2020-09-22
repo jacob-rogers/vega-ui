@@ -11,7 +11,7 @@ export type OptionProps = {
   isActive?: boolean;
   disabled?: boolean;
   innerRef?: (ref: HTMLElement | null) => void;
-};
+} & React.ComponentProps<typeof Button>;
 
 export const Option: React.FC<OptionProps> = (props) => {
   const { option, onClick, isActive, innerRef, disabled } = props;
@@ -19,9 +19,12 @@ export const Option: React.FC<OptionProps> = (props) => {
   return (
     <Button
       size="s"
+      type="button"
+      form="brick"
       ref={innerRef}
       disabled={disabled}
       iconLeft={option.icon}
+      aria-label={option.label}
       iconSize="m"
       onClick={onClick}
       className={cnCanvas('Option', { active: isActive }).toString()}
