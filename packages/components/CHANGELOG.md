@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.12.3...@gpn-prototypes/vega-ui@2.13.0) (2020-09-23)
+
+
+### Features
+
+* **layout:** добавить возможность передавать react компоненты в виджеты ([5902b3a](https://github.com/gpn-prototypes/vega-ui/commit/5902b3ae8f4490a8c0dab532dcfdf64ce1dc5933))
+
+
+
+
+
 ## [2.12.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.12.2...@gpn-prototypes/vega-ui@2.12.3) (2020-09-03)
 
 
