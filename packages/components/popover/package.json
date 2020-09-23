@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-popover",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -24,6 +24,6 @@
     "@consta/uikit": "^1.9.0"
   },
   "devDependencies": {
-    "@gpn-prototypes/vega-button": "^0.2.1"
+    "@gpn-prototypes/vega-button": "^0.2.2"
   }
 }

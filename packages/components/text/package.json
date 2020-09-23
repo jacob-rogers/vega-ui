@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-text",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
