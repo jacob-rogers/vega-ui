@@ -24,11 +24,10 @@ type Optional<T> = T | null;
 type Coordinates = { parent: Position; child: Position };
 type Size = { width: number; height: number };
 
-const translateValues = { x: 0, y: 0 };
-
 const SCROLL_PADDING = 10;
 const SCROLL_RATIO = 1.04;
 const PINNING_KEY_CODE = 'Space';
+const GRID_BLOCK_SIZE = 116; // Элемент сетки - квадрат со стороной 116px
 
 const pinning = {
   isKeyPressed: false,
@@ -51,6 +50,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   });
   const [contentRect, setContentRect] = useState({ x: 0, y: 0, width: 0, height: 0 });
   const [debugInfo, setDebugInfo] = useState(true);
+  const [overlay, setOverlay] = useState(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
@@ -65,14 +65,20 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const PADDING_VERTICAL = stageSize.height;
 
   const handleMouseMove = (event: Konva.KonvaEventObject<MouseEvent>): void => {
+    const layer = layerRef.current;
+
+    if (!layer) {
+      return;
+    }
+
     if (connectingLinePoints && stageRef.current) {
       const pointerPosition = stageRef.current.getPointerPosition();
       if (pointerPosition) {
         setConnectingLinePoints({
           ...connectingLinePoints,
           child: {
-            x: pointerPosition.x - translateValues.x,
-            y: pointerPosition.y - translateValues.y,
+            x: (pointerPosition.x - layer.x()) * (1 / layer.scaleX()),
+            y: (pointerPosition.y - layer.y()) * (1 / layer.scaleY()),
           },
         });
       }
@@ -99,6 +105,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   });
 
   const handleActiveDataChange = (newActiveData: ActiveData | null): void => {
+    const layer = layerRef.current;
+
+    if (!layer) {
+      return;
+    }
+
     setActiveData(newActiveData);
 
     if (newActiveData) {
@@ -112,8 +124,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           setConnectingLinePoints({
             parent: position,
             child: {
-              x: pointerPosition.x - translateValues.x,
-              y: pointerPosition.y - translateValues.y,
+              x: (pointerPosition.x - layer.x()) * (1 / layer.scaleX()),
+              y: (pointerPosition.y - layer.y()) * (1 / layer.scaleY()),
             },
           });
         }
@@ -149,6 +161,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
       if (!pinning.isKeyPressed) {
         setCursor('default');
+        setOverlay(false);
       }
     }
   };
@@ -316,7 +329,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
         if (!event.repeat) {
           pinning.isKeyPressed = true;
-          setCursor('pinning');
+          setCursor('grab');
+          setOverlay(true);
         }
       }
     };
@@ -327,6 +341,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
         if (!pinning.isMousePressed) {
           setCursor('default');
+          setOverlay(false);
         }
       }
     };
@@ -467,61 +482,57 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
     const scale = layer.scaleX();
 
+    const x0 = contentRect.x - PADDING_HORIZONTAL * (1 / scale);
+    const y0 = contentRect.y - PADDING_VERTICAL * (1 / scale);
+    const width = contentRect.width + 2 * PADDING_HORIZONTAL * (1 / scale);
+    const height = contentRect.height + 2 * PADDING_VERTICAL * (1 / scale);
+    const x1 = x0 + width;
+    const y1 = y0 + height;
+
     const bgSize = {
-      x: contentRect.x - PADDING_HORIZONTAL * (1 / scale),
-      y: contentRect.y - PADDING_VERTICAL * (1 / scale),
-      width: contentRect.width + 2 * PADDING_HORIZONTAL * (1 / scale),
-      height: contentRect.height + 2 * PADDING_VERTICAL * (1 / scale),
+      x: x0,
+      y: y0,
+      width,
+      height,
     };
 
-    const blockSize = 116;
+    const intX0 = Math.trunc(x0 / GRID_BLOCK_SIZE);
+    const intY0 = Math.trunc(y0 / GRID_BLOCK_SIZE);
+    const intX1 = Math.trunc(x1 / GRID_BLOCK_SIZE);
+    const intY1 = Math.trunc(y1 / GRID_BLOCK_SIZE);
 
-    const intX = Math.trunc(bgSize.x / blockSize);
-    const intY = Math.trunc(bgSize.y / blockSize);
-
-    /*
-
-    Math.trunc
-    Math.ceil
-    Math.floor
-
-    */
-
-    if (bgSize.x % blockSize < 0) {
-      bgSize.x = blockSize * (intX - 1);
+    if (bgSize.x % GRID_BLOCK_SIZE < 0) {
+      bgSize.x = GRID_BLOCK_SIZE * (intX0 - 1);
     }
 
-    if (bgSize.x % blockSize > 0) {
-      bgSize.x = blockSize * intX;
+    if (bgSize.x % GRID_BLOCK_SIZE > 0) {
+      bgSize.x = GRID_BLOCK_SIZE * intX0;
     }
 
-    if (bgSize.y % blockSize < 0) {
-      bgSize.y = blockSize * (intY - 1);
+    if (bgSize.y % GRID_BLOCK_SIZE < 0) {
+      bgSize.y = GRID_BLOCK_SIZE * (intY0 - 1);
     }
 
-    if (bgSize.y % blockSize > 0) {
-      bgSize.y = blockSize * intY;
+    if (bgSize.y % GRID_BLOCK_SIZE > 0) {
+      bgSize.y = GRID_BLOCK_SIZE * intY0;
     }
 
-    const x1 = contentRect.x - PADDING_HORIZONTAL * (1 / scale) + bgSize.width;
-    const y1 = contentRect.y - PADDING_VERTICAL * (1 / scale) + bgSize.height;
-    const intX1 = Math.trunc(x1 / blockSize);
-    const intY1 = Math.trunc(y1 / blockSize);
+    //
 
-    if (x1 % blockSize < 0) {
-      bgSize.width = blockSize * intX1 - bgSize.x;
+    if (x1 % GRID_BLOCK_SIZE < 0) {
+      bgSize.width = GRID_BLOCK_SIZE * intX1 - bgSize.x;
     }
 
-    if (x1 % blockSize > 0) {
-      bgSize.width = blockSize * (intX1 + 1) - bgSize.x;
+    if (x1 % GRID_BLOCK_SIZE > 0) {
+      bgSize.width = GRID_BLOCK_SIZE * (intX1 + 1) - bgSize.x;
     }
 
-    if (y1 % blockSize < 0) {
-      bgSize.height = blockSize * intY1 - bgSize.y;
+    if (y1 % GRID_BLOCK_SIZE < 0) {
+      bgSize.height = GRID_BLOCK_SIZE * intY1 - bgSize.y;
     }
 
-    if (y1 % blockSize > 0) {
-      bgSize.height = blockSize * (intY1 + 1) - bgSize.y;
+    if (y1 % GRID_BLOCK_SIZE > 0) {
+      bgSize.height = GRID_BLOCK_SIZE * (intY1 + 1) - bgSize.y;
     }
 
     return bgSize;
@@ -597,6 +608,15 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
             />
           </Layer>
           <Layer>
+            {overlay && (
+              <Rect
+                x={0}
+                y={0}
+                width={stageSize.width}
+                height={stageSize.height}
+                fill="rgb(255,255,255, 0)"
+              />
+            )}
             <Rect
               ref={verticalScrollbarRef}
               width={10}
