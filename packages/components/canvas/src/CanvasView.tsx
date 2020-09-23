@@ -24,11 +24,10 @@ export const defaultState: State = {
   linePoints: null,
 };
 
-const translateValues = { x: 0, y: 0 };
-
 const SCROLL_PADDING = 10;
 const SCROLL_RATIO = 1.04;
 const PINNING_KEY_CODE = 'Space';
+const GRID_BLOCK_SIZE = 116; // Элемент сетки - квадрат со стороной 116px
 
 const pinning = {
   isKeyPressed: false,
@@ -143,61 +142,57 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
     const scale = layer.scaleX();
 
+    const x0 = contentRect.x - PADDING_HORIZONTAL * (1 / scale);
+    const y0 = contentRect.y - PADDING_VERTICAL * (1 / scale);
+    const width = contentRect.width + 2 * PADDING_HORIZONTAL * (1 / scale);
+    const height = contentRect.height + 2 * PADDING_VERTICAL * (1 / scale);
+    const x1 = x0 + width;
+    const y1 = y0 + height;
+
     const bgSize = {
-      x: contentRect.x - PADDING_HORIZONTAL * (1 / scale),
-      y: contentRect.y - PADDING_VERTICAL * (1 / scale),
-      width: contentRect.width + 2 * PADDING_HORIZONTAL * (1 / scale),
-      height: contentRect.height + 2 * PADDING_VERTICAL * (1 / scale),
+      x: x0,
+      y: y0,
+      width,
+      height,
     };
 
-    const blockSize = 116;
+    const intX0 = Math.trunc(x0 / GRID_BLOCK_SIZE);
+    const intY0 = Math.trunc(y0 / GRID_BLOCK_SIZE);
+    const intX1 = Math.trunc(x1 / GRID_BLOCK_SIZE);
+    const intY1 = Math.trunc(y1 / GRID_BLOCK_SIZE);
 
-    const intX = Math.trunc(bgSize.x / blockSize);
-    const intY = Math.trunc(bgSize.y / blockSize);
-
-    /*
-
-    Math.trunc
-    Math.ceil
-    Math.floor
-
-    */
-
-    if (bgSize.x % blockSize < 0) {
-      bgSize.x = blockSize * (intX - 1);
+    if (bgSize.x % GRID_BLOCK_SIZE < 0) {
+      bgSize.x = GRID_BLOCK_SIZE * (intX0 - 1);
     }
 
-    if (bgSize.x % blockSize > 0) {
-      bgSize.x = blockSize * intX;
+    if (bgSize.x % GRID_BLOCK_SIZE > 0) {
+      bgSize.x = GRID_BLOCK_SIZE * intX0;
     }
 
-    if (bgSize.y % blockSize < 0) {
-      bgSize.y = blockSize * (intY - 1);
+    if (bgSize.y % GRID_BLOCK_SIZE < 0) {
+      bgSize.y = GRID_BLOCK_SIZE * (intY0 - 1);
     }
 
-    if (bgSize.y % blockSize > 0) {
-      bgSize.y = blockSize * intY;
+    if (bgSize.y % GRID_BLOCK_SIZE > 0) {
+      bgSize.y = GRID_BLOCK_SIZE * intY0;
     }
 
-    const x1 = contentRect.x - PADDING_HORIZONTAL * (1 / scale) + bgSize.width;
-    const y1 = contentRect.y - PADDING_VERTICAL * (1 / scale) + bgSize.height;
-    const intX1 = Math.trunc(x1 / blockSize);
-    const intY1 = Math.trunc(y1 / blockSize);
+    //
 
-    if (x1 % blockSize < 0) {
-      bgSize.width = blockSize * intX1 - bgSize.x;
+    if (x1 % GRID_BLOCK_SIZE < 0) {
+      bgSize.width = GRID_BLOCK_SIZE * intX1 - bgSize.x;
     }
 
-    if (x1 % blockSize > 0) {
-      bgSize.width = blockSize * (intX1 + 1) - bgSize.x;
+    if (x1 % GRID_BLOCK_SIZE > 0) {
+      bgSize.width = GRID_BLOCK_SIZE * (intX1 + 1) - bgSize.x;
     }
 
-    if (y1 % blockSize < 0) {
-      bgSize.height = blockSize * intY1 - bgSize.y;
+    if (y1 % GRID_BLOCK_SIZE < 0) {
+      bgSize.height = GRID_BLOCK_SIZE * intY1 - bgSize.y;
     }
 
-    if (y1 % blockSize > 0) {
-      bgSize.height = blockSize * (intY1 + 1) - bgSize.y;
+    if (y1 % GRID_BLOCK_SIZE > 0) {
+      bgSize.height = GRID_BLOCK_SIZE * (intY1 + 1) - bgSize.y;
     }
 
     return bgSize;
