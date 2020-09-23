@@ -6,11 +6,10 @@ import { ProgressSpin } from './ProgressSpin';
 storiesOf('ui/ProgressSpin', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href:
-          'https://gpn-prototypes.github.io/ui-kit/?path=/story/ui-kit-progressspin--playground',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-progressspin--playground',
         text: 'Storybook компонента',
       },
     },

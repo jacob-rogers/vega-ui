@@ -6,10 +6,10 @@ import { TextField } from './TextField';
 storiesOf('ui/TextField', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/textfield',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-textfield--playground',
         text: 'Документация',
       },
     },

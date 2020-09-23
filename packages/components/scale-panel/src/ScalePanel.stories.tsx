@@ -7,7 +7,15 @@ import { ScalePanel } from './ScalePanel';
 import { OrientationProps } from './ScalePanelInner';
 
 const stories = storiesOf('ui/ScalePanel', module).addParameters({
-  metadata: { author: 'ГПН', status: 'Draft' },
+  metadata: {
+    author: 'GPN',
+    status: 'Draft',
+    link: {
+      href:
+        'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/scale-panel/README.md',
+      text: 'Документация',
+    },
+  },
 });
 
 type StoryProps = OrientationProps & React.ComponentProps<typeof ScalePanel>;

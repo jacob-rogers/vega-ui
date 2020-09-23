@@ -6,10 +6,10 @@ import { Attach } from './Attach';
 storiesOf('ui/Attach', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/ui-kit-attach--playground',
+        href: 'https://consta-uikit.vercel.app/?path=/story/components-attach--playground',
         text: 'Storybook компонента',
       },
     },

@@ -1,6 +1,6 @@
 # @gpn-prototypes/vega-theme
 
-Компонент-обертка для [компонента Theme из дизайн-системы ГПН](https://gpn-prototypes.github.io/ui-kit/?path=/docsx/ui-kit-theme--documentation)
+Компонент-обертка для [компонента Theme из дизайн-системы ГПН](https://consta-uikit.vercel.app/?path=/docsx/ui-kit-theme--documentation)
 
 ### Установка
 

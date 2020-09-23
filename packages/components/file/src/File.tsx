@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { File as BaseFile } from '@gpn-design/uikit/File';
+import { File as BaseFile } from '@consta/uikit/File';
 
 type FileProps = React.ComponentProps<typeof BaseFile>;
 

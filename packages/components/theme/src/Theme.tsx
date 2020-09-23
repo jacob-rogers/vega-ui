@@ -6,7 +6,7 @@ import {
   Theme as BaseTheme,
   ThemePreset,
   ThemeProps,
-} from '@gpn-design/uikit/Theme';
+} from '@consta/uikit/Theme';
 
 export type VegaThemeProps = {
   preset: ThemePreset;

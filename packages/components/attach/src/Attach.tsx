@@ -1,5 +1,5 @@
 import React from 'react';
-import { Attach as BaseAttach } from '@gpn-design/uikit/Attach';
+import { Attach as BaseAttach } from '@consta/uikit/Attach';
 
 export type AttachProps = React.ComponentProps<typeof BaseAttach>;
 

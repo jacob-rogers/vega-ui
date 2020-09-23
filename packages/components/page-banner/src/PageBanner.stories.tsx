@@ -11,5 +11,15 @@ const defaultKnobs = (): PageBannerProps => ({
 
 storiesOf('ui/PageBanner', module)
   .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/page-banner/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('Page banner', () => <PageBanner {...defaultKnobs()} />);

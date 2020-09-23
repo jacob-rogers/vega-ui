@@ -6,10 +6,10 @@ import { Switch } from './Switch';
 storiesOf('ui/Switch', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/switch',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-switch--playground',
         text: 'Документация',
       },
     },

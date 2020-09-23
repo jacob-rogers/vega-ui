@@ -14,7 +14,17 @@ const defaultKnobs = (): FileInputProps => ({
 
 storiesOf('ui/FileInput', module)
   .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/file-input/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('по умолчанию', () => {
     const buttonProps: React.ComponentProps<typeof Button> = {
       iconLeft: IconAttach,

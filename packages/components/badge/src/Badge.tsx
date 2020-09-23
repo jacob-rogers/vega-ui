@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Badge as BaseBadge } from '@gpn-design/uikit/Badge';
+import { Badge as BaseBadge } from '@consta/uikit/Badge';
 
 type BadgeProps = React.ComponentProps<typeof BaseBadge>;
 

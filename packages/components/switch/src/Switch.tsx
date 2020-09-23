@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Switch as BaseSwitch } from '@gpn-design/uikit/Switch';
+import { Switch as BaseSwitch } from '@consta/uikit/Switch';
 
 type SwitchProps = React.ComponentProps<typeof BaseSwitch>;
 

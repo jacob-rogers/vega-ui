@@ -26,7 +26,17 @@ const scenarioList = {
 };
 
 storiesOf('ui/RadioList', module)
-  .addParameters({ metadata: { author: 'GPN', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'GPN',
+      status: 'Draft',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/radio-list/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('по умолчанию', () => {
     const [activeItem, setActiveItem] = React.useState(scenarioList.array[0].id);
 

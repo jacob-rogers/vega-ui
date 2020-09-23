@@ -6,10 +6,10 @@ import { File } from './File';
 storiesOf('ui/File', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/file',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-file--gallery',
         text: 'Документация',
       },
     },

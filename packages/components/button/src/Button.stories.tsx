@@ -6,10 +6,10 @@ import { Button } from './Button';
 storiesOf('ui/Button', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/button',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-button--playground',
         text: 'Документация',
       },
     },

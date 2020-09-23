@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconProps } from '@gpn-design/uikit/Icon';
+import { IconProps } from '@consta/uikit/Icon';
 import { IconFavorite } from '@gpn-prototypes/vega-icons';
 import { storiesOf } from '@storybook/react';
 
@@ -32,7 +32,7 @@ storiesOf('ui/ChoiceGroup', module)
       author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://ui-kit.gpn.vercel.app/?path=/story/components-choicegroup--playground',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-choicegroup--playground',
         text: 'Документация',
       },
     },
@@ -44,10 +44,11 @@ storiesOf('ui/ChoiceGroup', module)
       <>
         <ChoiceGroup<Item>
           items={items}
+          multiple={false}
           value={selectValue}
-          getLabel={(item): string => item.name}
-          onChange={({ value }: { value: Item | null }): void => setValue(value)}
-          getIcon={(item): React.FC<IconProps> | undefined => item.icon}
+          getLabel={(item: Item): string => item.name}
+          onChange={({ value }): void => setValue(value)}
+          getIcon={(item: Item): React.FC<IconProps> | undefined => item.icon}
           name="ChoiceGroup"
         />
       </>

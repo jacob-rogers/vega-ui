@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table as BaseTable } from '@gpn-design/uikit/Table';
+import { Table as BaseTable } from '@consta/uikit/Table';
 
 export type TableProps = React.ComponentProps<typeof BaseTable>;
 

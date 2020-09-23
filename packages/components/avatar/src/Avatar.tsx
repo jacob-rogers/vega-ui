@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Avatar as BaseAvatar } from '@gpn-design/uikit/Avatar';
+import { Avatar as BaseAvatar } from '@consta/uikit/Avatar';
 
 type AvatarProps = React.ComponentProps<typeof BaseAvatar>;
 

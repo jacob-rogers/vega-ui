@@ -43,7 +43,17 @@ const inputKnobs = (): React.ComponentProps<typeof FileDropzone.Input> => ({
 
 storiesOf('ui/FileDropzone', module)
   .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/dropzone/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('По умолчанию', () => {
     const initialText = 'Перетащите, чтобы загрузить';
 

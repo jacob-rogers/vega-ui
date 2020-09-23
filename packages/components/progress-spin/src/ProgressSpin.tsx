@@ -1,5 +1,5 @@
 import React from 'react';
-import { ProgressSpin as BaseProgressSpin } from '@gpn-design/uikit/ProgressSpin';
+import { ProgressSpin as BaseProgressSpin } from '@consta/uikit/ProgressSpin';
 
 export type ProgressSpinProps = React.ComponentProps<typeof BaseProgressSpin>;
 

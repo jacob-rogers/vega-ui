@@ -61,6 +61,7 @@
     "@gpn-prototypes/vega-theme": "^0.0.5",
     "@gpn-prototypes/vega-timer": "^0.1.4",
     "@gpn-prototypes/vega-tree": "^0.0.2",
+    "@gpn-prototypes/vega-tooltip": "^0.0.1",
     "@gpn-prototypes/vega-user": "^0.1.6"
   }
 }

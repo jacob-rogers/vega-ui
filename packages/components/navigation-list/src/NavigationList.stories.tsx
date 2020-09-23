@@ -29,7 +29,17 @@ const knobs = (): NavigationListProps => ({
 });
 
 storiesOf('ui/NavigationList', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/navigation-list/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('без иконки и разделителя', () => {
     const [activeItem, setActiveItem] = useState('1');
 

@@ -7,7 +7,15 @@ import { storiesOf } from '@storybook/react';
 import { Carousel } from './Carousel';
 
 const stories = storiesOf('ui/Carousel', module).addParameters({
-  metadata: { author: 'CSSSR', status: 'Approved' },
+  metadata: {
+    author: 'CSSSR',
+    status: 'Approved',
+    link: {
+      href:
+        'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/carousel/README.md',
+      text: 'Документация',
+    },
+  },
 });
 
 interface StoryProps {

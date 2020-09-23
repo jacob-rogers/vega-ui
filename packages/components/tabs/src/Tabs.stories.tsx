@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IconProps } from '@gpn-design/uikit/Icon';
+import { IconProps } from '@consta/uikit/Icon';
 import { IconCamera, IconPhoto, IconRing } from '@gpn-prototypes/vega-icons';
 import { boolean, select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
@@ -54,7 +54,9 @@ const items = [
 function Stories({ size, view, onlyIcon, withIcon }: StoriesProps): React.ReactElement {
   const [valueTab, setValueTab] = useState<Item | null>(items[0]);
 
-  const getIcon = (item: Item): IconElement | undefined => (withIcon ? item.icon : undefined);
+  const getIcon = (item: Item): IconElement | undefined => {
+    return withIcon ? item.icon : undefined;
+  };
 
   return (
     <Tabs<Item>
@@ -78,5 +80,15 @@ const knobs = (): StoriesProps => ({
 });
 
 storiesOf('ui/Tabs', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/tabs/README.md ',
+        text: 'Документация',
+      },
+    },
+  })
   .add('Табы', () => <Stories {...knobs()} />);

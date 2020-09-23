@@ -11,7 +11,7 @@ storiesOf('ui/Tag', module)
       author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://ui-kit.gpn.vercel.app/?path=/story/components-tag--playground',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-tag--playground',
         text: 'Storybook компонента',
       },
     },

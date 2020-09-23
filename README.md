@@ -30,7 +30,7 @@
 
 -   node.js `^12.16.2`
 -   yarn `^1.22.4`
--   Дизайн-система ГПН: [GPN UI kit](https://github.com/gpn-prototypes/ui-kit)
+-   Consta: [GPN UI kit](https://github.com/gpn-prototypes/ui-kit)
 
 Полный список зависимостей приведен в [package.json](package.json).
 

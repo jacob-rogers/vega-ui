@@ -7,10 +7,10 @@ import { Text } from './Text';
 storiesOf('ui/Text', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/text',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-text--playground',
         text: 'Документация',
       },
     },

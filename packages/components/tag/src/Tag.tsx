@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Tag as BaseTag } from '@gpn-design/uikit/Tag';
+import { Tag as BaseTag } from '@consta/uikit/Tag';
 
 export type TagProps = React.ComponentProps<typeof BaseTag>;
 

@@ -6,10 +6,10 @@ import { Table, TableProps } from './Table';
 storiesOf('ui/Table', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://ui-kit.gpn.vercel.app/?path=/story/components-table--interactive',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-table--interactive',
         text: 'Документация',
       },
     },

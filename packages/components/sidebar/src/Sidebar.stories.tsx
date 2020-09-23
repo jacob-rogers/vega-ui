@@ -45,6 +45,17 @@ const Block = styled.div<{ height?: string; cursor?: string }>`
 storiesOf('ui/Sidebar', module)
   .addDecorator(withKnobs)
   .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/sidebar/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('Обычный контент', () => {
     const {
       state: { isOpen, isMinimized },

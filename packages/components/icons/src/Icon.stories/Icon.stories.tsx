@@ -215,15 +215,15 @@ const iconsKeys = Object.keys(icons) as IconsKeysType[];
 storiesOf('icons/common', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/icons',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-icons--playground',
         text: 'Документация',
       },
     },
   })
-  .add('по умлочанию', () => (
+  .add('по умолчанию', () => (
     <div className="tpl-grid tpl-grid_s-ratio_1-1-1-1-1 tpl-grid_row-gap_full">
       {iconsKeys.map((name) => {
         const Icon = icons[name];

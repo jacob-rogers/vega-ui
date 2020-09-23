@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
 import styled from '@emotion/styled';
 import { Button } from '@gpn-prototypes/vega-button';
+import { Text } from '@gpn-prototypes/vega-text';
 import { action } from '@storybook/addon-actions';
-import { boolean, number, object, select, withKnobs } from '@storybook/addon-knobs';
+import { boolean, number, object, select, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
-import { Popover } from './Popover';
+import { Tooltip } from './Tooltip';
 
 const directions = [
   'upLeft',
@@ -24,64 +25,51 @@ const directions = [
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const getCommonKnobs = () => ({
+  size: select('size', ['s', 'm', 'l'], 's'),
   direction: select('direction', directions, 'upCenter'),
-  offset: number('offset', 5),
-  arrowOffset: number('arrowOffset', 0),
   possibleDirections: object('possibleDirections', directions),
   onClickOutside: action('onClickOutside'),
+  text: text('text', 'Подсказка'),
 });
 
-const Content = styled.div`
-  padding: 100px;
-  background-color: #efefef;
-`;
-
-const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
 const Container = styled.div`
-  width: 30vw;
-  height: 30vh;
+  margin: 50px;
+  height: 40vh;
+  transform: translate(-50%; -50%);
   background-color: #efe7e5;
 `;
 
-storiesOf('ui/Popover', module)
+storiesOf('ui/Tooltip', module)
   .addDecorator(withKnobs)
   .addParameters({
     metadata: {
-      author: 'Consta',
+      author: 'Сonsta',
       status: 'Approved',
       link: {
         href:
-          'https://consta-uikit.vercel.app/?path=/docs/components-popover--popover-positioned-by-anchor-story',
+          'https://consta-uikit.vercel.app/?path=/docs/components-tooltip--tooltip-positioned-by-anchor-story',
         text: 'Документация',
       },
     },
   })
   .add('по умолчанию', () => {
     const buttonRef = useRef(null);
-    const [isPopoverVisible, setIsPopoverVisible] = useState(false);
+    const [isTooltipVisible, setIsTooltipVisible] = useState(false);
     const handleClickOnAnchor = (): void => {
-      setIsPopoverVisible(!isPopoverVisible);
+      setIsTooltipVisible(!isTooltipVisible);
     };
 
+    React.useEffect(() => setIsTooltipVisible(false), [buttonRef]);
+
     return (
-      <Wrapper>
-        <Button type="button" label="Открыть" onClick={handleClickOnAnchor} ref={buttonRef} />
-        {isPopoverVisible && (
-          <Popover {...getCommonKnobs()} anchorRef={buttonRef}>
-            <Content>Контент</Content>
-          </Popover>
+      <div style={{ margin: '200px 0 0 200px' }}>
+        <Button type="button" onClick={handleClickOnAnchor} ref={buttonRef} label="Открыть" />
+        {isTooltipVisible && (
+          <Tooltip {...getCommonKnobs()} anchorRef={buttonRef}>
+            <Text size="xs">{getCommonKnobs().text}</Text>
+          </Tooltip>
         )}
-      </Wrapper>
+      </div>
     );
   })
   .add('по координате', () => {
@@ -92,22 +80,18 @@ storiesOf('ui/Popover', module)
     };
 
     return (
-      <Wrapper>
+      <>
         <Container
           onMouseMove={handleMouseMove}
           onMouseLeave={(): void => setPosition(undefined)}
         />
-        <Popover
+        <Tooltip
           {...getCommonKnobs()}
           isInteractive={boolean('isInteractive', false)}
           position={position}
         >
-          {(direction): React.ReactNode => (
-            <Content>
-              <div>Направление: {direction}</div>
-            </Content>
-          )}
-        </Popover>
-      </Wrapper>
+          <Text size="xs">{getCommonKnobs().text}</Text>
+        </Tooltip>
+      </>
     );
   });

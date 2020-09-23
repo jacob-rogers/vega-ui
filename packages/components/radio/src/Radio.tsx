@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Radio as BaseRadio } from '@gpn-design/uikit/Radio';
+import { Radio as BaseRadio } from '@consta/uikit/Radio';
 
 type RadioProps = React.ComponentProps<typeof BaseRadio>;
 

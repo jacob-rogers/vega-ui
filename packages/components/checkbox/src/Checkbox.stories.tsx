@@ -6,10 +6,10 @@ import { Checkbox } from './Checkbox';
 storiesOf('ui/Checkbox', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/checkbox',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-checkbox--playground',
         text: 'Документация',
       },
     },

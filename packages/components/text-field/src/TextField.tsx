@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextField as BaseTextField } from '@gpn-design/uikit/TextField';
+import { TextField as BaseTextField } from '@consta/uikit/TextField';
 
 export type TextFieldProps = React.ComponentProps<typeof BaseTextField>;
 

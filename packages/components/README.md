@@ -23,3 +23,4 @@
 -   [Table](table)
 -   [RadioList](radio-list)
 -   [Tree](tree)
+-   [Tooltip](tooltip)

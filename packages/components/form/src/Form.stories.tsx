@@ -68,7 +68,17 @@ const fieldsetKnobs = (): Partial<React.ComponentProps<typeof Form.Fieldset>> =>
 
 storiesOf('ui/Form', module)
   .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/form/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('по умолчанию', () => {
     const submitAction = action('Form submitted');
 

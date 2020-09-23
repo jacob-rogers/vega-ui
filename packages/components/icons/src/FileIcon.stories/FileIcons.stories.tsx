@@ -31,10 +31,10 @@ import { IconsItem } from './Item/Icons-Item';
 storiesOf('icons/files', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/fileicons',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-file--gallery',
         text: 'Документация',
       },
     },

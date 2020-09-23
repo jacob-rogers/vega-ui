@@ -21,7 +21,7 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@gpn-design/uikit": "^1.7.1",
+    "@consta/uikit": "^1.9.0",
     "bem-cn": "^3.0.1"
   }
 }

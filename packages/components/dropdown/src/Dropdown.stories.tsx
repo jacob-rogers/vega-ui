@@ -63,7 +63,17 @@ const dropdownKnobs = (): Partial<DropdownProps> => ({
 });
 
 storiesOf('ui/Dropdown', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/dropdown/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('базовый', () => {
     const [isOpen, setIsOpen] = React.useState(false);
 

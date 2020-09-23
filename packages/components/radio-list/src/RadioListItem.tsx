@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from 'react';
-import { IconCheck } from '@gpn-design/uikit/IconCheck';
-import { Text } from '@gpn-design/uikit/Text';
+import { IconCheck } from '@consta/uikit/IconCheck';
+import { Text } from '@consta/uikit/Text';
 
 import { cnRadioList } from './cn-radio-list';
 import { useRadioList } from './context';

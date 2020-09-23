@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Checkbox as BaseCheckbox } from '@gpn-design/uikit/Checkbox';
+import { Checkbox as BaseCheckbox } from '@consta/uikit/Checkbox';
 
 type CheckboxProps = React.ComponentProps<typeof BaseCheckbox>;
 

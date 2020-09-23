@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Informer as BaseInformer } from '@gpn-design/uikit/Informer';
+import { Informer as BaseInformer } from '@consta/uikit/Informer';
 
 type InformerProps = React.ComponentProps<typeof BaseInformer>;
 

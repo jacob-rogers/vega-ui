@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ChoiceGroup as BaseChoiceGroup } from '@gpn-design/uikit/ChoiceGroup';
+import { ChoiceGroup as BaseChoiceGroup } from '@consta/uikit/ChoiceGroup';
 
 type BaseChoiceGroupComponent = typeof BaseChoiceGroup;
 

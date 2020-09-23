@@ -1,1 +1,1 @@
-export { Button } from '@gpn-design/uikit/Button';
+export { Button } from '@consta/uikit/Button';

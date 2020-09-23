@@ -6,10 +6,10 @@ import { User } from './User';
 storiesOf('ui/User', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/user',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-user--playground',
         text: 'Документация',
       },
     },

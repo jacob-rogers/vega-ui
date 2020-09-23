@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { User as BaseUser } from '@gpn-design/uikit/User';
+import { User as BaseUser } from '@consta/uikit/User';
 
 type UserProps = React.ComponentProps<typeof BaseUser>;
 

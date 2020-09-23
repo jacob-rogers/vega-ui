@@ -33,7 +33,17 @@ const knobs = (): KnobsProps => ({
 });
 
 storiesOf('ui/PageFooter', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/page-footer/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('Одна кнопка', () => {
     const [isShown, setIsShown] = useState(true);
     const handleShow = (): void => setIsShown(true);

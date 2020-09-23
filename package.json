@@ -82,6 +82,7 @@
     "packages/components/text",
     "packages/components/theme",
     "packages/components/timer",
+    "packages/components/tooltip",
     "packages/components/user",
     "packages/components/tag",
     "packages/components/table",
@@ -95,9 +96,9 @@
     "@babel/plugin-transform-runtime": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
     "@emotion/babel-preset-css-prop": "^10.0.27",
-    "@emotion/core": "^10.0.28",
+    "@emotion/core": "^10.0.35",
     "@emotion/styled": "^10.0.27",
-    "@gpn-prototypes/frontend-configs": "^1.0.0",
+    "@gpn-prototypes/frontend-configs": "^1.2.4",
     "@gpn-prototypes/vega-changelog": "^3.2.4",
     "@size-limit/preset-big-lib": "^4.5.0",
     "@storybook/addon-a11y": "^6.0.20",
@@ -136,8 +137,5 @@
     "ts-loader": "^8.0.1",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1"
-  },
-  "resolutions": {
-    "tslib": "1.13.0"
   }
 }

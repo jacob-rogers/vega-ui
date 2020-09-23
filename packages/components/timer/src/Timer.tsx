@@ -1,5 +1,5 @@
 import React from 'react';
-import { Timer as BaseTimer } from '@gpn-design/uikit/Timer';
+import { Timer as BaseTimer } from '@consta/uikit/Timer';
 
 export type TimerProps = React.ComponentProps<typeof BaseTimer>;
 

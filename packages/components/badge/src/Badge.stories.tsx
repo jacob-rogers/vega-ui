@@ -6,10 +6,10 @@ import { Badge } from './Badge';
 storiesOf('ui/Badge', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/ui-kit-badge',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-badge--playground',
         text: 'Документация',
       },
     },

@@ -4,10 +4,10 @@ import { storiesOf } from '@storybook/react';
 storiesOf('ui/Theme', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/docsx/ui-kit-theme--documentation',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-theme--playground',
         text: 'Документация',
       },
     },
@@ -15,7 +15,7 @@ storiesOf('ui/Theme', module)
   .add('Theme', () => (
     <div>
       <a
-        href="https://gpn-prototypes.github.io/ui-kit/?path=/docsx/ui-kit-theme--documentation"
+        href="https://consta-uikit.vercel.app/?path=/docs/components-theme--playground"
         style={{ color: 'var(--color-typo-primary)' }}
       >
         Документация и примеры в ДС

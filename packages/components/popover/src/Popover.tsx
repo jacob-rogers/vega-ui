@@ -1,5 +1,5 @@
 import React from 'react';
-import { Popover as BasePopover } from '@gpn-design/uikit/Popover';
+import { Popover as BasePopover } from '@consta/uikit/Popover';
 
 export type PopoverProps = React.ComponentProps<typeof BasePopover>;
 

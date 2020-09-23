@@ -1,5 +1,5 @@
 import React from 'react';
-import { IconProps } from '@gpn-design/uikit/Icon';
+import { IconProps } from '@consta/uikit/Icon';
 
 export type IconItemProps = {
   icon: React.FC<IconProps>;

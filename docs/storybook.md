@@ -56,7 +56,7 @@ const exampleKnobs = (): { text: string } => ({
 storiesOf('ui/Component', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: { href: 'https://example.com/docs', 'Документация' },
     },
@@ -95,7 +95,7 @@ storiesOf('ui/Component', module)
 storiesOf('ui/Component', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Deprecated',
       description: 'Компонент будет удален в 2.x.x',
     },
@@ -117,10 +117,10 @@ storiesOf('ui/Component', module)
 storiesOf('ui/Component', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/user',
+        href: 'https://consta-uikit.vercel.app/?path=/story/user',
         text: 'Документация',
       },
     },

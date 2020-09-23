@@ -8,5 +8,5 @@
 -   при импорте необходимо добавить префикс `Base` для компонентов из дизайн-системы, например:
 
 ```js
-import { Select as BaseSelect } from '@gpn-design/uikit/Select';
+import { Select as BaseSelect } from '@consta/uikit/Select';
 ```

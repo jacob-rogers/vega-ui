@@ -6,10 +6,10 @@ import { Timer } from './Timer';
 storiesOf('ui/Timer', module)
   .addParameters({
     metadata: {
-      author: 'Дизайн-система ГПН',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://gpn-prototypes.github.io/ui-kit/?path=/story/ui-kit-timer--playground',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-timer--playground',
         text: 'Storybook компонента',
       },
     },
