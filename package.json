@@ -86,6 +86,7 @@
     "packages/components/tag",
     "packages/components/table",
     "packages/components/radio-list",
+    "packages/components/tree",
     "packages/components"
   ],
   "devDependencies": {

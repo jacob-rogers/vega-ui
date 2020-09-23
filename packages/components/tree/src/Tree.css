@@ -1,0 +1,312 @@
+:root {
+  --context-menu-z-portal: 999;
+  --navigation-backlight-z: 0;
+  --navigation-item-z: 1;
+}
+
+.VegaTree {
+  padding: var(--space-xs);
+
+  color: var(--color-typo-primary);
+  background-color: var(--color-bg-default);
+
+  &__TreeRootNode {
+    position: relative;
+  }
+
+  &__RootList {
+    padding-left: 0;
+
+    list-style: none;
+  }
+
+  &__ContextMenu {
+    position: absolute;
+
+    z-index: var(--context-menu-z-portal);
+
+    box-sizing: border-box;
+    width: 220px;
+
+    background-color: var(--color-bg-default);
+    border: 1px solid var(--color-bg-border);
+    border-radius: var(--space-2xs);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.04), 0 4px 16px rgba(0, 32, 51, 0.18);
+  }
+
+  &__ContextMenuList {
+    padding-right: var(--space-s);
+    padding-left: var(--space-s);
+
+    &:first-child {
+      margin-top: var(--space-m);
+    }
+
+    &:last-child {
+      margin-bottom: var(--space-m);
+    }
+  }
+
+  &__ContextMenuItem {
+    padding-left: 5px;
+
+    font-size: var(--size-text-s);
+    line-height: var(--line-height-text-l);
+    text-align: left;
+
+    cursor: pointer;
+
+    color: var(--color-typo-primary);
+
+    &_withSeparator {
+      margin-bottom: 5px;
+
+      border-bottom: 1px solid var(--color-bg-ghost);
+    }
+  }
+
+  &__ItemName {
+    z-index: var(--navigation-item-z);
+
+    margin-right: var(--space-2xs);
+
+    overflow: hidden;
+
+    width: 70%;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__Backlight {
+    position: absolute;
+    z-index: var(--navigation-backlight-z);
+    right: 0;
+
+    display: none;
+
+    height: var(--space-xl);
+
+    background-color: var(--color-control-bg-focus);
+
+    &_selected {
+      background-color: var(--color-control-bg-active);
+    }
+  }
+
+  &__ActionItems {
+    z-index: 1;
+
+    margin-left: auto;
+
+    display: none;
+  }
+
+  &__ActionItems > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+  }
+
+  &__ActionItems > *:not(:last-child) {
+    margin-right: 6px;
+  }
+
+  &__Leaf {
+    padding-left: var(--space-s);
+
+    cursor: pointer;
+    user-select: none;
+
+    outline: none;
+
+    &_Hidden {
+      color: var(--color-typo-ghost);
+
+      .VegaTree__ActionItems {
+        display: flex;
+      }
+    }
+  }
+
+  &__LeafContent {
+    display: flex;
+    align-items: center;
+
+    min-height: var(--space-xl);
+
+    font-size: var(--size-text-s);
+    font-style: normal;
+    line-height: var(--line-height-text-m);
+
+    outline: none;
+
+    &:hover > .VegaTree__Backlight {
+      display: block;
+    }
+
+    &_Selected > .VegaTree__Backlight {
+      display: block;
+
+      background-color: var(--color-control-bg-active);
+    }
+  }
+
+  &__NavigationItem {
+    display: flex;
+    align-items: center;
+
+    min-height: var(--space-xl);
+
+    font-size: var(--size-text-s);
+    font-style: normal;
+    line-height: var(--line-height-text-m);
+
+    cursor: pointer;
+    user-select: none;
+
+    color: var(--color-typo-primary);
+    outline: none;
+
+    &:hover .VegaTree__Backlight {
+      display: block;
+    }
+
+    &_Selected > .VegaTree__Backlight {
+      display: block;
+
+      background-color: var(--color-control-bg-active);
+    }
+
+    &_InaccessibleDropZone {
+      cursor: not-allowed;
+
+      border-bottom: 2px solid var(--color-bg-alert);
+
+      & > .VegaTree__TreeNode {
+        pointer-events: none;
+      }
+    }
+
+    &_AccessibleDropZone {
+      border-bottom: 2px solid var(--color-bg-normal);
+
+      & > .VegaTree__TreeNode {
+        pointer-events: none;
+      }
+    }
+
+    &_Hidden {
+      color: var(--color-typo-ghost);
+
+      .VegaTree__ActionItems {
+        display: flex;
+      }
+    }
+  }
+
+  &__NavigationArrow {
+    z-index: var(--navigation-item-z);
+
+    padding: 0 0 0 var(--space-xs);
+
+    cursor: pointer;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    &::before {
+      content: '';
+
+      margin-right: 7px;
+      margin-bottom: 1px;
+      padding: 3px;
+
+      display: inline-block;
+
+      border: solid;
+      border-width: 0 3px 3px 0;
+      border-color: var(--color-typo-ghost);
+
+      transform: rotate(-45deg);
+    }
+
+    &_expanded::before {
+      content: '';
+
+      margin-right: var(--space-2xs);
+      margin-bottom: 3px;
+      padding: 3px;
+
+      display: inline-block;
+
+      border: solid;
+      border-width: 0 3px 3px 0;
+      border-color: var(--color-typo-ghost);
+
+      transform: rotate(45deg);
+    }
+  }
+
+  &__Icon {
+    z-index: var(--navigation-item-z);
+
+    margin-right: var(--space-xs);
+    margin-left: 6px;
+  }
+}
+
+.VegaTree:hover .VegaTree__NodeList_withIndentGuides::before {
+  content: '';
+
+  position: absolute;
+  left: 11px;
+
+  height: 100%;
+
+  border-left: 1px solid var(--color-bg-stripe);
+}
+
+.VegaTree__NavigationEye,
+.VegaTree__NavigationEye_hidden,
+.VegaTree__NavigationDot {
+  padding: 0;
+
+  width: var(--space-xl);
+  height: var(--space-xl);
+
+  cursor: pointer;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  transform: scale(1.3);
+}
+
+.VegaTree:hover .VegaTree__ActionItems {
+  display: flex;
+}
+
+.VegaTree__TreeNode,
+.VegaTree__NodeList {
+  padding-left: var(--space-s);
+
+  list-style: none;
+
+  outline: none;
+}
+
+.VegaTree__NodeList {
+  margin: 0;
+
+  display: none;
+
+  &_expanded {
+    position: relative;
+
+    display: block;
+  }
+}
