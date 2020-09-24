@@ -21,3 +21,8 @@ export const colors = {
   DEFAULT_LINE_COLOR,
   SELECTED_COLOR,
 };
+
+export const SCROLL_PADDING = 10;
+export const SCROLL_RATIO = 1.04;
+export const PINNING_KEY_CODE = 'Space';
+export const GRID_BLOCK_SIZE = 116; // Элемент сетки - квадрат со стороной 116px

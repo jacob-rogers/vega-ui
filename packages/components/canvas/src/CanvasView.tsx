@@ -1,14 +1,16 @@
-import React, { RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Layer, Stage } from 'react-konva';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { Layer, Rect, Stage } from 'react-konva';
 import { useKey, useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 import Konva from 'konva';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
 import { cnCanvas } from './cn-canvas';
-import { Button, CanvasItems } from './components';
+import { Button, CanvasGrid, CanvasItems, Scrollbar } from './components';
+import { PINNING_KEY_CODE } from './constants';
 import { CanvasContext } from './context';
 import { Canvas, CanvasView as CanvasViewEntity, State, Tree, ViewUpdate } from './entities';
 import { CanvasData, Connection, KonvaMouseEvent } from './types';
+import { getBgSize, getScrollbarPointCurry } from './utils';
 
 import './Canvas.css';
 
@@ -22,12 +24,9 @@ export const defaultState: State = {
   selectedData: null,
   stageSize: { width: window.innerWidth, height: window.innerHeight },
   linePoints: null,
+  contentRect: { x: 0, y: 0, height: 0, width: 0 },
+  overlay: false,
 };
-
-const SCROLL_PADDING = 10;
-const SCROLL_RATIO = 1.04;
-const PINNING_KEY_CODE = 'Space';
-const GRID_BLOCK_SIZE = 116; // Элемент сетки - квадрат со стороной 116px
 
 const pinning = {
   isKeyPressed: false,
@@ -39,26 +38,40 @@ const pinning = {
 };
 
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
-  const { canvas, parentRef } = props;
+  const { canvas } = props;
   const stageRef = useRef<Konva.Stage>(null);
   const [state, setState] = useState(defaultState);
 
-  const view = useMemo(() => CanvasViewEntity.of(state, stageRef.current, canvas), [canvas, state]);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const layerRef = useRef<Konva.Layer>(null);
+  const backgroundRef = useRef<Konva.Rect>(null);
+  const horizontalScrollbarRef = useRef<Konva.Rect>(null);
+  const verticalScrollbarRef = useRef<Konva.Rect>(null);
 
-  const handleMouseMove = (): void => {
-    view.drawConnectingLine();
-  };
+  const view = useMemo(
+    () =>
+      CanvasViewEntity.of({
+        layer: layerRef.current,
+        stage: stageRef.current,
+        state,
+        verticalScrollbar: verticalScrollbarRef.current,
+        canvas,
+        background: backgroundRef.current,
+        horizontalScrollbar: horizontalScrollbarRef.current,
+        container: containerRef.current,
+      }),
+    [canvas, state],
+  );
 
-  useMount(() => {
-    if (parentRef.current) {
-      view.updateState({
-        stageSize: {
-          width: parentRef.current.offsetWidth,
-          height: parentRef.current.offsetHeight,
-        },
-      });
-    }
-  });
+  const {
+    activeData,
+    cursor,
+    stageSize,
+    selectedData,
+    linePoints,
+    contentRect,
+    overlay,
+  } = view.getState();
 
   const handleChange = useCallback((updates: ViewUpdate): void => {
     setState({ ...updates.newState });
@@ -68,9 +81,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     view.addListener(handleChange);
   }, [view, handleChange]);
 
-  useUnmount(() => {
-    canvas.removeAllListeners();
-  });
+  useEffect(() => {
+    view.updateContentRect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stageSize]);
 
   const abortActiveData = (): void => {
     view.updateState({
@@ -78,6 +92,14 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       cursor: 'default',
       linePoints: null,
     });
+  };
+
+  useUnmount(() => {
+    view.removeAllListeners();
+  });
+
+  const handleMouseMove = (): void => {
+    view.drawConnectingLine();
   };
 
   const connectActiveItem = (id: string): void => {
@@ -94,11 +116,22 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     if (state.activeData) {
       abortActiveData();
     }
+
+    if (pinning.isMousePressed) {
+      pinning.isMousePressed = false;
+
+      if (!pinning.isKeyPressed) {
+        view.updateState({
+          cursor: 'default',
+          overlay: false,
+        });
+      }
+    }
   };
 
-  const handleRemoveSelectedItem = useCallback(() => {
+  const handleRemoveSelectedItem = (): void => {
     view.removeSelectedItem();
-  }, [view]);
+  };
 
   const handleStepAdding = useCallback(() => {
     const tree = Tree.of<CanvasData>({
@@ -111,136 +144,167 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     canvas.add(tree);
   }, [canvas]);
 
-  const handleMouseDown = (): void => {
-    view.updateState({ selectedData: null });
+  const handleClick = (): void => {
+    if (selectedData !== null) {
+      view.updateState({ selectedData: null });
+    }
   };
 
-  useKey(['Delete', 'Backspace'], handleRemoveSelectedItem, { keyevent: 'keydown' });
+  const handleMouseDown = (e: KonvaMouseEvent): void => {
+    if (pinning.isKeyPressed) {
+      pinning.isMousePressed = true;
 
-  const { activeData, cursor, stageSize, selectedData, linePoints } = view.getState();
-
-    const y = -contentRect.y * layer.scaleY() + PADDING_VERTICAL - availableHeight * delta;
-
-    layer.y(y);
-    layer.batchDraw();
+      pinning.data.clientX = e.evt.clientX;
+      pinning.data.clientY = e.evt.clientY;
+    }
   };
 
-  const initialHorizontalScrollbarX = getHorizontalScrollbarX();
-  const initialVerticalScrollbarY = getVerticalScrollbarY();
-
-  const getBgSize = () => {
-    const layer = layerRef.current;
-
-    if (!layer) {
-      return {
-        x: contentRect.x - PADDING_HORIZONTAL,
-        y: contentRect.y - PADDING_VERTICAL,
-        width: contentRect.width + 2 * PADDING_HORIZONTAL,
-        height: contentRect.height + 2 * PADDING_VERTICAL,
-      };
+  useMount((): void => {
+    if (containerRef.current) {
+      view.updateState({
+        stageSize: {
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight,
+        },
+      });
     }
 
-    const scale = layer.scaleX();
+    const container = stageRef.current?.container();
+    if (container) {
+      container.tabIndex = 1;
+    }
+  });
 
-    const x0 = contentRect.x - PADDING_HORIZONTAL * (1 / scale);
-    const y0 = contentRect.y - PADDING_VERTICAL * (1 / scale);
-    const width = contentRect.width + 2 * PADDING_HORIZONTAL * (1 / scale);
-    const height = contentRect.height + 2 * PADDING_VERTICAL * (1 / scale);
-    const x1 = x0 + width;
-    const y1 = y0 + height;
+  const handleKeyDown = (e: KeyboardEvent): void => {
+    if (e.code === PINNING_KEY_CODE) {
+      e.preventDefault();
 
-    const bgSize = {
-      x: x0,
-      y: y0,
-      width,
-      height,
-    };
-
-    const intX0 = Math.trunc(x0 / GRID_BLOCK_SIZE);
-    const intY0 = Math.trunc(y0 / GRID_BLOCK_SIZE);
-    const intX1 = Math.trunc(x1 / GRID_BLOCK_SIZE);
-    const intY1 = Math.trunc(y1 / GRID_BLOCK_SIZE);
-
-    if (bgSize.x % GRID_BLOCK_SIZE < 0) {
-      bgSize.x = GRID_BLOCK_SIZE * (intX0 - 1);
+      if (!e.repeat) {
+        pinning.isKeyPressed = true;
+        view.updateState({
+          cursor: 'grab',
+          overlay: true,
+        });
+      }
     }
 
-    if (bgSize.x % GRID_BLOCK_SIZE > 0) {
-      bgSize.x = GRID_BLOCK_SIZE * intX0;
+    if (['Backspace', 'Delete'].includes(e.code)) {
+      handleRemoveSelectedItem();
     }
-
-    if (bgSize.y % GRID_BLOCK_SIZE < 0) {
-      bgSize.y = GRID_BLOCK_SIZE * (intY0 - 1);
-    }
-
-    if (bgSize.y % GRID_BLOCK_SIZE > 0) {
-      bgSize.y = GRID_BLOCK_SIZE * intY0;
-    }
-
-    //
-
-    if (x1 % GRID_BLOCK_SIZE < 0) {
-      bgSize.width = GRID_BLOCK_SIZE * intX1 - bgSize.x;
-    }
-
-    if (x1 % GRID_BLOCK_SIZE > 0) {
-      bgSize.width = GRID_BLOCK_SIZE * (intX1 + 1) - bgSize.x;
-    }
-
-    if (y1 % GRID_BLOCK_SIZE < 0) {
-      bgSize.height = GRID_BLOCK_SIZE * intY1 - bgSize.y;
-    }
-
-    if (y1 % GRID_BLOCK_SIZE > 0) {
-      bgSize.height = GRID_BLOCK_SIZE * (intY1 + 1) - bgSize.y;
-    }
-
-    return bgSize;
   };
 
-  const bgSize = getBgSize();
+  const handleKeyUp = (): void => {
+    pinning.isKeyPressed = false;
+
+    if (!pinning.isMousePressed) {
+      view.updateState({
+        cursor: 'default',
+        overlay: false,
+      });
+    }
+  };
+
+  const handleWheel = (event: Konva.KonvaEventObject<WheelEvent>): void => {
+    event.evt.preventDefault();
+
+    if (event.evt.ctrlKey || event.evt.metaKey) {
+      view.zoom(event.evt.deltaY);
+    } else {
+      view.scroll(event.evt.deltaX, event.evt.deltaY);
+    }
+  };
+
+  useKey(['Backspace', 'Delete', PINNING_KEY_CODE], handleKeyDown, {
+    element: stageRef.current?.container(),
+    keyevent: 'keydown',
+  });
+
+  useKey(PINNING_KEY_CODE, handleKeyUp, {
+    element: stageRef.current?.container(),
+    keyevent: 'keyup',
+  });
+
+  const getScrollbarPoint = getScrollbarPointCurry({
+    layer: layerRef.current,
+    contentRect,
+    stageSize,
+  });
+
+  const bgSize = getBgSize({ contentRect, stageSize, scaleX: layerRef.current?.scaleX() });
 
   return (
-    <Stage
-      style={{ cursor }}
-      className={cnCanvas.toString()}
-      ref={stageRef}
-      width={stageSize.width}
-      height={stageSize.height}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-      onClick={handleMouseDown}
-    >
-      <CanvasContext.Provider
-        value={{
-          stage: view.getStage(),
-          setActiveData: (newData): void => view.changeActiveData(newData),
-          activeData,
-          setCursor: (newCursor): void => view.updateState({ cursor: newCursor }),
-          selectedData,
-          setSelectedData: (newData): void => {
-            view.updateState({ selectedData: newData });
-          },
-          abortActiveData,
-          setConnectingLinePoints: (newData): void => view.updateState({ linePoints: newData }),
-          connectingLinePoints: linePoints,
-        }}
+    <div ref={containerRef} className={cnCanvas()}>
+      <Stage
+        style={{ cursor }}
+        ref={stageRef}
+        width={stageSize.width}
+        height={stageSize.height}
+        onWheel={handleWheel}
+        onMouseMove={handleMouseMove}
+        onMouseUp={handleMouseUp}
+        onMouseDown={handleMouseDown}
+        onClick={handleClick}
       >
-        <Layer>
-          <CanvasItems canvas={canvas} />
-          {linePoints && <ConnectionLineView parent={linePoints.parent} child={linePoints.child} />}
-          <Button
-            label="Добавить шаг"
-            onClick={handleStepAdding}
-            position={{ x: 10, y: stageSize.height - 150 }}
-          />
-          <Button
-            label="Очистить полотно"
-            onClick={(): void => canvas.clear()}
-            position={{ x: stageSize.width - 150, y: stageSize.height - 150 }}
-          />
-        </Layer>
-      </CanvasContext.Provider>
-    </Stage>
+        <CanvasContext.Provider
+          value={{
+            stage: view.getStage(),
+            setActiveData: (newData): void => view.changeActiveData(newData),
+            activeData,
+            setCursor: (newCursor): void => view.updateState({ cursor: newCursor }),
+            selectedData,
+            setSelectedData: (newData): void => {
+              view.updateState({ selectedData: newData });
+            },
+            abortActiveData,
+            setConnectingLinePoints: (newData): void => view.updateState({ linePoints: newData }),
+            connectingLinePoints: linePoints,
+            updateContentRect: (): void => view.updateContentRect(),
+          }}
+        >
+          <Layer ref={layerRef}>
+            <CanvasGrid innerRef={backgroundRef} size={bgSize} />
+            <CanvasItems canvas={canvas} />
+            {linePoints && (
+              <ConnectionLineView parent={linePoints.parent} child={linePoints.child} />
+            )}
+            <Button
+              label="Добавить шаг"
+              onClick={handleStepAdding}
+              position={{ x: 10, y: stageSize.height - 150 }}
+            />
+            <Button
+              label="Очистить полотно"
+              onClick={(): void => canvas.clear()}
+              position={{ x: stageSize.width - 150, y: stageSize.height - 150 }}
+            />
+          </Layer>
+          <Layer>
+            {overlay && (
+              <Rect
+                x={0}
+                y={0}
+                width={stageSize.width}
+                height={stageSize.height}
+                fill="rgb(255,255,255, 0)"
+              />
+            )}
+            <Scrollbar
+              type="vertical"
+              innerRef={verticalScrollbarRef}
+              stageSize={stageSize}
+              onDragMove={(): void => view.scrollVertical()}
+              getInitialPoint={(data): number => getScrollbarPoint(data)}
+            />
+            <Scrollbar
+              type="horizontal"
+              innerRef={horizontalScrollbarRef}
+              stageSize={stageSize}
+              onDragMove={(): void => view.scrollHorizontal()}
+              getInitialPoint={(data): number => getScrollbarPoint(data)}
+            />
+          </Layer>
+        </CanvasContext.Provider>
+      </Stage>
+    </div>
   );
 };

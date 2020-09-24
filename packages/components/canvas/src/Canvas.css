@@ -8,12 +8,15 @@
   }
 
   &__OptionsPanel {
-    display: flex;
-    box-shadow: 0 1px 4px rgba(0, 32, 51, 0.18);
-    background: var(--color-bg-default);
-    width: calc(100% - var(--space-2xs) * 2);
     padding: var(--space-2xs);
+
+    display: flex;
+
+    width: calc(100% - var(--space-2xs) * 2);
+
+    background: var(--color-bg-default);
     border-radius: calc(var(--space-2xs) + var(--space-3xs));
+    box-shadow: 0 1px 4px rgba(0, 32, 51, 0.18);
   }
 
   &__Option {
@@ -23,11 +26,12 @@
   }
 
   &__CreateOptionsList {
+    margin-top: calc(var(--space-2xs) * 2);
+    margin-bottom: calc(var(--space-2xs) * 2);
+    padding: var(--space-2xs);
+
     background: var(--color-bg-default);
     border-radius: var(--space-2xs);
-    margin-bottom: calc(var(--space-2xs) * 2);
-    margin-top: calc(var(--space-2xs) * 2);
-    padding: var(--space-2xs);
     box-shadow: 0 1px 4px rgba(0, 32, 51, 0.18);
   }
 }

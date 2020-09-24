@@ -1,14 +1,23 @@
 import Konva from 'konva';
 
-import { ActiveData, CanvasTree, Connection, Position, SelectedData } from '../types';
+import {
+  ActiveData,
+  CanvasTree,
+  Connection,
+  ContentRect,
+  Coordinates,
+  SelectedData,
+  Size,
+} from '../types';
+import { getContentRect } from '../utils';
 
 import { Canvas } from './Canvas';
+import { CanvasServiceData } from './CanvasService';
 import { Notifiable } from './Notifiable';
+import { ScrollService } from './ScrollService';
+import { ZoomService } from './ZoomService';
 
 type Optional<T> = T | null;
-
-type Coordinates = { parent: Position; child: Position };
-type Size = { width: number; height: number };
 
 export type State = {
   stageSize: Size;
@@ -16,11 +25,21 @@ export type State = {
   activeData: Optional<ActiveData>;
   selectedData: Optional<SelectedData>;
   cursor: string;
+  contentRect: ContentRect;
+  overlay: boolean;
 };
 
 export type ViewUpdate = { type: 'update-state'; changes: Partial<State>; newState: State };
 
 type Stage = Optional<Konva.Stage>;
+type Container = Optional<HTMLDivElement>;
+type Layer = Optional<Konva.Layer>;
+
+type CanvasViewData = Omit<CanvasServiceData, 'contentRect' | 'stageSize'> & {
+  container: Container;
+  state: State;
+  canvas: Canvas;
+};
 
 export class CanvasView extends Notifiable<ViewUpdate> {
   private state: State;
@@ -29,15 +48,33 @@ export class CanvasView extends Notifiable<ViewUpdate> {
 
   private canvas: Canvas;
 
-  private constructor(state: State, stage: Stage, canvas: Canvas) {
+  private container: Container;
+
+  private layer: Layer;
+
+  private zoomService: ZoomService;
+
+  private scrollService: ScrollService;
+
+  private constructor(data: CanvasViewData) {
+    const { container, canvas, state, ...rest } = data;
     super();
-    this.stage = stage;
+    const serviceData = {
+      ...rest,
+      contentRect: state.contentRect,
+      stageSize: state.stageSize,
+    };
+    this.stage = data.stage;
     this.state = state;
     this.canvas = canvas;
+    this.container = container;
+    this.layer = data.layer;
+    this.zoomService = new ZoomService(serviceData);
+    this.scrollService = new ScrollService(serviceData);
   }
 
-  static of(state: State, stage: Stage, canvas: Canvas): CanvasView {
-    return new CanvasView(state, stage, canvas);
+  static of(canvasData: CanvasViewData): CanvasView {
+    return new CanvasView(canvasData);
   }
 
   public getState(): State {
@@ -70,11 +107,19 @@ export class CanvasView extends Notifiable<ViewUpdate> {
   }
 
   public drawConnectingLine(): void {
-    const { state, stage } = this;
-    if (state.linePoints !== null && stage !== null) {
+    const { state, stage, layer } = this;
+    if (state.linePoints !== null && stage !== null && layer !== null) {
       const position = stage.getPointerPosition();
       if (position) {
-        this.updateState({ linePoints: { ...state.linePoints, child: position } });
+        this.updateState({
+          linePoints: {
+            ...state.linePoints,
+            child: {
+              x: (position.x - layer.x()) * (1 / layer.scaleX()),
+              y: (position.y - layer.y()) * (1 / layer.scaleY()),
+            },
+          },
+        });
       }
     }
   }
@@ -112,8 +157,24 @@ export class CanvasView extends Notifiable<ViewUpdate> {
     }
   }
 
+  public updateContentRect(): void {
+    const { container, stage } = this;
+    const { stageSize } = this.state;
+
+    if (container === null || stage === null || stageSize.width === 0 || stageSize.height === 0) {
+      return;
+    }
+
+    const collection = stage.find('.List');
+    const elements = collection.toArray();
+
+    const rect = getContentRect(elements, stageSize.width, stageSize.height);
+
+    this.updateState({ contentRect: rect });
+  }
+
   public removeSelectedItem(): void {
-    const { selectedData } = this.state;
+    const { selectedData } = this.getState();
     const { canvas } = this;
 
     if (selectedData === null) {
@@ -139,5 +200,21 @@ export class CanvasView extends Notifiable<ViewUpdate> {
     }
 
     this.updateState({ selectedData: null });
+  }
+
+  public zoom(dy: number): void {
+    this.zoomService.zoom(dy);
+  }
+
+  public scroll(dx: number, dy: number): void {
+    this.scrollService.scroll(dx, dy);
+  }
+
+  public scrollHorizontal(): void {
+    this.scrollService.dragHorizontalScrollbar();
+  }
+
+  public scrollVertical(): void {
+    this.scrollService.dragVerticalScrollbar();
   }
 }

@@ -79,7 +79,11 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   const magnetizeItem = (item: CanvasTree): void => {
     const { parent, children } = getAbsoluteConnectorsPosition(item);
 
-    if (activeData !== null && connectingLinePoints !== null) {
+    if (
+      activeData !== null &&
+      connectingLinePoints !== null &&
+      activeData.item.canConnectedWith(item)
+    ) {
       if (
         activeData.connector.type === 'parent' &&
         !positionEquals(connectingLinePoints.child, children)

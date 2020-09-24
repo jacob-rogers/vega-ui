@@ -61,3 +61,8 @@ export type CanvasUpdate =
   | { type: 'update-trees'; newTrees: CanvasTree[] };
 
 export type CanvasNotifier = Notifier<CanvasUpdate>;
+
+export type Coordinates = { parent: Position; child: Position };
+export type Size = { width: number; height: number };
+
+export type ContentRect = Position & Size;

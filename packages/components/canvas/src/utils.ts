@@ -1,11 +1,26 @@
 import Konva from 'konva';
 
-export type ContentRect = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+import { GRID_BLOCK_SIZE, SCROLL_PADDING } from './constants';
+import { ContentRect, Size } from './types';
+
+type ViewData = {
+  layer: Konva.Layer | null;
+  stageSize: Size;
+  contentRect: ContentRect;
 };
+
+export type ScrollbarData = {
+  scrollbar: Konva.Rect | null;
+  type: 'horizontal' | 'vertical';
+};
+
+type GetBgSizeParams = Pick<ViewData, 'stageSize' | 'contentRect'> & {
+  scaleX?: number;
+};
+
+type ScrollbarPointsParams = ViewData & Pick<ScrollbarData, 'scrollbar'>;
+
+type ScrollbarPointsCurryFunc = (data: ScrollbarData) => number;
 
 export const getContentRect = (
   elements: Konva.Node[],
@@ -62,4 +77,123 @@ export const getContentRect = (
   }
 
   return rect;
+};
+
+export const getBgSize = (params: GetBgSizeParams): ContentRect => {
+  const { stageSize, scaleX = 0, contentRect } = params;
+  const { width: PADDING_HORIZONTAL, height: PADDING_VERTICAL } = stageSize;
+
+  if (!scaleX) {
+    return {
+      x: contentRect.x - PADDING_HORIZONTAL,
+      y: contentRect.y - PADDING_VERTICAL,
+      width: contentRect.width + 2 * PADDING_HORIZONTAL,
+      height: contentRect.height + 2 * PADDING_VERTICAL,
+    };
+  }
+
+  const scale = scaleX;
+
+  const x0 = contentRect.x - PADDING_HORIZONTAL * (1 / scale);
+  const y0 = contentRect.y - PADDING_VERTICAL * (1 / scale);
+  const width = contentRect.width + 2 * PADDING_HORIZONTAL * (1 / scale);
+  const height = contentRect.height + 2 * PADDING_VERTICAL * (1 / scale);
+  const x1 = x0 + width;
+  const y1 = y0 + height;
+
+  const bgSize = {
+    x: x0,
+    y: y0,
+    width,
+    height,
+  };
+
+  const intX0 = Math.trunc(x0 / GRID_BLOCK_SIZE);
+  const intY0 = Math.trunc(y0 / GRID_BLOCK_SIZE);
+  const intX1 = Math.trunc(x1 / GRID_BLOCK_SIZE);
+  const intY1 = Math.trunc(y1 / GRID_BLOCK_SIZE);
+
+  if (bgSize.x % GRID_BLOCK_SIZE < 0) {
+    bgSize.x = GRID_BLOCK_SIZE * (intX0 - 1);
+  }
+
+  if (bgSize.x % GRID_BLOCK_SIZE > 0) {
+    bgSize.x = GRID_BLOCK_SIZE * intX0;
+  }
+
+  if (bgSize.y % GRID_BLOCK_SIZE < 0) {
+    bgSize.y = GRID_BLOCK_SIZE * (intY0 - 1);
+  }
+
+  if (bgSize.y % GRID_BLOCK_SIZE > 0) {
+    bgSize.y = GRID_BLOCK_SIZE * intY0;
+  }
+
+  //
+
+  if (x1 % GRID_BLOCK_SIZE < 0) {
+    bgSize.width = GRID_BLOCK_SIZE * intX1 - bgSize.x;
+  }
+
+  if (x1 % GRID_BLOCK_SIZE > 0) {
+    bgSize.width = GRID_BLOCK_SIZE * (intX1 + 1) - bgSize.x;
+  }
+
+  if (y1 % GRID_BLOCK_SIZE < 0) {
+    bgSize.height = GRID_BLOCK_SIZE * intY1 - bgSize.y;
+  }
+
+  if (y1 % GRID_BLOCK_SIZE > 0) {
+    bgSize.height = GRID_BLOCK_SIZE * (intY1 + 1) - bgSize.y;
+  }
+
+  return bgSize;
+};
+
+const getHorizontalScrollbarX = (params: ScrollbarPointsParams): number => {
+  const { layer, stageSize, scrollbar, contentRect } = params;
+  if (!layer || !scrollbar) {
+    return 0;
+  }
+  const maxX = -contentRect.x * layer.scaleX() + stageSize.width;
+  const availableWidth = contentRect.width * layer.scaleX() + 2 * stageSize.width - stageSize.width;
+  const availableScrollWidth = stageSize.width - 2 * SCROLL_PADDING - scrollbar.width();
+
+  const hx = ((maxX - layer.x()) / availableWidth) * availableScrollWidth + SCROLL_PADDING;
+
+  return hx;
+};
+
+const getVerticalScrollbarY = (params: ScrollbarPointsParams): number => {
+  const { layer, stageSize, scrollbar, contentRect } = params;
+  if (!layer || !scrollbar) {
+    return 0;
+  }
+  const maxY = -contentRect.y * layer.scaleY() + stageSize.height;
+  const availableHeight =
+    contentRect.height * layer.scaleY() + 2 * stageSize.height - stageSize.height;
+  const availableScrollHeight = stageSize.height - 2 * SCROLL_PADDING - scrollbar.height();
+
+  const vy = ((maxY - layer.y()) / availableHeight) * availableScrollHeight + SCROLL_PADDING;
+
+  return vy;
+};
+
+export const getScrollbarPointCurry = (params: ViewData): ScrollbarPointsCurryFunc => {
+  return (data: ScrollbarData): number => {
+    const scrollbarParams = {
+      ...params,
+      scrollbar: data.scrollbar,
+    };
+
+    if (data.type === 'horizontal') {
+      return getHorizontalScrollbarX(scrollbarParams);
+    }
+
+    if (data.type === 'vertical') {
+      return getVerticalScrollbarY(scrollbarParams);
+    }
+
+    return 0;
+  };
 };

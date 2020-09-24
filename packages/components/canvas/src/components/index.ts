@@ -6,3 +6,5 @@ export * from './Connector';
 export * from './CanvasItem';
 export * from './CanvasItems';
 export * from './OptionsPanel';
+export * from './Scrollbar';
+export * from './CanvasGrid';

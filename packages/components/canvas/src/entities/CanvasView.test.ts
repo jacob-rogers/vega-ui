@@ -48,17 +48,28 @@ class StageMock extends Konva.Stage {
 
 const div = document.createElement('div');
 
+const mockViewData = {
+  state: defaultState,
+  stage: new StageMock({ container: div }),
+  canvas,
+  horizontalScrollbar: null,
+  background: null,
+  verticalScrollbar: null,
+  layer: null,
+  container: null,
+};
+
 describe('CanvasView', () => {
   describe('of', () => {
     test('создает экземпляр CanvasView', () => {
-      const view = CanvasView.of(defaultState, new StageMock({ container: div }), Canvas.of([]));
+      const view = CanvasView.of(mockViewData);
       expect(view).toBeInstanceOf(CanvasView);
     });
   });
 
   describe('getState', () => {
     test('возвращает стейт', () => {
-      const view = CanvasView.of(defaultState, new StageMock({ container: div }), Canvas.of([]));
+      const view = CanvasView.of(mockViewData);
 
       expect(view.getState()).toEqual(defaultState);
     });
@@ -66,7 +77,7 @@ describe('CanvasView', () => {
 
   describe('updateState', () => {
     test('обновляет стейт', () => {
-      const view = CanvasView.of(defaultState, new StageMock({ container: div }), Canvas.of([]));
+      const view = CanvasView.of(mockViewData);
 
       const newStageSize = { width: 100, height: 100 };
       const newCursor = 'pointer';
@@ -80,7 +91,7 @@ describe('CanvasView', () => {
   });
 
   describe('drawConnectionLine', () => {
-    const view = CanvasView.of(defaultState, null, Canvas.of([]));
+    const view = CanvasView.of({ ...mockViewData, stage: null });
 
     test('не вызывает обновление стейта, если в стейте нет linePoints', () => {
       view.drawConnectingLine();
@@ -100,12 +111,15 @@ describe('CanvasView', () => {
       view.drawConnectingLine();
 
       expect(view.getState().linePoints?.parent).toEqual(linePoints.parent);
-      expect(view.getState().linePoints?.child).toEqual(pointerPosition);
+      expect(view.getState().linePoints?.child).toEqual({
+        x: 10,
+        y: 20,
+      });
     });
   });
 
   describe('changeActiveData', () => {
-    const view = CanvasView.of(defaultState, null, canvas);
+    const view = CanvasView.of({ ...mockViewData, stage: null });
 
     afterEach(() => {
       view.updateState(defaultState);
@@ -141,11 +155,7 @@ describe('CanvasView', () => {
   });
 
   describe('connectActiveItem', () => {
-    const view = CanvasView.of(
-      defaultState,
-      new StageMock({ container: document.createElement('div') }),
-      canvas,
-    );
+    const view = CanvasView.of(mockViewData);
 
     const secondTree = Tree.of({ data: tree.getData() });
     canvas.add(secondTree);
@@ -173,11 +183,7 @@ describe('CanvasView', () => {
   });
 
   describe('removeSelectedItem', () => {
-    const view = CanvasView.of(
-      defaultState,
-      new StageMock({ container: document.createElement('div') }),
-      canvas,
-    );
+    const view = CanvasView.of(mockViewData);
 
     const secondTree = Tree.of({ data: tree.getData() });
     const thirdTree = Tree.of({ data: tree.getData() });
