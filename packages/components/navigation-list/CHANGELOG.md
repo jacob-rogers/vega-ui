@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-navigation-list@1.0.3...@gpn-prototypes/vega-navigation-list@1.0.4) (2020-09-24)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-navigation-list
+
+
+
+
+
 ## [1.0.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-navigation-list@1.0.2...@gpn-prototypes/vega-navigation-list@1.0.3) (2020-07-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-navigation-list
