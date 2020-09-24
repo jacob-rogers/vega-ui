@@ -19,12 +19,12 @@ const testId = {
   trigger: 'Header:Menu:Trigger',
 };
 
-type HeaderMenu = React.FC<HeaderMenuProps> & {
+type HeaderMenuType = React.FC<HeaderMenuProps> & {
   Delimiter: typeof HeaderMenuDelimiter;
   Item: typeof HeaderMenuItem;
 };
 
-export const HeaderMenu: HeaderMenu = (props) => {
+export const HeaderMenu: HeaderMenuType = (props) => {
   const { title, children } = props;
   const [isOpen, setIsOpen] = useState(false);
 

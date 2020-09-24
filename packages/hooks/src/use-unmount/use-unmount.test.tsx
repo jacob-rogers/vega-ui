@@ -1,9 +1,11 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
+import { Fn } from '../use-mount/use-mount';
+
 import { useUnmount } from './use-unmount';
 
-const TestComponent: React.FC<{ onUnmount: Function }> = ({ onUnmount }) => {
+const TestComponent: React.FC<{ onUnmount: Fn }> = ({ onUnmount }) => {
   useUnmount(() => {
     onUnmount();
   });

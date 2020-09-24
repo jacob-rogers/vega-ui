@@ -14,11 +14,11 @@ export type RadioListProps = {
   onChange?: (value: string) => void;
 };
 
-type RadioList<T> = React.FC<T> & {
+type RadioListType<T> = React.FC<T> & {
   Item: typeof RadioListItem;
 };
 
-export const RadioList: RadioList<RadioListProps> = (props) => {
+export const RadioList: RadioListType<RadioListProps> = (props) => {
   const { children, onChange, name, value, className, ...rest } = props;
 
   function change(val: string): void {

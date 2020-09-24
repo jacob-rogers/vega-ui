@@ -11,12 +11,12 @@ export type NavigationListProps = {
   className?: string;
 };
 
-type NavigationList<T> = React.FC<T> & {
+type NavigationListType<T> = React.FC<T> & {
   Item: typeof NavigationListItem;
   Delimiter: typeof NavigationListDelimiter;
 };
 
-export const NavigationList: NavigationList<NavigationListProps> = ({
+export const NavigationList: NavigationListType<NavigationListProps> = ({
   ordered = false,
   className,
   children,

@@ -21,7 +21,7 @@ type FileDropzoneContentProps = Omit<FileDropzoneProps, 'onDrop' | 'onDragEnter'
 
 type FileDropzoneFullscreenProps = FileDropzoneContentProps & { portal?: HTMLDivElement | null };
 
-type FileDropzone<T> = React.FC<T> & {
+type FileDropzoneType<T> = React.FC<T> & {
   Fullscreen: React.FC<FileDropzoneFullscreenProps>;
   Input: typeof FileDropzoneInput;
 };
@@ -66,7 +66,7 @@ const FileDropzoneFullscreen: React.FC<FileDropzoneFullscreenProps> = ({ portal,
   );
 };
 
-export const FileDropzone: FileDropzone<FileDropzoneProps> = ({
+export const FileDropzone: FileDropzoneType<FileDropzoneProps> = ({
   onDrop,
   onDragEnter,
   onDragLeave,

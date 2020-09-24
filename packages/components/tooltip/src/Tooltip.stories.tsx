@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Button } from '@gpn-prototypes/vega-button';
 import { Text } from '@gpn-prototypes/vega-text';
 import { action } from '@storybook/addon-actions';
-import { boolean, number, object, select, text, withKnobs } from '@storybook/addon-knobs';
+import { boolean, object, select, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Tooltip } from './Tooltip';
@@ -35,7 +35,6 @@ const getCommonKnobs = () => ({
 const Container = styled.div`
   margin: 50px;
   height: 40vh;
-  transform: translate(-50%; -50%);
   background-color: #efe7e5;
 `;
 

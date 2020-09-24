@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
 
-export function useMount(fn: Function = (): void => {}): React.MutableRefObject<boolean> {
+export type Fn = () => VoidFunction | void;
+
+export function useMount(fn: Fn = (): void => {}): React.MutableRefObject<boolean> {
   const isMountedRef = useRef(false);
-  const fnRef = useRef(fn);
+  const fnRef = useRef<Fn>(fn);
 
   useEffect(() => {
     const result = fnRef.current();

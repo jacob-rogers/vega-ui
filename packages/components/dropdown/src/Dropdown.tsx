@@ -20,12 +20,12 @@ export type DropdownProps = {
 
 const noop = (): void => {};
 
-export type Dropdown<T> = React.FC<T> & {
+export type DropdownType<T> = React.FC<T> & {
   Menu: typeof DropdownMenu;
   Trigger: typeof DropdownTrigger;
 };
 
-export const Dropdown: Dropdown<DropdownProps> = (props) => {
+export const Dropdown: DropdownType<DropdownProps> = (props) => {
   const {
     placement = 'bottom',
     children,

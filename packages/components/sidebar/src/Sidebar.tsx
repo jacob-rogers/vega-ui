@@ -23,7 +23,7 @@ export type SidebarProps = {
   className?: string;
 };
 
-export type Sidebar<T> = React.FC<T> & {
+export type SidebarType<T> = React.FC<T> & {
   Header: typeof SidebarHeader;
   Body: typeof SidebarBody;
   Footer: typeof SidebarFooter;
@@ -36,7 +36,7 @@ const cssTransitionClasses = {
   exitActive: 'is-exit-active',
 };
 
-export const Sidebar: Sidebar<SidebarProps> = ({
+export const Sidebar: SidebarType<SidebarProps> = ({
   isOpen = false,
   isMinimized = false,
   align = 'right',

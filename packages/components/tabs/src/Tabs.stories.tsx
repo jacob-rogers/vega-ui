@@ -10,7 +10,8 @@ type IconElement = React.FC<IconProps>;
 
 type Item = {
   name: string;
-  icon?: IconElement;
+  icon?: React.FC<IconProps>;
+  count?: number;
 };
 
 type StoriesProps = {

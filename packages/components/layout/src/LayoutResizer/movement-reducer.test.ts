@@ -9,7 +9,7 @@ describe('movementReducer', () => {
   };
 
   test('должен выполниться с ошибкой, если передано неизвестное действие', () => {
-    // @ts-expect-error
+    // @ts-expect-error: TODO добавить причину исключения
     expect(() => movementReducer(initialState, { type: 'unknown' })).toThrow();
   });
 

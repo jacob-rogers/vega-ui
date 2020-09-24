@@ -23,7 +23,7 @@ jest.mock('react-transition-group', () => {
 });
 
 beforeAll(() => {
-  // @ts-expect-error
+  // @ts-expect-error: TODO добавить причину использования исключения
   global.ResizeObserver = class ResizeObserver {
     // eslint-disable-next-line class-methods-use-this
     observe(): void {}
@@ -37,6 +37,6 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-  // @ts-expect-error
+  // @ts-expect-error: TODO добавить причину использования исключения
   delete global.ResizeObserver;
 });

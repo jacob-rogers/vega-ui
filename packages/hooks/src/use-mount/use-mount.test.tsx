@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { useMount } from './use-mount';
+import { Fn, useMount } from './use-mount';
 
-const TestComponent: React.FC<{ onMount: Function }> = ({ onMount }) => {
+const TestComponent: React.FC<{ onMount: Fn }> = ({ onMount }) => {
   useMount(() => {
     onMount();
   });
