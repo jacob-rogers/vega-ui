@@ -98,8 +98,17 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     view.removeAllListeners();
   });
 
-  const handleMouseMove = (): void => {
+  const handleMouseMove = (event: KonvaMouseEvent): void => {
     view.drawConnectingLine();
+    if (pinning.isMousePressed) {
+      const dx = pinning.data.clientX - event.evt.clientX;
+      const dy = pinning.data.clientY - event.evt.clientY;
+
+      pinning.data.clientX = event.evt.clientX;
+      pinning.data.clientY = event.evt.clientY;
+
+      view.scroll(dx, dy);
+    }
   };
 
   const connectActiveItem = (id: string): void => {
@@ -240,6 +249,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         width={stageSize.width}
         height={stageSize.height}
         onWheel={handleWheel}
+        className={cnCanvas('Stage').toString()}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}

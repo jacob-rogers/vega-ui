@@ -5,6 +5,7 @@
   &__Stage {
     background: '#161A1D';
     outline: none;
+    box-shadow: none;
   }
 
   &__OptionsPanel {
