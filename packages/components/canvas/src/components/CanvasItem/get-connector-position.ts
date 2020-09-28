@@ -6,8 +6,13 @@ type ConnectorsPosition = {
   children: Position;
 };
 
-const getRelativeYPosition = (step: CanvasTree): number =>
-  step.getData().type === 'step' ? LIST_PADDING : STEP_HEIGHT / 2;
+const getRelativeYPosition = (step: CanvasTree): number => {
+  if (step.getData().type === 'step') {
+    return LIST_PADDING;
+  }
+
+  return STEP_HEIGHT / 2;
+};
 
 export const getAbsoluteConnectorsPosition = (step: CanvasTree): ConnectorsPosition => {
   const { position, width = STEP_WIDTH } = step.getData();

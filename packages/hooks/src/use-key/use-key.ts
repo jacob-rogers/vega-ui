@@ -8,7 +8,7 @@ type Opts = {
 };
 
 export const useKey = (
-  key: Array<string | number> | string | number,
+  key: string[] | number[] | string | number,
   callback: Handler,
   { keyevent = 'keyup', element = document }: Opts = {},
 ): void => {

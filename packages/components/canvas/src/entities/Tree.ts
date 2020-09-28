@@ -31,7 +31,7 @@ export class Tree<T = unknown> {
     return this.childrenIds.length === 0;
   }
 
-  static of<T = unknown>(treeData: TreeData<T>): Tree<T> {
+  static of<D = unknown>(treeData: TreeData<D>): Tree<D> {
     const { data, id = uuid(), childrenIds = [], parentIds = [] } = treeData;
     return new Tree(data, childrenIds, parentIds, id);
   }
