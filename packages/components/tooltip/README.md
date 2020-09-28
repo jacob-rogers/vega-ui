@@ -6,9 +6,7 @@
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-tooltip
-```
+    yarn add @gpn-prototypes/vega-tooltip
 
 ### Примеры использования
 

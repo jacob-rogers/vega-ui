@@ -1,27 +1,33 @@
-import React, { useLayoutEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 type ContainerWidth = number;
 
-export function useOnChangeTreeWidth(
-  rootRef: React.RefObject<HTMLDivElement | null>,
-): ContainerWidth | undefined {
+export function useOnChangeTreeWidth(className: string): ContainerWidth | undefined {
   const [treeContainerWidth, setWidth] = useState<ContainerWidth>();
 
-  const { current } = rootRef;
+  const ro = useMemo(
+    () =>
+      new ResizeObserver((entries) => {
+        entries.forEach((entry) => {
+          setWidth(entry.contentRect.width);
+        });
+      }),
+    [],
+  );
 
-  useLayoutEffect(() => {
-    const updateWidth = (): void => {
-      setWidth(rootRef.current?.getBoundingClientRect().width);
+  useEffect(() => {
+    const root = document.querySelector(`.${className}`);
+
+    if (root instanceof Element) {
+      ro.observe(root);
+    }
+
+    return (): void => {
+      if (root instanceof Element) {
+        ro.unobserve(root);
+      }
     };
-
-    updateWidth();
-
-    window.addEventListener('resize', updateWidth);
-
-    return (): void => window.removeEventListener('resize', updateWidth);
-    // [rootRef, current] - для работоспособности важны обе зависимости, так как current до первого рендера - null,
-    // а ссылка объекта rootRef не изменяется.
-  }, [rootRef, current]);
+  }, [className, ro]);
 
   return treeContainerWidth;
 }

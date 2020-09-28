@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
-import NavigationDot from '../NavigationDotSvg';
-
 import cnTree from './cn-tree';
+import NavigationDot from './NavigationDotSvg';
 import TreeNavigationEye from './TreeNavigationEye';
 import { NavigationEyeProps } from './types';
 

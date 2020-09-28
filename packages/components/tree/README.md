@@ -12,7 +12,7 @@
 
 <img src="docs/pic-1.png" height="270">
 
-```jsx  
+```jsx
 import { Tree } from '@gpn-prototypes/vega-tree';
 
 const icons = {
@@ -83,7 +83,7 @@ export const MyComponent = () => {
             onRenameItem={(id) => console.log(`Запрос к базе на переименование элемента с id ${id}`)}
             onCopyItem={(id) => console.log(`Запрос к базе на копирование элемента с id ${id}`)}
             onDeleteItem={(id) => console.log(`Запрос к базе на удаление элемента с id ${id}`)}
-            onPasteItem={(id) => console.log(`Запрос к базе на перемещение элемента с id ${id}`)}
+            onPasteItem={(transferringIds, receivingId) => console.log(`Запрос к базе на перемещение элементов с id ${transferringIds}`)}
          />;
 };
 ```
@@ -92,7 +92,7 @@ export const MyComponent = () => {
 
 <img src="docs/pic-3.png" height="101">
 
-```jsx  
+```jsx
 import { Tree } from '@gpn-prototypes/vega-tree';
 
 const icons = {
@@ -189,12 +189,11 @@ export const MyComponent = () => {
 };
 ```
 
-
 #### Без иконок и Drag and Drop
 
 <img src="docs/pic-2.png" height="105">
 
-```jsx  
+```jsx
 import { Tree } from '@gpn-prototypes/vega-tree';
 
 const nodeList = [
@@ -255,17 +254,16 @@ export const MyComponent = () => {
 ```ts
 type TreeItem = {
     name: string;
-    nodeList?: TreeItem[];
+    nodeList: TreeItem[];
     id: string;
+    parentId?: string;
     iconId?: string | number; // ID иконки, которая соответствует названию ключа из коллекции ICONS
     isDraggable?: boolean; // Возможность выключить Drag аnd Drop для некоторых элементов
     isDropZone?: boolean // Возможность запретить принимать элементы перемещаемые с помощью Drag and Drop
 }
 
 type TreeProps = {
-    nodeList: TreeItem[]; // Массив объектов. Объекты могут быть двух типов:
-        // - TreeLeaf (состоит из одного обязательного поля name)
-        // - TreeNode (состоит из обязательных полей name и nodeList)
+    nodeList: TreeItem[];
     icons?: {
       [iconId: string]: React.ReactElement;
     }; // Коллекция иконок
@@ -277,6 +275,6 @@ type TreeProps = {
     onRenameItem?: (id) => void; // Функция-обработчик, которая вызывается при попытке переименовать аргумент
     onDuplicateItem?: (id) => void; // Аналогично для дублирования/копирования элемента
     onDeleteItem?: (id) => void; // Аналогично для удаления
-    onPasteItem?: (transferringId, receivingId, cb) => void; // Прокинет id переносимого элемента и принимающего, а также функцию, которая при вызове обновит DOM через appenChild. Сработает при вставке и перенесении через DND узла в другой узел. 
+    onPasteItem?: (transferringIds: string[], receivingId: string) => void; // Прокинет два аргумента: массив id переносимых элементов; id принимающего. Сработает при вставке и перенесении через DND узла в другой узел. 
 };
 ```
