@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.5.1...@gpn-prototypes/vega-hooks@0.6.0-alpha.0) (2020-09-28)
+
+
+### Bug Fixes
+
+* **hooks:** переработал хук use-key ([f30668a](https://github.com/gpn-prototypes/vega-ui/commit/f30668a9b87e160b94a4880e2329e03ce783f460))
+* **localstorage:** поправил взаимодейтсвие с ls ([02d6f26](https://github.com/gpn-prototypes/vega-ui/commit/02d6f26c716759147f6ff83abb835a59993abffe))
+
+
+### Features
+
+* **canvas:** добавление линий на канвас ([23fc988](https://github.com/gpn-prototypes/vega-ui/commit/23fc98809a23e17b9d5754fa98ff63d3db480efb))
+* **canvas:** добавление сохрания позиции в ls ([943f280](https://github.com/gpn-prototypes/vega-ui/commit/943f280b29692d49de7924a2dcdcdd1ef5d72d56))
+* **canvas:** поправлен zindex элемента при драге и изменено сохранение данных ([5d55444](https://github.com/gpn-prototypes/vega-ui/commit/5d55444208fa732e90813ae90cfc2112b6ebd32d))
+
+
+
+
+
 ## [0.5.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.5.0...@gpn-prototypes/vega-hooks@0.5.1) (2020-09-24)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-hooks
