@@ -1,9 +1,9 @@
 import { CanvasData, CanvasSet, CanvasTree, CanvasUpdate, Position } from '../types';
 
-import { Notifiable } from './Notifiable';
+import { Notifier } from './Notifier';
 import { Tree, TreeData } from './Tree';
 
-export class Canvas extends Notifiable<CanvasUpdate> {
+export class Canvas extends Notifier<CanvasUpdate> {
   private trees: CanvasSet;
 
   private constructor(trees: CanvasTree[]) {
@@ -41,7 +41,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
 
   public setTrees(trees: CanvasSet): void {
     this.trees = trees;
-    this.notifier.notify({
+    this.notify({
       type: 'update-trees',
       newTrees: Array.from(trees),
     });
@@ -77,7 +77,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
           this.disconnect(child, tree);
         }
       });
-    this.notifier.notify({
+    this.notify({
       type: 'remove-tree',
       id: tree.getId(),
     });
@@ -85,7 +85,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
 
   public add(tree: CanvasTree): void {
     this.trees.add(tree);
-    this.notifier.notify({
+    this.notify({
       id: tree.getId(),
       type: 'add-tree',
     });
@@ -94,7 +94,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
   public connect(parentTree: CanvasTree, childTree: CanvasTree): void {
     const success = parentTree.connect(childTree);
     if (success) {
-      this.notifier.notify({
+      this.notify({
         type: 'connect-tree',
         childId: childTree.getId(),
         parentId: parentTree.getId(),
@@ -104,7 +104,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
 
   public disconnect(childTree: CanvasTree, parentTree: CanvasTree): void {
     parentTree.disconnect(childTree);
-    this.notifier.notify({
+    this.notify({
       type: 'disconnect-tree',
       id: childTree.getId(),
     });
@@ -112,7 +112,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
 
   public setData(tree: CanvasTree, data: Partial<CanvasData>): void {
     tree.setData(data);
-    this.notifier.notify({
+    this.notify({
       type: 'change',
       id: tree.getId(),
       changes: data,
@@ -125,7 +125,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
 
   public setChildrenIds(tree: CanvasTree, childrenIds: string[]): void {
     tree.setChildrenIds(childrenIds);
-    this.notifier.notify({
+    this.notify({
       type: 'update-children',
       id: tree.getId(),
       newChildren: childrenIds,
@@ -147,7 +147,7 @@ export class Canvas extends Notifiable<CanvasUpdate> {
   }
 
   public clear(): void {
-    this.notifier.notify({
+    this.notify({
       type: 'clear',
     });
   }

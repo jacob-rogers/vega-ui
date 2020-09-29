@@ -40,7 +40,6 @@ export const useImage = (
     return (): void => {
       img.removeEventListener('load', onLoad);
       img.removeEventListener('error', onError);
-      setState(defaultState);
     };
   }, [src, crossOrigin]);
 

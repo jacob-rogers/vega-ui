@@ -1,9 +1,18 @@
 import { SCROLL_PADDING } from '../constants';
-import { getScrollbarPointCurry } from '../utils';
 
-import { CanvasService } from './CanvasService';
+import { CanvasService, CanvasServiceData } from './CanvasService';
+import { ScrollbarService } from './ScrollbarService';
 
-export class ScrollService extends CanvasService {
+export class ScrollService {
+  private service: CanvasService;
+
+  private scrollbarService: ScrollbarService;
+
+  public constructor(data: CanvasServiceData) {
+    this.service = new CanvasService(data);
+    this.scrollbarService = new ScrollbarService(data);
+  }
+
   public scroll(dx: number, dy: number): void {
     const {
       stage,
@@ -13,7 +22,9 @@ export class ScrollService extends CanvasService {
       background: bg,
       contentRect,
       stageSize,
-    } = this;
+    } = this.service.getData();
+
+    const { horizonal: horizontalPadding, vertical: verticalPadding } = this.service.getPadding();
 
     if (!stage || !layer || !horizontalScrollbar || !verticalScrollbar || !bg) {
       return;
@@ -21,7 +32,7 @@ export class ScrollService extends CanvasService {
 
     const minX = -(
       (contentRect.width + contentRect.x) * layer.scaleX() +
-      this.PADDING_HORIZONTAL -
+      horizontalPadding -
       stageSize.width
     );
     const maxX = -contentRect.x * layer.scaleX() + stageSize.width;
@@ -30,7 +41,7 @@ export class ScrollService extends CanvasService {
 
     const minY = -(
       (contentRect.height + contentRect.y) * layer.scaleY() +
-      this.PADDING_VERTICAL -
+      verticalPadding -
       stageSize.height
     );
     const maxY = -contentRect.y * layer.scaleY() + stageSize.height;
@@ -38,54 +49,47 @@ export class ScrollService extends CanvasService {
     const y = Math.max(minY, Math.min(layer.y() - dy, maxY));
     layer.position({ x, y });
 
-    const getScrollbarPoint = getScrollbarPointCurry({
-      layer: this.layer,
-      stageSize,
-      contentRect,
-    });
-
-    const vy = getScrollbarPoint({ type: 'vertical', scrollbar: verticalScrollbar });
-    verticalScrollbar.y(vy);
-
-    const hx = getScrollbarPoint({ type: 'horizontal', scrollbar: horizontalScrollbar });
-
-    horizontalScrollbar.x(hx);
+    this.scrollbarService.updateScrollbars();
 
     stage.batchDraw();
   }
 
-  public dragVerticalScrollbar(): void {
-    const { verticalScrollbar, layer, stageSize, contentRect } = this;
+  public scrollVertical(): void {
+    const { verticalScrollbar, layer, stageSize, contentRect } = this.service.getData();
+
+    const { vertical: verticalPadding } = this.service.getPadding();
 
     if (!verticalScrollbar || !layer) {
       return;
     }
 
     const availableHeight =
-      contentRect.height * layer.scaleY() + 2 * this.PADDING_VERTICAL - stageSize.height;
+      contentRect.height * layer.scaleY() + 2 * verticalPadding - stageSize.height;
     const availableScrollHeight =
       stageSize.height - 2 * SCROLL_PADDING - verticalScrollbar.height();
     const delta = (verticalScrollbar.y() - SCROLL_PADDING) / availableScrollHeight;
 
-    const y = -contentRect.y * layer.scaleY() + this.PADDING_VERTICAL - availableHeight * delta;
+    const y = -contentRect.y * layer.scaleY() + verticalPadding - availableHeight * delta;
 
     layer.y(y);
     layer.batchDraw();
   }
 
-  public dragHorizontalScrollbar(): void {
-    const { horizontalScrollbar, layer, contentRect, stageSize } = this;
+  public scrollHorizontal(): void {
+    const { horizontalScrollbar, layer, stageSize, contentRect } = this.service.getData();
+
+    const { horizonal: horizontalPadding } = this.service.getPadding();
 
     if (!horizontalScrollbar || !layer) {
       return;
     }
 
     const availableWidth =
-      contentRect.width * layer.scaleX() + 2 * this.PADDING_HORIZONTAL - stageSize.width;
+      contentRect.width * layer.scaleX() + 2 * horizontalPadding - stageSize.width;
     const availableScrollWidth = stageSize.width - 2 * SCROLL_PADDING - horizontalScrollbar.width();
     const delta = (horizontalScrollbar.x() - SCROLL_PADDING) / availableScrollWidth;
 
-    const x = -contentRect.x * layer.scaleX() + this.PADDING_HORIZONTAL - availableWidth * delta;
+    const x = -contentRect.x * layer.scaleX() + horizontalPadding - availableWidth * delta;
 
     layer.x(x);
     layer.batchDraw();

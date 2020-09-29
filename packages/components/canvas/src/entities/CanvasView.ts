@@ -13,7 +13,7 @@ import { getContentRect } from '../utils';
 
 import { Canvas } from './Canvas';
 import { CanvasServiceData } from './CanvasService';
-import { Notifiable } from './Notifiable';
+import { Notifier } from './Notifier';
 import { ScrollService } from './ScrollService';
 import { ZoomService } from './ZoomService';
 
@@ -41,7 +41,7 @@ type CanvasViewData = Omit<CanvasServiceData, 'contentRect' | 'stageSize'> & {
   canvas: Canvas;
 };
 
-export class CanvasView extends Notifiable<ViewUpdate> {
+export class CanvasView extends Notifier<ViewUpdate> {
   private state: State;
 
   private stage: Stage;
@@ -99,7 +99,7 @@ export class CanvasView extends Notifiable<ViewUpdate> {
 
   public updateState(changes: Partial<State>): void {
     this.state = { ...this.state, ...changes };
-    this.notifier.notify({
+    this.notify({
       type: 'update-state',
       changes,
       newState: this.state,
@@ -211,10 +211,10 @@ export class CanvasView extends Notifiable<ViewUpdate> {
   }
 
   public scrollHorizontal(): void {
-    this.scrollService.dragHorizontalScrollbar();
+    this.scrollService.scrollHorizontal();
   }
 
   public scrollVertical(): void {
-    this.scrollService.dragVerticalScrollbar();
+    this.scrollService.scrollVertical();
   }
 }

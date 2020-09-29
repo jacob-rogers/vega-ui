@@ -14,13 +14,13 @@ export type ScrollbarData = {
   type: 'horizontal' | 'vertical';
 };
 
-type GetBgSizeParams = Pick<ViewData, 'stageSize' | 'contentRect'> & {
+type getBgRectParams = Pick<ViewData, 'stageSize' | 'contentRect'> & {
   scaleX?: number;
 };
 
 type ScrollbarPointsParams = ViewData & Pick<ScrollbarData, 'scrollbar'>;
 
-type ScrollbarPointsCurryFunc = (data: ScrollbarData) => number;
+type ScrollbarPointsGetter = (data: ScrollbarData) => number;
 
 export const getContentRect = (
   elements: Konva.Node[],
@@ -79,7 +79,7 @@ export const getContentRect = (
   return rect;
 };
 
-export const getBgSize = (params: GetBgSizeParams): ContentRect => {
+export const getBgRect = (params: getBgRectParams): ContentRect => {
   const { stageSize, scaleX = 0, contentRect } = params;
   const { width: PADDING_HORIZONTAL, height: PADDING_VERTICAL } = stageSize;
 
@@ -101,7 +101,7 @@ export const getBgSize = (params: GetBgSizeParams): ContentRect => {
   const x1 = x0 + width;
   const y1 = y0 + height;
 
-  const bgSize = {
+  const bgRect = {
     x: x0,
     y: y0,
     width,
@@ -113,41 +113,41 @@ export const getBgSize = (params: GetBgSizeParams): ContentRect => {
   const intX1 = Math.trunc(x1 / GRID_BLOCK_SIZE);
   const intY1 = Math.trunc(y1 / GRID_BLOCK_SIZE);
 
-  if (bgSize.x % GRID_BLOCK_SIZE < 0) {
-    bgSize.x = GRID_BLOCK_SIZE * (intX0 - 1);
+  if (bgRect.x % GRID_BLOCK_SIZE < 0) {
+    bgRect.x = GRID_BLOCK_SIZE * (intX0 - 1);
   }
 
-  if (bgSize.x % GRID_BLOCK_SIZE > 0) {
-    bgSize.x = GRID_BLOCK_SIZE * intX0;
+  if (bgRect.x % GRID_BLOCK_SIZE > 0) {
+    bgRect.x = GRID_BLOCK_SIZE * intX0;
   }
 
-  if (bgSize.y % GRID_BLOCK_SIZE < 0) {
-    bgSize.y = GRID_BLOCK_SIZE * (intY0 - 1);
+  if (bgRect.y % GRID_BLOCK_SIZE < 0) {
+    bgRect.y = GRID_BLOCK_SIZE * (intY0 - 1);
   }
 
-  if (bgSize.y % GRID_BLOCK_SIZE > 0) {
-    bgSize.y = GRID_BLOCK_SIZE * intY0;
+  if (bgRect.y % GRID_BLOCK_SIZE > 0) {
+    bgRect.y = GRID_BLOCK_SIZE * intY0;
   }
 
   //
 
   if (x1 % GRID_BLOCK_SIZE < 0) {
-    bgSize.width = GRID_BLOCK_SIZE * intX1 - bgSize.x;
+    bgRect.width = GRID_BLOCK_SIZE * intX1 - bgRect.x;
   }
 
   if (x1 % GRID_BLOCK_SIZE > 0) {
-    bgSize.width = GRID_BLOCK_SIZE * (intX1 + 1) - bgSize.x;
+    bgRect.width = GRID_BLOCK_SIZE * (intX1 + 1) - bgRect.x;
   }
 
   if (y1 % GRID_BLOCK_SIZE < 0) {
-    bgSize.height = GRID_BLOCK_SIZE * intY1 - bgSize.y;
+    bgRect.height = GRID_BLOCK_SIZE * intY1 - bgRect.y;
   }
 
   if (y1 % GRID_BLOCK_SIZE > 0) {
-    bgSize.height = GRID_BLOCK_SIZE * (intY1 + 1) - bgSize.y;
+    bgRect.height = GRID_BLOCK_SIZE * (intY1 + 1) - bgRect.y;
   }
 
-  return bgSize;
+  return bgRect;
 };
 
 const getHorizontalScrollbarX = (params: ScrollbarPointsParams): number => {
@@ -179,7 +179,7 @@ const getVerticalScrollbarY = (params: ScrollbarPointsParams): number => {
   return vy;
 };
 
-export const getScrollbarPointCurry = (params: ViewData): ScrollbarPointsCurryFunc => {
+export const createScrollbarPointGetter = (params: ViewData): ScrollbarPointsGetter => {
   return (data: ScrollbarData): number => {
     const scrollbarParams = {
       ...params,

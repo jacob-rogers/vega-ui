@@ -13,42 +13,20 @@ export type CanvasServiceData = {
 };
 
 export class CanvasService {
-  protected stage: Konva.Stage | null;
+  private data: CanvasServiceData;
 
-  protected layer: Konva.Layer | null;
+  public getPadding(): { vertical: number; horizonal: number } {
+    return {
+      vertical: this.data.stageSize.height,
+      horizonal: this.data.stageSize.width,
+    };
+  }
 
-  protected horizontalScrollbar: Konva.Rect | null;
-
-  protected verticalScrollbar: Konva.Rect | null;
-
-  protected background: Konva.Rect | null;
-
-  protected contentRect: ContentRect;
-
-  protected stageSize: Size;
-
-  protected readonly PADDING_HORIZONTAL: number;
-
-  protected readonly PADDING_VERTICAL: number;
+  public getData(): CanvasServiceData {
+    return this.data;
+  }
 
   public constructor(data: CanvasServiceData) {
-    const {
-      stage,
-      layer,
-      horizontalScrollbar,
-      verticalScrollbar,
-      background,
-      contentRect,
-      stageSize,
-    } = data;
-    this.stage = stage;
-    this.layer = layer;
-    this.horizontalScrollbar = horizontalScrollbar;
-    this.verticalScrollbar = verticalScrollbar;
-    this.background = background;
-    this.contentRect = contentRect;
-    this.stageSize = stageSize;
-    this.PADDING_HORIZONTAL = stageSize.width;
-    this.PADDING_VERTICAL = stageSize.height;
+    this.data = data;
   }
 }

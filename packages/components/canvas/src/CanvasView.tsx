@@ -10,7 +10,7 @@ import { PINNING_KEY_CODE } from './constants';
 import { CanvasContext } from './context';
 import { Canvas, CanvasView as CanvasViewEntity, State, Tree, ViewUpdate } from './entities';
 import { CanvasData, Connection, KonvaMouseEvent } from './types';
-import { getBgSize, getScrollbarPointCurry } from './utils';
+import { createScrollbarPointGetter, getBgRect } from './utils';
 
 import './Canvas.css';
 
@@ -233,13 +233,13 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     keyevent: 'keyup',
   });
 
-  const getScrollbarPoint = getScrollbarPointCurry({
+  const getScrollbarPoint = createScrollbarPointGetter({
     layer: layerRef.current,
     contentRect,
     stageSize,
   });
 
-  const bgSize = getBgSize({ contentRect, stageSize, scaleX: layerRef.current?.scaleX() });
+  const bgSize = getBgRect({ contentRect, stageSize, scaleX: layerRef.current?.scaleX() });
 
   return (
     <div ref={containerRef} className={cnCanvas()}>

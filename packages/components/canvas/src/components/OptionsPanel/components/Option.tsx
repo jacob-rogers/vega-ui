@@ -14,7 +14,7 @@ export type OptionProps = {
 } & React.ComponentProps<typeof Button>;
 
 export const Option: React.FC<OptionProps> = (props) => {
-  const { option, onClick, isActive, innerRef, disabled } = props;
+  const { option, onClick, isActive, innerRef, disabled, ...rest } = props;
 
   return (
     <Button
@@ -29,6 +29,7 @@ export const Option: React.FC<OptionProps> = (props) => {
       onClick={onClick}
       className={cnCanvas('Option', { active: isActive }).toString()}
       view="clear"
+      {...rest}
     />
   );
 };

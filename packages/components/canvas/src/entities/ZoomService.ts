@@ -1,9 +1,19 @@
 import { SCROLL_RATIO } from '../constants';
-import { getBgSize, getScrollbarPointCurry } from '../utils';
+import { getBgRect } from '../utils';
 
-import { CanvasService } from './CanvasService';
+import { CanvasService, CanvasServiceData } from './CanvasService';
+import { ScrollbarService } from './ScrollbarService';
 
-export class ZoomService extends CanvasService {
+export class ZoomService {
+  private service: CanvasService;
+
+  private scrollbarService: ScrollbarService;
+
+  public constructor(data: CanvasServiceData) {
+    this.service = new CanvasService(data);
+    this.scrollbarService = new ScrollbarService(data);
+  }
+
   public zoom(dy: number): void {
     const {
       stage,
@@ -13,7 +23,7 @@ export class ZoomService extends CanvasService {
       background: bg,
       contentRect,
       stageSize,
-    } = this;
+    } = this.service.getData();
 
     if (!stage || !layer || !horizontalScrollbar || !verticalScrollbar || !bg) {
       return;
@@ -42,19 +52,9 @@ export class ZoomService extends CanvasService {
     };
     layer.position(newPos);
 
-    const getScrollbarPoint = getScrollbarPointCurry({
-      layer: this.layer,
-      stageSize,
-      contentRect,
-    });
+    this.scrollbarService.updateScrollbars();
 
-    const vy = getScrollbarPoint({ type: 'vertical', scrollbar: verticalScrollbar });
-    verticalScrollbar.y(vy);
-
-    const hx = getScrollbarPoint({ type: 'horizontal', scrollbar: horizontalScrollbar });
-    horizontalScrollbar.x(hx);
-
-    const bgSize = getBgSize({ contentRect, stageSize, scaleX: layer.scaleX() });
+    const bgSize = getBgRect({ contentRect, stageSize, scaleX: layer.scaleX() });
 
     bg.x(bgSize.x);
     bg.y(bgSize.y);
