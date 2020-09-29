@@ -5,11 +5,18 @@ import Konva from 'konva';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
 import { cnCanvas } from './cn-canvas';
-import { Button, CanvasGrid, CanvasItems, Scrollbar } from './components';
-import { PINNING_KEY_CODE } from './constants';
+import {
+  CanvasGrid,
+  CanvasItems,
+  CanvasPortal,
+  Changes as OptionalPanelChanges,
+  OptionsPanel,
+  Scrollbar,
+} from './components';
+import { NAMES_MAP, PINNING_KEY_CODE } from './constants';
 import { CanvasContext } from './context';
 import { Canvas, CanvasView as CanvasViewEntity, State, Tree, ViewUpdate } from './entities';
-import { CanvasData, Connection, KonvaMouseEvent } from './types';
+import { CanvasData, Connection, ItemType, KonvaMouseEvent } from './types';
 import { createScrollbarPointGetter, getBgRect } from './utils';
 
 import './Canvas.css';
@@ -19,6 +26,7 @@ type CanvasViewProps = {
 };
 
 export const defaultState: State = {
+  activeOption: 'selection',
   cursor: 'default',
   activeData: null,
   selectedData: null,
@@ -64,6 +72,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   );
 
   const {
+    activeOption,
     activeData,
     cursor,
     stageSize,
@@ -71,6 +80,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     linePoints,
     contentRect,
     overlay,
+    mode,
   } = view.getState();
 
   const handleChange = useCallback((updates: ViewUpdate): void => {
@@ -129,10 +139,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     if (pinning.isMousePressed) {
       pinning.isMousePressed = false;
 
-      if (!pinning.isKeyPressed) {
+      if (!pinning.isKeyPressed && mode !== 'dragging') {
         view.updateState({
           cursor: 'default',
           overlay: false,
+          activeOption: 'selection',
         });
       }
     }
@@ -142,16 +153,19 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     view.removeSelectedItem();
   };
 
-  const handleStepAdding = useCallback(() => {
-    const tree = Tree.of<CanvasData>({
-      data: {
-        type: 'step',
-        title: 'Шаг',
-        position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
-      },
-    });
-    canvas.add(tree);
-  }, [canvas]);
+  const createStep = useCallback(
+    (type: ItemType) => {
+      const tree = Tree.of<CanvasData>({
+        data: {
+          type,
+          title: NAMES_MAP[type],
+          position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
+        },
+      });
+      canvas.add(tree);
+    },
+    [canvas],
+  );
 
   const handleClick = (): void => {
     if (selectedData !== null) {
@@ -160,7 +174,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   };
 
   const handleMouseDown = (e: KonvaMouseEvent): void => {
-    if (pinning.isKeyPressed) {
+    if (pinning.isKeyPressed || mode === 'dragging') {
       pinning.isMousePressed = true;
 
       pinning.data.clientX = e.evt.clientX;
@@ -191,8 +205,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       if (!e.repeat) {
         pinning.isKeyPressed = true;
         view.updateState({
-          cursor: 'grab',
           overlay: true,
+          activeOption: 'dragging',
+          cursor: 'grab',
         });
       }
     }
@@ -207,6 +222,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
     if (!pinning.isMousePressed) {
       view.updateState({
+        activeOption: 'selection',
         cursor: 'default',
         overlay: false,
       });
@@ -239,10 +255,24 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     stageSize,
   });
 
+  const handleOptionPanel = (change: OptionalPanelChanges): void => {
+    if (change.type === 'create') {
+      createStep(change.itemType);
+    }
+
+    if (change.type === 'selection' || change.type === 'dragging') {
+      view.changeActiveOption(change.type);
+    }
+
+    if (change.type === 'remove') {
+      view.removeSelectedItem();
+    }
+  };
+
   const bgSize = getBgRect({ contentRect, stageSize, scaleX: layerRef.current?.scaleX() });
 
   return (
-    <div ref={containerRef} className={cnCanvas()}>
+    <div ref={containerRef} id="VegaCanvas" className={cnCanvas()}>
       <Stage
         style={{ cursor }}
         ref={stageRef}
@@ -272,21 +302,16 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           }}
         >
           <Layer ref={layerRef}>
+            {/* <CanvasPortal params={{ name: 'portalsCanvas', parentSelector: '#VegaCanvas' }}>
+              <div className={cnCanvas('OptionsPanelWrapper')}>
+                <OptionsPanel activeValue={activeOption} onChange={handleOptionPanel} />
+              </div>
+            </CanvasPortal> */}
             <CanvasGrid innerRef={backgroundRef} size={bgSize} />
             <CanvasItems canvas={canvas} />
             {linePoints && (
               <ConnectionLineView parent={linePoints.parent} child={linePoints.child} />
             )}
-            <Button
-              label="Добавить шаг"
-              onClick={handleStepAdding}
-              position={{ x: 10, y: stageSize.height - 150 }}
-            />
-            <Button
-              label="Очистить полотно"
-              onClick={(): void => canvas.clear()}
-              position={{ x: stageSize.width - 150, y: stageSize.height - 150 }}
-            />
           </Layer>
           <Layer>
             {overlay && (

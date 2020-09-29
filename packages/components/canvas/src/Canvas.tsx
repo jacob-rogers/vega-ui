@@ -35,11 +35,7 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
   );
 
   useEffect(() => {
-    const unsub = canvas.addListener(handleChange);
-
-    return (): void => {
-      unsub();
-    };
+    canvas.addListener(handleChange);
   }, [canvas, handleChange]);
 
   useUnmount(() => {

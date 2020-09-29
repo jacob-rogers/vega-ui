@@ -1,12 +1,12 @@
 import React from 'react';
 import { Dropdown } from '@gpn-prototypes/vega-dropdown';
 import { useToggle } from '@gpn-prototypes/vega-hooks';
+import { IconNodeEnd, IconNodeStart, IconNodeStep } from '@gpn-prototypes/vega-icons';
 import { NavigationList } from '@gpn-prototypes/vega-navigation-list';
 import { usePortal } from '@gpn-prototypes/vega-root';
 
 import { cnCanvas } from '../../../cn-canvas';
 import { ItemType } from '../../../types';
-import * as Icons from '../Icons';
 import { OptionView } from '../types';
 
 import { Option, OptionProps } from './Option';
@@ -16,9 +16,9 @@ type CreateOptionProps = Omit<OptionProps, 'onClick'> & {
 };
 
 export const items: OptionView<ItemType>[] = [
-  { type: 'root', icon: Icons.IconNodeStart, label: 'Начало проекта' },
-  { type: 'end', icon: Icons.IconNodeEnd, label: 'Шаг проекта' },
-  { type: 'step', icon: Icons.IconNodeStep, label: 'Конец проекта' },
+  { type: 'root', icon: IconNodeStart, label: 'Начало' },
+  { type: 'step', icon: IconNodeStep, label: 'Выход' },
+  { type: 'end', icon: IconNodeEnd, label: 'Шаг' },
 ];
 
 export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
@@ -41,6 +41,7 @@ export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
       <Dropdown.Trigger>
         {({ toggle, props: { ref } }): React.ReactNode => (
           <Option
+            onlyIcon
             role="menuitem"
             isActive={dropdownOpen}
             onClick={toggle}
@@ -59,9 +60,12 @@ export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
                     <NavigationList.Item key={item.type}>
                       {(): React.ReactNode => (
                         <Option
+                          label={item.label}
+                          iconSize="xs"
                           role="menuitem"
                           onClick={(): void => handleItemClick(item.type)}
                           option={item}
+                          className={cnCanvas('CreateOptionItem').toString()}
                         />
                       )}
                     </NavigationList.Item>

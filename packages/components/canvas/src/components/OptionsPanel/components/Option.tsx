@@ -19,7 +19,6 @@ export const Option: React.FC<OptionProps> = (props) => {
   return (
     <Button
       size="s"
-      type="button"
       form="brick"
       ref={innerRef}
       disabled={disabled}

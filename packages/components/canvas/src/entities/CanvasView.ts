@@ -1,5 +1,6 @@
 import Konva from 'konva';
 
+import { ActiveOption } from '../components';
 import {
   ActiveData,
   CanvasTree,
@@ -20,6 +21,7 @@ import { ZoomService } from './ZoomService';
 type Optional<T> = T | null;
 
 export type State = {
+  activeOption: ActiveOption;
   stageSize: Size;
   linePoints: Optional<Coordinates>;
   activeData: Optional<ActiveData>;
@@ -27,6 +29,7 @@ export type State = {
   cursor: string;
   contentRect: ContentRect;
   overlay: boolean;
+  mode?: ActiveOption;
 };
 
 export type ViewUpdate = { type: 'update-state'; changes: Partial<State>; newState: State };
@@ -216,5 +219,15 @@ export class CanvasView extends Notifier<ViewUpdate> {
 
   public scrollVertical(): void {
     this.scrollService.scrollVertical();
+  }
+
+  public changeActiveOption(activeOption: ActiveOption): void {
+    const updates: Partial<State> = { activeOption, mode: activeOption };
+
+    updates.cursor = activeOption === 'dragging' ? 'grab' : 'default';
+
+    updates.overlay = activeOption === 'dragging';
+
+    this.updateState(updates);
   }
 }

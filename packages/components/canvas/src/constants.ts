@@ -1,3 +1,5 @@
+import { ItemType } from './types';
+
 export const STEP_WIDTH = 250;
 export const STEP_HEIGHT = 40;
 export const STEP_PADDING = 26;
@@ -26,3 +28,9 @@ export const SCROLL_PADDING = 10;
 export const SCROLL_RATIO = 1.04;
 export const PINNING_KEY_CODE = 'Space';
 export const GRID_BLOCK_SIZE = 116; // Элемент сетки - квадрат со стороной 116px
+
+export const NAMES_MAP: Record<ItemType, string> = {
+  step: 'Шаг',
+  root: 'Начало',
+  end: 'Конец',
+};

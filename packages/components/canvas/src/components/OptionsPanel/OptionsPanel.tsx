@@ -1,10 +1,15 @@
 import React from 'react';
-import { IconTrash } from '@gpn-prototypes/vega-icons';
+import {
+  IconCursorMouse,
+  IconGrouping,
+  IconHand,
+  IconNodes,
+  IconTrash,
+} from '@gpn-prototypes/vega-icons';
 
 import { cnCanvas } from '../../cn-canvas';
 
 import { CreateOption, Option } from './components';
-import * as Icons from './Icons';
 import { ActiveOption, Changes, Option as OptionType, OptionView } from './types';
 
 export type OptionsPanelProps = {
@@ -15,11 +20,9 @@ export type OptionsPanelProps = {
 };
 
 export const options: OptionView[] = [
-  { type: 'selection', icon: Icons.IconCursor, label: 'Выбор элементов' },
-  { type: 'dragging', icon: Icons.IconHand, label: 'Перемещение по полотну' },
-  { type: 'create', icon: Icons.IconNodes, label: 'Создание элементов' },
-  { type: 'grouping', icon: Icons.IconGrouping, label: 'Группировка элементов' },
-  { type: 'ordering', icon: Icons.IconOrdering, label: 'Упорядочивание элементов' },
+  { type: 'selection', icon: IconCursorMouse, label: 'Выбор элементов' },
+  { type: 'dragging', icon: IconHand, label: 'Перемещение по полотну' },
+  { type: 'create', icon: IconNodes, label: 'Создание элементов' },
   { type: 'remove', icon: IconTrash, label: 'Удаление элементов' },
 ];
 
@@ -44,8 +47,9 @@ export const OptionsPanel: React.FC<OptionsPanelProps> = (props) => {
           <Option
             role="menuitem"
             option={option}
+            onlyIcon
             key={option.type}
-            onClick={(): void => onChange({ type: option.type })}
+            onClick={(): void => onChange({ type: option.type } as Changes)}
             isActive={activeValue === option.type}
             disabled={disabled}
           />

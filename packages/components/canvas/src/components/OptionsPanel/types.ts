@@ -7,7 +7,7 @@ export type ActiveOption = 'selection' | 'dragging';
 
 export type Option = ActiveOption | 'remove' | 'grouping' | 'create' | 'ordering';
 
-export type Changes = { type: Omit<Option, 'create'> } | { type: 'create'; itemType: ItemType };
+export type Changes = { type: Exclude<Option, 'create'> } | { type: 'create'; itemType: ItemType };
 
 export type OptionView<T = Option> = {
   type: T;
