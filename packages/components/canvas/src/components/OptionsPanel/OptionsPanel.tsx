@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  IconCursorMouse,
-  IconGrouping,
-  IconHand,
-  IconNodes,
-  IconTrash,
-} from '@gpn-prototypes/vega-icons';
+import { IconCursorMouse, IconHand, IconNodes, IconTrash } from '@gpn-prototypes/vega-icons';
 
 import { cnCanvas } from '../../cn-canvas';
 
@@ -36,9 +30,10 @@ export const OptionsPanel: React.FC<OptionsPanelProps> = (props) => {
           return (
             <CreateOption
               disabled={disabled}
-              key={option.type}
               option={option}
-              onCreate={(type): void => onChange({ type: 'create', itemType: type })}
+              key={option.type}
+              onCreate={(type): void => onChange({ itemType: type, type: option.type })}
+              disabledOptions={disabledOptions}
             />
           );
         }

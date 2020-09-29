@@ -7,21 +7,22 @@ import { usePortal } from '@gpn-prototypes/vega-root';
 
 import { cnCanvas } from '../../../cn-canvas';
 import { ItemType } from '../../../types';
-import { OptionView } from '../types';
+import { Option as OptionType, OptionView } from '../types';
 
 import { Option, OptionProps } from './Option';
 
-type CreateOptionProps = Omit<OptionProps, 'onClick'> & {
+export interface CreateOptionProps extends Omit<OptionProps, 'onClick'> {
   onCreate(type: ItemType): void;
-};
+  disabledOptions: OptionType[];
+}
 
 export const items: OptionView<ItemType>[] = [
   { type: 'root', icon: IconNodeStart, label: 'Начало' },
-  { type: 'step', icon: IconNodeStep, label: 'Выход' },
-  { type: 'end', icon: IconNodeEnd, label: 'Шаг' },
+  { type: 'end', icon: IconNodeStep, label: 'Выход' },
+  { type: 'step', icon: IconNodeEnd, label: 'Шаг' },
 ];
 
-export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
+export const CreateOption: React.FC<CreateOptionProps> = (props) => {
   const [dropdownOpen, dropdownToggle] = useToggle(false);
   const { portal } = usePortal();
 
@@ -61,6 +62,7 @@ export const CreateOption = (props: CreateOptionProps): React.ReactElement => {
                       {(): React.ReactNode => (
                         <Option
                           label={item.label}
+                          disabled={props.disabledOptions.includes(item.type)}
                           iconSize="xs"
                           role="menuitem"
                           onClick={(): void => handleItemClick(item.type)}

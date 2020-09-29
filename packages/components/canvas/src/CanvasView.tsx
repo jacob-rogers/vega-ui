@@ -10,6 +10,7 @@ import {
   CanvasItems,
   CanvasPortal,
   Changes as OptionalPanelChanges,
+  Option,
   OptionsPanel,
   Scrollbar,
 } from './components';
@@ -110,7 +111,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   const handleMouseMove = (event: KonvaMouseEvent): void => {
     view.drawConnectingLine();
-    if (pinning.isMousePressed) {
+    if (pinning.isMousePressed && activeOption === 'dragging') {
       const dx = pinning.data.clientX - event.evt.clientX;
       const dy = pinning.data.clientY - event.evt.clientY;
 
@@ -255,21 +256,38 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     stageSize,
   });
 
-  const handleOptionPanel = (change: OptionalPanelChanges): void => {
-    if (change.type === 'create') {
-      createStep(change.itemType);
-    }
+  const handleOptionPanel = useCallback(
+    (change: OptionalPanelChanges): void => {
+      if (change.type === 'create') {
+        createStep(change.itemType);
+      }
 
-    if (change.type === 'selection' || change.type === 'dragging') {
-      view.changeActiveOption(change.type);
-    }
+      if (change.type === 'selection' || change.type === 'dragging') {
+        view.changeActiveOption(change.type);
+      }
 
-    if (change.type === 'remove') {
-      view.removeSelectedItem();
-    }
-  };
+      if (change.type === 'remove') {
+        view.removeSelectedItem();
+      }
+    },
+    [createStep, view],
+  );
 
   const bgSize = getBgRect({ contentRect, stageSize, scaleX: layerRef.current?.scaleX() });
+
+  const getDisabledOptions = (): Option[] => {
+    const disabledOptions: Option[] = [];
+
+    if (selectedData === null) {
+      disabledOptions.push('remove');
+    }
+
+    if (canvas.hasRoot()) {
+      disabledOptions.push('root');
+    }
+
+    return disabledOptions;
+  };
 
   return (
     <div ref={containerRef} id="VegaCanvas" className={cnCanvas()}>
@@ -302,11 +320,15 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           }}
         >
           <Layer ref={layerRef}>
-            {/* <CanvasPortal params={{ name: 'portalsCanvas', parentSelector: '#VegaCanvas' }}>
+            <CanvasPortal params={{ name: 'portalsCanvas', parentSelector: '#VegaCanvas' }}>
               <div className={cnCanvas('OptionsPanelWrapper')}>
-                <OptionsPanel activeValue={activeOption} onChange={handleOptionPanel} />
+                <OptionsPanel
+                  disabledOptions={getDisabledOptions()}
+                  activeValue={activeOption}
+                  onChange={handleOptionPanel}
+                />
               </div>
-            </CanvasPortal> */}
+            </CanvasPortal>
             <CanvasGrid innerRef={backgroundRef} size={bgSize} />
             <CanvasItems canvas={canvas} />
             {linePoints && (

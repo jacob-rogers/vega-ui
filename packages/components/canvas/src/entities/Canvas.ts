@@ -51,6 +51,14 @@ export class Canvas extends Notifier<CanvasUpdate> {
     return Array.from(this.trees).find((tree) => tree.getId() === id);
   }
 
+  public findRoot(): CanvasTree | undefined {
+    return Array.from(this.trees).find((tree) => tree.getData().type === 'root');
+  }
+
+  public hasRoot(): boolean {
+    return this.findRoot() !== undefined;
+  }
+
   public extract(): CanvasTree[] {
     return Array.from(this.trees);
   }

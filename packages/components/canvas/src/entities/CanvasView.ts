@@ -1,6 +1,6 @@
 import Konva from 'konva';
 
-import { ActiveOption } from '../components';
+import { ActiveOption } from '../components/OptionsPanel/types';
 import {
   ActiveData,
   CanvasTree,

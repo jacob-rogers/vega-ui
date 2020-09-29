@@ -16,8 +16,6 @@ export const CanvasPortal: React.FC<CanvasPortalProps> = (props) => {
   const component = <ThemeRoot themeName="dark">{children}</ThemeRoot>;
 
   const renderPortal = (): void => {
-    console.log('render')
-
     if (ref.current[params.name]) {
       render(component, ref.current[params.name]);
     }
