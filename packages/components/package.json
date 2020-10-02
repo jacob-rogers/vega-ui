@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-ui",
-  "version": "2.13.3",
+  "version": "2.13.4",
   "description": "",
   "author": "CSSSR",
   "license": "MIT",
@@ -61,7 +61,7 @@
     "@gpn-prototypes/vega-theme": "^0.0.6",
     "@gpn-prototypes/vega-timer": "^0.1.5",
     "@gpn-prototypes/vega-tooltip": "^0.0.2",
-    "@gpn-prototypes/vega-tree": "^0.0.2",
+    "@gpn-prototypes/vega-tree": "^0.0.3",
     "@gpn-prototypes/vega-user": "^0.1.7"
   }
 }
