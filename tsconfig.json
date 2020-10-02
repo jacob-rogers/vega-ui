@@ -53,7 +53,7 @@
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }
   },
-  "files": ["./types/assets.d.ts"],
+  "files": ["./types/assets.d.ts", "./types/ResizeObserver.d.ts"],
   "include": ["packages/**/*.ts", "packages/**/*.tsx"],
   "exclude": ["node_modules", "**/dist/**/*"]
 }

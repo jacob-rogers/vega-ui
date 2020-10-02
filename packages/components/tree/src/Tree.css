@@ -5,7 +5,9 @@
 }
 
 .VegaTree {
-  padding: var(--space-xs);
+  overflow: hidden;
+
+  min-width: 180px;
 
   color: var(--color-typo-primary);
   background-color: var(--color-bg-default);
@@ -114,7 +116,7 @@
   }
 
   &__Leaf {
-    padding-left: var(--space-s);
+    padding-left: var(--space-xl);
 
     cursor: pointer;
     user-select: none;
@@ -209,52 +211,22 @@
   &__NavigationArrow {
     z-index: var(--navigation-item-z);
 
-    padding: 0 0 0 var(--space-xs);
+    margin: 0 4px;
+    padding: 0;
 
     cursor: pointer;
+
+    color: var(--color-typo-ghost);
 
     background: transparent;
     border: none;
     outline: none;
-
-    &::before {
-      content: '';
-
-      margin-right: 7px;
-      margin-bottom: 1px;
-      padding: 3px;
-
-      display: inline-block;
-
-      border: solid;
-      border-width: 0 3px 3px 0;
-      border-color: var(--color-typo-ghost);
-
-      transform: rotate(-45deg);
-    }
-
-    &_expanded::before {
-      content: '';
-
-      margin-right: var(--space-2xs);
-      margin-bottom: 3px;
-      padding: 3px;
-
-      display: inline-block;
-
-      border: solid;
-      border-width: 0 3px 3px 0;
-      border-color: var(--color-typo-ghost);
-
-      transform: rotate(45deg);
-    }
   }
 
   &__Icon {
     z-index: var(--navigation-item-z);
 
     margin-right: var(--space-xs);
-    margin-left: 6px;
   }
 }
 
@@ -290,9 +262,8 @@
   display: flex;
 }
 
-.VegaTree__TreeNode,
-.VegaTree__NodeList {
-  padding-left: var(--space-s);
+.VegaTree__TreeNode {
+  padding-left: 0;
 
   list-style: none;
 
@@ -301,8 +272,13 @@
 
 .VegaTree__NodeList {
   margin: 0;
+  padding-left: 12px;
 
   display: none;
+
+  list-style: none;
+
+  outline: none;
 
   &_expanded {
     position: relative;

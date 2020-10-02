@@ -1,4 +1,5 @@
 import React, { useContext, useRef, useState } from 'react';
+import { IconArrowDown, IconArrowRight } from '@gpn-prototypes/vega-icons';
 
 import cnTree from './cn-tree';
 import TreeContext from './context';
@@ -106,7 +107,6 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
         name={name}
         iconId={iconId}
         renderVisibilitySwitcher={visibilityIdentifier.renderVisibilitySwitcher}
-        onDoubleClick={handleToggleExpand}
       >
         <button
           className={cnTree('NavigationArrow', { expanded })}
@@ -116,7 +116,9 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
           aria-label="List controller"
           type="button"
           tabIndex={0}
-        />
+        >
+          {expanded ? <IconArrowDown size="s" /> : <IconArrowRight size="s" />}
+        </button>
       </TreeItemContent>
 
       <ul

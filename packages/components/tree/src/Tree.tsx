@@ -35,7 +35,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
 
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  const treeContainerWidth = useOnChangeTreeWidth(rootRef);
+  const treeContainerWidth = useOnChangeTreeWidth(cnTree('TreeRootNode'));
 
   const { isOpen, menuCoordinates, open, close } = useContextMenu({
     enabled: isContextMenuEnable,

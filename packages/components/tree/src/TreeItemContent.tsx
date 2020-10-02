@@ -12,15 +12,7 @@ export type TreeItemContentProps = JSX.IntrinsicElements['div'] & {
 };
 
 export const TreeItemContent = (props: TreeItemContentProps): React.ReactElement => {
-  const {
-    onClick,
-    onDoubleClick,
-    className,
-    children,
-    iconId,
-    name,
-    renderVisibilitySwitcher,
-  } = props;
+  const { onClick, className, children, iconId, name, renderVisibilitySwitcher } = props;
 
   const { treeContainerWidth, withVisibilitySwitcher, icons, actionItemComponents } = useContext(
     TreeContext,
@@ -31,7 +23,6 @@ export const TreeItemContent = (props: TreeItemContentProps): React.ReactElement
       className={className}
       onClick={onClick}
       role="treeitem"
-      onDoubleClick={onDoubleClick}
       tabIndex={0}
       onKeyPress={(): void => {}}
     >

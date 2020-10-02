@@ -283,7 +283,10 @@ const ActionItemComponent = (): React.ReactElement => {
       onKeyPress={(): void => {}}
       role="button"
       tabIndex={0}
-      onClick={(): void => action('action item handler')('Item')}
+      onClick={(e): void => {
+        e.stopPropagation();
+        action('action item handler')('Item');
+      }}
     >
       <svg
         width="12"
@@ -306,7 +309,16 @@ const ActionItemComponent = (): React.ReactElement => {
 
 storiesOf('ui/Tree', module)
   .addDecorator(withKnobs)
-  .addParameters({ metadata: { author: 'Ланит', status: 'Draft' } })
+  .addParameters({
+    metadata: {
+      author: 'Ланит',
+      status: 'Draft',
+      link: {
+        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/tree',
+        text: 'Документация',
+      },
+    },
+  })
   .add('по умолчанию', () => {
     const { sourceTree, handlers } = useTreeApi(rootProps);
 

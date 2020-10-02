@@ -56,22 +56,6 @@ describe('Tree', () => {
     });
   });
 
-  test('при двойном клике открывается список элементов дерева', async () => {
-    renderComponent({ nodeList: rootProps });
-
-    const item = screen.getAllByRole('treeitem')[1];
-
-    fireEvent.doubleClick(item);
-
-    await waitFor(() => {
-      expect(
-        document
-          .querySelector('[data-container-id~="1"]')
-          ?.className.includes('VegaTree__NodeList_expanded'),
-      ).toBe(true);
-    });
-  });
-
   test('при клике на иконку стрелки список элементов открывается и закрывается', async () => {
     renderComponent({ nodeList: rootProps });
 

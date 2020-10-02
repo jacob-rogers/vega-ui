@@ -5,28 +5,21 @@ export type TargetData = {
   id: string;
 };
 
-export interface BaseNode {
-  id: string;
-  parentId?: string;
-  iconId?: string | number;
-  rootRef?: React.RefObject<HTMLElement>;
-  isDraggable?: boolean;
-  isDropZone?: boolean;
-}
-
 export type DropZone = {
   ref: React.RefObject<HTMLElement> | null;
   accessible: boolean;
   id: string;
 };
 
-export interface TreeItem extends BaseNode {
+export interface TreeItem {
   name: string;
   nodeList: Array<TreeItem>;
-}
-
-export interface TreeLeaf extends BaseNode {
-  name: string;
+  id: string;
+  parentId?: string;
+  iconId?: string | number;
+  rootRef?: React.RefObject<HTMLElement>;
+  isDraggable?: boolean;
+  isDropZone?: boolean;
 }
 
 export type TreeProps = {
