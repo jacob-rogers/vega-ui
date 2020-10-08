@@ -16,6 +16,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
     isDndEnable = true,
     icons,
     nodeList = [],
+    onDragStart,
     onRenameItem,
     onDuplicateItem,
     onDeleteItem,
@@ -35,7 +36,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
 
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  const treeContainerWidth = useOnChangeTreeWidth(cnTree('TreeRootNode'));
+  const treeContainerWidth = useOnChangeTreeWidth(rootRef);
 
   const { isOpen, menuCoordinates, open, close } = useContextMenu({
     enabled: isContextMenuEnable,
@@ -87,6 +88,18 @@ export const Tree: React.FC<TreeProps> = (props) => {
 
     if (!selectedItems?.includes(dragItem)) {
       handleSelectItem(dragItem);
+
+      if (onDragStart) {
+        const dragItems = isMultiSelect ? [...selectedItems, dragItem] : [dragItem];
+
+        onDragStart(dragItems);
+      }
+
+      return;
+    }
+
+    if (onDragStart) {
+      onDragStart(selectedItems);
     }
   };
 

@@ -276,5 +276,6 @@ type TreeProps = {
     onDuplicateItem?: (id) => void; // Аналогично для дублирования/копирования элемента
     onDeleteItem?: (id) => void; // Аналогично для удаления
     onPasteItem?: (transferringIds: string[], receivingId: string) => void; // Прокинет два аргумента: массив id переносимых элементов; id принимающего. Сработает при вставке и перенесении через DND узла в другой узел. 
+    onDragStart?: (transferringElems: Array<{ id: string, ref: React.RefObject<HTMLElement>}>) => void; // Сработает при перенесении элементов через DND. Прокинет массив объектов, состоящий из id и ref переносимых элементов.
 };
 ```

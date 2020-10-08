@@ -1,8 +1,10 @@
-import { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 type ContainerWidth = number;
 
-export function useOnChangeTreeWidth(className: string): ContainerWidth | undefined {
+export function useOnChangeTreeWidth(
+  targetRef: React.RefObject<HTMLElement>,
+): ContainerWidth | undefined {
   const [treeContainerWidth, setWidth] = useState<ContainerWidth>();
 
   const ro = useMemo(
@@ -16,18 +18,18 @@ export function useOnChangeTreeWidth(className: string): ContainerWidth | undefi
   );
 
   useEffect(() => {
-    const root = document.querySelector(`.${className}`);
+    const { current } = targetRef;
 
-    if (root instanceof Element) {
-      ro.observe(root);
+    if (current instanceof Element) {
+      ro.observe(current);
     }
 
     return (): void => {
-      if (root instanceof Element) {
-        ro.unobserve(root);
+      if (current instanceof Element) {
+        ro.unobserve(current);
       }
     };
-  }, [className, ro]);
+  }, [targetRef, ro]);
 
   return treeContainerWidth;
 }

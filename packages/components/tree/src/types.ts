@@ -1,7 +1,7 @@
 import React from 'react';
 
 export type TargetData = {
-  ref: React.RefObject<HTMLElement | HTMLLIElement> | null;
+  ref: React.RefObject<HTMLElement> | null;
   id: string;
 };
 
@@ -37,6 +37,7 @@ export type TreeProps = {
   onDuplicateItem?: () => void;
   onDeleteItem?: () => void;
   onPasteItem?: (transferringIds: string[], receivingId: string) => void;
+  onDragStart?: (transferringElems: Array<TargetData>) => void;
 };
 
 export type NavigationEyeProps = {
