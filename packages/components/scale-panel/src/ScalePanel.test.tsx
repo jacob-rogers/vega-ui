@@ -1,94 +1,152 @@
 import React from 'react';
 import * as tl from '@testing-library/react';
 
-import { cnScalePanel } from './cn-scale-panel';
 import { ScalePanel } from './ScalePanel';
 
 describe('ScalePanel', () => {
   type Props = Partial<React.ComponentProps<typeof ScalePanel>>;
 
-  let onChange = jest.fn();
-
-  beforeEach(() => {
-    onChange = jest.fn();
-  });
+  const onChange = jest.fn();
+  const onAlign = jest.fn();
 
   function render(props: Props = {}): tl.RenderResult {
-    const { orientation = 'horizontal', step = 10, scale = 100, ...rest } = props;
+    const { step = 10, scale = 100, minScale = 20, maxScale = 150 } = props;
 
     return tl.render(
       <ScalePanel
-        orientation={orientation}
         step={step}
         scale={scale}
+        minScale={minScale}
+        maxScale={maxScale}
         onChange={onChange}
-        data-testid="scalePanelTestId"
-        {...rest}
+        onAlign={onAlign}
       />,
     );
   }
 
-  function findScalePanel(): HTMLElement {
-    return tl.screen.getByTestId('scalePanelTestId');
+  function findAlign(): HTMLElement {
+    return tl.screen.getByTitle('Выровнить содержимое');
   }
 
   function findZoomOut(): HTMLElement {
-    return tl.screen.getByTitle('Уменьшить');
+    return tl.screen.getByTitle('Уменьшить масштаб');
   }
 
   function findZoomIn(): HTMLElement {
-    return tl.screen.getByTitle('Увеличить');
+    return tl.screen.getByTitle('Увеличить масштаб');
   }
 
-  function findInput(): HTMLElement | null {
-    return tl.screen.getByTitle('Текущий масштаб').querySelector('input');
+  function findInput(): HTMLElement {
+    return tl.screen.getByRole('textbox');
+  }
+
+  function enterInputValue(value: string | number): void {
+    const input = findInput();
+
+    tl.fireEvent.change(input, {
+      target: { value },
+    });
+
+    tl.fireEvent.keyUp(input, { key: 'Enter' });
   }
 
   test('рендерится без ошибок', () => {
     expect(render).not.toThrow();
   });
 
-  test('при передаче параметра horizontal строится горизонтальная панель', () => {
-    const orientation = 'horizontal';
-    render({ orientation });
-    expect(findScalePanel()).toHaveClass(cnScalePanel({ orientation }).toString());
+  describe('кнопка "Выровнить содержимое"', () => {
+    test('срабатывает onChange по клику', () => {
+      render({});
+
+      tl.fireEvent.click(findAlign());
+      expect(onAlign).toBeCalled();
+    });
   });
 
-  test('при передаче параметра vertical строится вертикальная панель', () => {
-    const orientation = 'vertical';
-    render({ orientation });
-    expect(findScalePanel()).toHaveClass(cnScalePanel({ orientation }).toString());
+  describe('кнопка "Уменьшить масштаб"', () => {
+    test('срабатывает onChange по клику', () => {
+      render({ step: 10, scale: 100 });
+
+      tl.fireEvent.click(findZoomOut());
+      expect(onChange).toBeCalledWith(90);
+    });
+
+    test('срабатывает условие minScale', () => {
+      render({ step: 75, scale: 100, minScale: 50 });
+
+      tl.fireEvent.click(findZoomOut());
+      expect(onChange).toBeCalledWith(50);
+    });
   });
 
-  test('вызывается onChange с заданным шагом по клику кнопку "Увеличить"', () => {
-    const scale = 50;
-    const step = 15;
-    render({ onChange, scale, step });
+  describe('кнопка "Увеличить масштаб"', () => {
+    test('срабатывает onChange по клику', () => {
+      render({ step: 10, scale: 100 });
 
-    tl.fireEvent.click(findZoomIn());
-    expect(onChange).toBeCalledWith(65);
+      tl.fireEvent.click(findZoomIn());
+      expect(onChange).toBeCalledWith(110);
+    });
+
+    test('срабатывает условие maxScale', () => {
+      render({ step: 75, scale: 100, maxScale: 150 });
+
+      tl.fireEvent.click(findZoomIn());
+      expect(onChange).toBeCalledWith(50);
+    });
   });
 
-  test('вызывается onChange с заданным шагом по клику на кнопку "Уменьшить"', () => {
-    const scale = 50;
-    const step = 15;
-    render({ onChange, scale, step });
+  describe('ввод значения через input', () => {
+    test('срабатывает onChange по Enter', () => {
+      const value = 50;
 
-    tl.fireEvent.click(findZoomOut());
-    expect(onChange).toBeCalledWith(35);
-  });
+      render({ scale: 100 });
 
-  test('вызывает inputChange при вводе значения', () => {
-    render({ onChange });
+      enterInputValue(value);
+      expect(onChange).toBeCalledWith(value);
+    });
 
-    const input = findInput();
+    test('срабатывает onChange при потере фокуса', () => {
+      const value = 50;
 
-    if (input) {
+      render({ scale: 100 });
+
+      const input = findInput();
+
       tl.fireEvent.change(input, {
-        target: { value: '50' },
+        target: { value },
       });
-    }
 
-    expect(onChange).toBeCalledWith(50);
+      tl.fireEvent.click(findAlign());
+
+      expect(onChange).toBeCalledWith(value);
+    });
+
+    test('срабатывает условие minScale', () => {
+      render({ scale: 100, minScale: 50 });
+
+      enterInputValue(40);
+      expect(onChange).toBeCalledWith(50);
+    });
+
+    test('срабатывает условие maxScale', () => {
+      render({ scale: 100, maxScale: 150 });
+
+      enterInputValue(160);
+      expect(onChange).toBeCalledWith(150);
+    });
+
+    test('обработка некорректного значения #1', () => {
+      render({ scale: 100 });
+
+      enterInputValue('50 some text');
+      expect(onChange).toBeCalledWith(50);
+    });
+
+    test('обработка некорректного значения #2', () => {
+      render({ scale: 100, maxScale: 150 });
+
+      enterInputValue('200 some text');
+      expect(onChange).toBeCalledWith(150);
+    });
   });
 });

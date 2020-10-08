@@ -1,3 +1,3 @@
-import bemCn from 'bem-cn';
+import { block } from 'bem-cn';
 
-export const cnScalePanel = bemCn('VegaScalePanel');
+export const cnScalePanel = block('VegaScalePanel');

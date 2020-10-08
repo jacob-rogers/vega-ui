@@ -99,6 +99,7 @@ export { IconUnsort } from '@consta/uikit/IconUnsort';
 export { IconUser } from '@consta/uikit/IconUser';
 export { IconWarning } from '@consta/uikit/IconWarning';
 export { IconWorld } from '@consta/uikit/IconWorld';
+export { IconMaxWidth } from '@consta/uikit/IconMaxWidth';
 export { FileIcon } from '@consta/uikit/FileIcon';
 export { FileIconAvi } from '@consta/uikit/FileIconAvi';
 export { FileIconBmp } from '@consta/uikit/FileIconBmp';

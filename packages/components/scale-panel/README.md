@@ -1,27 +1,37 @@
 # @gpn-prototypes/vega-scale-panel
 
-Компонент позволяет управлять масштабированием содержимого рабочего пространства
+Панель управления масштабом
 
-![Панель управления масштабом](docs/scale-panel.png)
+<img src="docs/pic-1.png" width="200">
 
 ### Установка
 
     yarn add @gpn-prototypes/vega-scale-panel
 
-### Примеры использования
+### Пример использования
 
 ```jsx
 import { ScalePanel } from '@gpn-prototypes/vega-scale-panel';
 
 export const MyComponent = () => {
-  const [currentScale, setCurrentScale] = React.useState(100);
+  const [scale, setScale] = useState(100);
+
+  const handleChange = (newScale) => {
+    setScale(newScale);
+  };
+
+  const handleAlign = () => {
+    //
+  };
 
   return (
     <ScalePanel
-      scale={currentScale}
       step={10}
-      onChange={setCurrentScale}
-      orientation="horizontal"
+      scale={scale}
+      minScale={20}
+      maxScale={150}
+      onChange={handleChange}
+      onAlign={handleAlign}
     />
   );
 };
@@ -31,12 +41,11 @@ export const MyComponent = () => {
 
 ```ts
 type ScalePanelProps = {
+  step: number; // размер шага масштабирования, используется при нажатии на кнопки "-" и "+"
   scale: number; // текущее значение масштаба
-  step: number; // текущее значение шага масштабирования
-  orientation: 'vertical' | 'horizontal'; // переключение режима типа панели(вертикальный/горизонтальный)
-  onChange(scale: number): void; // обработчик изменения масштаба
-  onFullWidth(): void; // обработчик нажатия на кнопку "во всю ширину"
-  onExpand(): void; // обработчик нажатия на кнопку "во весь экран"
-  maxScale: number; // верхняя граница масштаба
+  minScale: number; // минимальное значение масштаба
+  maxScale: number; // максимальное значение масштаба
+  onChange(scale: number): void; // обработчик изменения значения масштаба
+  onAlign(): void; // обработчик нажатия на кнопку "выровнить содержимое"
 };
 ```

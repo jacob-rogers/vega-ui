@@ -43,13 +43,14 @@ describe('useOnClickOutside', () => {
     document.addEventListener = jest.fn((event, cb: EventListener) => {
       eventsMap[event] = cb;
     });
+
     render(<HookedComponent onClickOutside={handleClickOutside} />);
 
     const div = screen.getByTestId('div-test-id');
 
-    const event: MouseEvent = new MouseEvent('mousedown');
+    const event: MouseEvent = new MouseEvent('click');
 
-    eventsMap.mousedown({ ...event, target: div });
+    eventsMap.click({ ...event, target: div });
 
     expect(handleClickOutside).not.toBeCalled();
   });
@@ -65,9 +66,9 @@ describe('useOnClickOutside', () => {
 
     const button = screen.getByTestId('button-test-id');
 
-    const event: MouseEvent = new MouseEvent('mousedown');
+    const event: MouseEvent = new MouseEvent('click');
 
-    eventsMap.mousedown({ ...event, target: button });
+    eventsMap.click({ ...event, target: button });
 
     expect(handleClickOutside).toBeCalled();
   });

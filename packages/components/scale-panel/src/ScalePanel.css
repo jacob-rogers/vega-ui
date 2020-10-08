@@ -1,31 +1,30 @@
 .VegaScalePanel {
-  position: absolute;
-  z-index: 10;
+  padding: var(--space-2xs);
 
-  padding: 0 var(--space-xs);
-
-  display: flex;
-
+  display: inline-flex;
   align-items: center;
 
-  box-sizing: border-box;
+  background: var(--color-bg-default);
+  border-radius: calc(var(--space-2xs) + var(--space-3xs));
+  box-shadow: 0 1px 4px rgba(0, 32, 51, 0.18);
 
-  background-color: var(--color-bg-default);
+  &__Input {
+    margin-right: var(--space-2xs);
+    margin-left: 1px;
 
-  border-radius: var(--control-radius);
-  box-shadow: 0 4px 16px rgba(0, 32, 51, 0.18), 0 2px 2px rgba(0, 0, 0, 0.04);
+    width: 40px;
 
-  &_orientation_vertical {
-    flex-direction: column;
+    font-weight: 700;
   }
 
-  &__CurrentScale {
-    justify-content: center;
+  &__Input input {
+    min-width: auto;
 
-    max-width: 20px;
+    font-weight: 700;
+    text-align: right;
   }
 
-  &_orientation_horizontal {
-    flex-direction: row;
+  &__Input div {
+    margin-left: 0;
   }
 }

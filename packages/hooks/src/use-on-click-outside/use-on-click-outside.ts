@@ -2,11 +2,10 @@ import { useEffect } from 'react';
 
 import { usePreviousRef } from '../use-previous-ref';
 
-const MOUSEDOWN = 'mousedown';
 const TOUCHSTART = 'touchstart';
 const CLICK = 'click';
 
-type HandledEvents = [typeof MOUSEDOWN, typeof TOUCHSTART, typeof CLICK];
+type HandledEvents = [typeof TOUCHSTART, typeof CLICK];
 
 type HandledEventsType = HandledEvents[number];
 
@@ -16,7 +15,7 @@ type PossibleEvent = {
 
 type Handler = (event: PossibleEvent) => void;
 
-const events: HandledEvents = [MOUSEDOWN, TOUCHSTART, CLICK];
+const events: HandledEvents = [TOUCHSTART, CLICK];
 
 const getEventListenerOptions = (event: HandledEventsType): Record<string, boolean> | undefined => {
   if (event !== TOUCHSTART) {
