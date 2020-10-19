@@ -2,7 +2,7 @@
 
 -   [useDraggableContainer](src/use-draggable-container)
 -   [useOnClickOutside](src/use-on-click-outside)
--   [usePortalDomNode](src/use-portal-dom-node)
+-   [usePortals](src/use-portals)
 -   [usePreviousRef](src/use-previous-ref)
 -   [useKey](src/use-key)
 -   [useMount](src/use-mount)
