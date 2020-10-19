@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-modal",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
@@ -25,7 +25,7 @@
     "@gpn-prototypes/vega-button": "^0.2.2",
     "@gpn-prototypes/vega-hooks": "^0.5.2",
     "@gpn-prototypes/vega-icons": "^0.2.3",
-    "@gpn-prototypes/vega-root": "^0.2.4",
+    "@gpn-prototypes/vega-root": "^0.2.5",
     "bem-cn": "^3.0.1"
   }
 }
