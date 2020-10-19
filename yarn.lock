@@ -1592,13 +1592,6 @@
   dependencies:
     "@gpn-design/uikit" "^1.1.2"
 
-"@gpn-prototypes/vega-root@^0.1.0":
-  version "0.1.0"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-root/0.1.0/25c3ea059dec28670553664c016fcbe45541482de0c378fdb7ccc845ee032442#6a67bcb9cfc3695b4a5bd68f56031a2d007cf64d"
-  integrity sha512-jz7QdKiZgA6BJC82OkG66UMkHlJG77BpeuRbCTiv1bLIdZ6KzXqwNHHJiIgi3sUrEUuKYQwSixv/N6gr8PzNqQ==
-  dependencies:
-    "@gpn-prototypes/vega-theme" "^0.0.3"
-
 "@gpn-prototypes/vega-tabs@^0.0.9":
   version "0.0.9"
   resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-tabs/0.0.9/7f6f7e3b6731ad02e36a41c4b89aa855b7b502dc96953d747f38dfd0a1d841ef#47801c3dae043e5cb34209fb1b6dabf0f1950d2b"
@@ -1608,13 +1601,6 @@
     "@gpn-prototypes/vega-hooks" "^0.3.0"
     "@gpn-prototypes/vega-icons" "^0.1.5"
     bem-cn "^3.0.1"
-
-"@gpn-prototypes/vega-theme@^0.0.3":
-  version "0.0.3"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-theme/0.0.3/f05b0844f113c99ca88f83b7e8515c4b2dd6c4c9e86a7864fef8172cfe51529a#e5778fd07e67ca50390cbd46d074de790c37f54b"
-  integrity sha512-wdOWsbvIDq/3zKjHaR9IeCHwHp4qlsCyvaoMqafEIThraXTH93txHpelrlgFFqd12C6Ak/bjpxXREhq/5FKRxg==
-  dependencies:
-    "@gpn-design/uikit" "^1.1.2"
 
 "@icons/material@^0.2.4":
   version "0.2.4"
