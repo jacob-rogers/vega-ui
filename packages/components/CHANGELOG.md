@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.13.7...@gpn-prototypes/vega-ui@2.13.8) (2020-10-19)
+
+
+### Bug Fixes
+
+* **deps:** обновить vega-root в vega-layout ([#314](https://github.com/gpn-prototypes/vega-ui/issues/314)) ([2a43b61](https://github.com/gpn-prototypes/vega-ui/commit/2a43b613cf47aaebe0b868b04893c6610254d796))
+
+
+
+
+
 ## [2.13.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.13.6...@gpn-prototypes/vega-ui@2.13.7) (2020-10-19)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
