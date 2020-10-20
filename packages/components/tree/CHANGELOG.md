@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.5](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tree@0.0.4...@gpn-prototypes/vega-tree@0.0.5) (2020-10-20)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-tree
+
+
+
+
+
 ## [0.0.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tree@0.0.3...@gpn-prototypes/vega-tree@0.0.4) (2020-10-08)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-tree
