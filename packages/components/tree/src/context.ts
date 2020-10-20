@@ -8,11 +8,12 @@ type TreeApi = {
   selectedItems: TargetData[];
   hiddenItems: React.RefObject<HTMLElement>[] | null;
   withVisibilitySwitcher?: boolean;
+  withDropZoneIndicator?: boolean;
   actionItemComponents?: React.ReactElement[];
   icons?: {
     [iconId: string]: React.ReactElement;
   };
-  isDndEnable?: boolean;
+  isDndEnable: boolean;
   onContextMenu?(event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void;
   onDragStart?(event: React.DragEvent, dragItem: TargetData): void;
   onDragEnter?(event: React.DragEvent, dropZoneItem: TargetData & { isDropZone: boolean }): void;
@@ -30,6 +31,7 @@ const TreeContext = React.createContext<TreeApi>({
   showIndentGuides: true,
   selectedItems: [],
   hiddenItems: [],
+  isDndEnable: true,
 });
 
 export default TreeContext;

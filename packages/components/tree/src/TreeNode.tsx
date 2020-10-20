@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
 import { IconArrowDown, IconArrowRight } from '@gpn-prototypes/vega-icons';
 
 import cnTree from './cn-tree';
@@ -10,7 +10,15 @@ import { useTreeHandlers } from './use-tree-handlers';
 import { useVisibilityIdentifier } from './use-visability-identifier';
 
 export const TreeNode: React.FC<TreeItem> = (props) => {
-  const { name, id, children, isDraggable, isDropZone = true, iconId } = props;
+  const {
+    name,
+    id,
+    children,
+    isDraggable = true,
+    isDropZone = true,
+    iconId,
+    isExpanded = false,
+  } = props;
 
   const {
     showIndentGuides,
@@ -27,9 +35,16 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     onDragLeave,
     onDragOver,
     onDragDrop,
+    withDropZoneIndicator,
   } = useContext(TreeContext);
 
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(isExpanded);
+
+  useLayoutEffect(() => {
+    if (isExpanded) {
+      setExpanded(true);
+    }
+  }, [isExpanded]);
 
   const targetRef = useRef<HTMLLIElement | null>(null);
   const dropZoneRef = useRef<HTMLUListElement | null>(null);
@@ -37,17 +52,27 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
   const {
     targetData,
     handleDragStart,
+    handleDragEnter,
+    handleDragLeave,
+    handleDragOver,
+    handleDrop,
     handleSelect,
     handleHide,
     handleContextMenuOpen,
   } = useTreeHandlers({
     id,
     ref: targetRef,
+    dropZoneRef,
     onContextMenu,
     onSelectItem,
-    isDraggable: isDndEnable && isDraggable !== false,
+    isDropZone,
+    isDraggable: isDndEnable && isDraggable,
     onHideItem,
     onDragStart,
+    onDragEnter,
+    onDragLeave,
+    onDragOver,
+    onDragDrop,
   });
 
   const visibilityIdentifier = useVisibilityIdentifier({ ref: targetRef, handleHide, hiddenItems });
@@ -58,34 +83,10 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     setExpanded(!expanded);
   };
 
-  const handleDragEnter = (event: React.DragEvent): void => {
-    if (onDragEnter) {
-      onDragEnter(event, { id, ref: dropZoneRef, isDropZone });
-    }
-  };
-
-  const handleDragOver = (event: React.DragEvent): void => {
-    if (onDragOver) {
-      onDragOver(event);
-    }
-  };
-
-  const handleDragLeave = (event: React.DragEvent): void => {
-    if (onDragLeave) {
-      onDragLeave(event, id);
-    }
-  };
-
-  const handleDrop = (event: React.DragEvent): void => {
-    if (onDragDrop) {
-      onDragDrop(event);
-    }
-  };
-
   return (
     <TreeItemContainer
       className={cnTree('TreeNode')}
-      draggable={isDndEnable && isDraggable !== false}
+      draggable={isDndEnable}
       onDragStart={handleDragStart}
       id={id}
       targetRef={targetRef}
@@ -99,8 +100,10 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
       <TreeItemContent
         className={cnTree('NavigationItem', {
           Selected: selectedItems?.includes(targetData),
-          AccessibleDropZone: dropZone?.id === id && dropZone.accessible,
-          InaccessibleDropZone: dropZone?.id === id && dropZone?.accessible === false,
+          AccessibleDropZone:
+            withDropZoneIndicator && dropZone && dropZone.id === id && dropZone.accessible,
+          InaccessibleDropZone:
+            withDropZoneIndicator && dropZone && dropZone.id === id && !dropZone.accessible,
           Hidden: visibilityIdentifier.isHidden,
         })}
         onClick={handleSelect}

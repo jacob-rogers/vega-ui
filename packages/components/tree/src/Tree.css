@@ -122,37 +122,6 @@
     user-select: none;
 
     outline: none;
-
-    &_Hidden {
-      color: var(--color-typo-ghost);
-
-      .VegaTree__ActionItems {
-        display: flex;
-      }
-    }
-  }
-
-  &__LeafContent {
-    display: flex;
-    align-items: center;
-
-    min-height: var(--space-xl);
-
-    font-size: var(--size-text-s);
-    font-style: normal;
-    line-height: var(--line-height-text-m);
-
-    outline: none;
-
-    &:hover > .VegaTree__Backlight {
-      display: block;
-    }
-
-    &_Selected > .VegaTree__Backlight {
-      display: block;
-
-      background-color: var(--color-control-bg-active);
-    }
   }
 
   &__NavigationItem {

@@ -257,9 +257,16 @@ type TreeItem = {
     nodeList: TreeItem[];
     id: string;
     parentId?: string;
+    isExpanded?: boolean; // Возможность отобразить элемент дерева схлопнутым или развернутым
     iconId?: string | number; // ID иконки, которая соответствует названию ключа из коллекции ICONS
     isDraggable?: boolean; // Возможность выключить Drag аnd Drop для некоторых элементов
     isDropZone?: boolean // Возможность запретить принимать элементы перемещаемые с помощью Drag and Drop
+}
+
+type TransferringElements = { 
+    id: string,
+    ref: React.RefObject<HTMLElement>,
+    isDraggable: boolean,
 }
 
 type TreeProps = {
@@ -270,12 +277,14 @@ type TreeProps = {
     actionItemComponents?: React.ReactElement[] // Возможность рендерить кастомные функциональные иконки (пример: иконка, позволяющая скрывать элемент Дерева)
     showIndentGuides?: boolean; // Отвечает за показ линий слева от узлов Дерева. По умолчанию включены.
     withVisibilitySwitcher?: boolean; // Позволяет отключить иконку, скрывающую элемент Дерева. При нажатии меняет стилизацию своего родителя. По умолчанию включено.
+    withDropZoneIndicator?: boolean; // Позволяет отключить подсвечивание зоны для дропа переносимого элемента. По умолчанию включено.
     isContextMenuEnable?: boolean; // Возможность добавить контекстное меню. По умолчанию выключено.
     isDndEnable?: boolean; //  Возможность выключить Drag and Drop. По умолчанию включено.
     onRenameItem?: (id) => void; // Функция-обработчик, которая вызывается при попытке переименовать аргумент
     onDuplicateItem?: (id) => void; // Аналогично для дублирования/копирования элемента
     onDeleteItem?: (id) => void; // Аналогично для удаления
     onPasteItem?: (transferringIds: string[], receivingId: string) => void; // Прокинет два аргумента: массив id переносимых элементов; id принимающего. Сработает при вставке и перенесении через DND узла в другой узел. 
-    onDragStart?: (transferringElems: Array<{ id: string, ref: React.RefObject<HTMLElement>}>) => void; // Сработает при перенесении элементов через DND. Прокинет массив объектов, состоящий из id и ref переносимых элементов.
+    onDragStart?: (transferringElems: Array<TransferringElements>) => void; // Сработает при перенесении элементов через DND. Прокинет массив объектов, состоящий из id и ref переносимых элементов.
+    onDragEnd?: () => void; // Сработает при окончании перетягивания элемента.
 };
 ```

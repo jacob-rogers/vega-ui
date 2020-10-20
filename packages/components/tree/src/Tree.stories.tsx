@@ -86,11 +86,14 @@ export const rootProps: TreeItem[] = [
               {
                 name: 'Ловушка 100',
                 iconId: 'red-line',
+                isDropZone: false,
                 id: '21',
                 nodeList: [
                   {
                     name: 'Еще что-нибудь',
                     id: '12',
+                    isDropZone: false,
+                    isDraggable: false,
                     parentId: '21',
                     nodeList: [],
                   },
@@ -108,6 +111,7 @@ export const rootProps: TreeItem[] = [
                 name: 'Ловушка 101',
                 iconId: 'red-line',
                 id: '17',
+                isDropZone: false,
                 parentId: '30',
                 nodeList: [],
               },
@@ -216,12 +220,14 @@ export const rootProps: TreeItem[] = [
             nodeList: [
               {
                 name: 'Ловушка - 1',
+                isDropZone: false,
                 iconId: 'red-line',
                 id: '41',
                 parentId: '33',
                 nodeList: [
                   {
                     name: 'Данные по Ловушка - 1',
+                    isDropZone: false,
                     id: '34',
                     parentId: '41',
                     nodeList: [],
@@ -230,6 +236,7 @@ export const rootProps: TreeItem[] = [
               },
               {
                 name: 'Ловушка - 2',
+                isDropZone: false,
                 iconId: 'red-line',
                 id: '43',
                 parentId: '33',
@@ -237,6 +244,7 @@ export const rootProps: TreeItem[] = [
               },
               {
                 name: 'Ловушка - 3',
+                isDropZone: false,
                 iconId: 'red-line',
                 id: '44',
                 parentId: '33',
@@ -244,6 +252,7 @@ export const rootProps: TreeItem[] = [
               },
               {
                 name: 'Ловушка - 4',
+                isDropZone: false,
                 iconId: 'red-line',
                 id: '45',
                 parentId: '33',
@@ -251,6 +260,7 @@ export const rootProps: TreeItem[] = [
               },
               {
                 name: 'Ловушка - 5',
+                isDropZone: false,
                 iconId: 'red-line',
                 id: '46',
                 parentId: '33',

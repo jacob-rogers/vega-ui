@@ -9,7 +9,7 @@ import { useTreeHandlers } from './use-tree-handlers';
 import { useVisibilityIdentifier } from './use-visability-identifier';
 
 export const TreeLeaf: React.FC<TreeItem> = (props) => {
-  const { id, name, isDraggable, iconId } = props;
+  const { id, name, isDraggable = true, iconId, isDropZone = true } = props;
 
   const targetRef = useRef<HTMLLIElement | null>(null);
 
@@ -17,10 +17,17 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     selectedItems,
     hiddenItems,
     isDndEnable,
+    dropZone,
     onHideItem,
     onContextMenu,
     onSelectItem,
     onDragStart,
+    onDragEnd,
+    onDragEnter,
+    onDragLeave,
+    onDragOver,
+    onDragDrop,
+    withDropZoneIndicator,
   } = useContext(TreeContext);
 
   const {
@@ -29,29 +36,50 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     handleHide,
     handleContextMenuOpen,
     handleDragStart,
+    handleDragEnter,
+    handleDragOver,
+    handleDrop,
   } = useTreeHandlers({
     id,
     ref: targetRef,
+    dropZoneRef: targetRef,
     onContextMenu,
-    isDraggable: isDndEnable && isDraggable !== false,
+    isDraggable: isDndEnable && isDraggable,
     onSelectItem,
     onHideItem,
     onDragStart,
+    isDropZone,
+    onDragEnd,
+    onDragEnter,
+    onDragLeave,
+    onDragOver,
+    onDragDrop,
   });
 
   const visibilityIdentifier = useVisibilityIdentifier({ ref: targetRef, handleHide, hiddenItems });
 
   return (
     <TreeItemContainer
-      className={cnTree('Leaf', { Hidden: visibilityIdentifier.isHidden })}
-      draggable={isDndEnable && isDraggable !== false}
+      className={cnTree('Leaf')}
+      draggable={isDndEnable}
       onDragStart={handleDragStart}
+      onDragEnter={handleDragEnter}
+      onDragOver={handleDragOver}
+      onDrop={handleDrop}
+      onDragEnd={onDragEnd}
       id={id}
       targetRef={targetRef}
       onContextMenu={handleContextMenuOpen}
     >
       <TreeItemContent
-        className={cnTree('LeafContent', { Selected: selectedItems?.includes(targetData) })}
+        className={cnTree('NavigationItem', {
+          Selected: selectedItems?.includes(targetData),
+          AccessibleDropZone:
+            withDropZoneIndicator && dropZone && dropZone.id === id && dropZone.accessible,
+          InaccessibleDropZone:
+            withDropZoneIndicator && dropZone && dropZone.id === id && !dropZone.accessible,
+          Hidden: visibilityIdentifier.isHidden,
+        })}
         onClick={handleSelect}
         name={name}
         iconId={iconId}

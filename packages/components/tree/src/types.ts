@@ -3,6 +3,7 @@ import React from 'react';
 export type TargetData = {
   ref: React.RefObject<HTMLElement> | null;
   id: string;
+  isDraggable: boolean;
 };
 
 export type DropZone = {
@@ -20,6 +21,7 @@ export interface TreeItem {
   rootRef?: React.RefObject<HTMLElement>;
   isDraggable?: boolean;
   isDropZone?: boolean;
+  isExpanded?: boolean;
 }
 
 export type TreeProps = {
@@ -32,12 +34,14 @@ export type TreeProps = {
   isDndEnable?: boolean;
   isContextMenuEnable?: boolean;
   withVisibilitySwitcher?: boolean;
+  withDropZoneIndicator?: boolean;
   showIndentGuides?: boolean;
   onRenameItem?: () => void;
   onDuplicateItem?: () => void;
   onDeleteItem?: () => void;
   onPasteItem?: (transferringIds: string[], receivingId: string) => void;
   onDragStart?: (transferringElems: Array<TargetData>) => void;
+  onDragEnd?: () => void;
 };
 
 export type NavigationEyeProps = {

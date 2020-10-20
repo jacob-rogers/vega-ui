@@ -16,6 +16,7 @@ const renderTree = (t: TreeItem[]): React.ReactElement[] => {
           iconId={node.iconId}
           isDraggable={node.isDraggable}
           isDropZone={node.isDropZone}
+          isExpanded={node.isExpanded}
         >
           {node.nodeList && renderTree(node.nodeList)}
         </TreeNode>
@@ -33,6 +34,7 @@ const renderTree = (t: TreeItem[]): React.ReactElement[] => {
         key={node.id}
         iconId={node.iconId}
         isDraggable={node.isDraggable}
+        isDropZone={node.isDropZone}
         nodeList={[]}
       />,
     );

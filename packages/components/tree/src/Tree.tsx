@@ -17,6 +17,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
     icons,
     nodeList = [],
     onDragStart,
+    onDragEnd,
     onRenameItem,
     onDuplicateItem,
     onDeleteItem,
@@ -24,6 +25,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
     actionItemComponents,
     isContextMenuEnable = false,
     withVisibilitySwitcher = true,
+    withDropZoneIndicator = true,
     showIndentGuides = true,
   } = props;
 
@@ -86,7 +88,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
   const handleDragStart = (e: React.BaseSyntheticEvent, dragItem: TargetData): void => {
     e.stopPropagation();
 
-    if (!selectedItems?.includes(dragItem)) {
+    if (!selectedItems.includes(dragItem)) {
       handleSelectItem(dragItem);
 
       if (onDragStart) {
@@ -161,6 +163,10 @@ export const Tree: React.FC<TreeProps> = (props) => {
   const handleDragEnd = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
 
+    if (onDragEnd) {
+      onDragEnd();
+    }
+
     setDropZone(null);
   };
 
@@ -169,6 +175,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
       value={{
         treeContainerWidth,
         withVisibilitySwitcher,
+        withDropZoneIndicator,
         showIndentGuides,
         icons,
         actionItemComponents,
