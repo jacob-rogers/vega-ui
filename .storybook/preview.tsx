@@ -32,8 +32,6 @@ addDecorator(withMetadata);
 addDecorator(withKnobs);
 addDecorator(withPerformance);
 addDecorator(withA11y);
-addDecorator(withKnobs);
-addDecorator(withPerformance);
 addDecorator(withThemes);
 
 function loadStories(): void {

@@ -1,0 +1,91 @@
+.VegaSplitPanes {
+  display: flex;
+  overflow: hidden;
+
+  width: 100%;
+  height: 100%;
+
+  color: var(--color-typo-primary);
+  flex: 1;
+
+  &_split_horizontal {
+    flex-direction: column;
+  }
+
+  &_split_vertical {
+    flex-direction: row;
+  }
+}
+
+.VegaSplitPanes__Pane {
+  display: flex;
+  overflow: hidden;
+
+  outline: 0;
+}
+
+.VegaSplitPanes__Resizer {
+  --size: 2px;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+
+  padding: 0;
+
+  background-color: var(--color-bg-secondary);
+  border: none;
+
+  &::after {
+    content: '';
+
+    position: absolute;
+
+    display: block;
+  }
+
+  .VegaSplitPanes:not(.is-disabled) > & {
+    &:hover,
+    &.is-active {
+      background-color: var(--color-control-bg-primary);
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &_split_vertical {
+    width: var(--size);
+
+    cursor: ew-resize;
+
+    &:hover::after {
+      top: 0;
+      left: calc(var(--size) * -2);
+
+      width: calc(var(--size) * 6);
+      height: 100%;
+    }
+  }
+
+  &_split_horizontal {
+    width: 100%;
+    height: var(--size);
+
+    cursor: ns-resize;
+
+    &:hover::after {
+      top: calc(var(--size) * -2);
+      left: 0;
+
+      width: 100%;
+      height: calc(var(--size) * 6);
+    }
+  }
+
+  .VegaSplitPanes.is-disabled > & {
+    cursor: default !important;
+
+    background-color: var(--color-bg-secondary) !important;
+  }
+}

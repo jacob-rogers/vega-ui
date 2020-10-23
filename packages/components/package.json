@@ -52,6 +52,7 @@
     "@gpn-prototypes/vega-scale-panel": "^0.1.6",
     "@gpn-prototypes/vega-sidebar": "^0.2.9",
     "@gpn-prototypes/vega-snack-bar": "^0.1.5",
+    "@gpn-prototypes/vega-split-panes": "^0.0.1",
     "@gpn-prototypes/vega-switch": "^0.1.7",
     "@gpn-prototypes/vega-table": "^0.1.2",
     "@gpn-prototypes/vega-tabs": "^0.0.17",

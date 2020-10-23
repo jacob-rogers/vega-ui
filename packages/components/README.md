@@ -24,3 +24,4 @@
 -   [RadioList](radio-list)
 -   [Tree](tree)
 -   [Tooltip](tooltip)
+-   [SplitPanes](split-panes)
