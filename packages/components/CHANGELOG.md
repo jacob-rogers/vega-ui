@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.14.5](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.4...@gpn-prototypes/vega-ui@2.14.5) (2020-10-30)
+
+
+### Bug Fixes
+
+* **vega-ui:** поправил зависимости ([049a019](https://github.com/gpn-prototypes/vega-ui/commit/049a01981091477c8b2dc79cf414065b7d6f7983))
+
+
+
+
+
 ## [2.14.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.3...@gpn-prototypes/vega-ui@2.14.4) (2020-10-30)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
