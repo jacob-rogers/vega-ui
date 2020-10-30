@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.11](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-sidebar@0.2.10...@gpn-prototypes/vega-sidebar@0.2.11) (2020-10-30)
+
+
+### Bug Fixes
+
+* **vega-sidebar:** заменить start на flex-start ([#332](https://github.com/gpn-prototypes/vega-ui/issues/332)) ([0dd25bd](https://github.com/gpn-prototypes/vega-ui/commit/0dd25bdaad3ca5af03ab3a8f1290dad0f7cdf761))
+
+
+
+
+
 ## [0.2.10](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-sidebar@0.2.9...@gpn-prototypes/vega-sidebar@0.2.10) (2020-10-30)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-sidebar
