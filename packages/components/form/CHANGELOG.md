@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.9](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-form@0.1.8...@gpn-prototypes/vega-form@0.1.9) (2020-10-30)
+
+
+### Bug Fixes
+
+* **styles:** заменить end на flex-end ([#333](https://github.com/gpn-prototypes/vega-ui/issues/333)) ([4d43c0c](https://github.com/gpn-prototypes/vega-ui/commit/4d43c0c59286a301717463ac4873419f2abd8d83))
+
+
+
+
+
 ## [0.1.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-form@0.1.7...@gpn-prototypes/vega-form@0.1.8) (2020-08-28)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-form

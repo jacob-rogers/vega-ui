@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.14.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.2...@gpn-prototypes/vega-ui@2.14.3) (2020-10-30)
+
+
+### Bug Fixes
+
+* **styles:** заменить end на flex-end ([#333](https://github.com/gpn-prototypes/vega-ui/issues/333)) ([4d43c0c](https://github.com/gpn-prototypes/vega-ui/commit/4d43c0c59286a301717463ac4873419f2abd8d83))
+
+
+
+
+
 ## [2.14.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.1...@gpn-prototypes/vega-ui@2.14.2) (2020-10-30)
 
 
