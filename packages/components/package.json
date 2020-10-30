@@ -25,6 +25,7 @@
     "@gpn-prototypes/vega-avatar": "^0.1.8",
     "@gpn-prototypes/vega-badge": "^0.1.9",
     "@gpn-prototypes/vega-button": "^0.2.3",
+    "@gpn-prototypes/vega-canvas": "^0.1.0",
     "@gpn-prototypes/vega-carousel": "^0.0.12",
     "@gpn-prototypes/vega-checkbox": "^0.1.8",
     "@gpn-prototypes/vega-choice-group": "^0.1.11",
