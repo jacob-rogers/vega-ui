@@ -51,6 +51,7 @@
       "@gpn-prototypes/vega-radio-list": ["packages/components/radio-list/src/index.ts"],
       "@gpn-prototypes/vega-tree": ["packages/components/tree/src/index.ts"],
       "@gpn-prototypes/vega-split-panes": ["packages/components/split-panes/src/index.ts"],
+      "@gpn-prototypes/vega-canvas": ["packages/components/canvas/src/index.ts"],
       "@gpn-prototypes/vega-ui": ["packages/components/index.ts"]
     }
   },

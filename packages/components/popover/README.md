@@ -4,7 +4,7 @@
 
 ### Установка
 
-yarn add @gpn-prototypes/vega-popover
+        yarn add @gpn-prototypes/vega-popover
 
 ### Примеры использования
 

@@ -9,5 +9,5 @@ type Ref = React.MutableRefObject<HTMLElement | null>;
 
 export function useRootClose(ref: Ref | Ref[], onRootClose: (e: PossibleCloseEvent) => void): void {
   useOnClickOutside({ ref, handler: onRootClose });
-  useKey(escapeKeyCode, onRootClose);
+  useKey([escapeKeyCode], onRootClose);
 }

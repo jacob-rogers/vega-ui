@@ -15,7 +15,7 @@ export function useMount(fn: Fn = (): void => {}): React.MutableRefObject<boolea
         result();
       }
 
-      isMountedRef.current = true;
+      isMountedRef.current = false;
     };
   }, []);
   return isMountedRef;

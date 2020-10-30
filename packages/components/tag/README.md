@@ -4,7 +4,7 @@
 
 ### Установка
 
-yarn add @gpn-prototypes/vega-tag
+    yarn add @gpn-prototypes/vega-tag
 
 ### Примеры использования
 

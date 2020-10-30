@@ -42,3 +42,4 @@ export * from '@gpn-prototypes/vega-table';
 export * from '@gpn-prototypes/vega-radio-list';
 export * from '@gpn-prototypes/vega-tree';
 export * from '@gpn-prototypes/vega-split-panes';
+export * from '@gpn-prototypes/vega-canvas';

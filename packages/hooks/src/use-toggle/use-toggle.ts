@@ -1,9 +1,6 @@
 import React from 'react';
 
-type API = {
-  state: boolean;
-  toggle(newValue?: boolean): void;
-};
+type API = [boolean, (newValue?: boolean) => void];
 
 export const useToggle = (initialValue = false): API => {
   const [state, setState] = React.useState(initialValue);
@@ -12,5 +9,5 @@ export const useToggle = (initialValue = false): API => {
     setState(newValue === undefined ? !state : newValue);
   };
 
-  return { state, toggle };
+  return [state, toggle];
 };

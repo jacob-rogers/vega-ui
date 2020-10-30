@@ -27,4 +27,4 @@ const Root: React.FC<RootProps> = (props) => {
   );
 };
 
-export { Root, useTheme, usePortal, usePortalRender };
+export { Root, ThemeRoot, useTheme, usePortal, usePortalRender };
