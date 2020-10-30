@@ -11,7 +11,6 @@ export type Event = {
 };
 
 export type StepData = {
-  type: string;
   id: string;
   name: string;
   events: Event[];

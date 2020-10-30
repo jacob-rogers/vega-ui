@@ -1,4 +1,4 @@
-import { CanvasData, CanvasSet, CanvasTree, CanvasUpdate, Position } from '../types';
+import { CanvasData, CanvasSet, CanvasTree, CanvasUpdate, Position, SelectedData } from '../types';
 
 import { Notifier } from './Notifier';
 import { Tree, TreeData } from './Tree';
@@ -207,6 +207,20 @@ export class Canvas extends Notifier<CanvasUpdate> {
       .getParents()
       .map((parent) => this.searchTree(parent))
       .filter((parent) => parent !== undefined) as CanvasTree[];
+  }
+
+  public itemsSelectionNotification(selected: SelectedData | null): void {
+    this.notify({
+      type: 'select',
+      selected,
+    });
+  }
+
+  public dropEventNotification(intersectionId: string): void {
+    this.notify({
+      type: 'drop-event',
+      intersectionId,
+    });
   }
 
   public clear(): void {

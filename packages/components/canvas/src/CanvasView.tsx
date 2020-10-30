@@ -3,6 +3,7 @@ import { Layer, Rect, Stage } from 'react-konva';
 import { useKey, useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 import { ScalePanel } from '@gpn-prototypes/vega-scale-panel';
 import Konva from 'konva';
+import { v4 as uuid } from 'uuid';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
 import { cnCanvas } from './cn-canvas';
@@ -209,8 +210,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
       if (selectedItems.length) {
         view.updateState({ selectedData: { type: 'item', ids } });
+
+        canvas.itemsSelectionNotification({ type: 'item', ids });
       } else {
         view.updateState({ selectedData: null });
+
+        canvas.itemsSelectionNotification(null);
       }
     }
   };
@@ -221,13 +226,21 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   const createStep = useCallback(
     (type: ItemType) => {
-      const tree = Tree.of<CanvasData>({
-        data: {
-          type,
-          title: NAMES_MAP[type],
-          position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
-        },
-      });
+      const treeData: CanvasData = {
+        type,
+        title: NAMES_MAP[type],
+        position: { x: window.innerWidth / 3, y: window.innerHeight / 3 },
+      };
+
+      if (type === 'step') {
+        treeData.stepData = {
+          name: 'Шаг 1',
+          id: uuid(),
+          events: [],
+        };
+      }
+
+      const tree = Tree.of<CanvasData>({ data: treeData });
       canvas.add(tree);
     },
     [canvas],
@@ -236,6 +249,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const handleClick = (): void => {
     if (selectedData !== null) {
       view.updateState({ selectedData: null });
+
+      canvas.itemsSelectionNotification(null);
     }
   };
 
@@ -271,22 +286,82 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
-  useMount((): void => {
-    if (containerRef.current) {
-      view.updateState({
-        stageSize: {
-          width: containerRef.current.offsetWidth,
-          height: containerRef.current.offsetHeight,
-        },
-      });
-    }
+  useMount(
+    (): VoidFunction => {
+      if (containerRef.current) {
+        view.updateState({
+          stageSize: {
+            width: containerRef.current.offsetWidth,
+            height: containerRef.current.offsetHeight,
+          },
+        });
+      }
 
-    const container = stageRef.current?.container();
+      const stage = stageRef.current;
+      const layout = layerRef.current;
 
-    if (container) {
-      container.tabIndex = 1;
-    }
-  });
+      const container = stage?.container();
+
+      const getTargetIntersection = () => {
+        let intersect;
+
+        const position = stage?.getPointerPosition();
+
+        if (position) {
+          intersect = layout?.getIntersection(position, 'Group');
+        }
+
+        return intersect;
+      };
+
+      const handleDragOver = (e: DragEvent) => {
+        e.preventDefault();
+
+        stage?.setPointersPositions(e);
+
+        const intersect = getTargetIntersection();
+        const selected = view.getState().selectedData;
+
+        if (!intersect) {
+          if (selected) {
+            view.updateState({
+              selectedData: null,
+            });
+          }
+
+          return;
+        }
+
+        const intersectId = intersect.attrs.id;
+
+        if (!selected || (selected?.type === 'item' && !selected.ids.includes(intersectId))) {
+          view.updateState({
+            selectedData: { type: 'item', ids: [intersectId] },
+          });
+        }
+      };
+
+      const handleDrop = (): void => {
+        const intersect = getTargetIntersection();
+
+        if (intersect) {
+          canvas.dropEventNotification(intersect.attrs.id);
+        }
+      };
+
+      if (container) {
+        container.tabIndex = 1;
+
+        container.addEventListener('dragover', handleDragOver);
+        container.addEventListener('drop', handleDrop);
+      }
+
+      return (): void => {
+        container?.removeEventListener('dragover', handleDragOver);
+        container?.removeEventListener('drop', handleDrop);
+      };
+    },
+  );
 
   const handleKeyDown = (e: KeyboardEvent): void => {
     if (e.code === 'Space') {
@@ -473,6 +548,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
             setCursor: (newCursor): void => view.updateState({ cursor: newCursor }),
             selectedData,
             setSelectedData: (newData): void => {
+              if (newData) {
+                canvas.itemsSelectionNotification(newData);
+              }
+
               view.updateState({ selectedData: newData });
             },
             abortActiveData,

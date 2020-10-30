@@ -26,24 +26,8 @@ export type ListProps = {
   onDragStart: (e: KonvaDragEvent) => void;
   onPositionChange: (position: Position, positionDelta: Position) => void;
   children: JSX.Element;
+  stepData: StepData;
 };
-
-const stepData = {
-  id: '0',
-  type: 'step',
-  name: 'Шаг 1',
-  events: [
-    {
-      id: '0',
-      name: 'Сейсмика 1',
-      content: [
-        { type: 'object', id: '0', name: 'Залежь - 79' },
-        { type: 'object', id: '1', name: 'Залежь - 19' },
-        { type: 'object', id: '2', name: 'Залежь - 89' },
-      ],
-    },
-  ],
-} as StepData;
 
 export const List: React.FC<ListProps> = (props) => {
   const {
@@ -54,6 +38,7 @@ export const List: React.FC<ListProps> = (props) => {
     draggable,
     onDragStart,
     onPositionChange,
+    stepData,
     children,
     ...rest
   } = props;
