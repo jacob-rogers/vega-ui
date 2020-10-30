@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.14.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.3...@gpn-prototypes/vega-ui@2.14.4) (2020-10-30)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-ui
+
+
+
+
+
 ## [2.14.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.2...@gpn-prototypes/vega-ui@2.14.3) (2020-10-30)
 
 

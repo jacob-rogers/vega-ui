@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-layout@0.3.6...@gpn-prototypes/vega-layout@0.3.7) (2020-10-30)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-layout
+
+
+
+
+
 ## [0.3.6](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-layout@0.3.5...@gpn-prototypes/vega-layout@0.3.6) (2020-10-30)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-layout
