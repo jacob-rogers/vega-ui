@@ -150,17 +150,6 @@
     "@babel/helper-replace-supers" "^7.12.1"
     "@babel/helper-split-export-declaration" "^7.10.4"
 
-"@babel/helper-create-class-features-plugin@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.yarnpkg.com/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.12.1.tgz#3c45998f431edd4a9214c5f1d3ad1448a6137f6e"
-  integrity sha512-hkL++rWeta/OVOBTRJc9a5Azh5mt5WgZUGAKMD8JM141YsE08K//bp1unBBieO6rUKkIPyUE0USQ30jAy3Sk1w==
-  dependencies:
-    "@babel/helper-function-name" "^7.10.4"
-    "@babel/helper-member-expression-to-functions" "^7.12.1"
-    "@babel/helper-optimise-call-expression" "^7.10.4"
-    "@babel/helper-replace-supers" "^7.12.1"
-    "@babel/helper-split-export-declaration" "^7.10.4"
-
 "@babel/helper-create-regexp-features-plugin@^7.10.4":
   version "7.10.4"
   resolved "https://registry.yarnpkg.com/@babel/helper-create-regexp-features-plugin/-/helper-create-regexp-features-plugin-7.10.4.tgz#fdd60d88524659a0b6959c0579925e425714f3b8"
@@ -1315,10 +1304,10 @@
     resolve-from "^5.0.0"
     resolve-global "^1.0.0"
 
-"@consta/uikit@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-1.9.0.tgz#1c3c3ad3e2f789aa22268e428cf8d5b5d6af4f52"
-  integrity sha512-9K5QdeM+Fx2Q3FBC9x2IJJXR17L54g0LqiGzc0Ps0nWDuQ8F5nAAyMNeyPkR106rs9H/orfXlAFDnooNXpiHSw==
+"@consta/uikit@^1.10.4":
+  version "1.10.4"
+  resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-1.10.4.tgz#9d56249efb7e7254d481a0765589e72d40c793af"
+  integrity sha512-693fxNHu4qS4mgEMi46H7ovpuEp2PyfVGXiGwA1KVYPtoKKX7ouFEbMbo21f6Oo1tkcYAYGqfzUcefyZQzWiiQ==
   dependencies:
     "@bem-react/classname" "^1.5.8"
     "@bem-react/classnames" "^1.3.9"
@@ -1537,34 +1526,6 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@gpn-design/uikit@^1.0.2":
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.3.0.tgz#a546fb5b24966f12f81d0059c7680af2f8093177"
-  integrity sha512-p6R3oE/212jmAr5QkWO82ij66X7I43YlRMIvZY7i5+EGuacnX200vIbZJo6S3zRTNxT/Et3pxVvQGy0RCiR5QQ==
-  dependencies:
-    "@bem-react/classname" "^1.5.8"
-    "@bem-react/classnames" "^1.3.9"
-    bem-cn "^3.0.1"
-    lodash "^4.17.15"
-    react-collapse "^5.0.0"
-    react-textarea-autosize "^7.1.2"
-    react-transition-group "^4.4.1"
-    tslib "^1.11.1"
-
-"@gpn-design/uikit@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@gpn-design/uikit/-/uikit-1.1.2.tgz#634fd71208f7e8403f989b37bc6eced0e21407d8"
-  integrity sha512-kwMegeklhVjeqszM1IxiyJLEHy8JZy/X1vpGjgvPURc4IRtL8KFAK1rcC62lIeTHxpMrE4oX3IQeZ3JQ40PY5A==
-  dependencies:
-    "@bem-react/classname" "^1.5.8"
-    "@bem-react/classnames" "^1.3.9"
-    bem-cn "^3.0.1"
-    lodash "^4.17.15"
-    react-collapse "^5.0.0"
-    react-textarea-autosize "^7.1.2"
-    react-transition-group "^4.4.1"
-    tslib "^1.11.1"
-
 "@gpn-prototypes/frontend-configs@^1.2.5":
   version "1.2.5"
   resolved "https://npm.pkg.github.com/download/@gpn-prototypes/frontend-configs/1.2.5/ded3a23a686779889e3ae2b8a21f26d20131c11d9fd383f9847496b52260d06b#09589c74adc3834aca683b300326ca8cba18c4f6"
@@ -1613,20 +1574,6 @@
     webpack "^4.42.1"
     webpack-bundle-analyzer "^3.7.0"
 
-"@gpn-prototypes/vega-button@0.0.8":
-  version "0.0.8"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-button/0.0.8/1f951f66bdc7dc222bbd4a3dfd3b6f8b719ceb481f514fdf5fd014a6ae691620#41029c503225cdcee4e334a7803bcc96530b76d5"
-  integrity sha512-xJPFzcbD4v10t3p6SgDjZEHMbbu9O6bB+w6ToOwhvCjKLeN4ahtERpV9xafCsvs1RpAJs0zEK0urhojaoaXMkw==
-  dependencies:
-    "@gpn-design/uikit" "^1.0.2"
-
-"@gpn-prototypes/vega-button@^0.1.4":
-  version "0.1.4"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-button/0.1.4/a924473d4ccbcb03b5e076e3d9ff8d2e305808835dbd1dce65bc9e2d2f6650f2#120cc89cbf3f557dfe5548fc5b3873fd993d6e62"
-  integrity sha512-xhi5w2mRkKse5AmBqwhrb+KHg1hhBi+gSgkRgvPEfjZ1MvIn/Mb5x+Te+g9TapAibyIJFoWuhZHktZmneRXW1w==
-  dependencies:
-    "@gpn-design/uikit" "^1.1.2"
-
 "@gpn-prototypes/vega-changelog@^3.2.4":
   version "3.2.4"
   resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-changelog/3.2.4/4caa341242f63f8f6fc8989ae225d20bd4434b4ce28c9bab408a97a7e07edbf3#c955b80a785356ebfde63c0736c6ed2662214353"
@@ -1639,33 +1586,6 @@
     make-fetch-happen "^7.1.1"
     progress "^2.0.0"
     yargs "^13.0.0"
-
-"@gpn-prototypes/vega-hooks@0.0.8", "@gpn-prototypes/vega-hooks@^0.0.8":
-  version "0.0.8"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-hooks/0.0.8/6c239dbd1ac43323eeba3134af988ee9fe59118cc3d7557788e268d8ff496abf#066277a69d501123a458a0ce854110ccb3ae6ab6"
-  integrity sha512-3JJHN66PavIx64wkAOAsFSd1dI/P6asKn0KqCi5V0/6YyoWbjzq4fnX5VuMEcG1htfteJtC8Ar3OTbIw4kW5tg==
-
-"@gpn-prototypes/vega-hooks@^0.3.0":
-  version "0.3.0"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-hooks/0.3.0/c2850c2411514dc43d63abc260c90c3da38f0393b63093b0b8df49afbad9fa70#1e84e26e94a0e7c9a58abe040bbd2f4b09a5df29"
-  integrity sha512-Bs6Usv+g9LQMwX9ENhLwS4NQlSzN1C1kdhCJVJIyWrQXiy4zgwLBEqi0kV41IEv6eee40pvfP0TAQEnzB8fI1g==
-
-"@gpn-prototypes/vega-icons@^0.1.3", "@gpn-prototypes/vega-icons@^0.1.4", "@gpn-prototypes/vega-icons@^0.1.5":
-  version "0.1.6"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-icons/0.1.6/0223563ff274b9237bb2f25a227c8be825c42be54b9d6ea3b7d0037d136355ed#488e247188d73e3a00a0c3563b336d487b13140d"
-  integrity sha512-1zDqZawD8J45KJRlsiEV8mrrvKGKAe888uFoj9Huivuwt2feQuZz2UjM3hglgqBoRloIdle41KYAImFOSqfz5g==
-  dependencies:
-    "@gpn-design/uikit" "^1.1.2"
-
-"@gpn-prototypes/vega-tabs@^0.0.9":
-  version "0.0.9"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/vega-tabs/0.0.9/7f6f7e3b6731ad02e36a41c4b89aa855b7b502dc96953d747f38dfd0a1d841ef#47801c3dae043e5cb34209fb1b6dabf0f1950d2b"
-  integrity sha512-P5+Y06VF2+q5h6akoWG0wI7a11EMdQg8Pxw1uUmqmnKh1BBOVj2WE7a4TMZJCRk//E66lS2ZsPzSxaeKWcL96Q==
-  dependencies:
-    "@gpn-design/uikit" "^1.1.2"
-    "@gpn-prototypes/vega-hooks" "^0.3.0"
-    "@gpn-prototypes/vega-icons" "^0.1.5"
-    bem-cn "^3.0.1"
 
 "@icons/material@^0.2.4":
   version "0.2.4"
@@ -14018,11 +13938,6 @@ react-clientside-effect@^1.2.2:
   dependencies:
     "@babel/runtime" "^7.0.0"
 
-react-collapse@^5.0.0:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/react-collapse/-/react-collapse-5.0.1.tgz#f763b7207aee73baa1ff778b2d0b4ffb49d900a0"
-  integrity sha512-cN2tkxBWizhPQ2JHfe0aUSJtmMthKA17NZkTElpiQ2snQAAi1hssXZ2fv88rAPNNvG5ss4t0PbOZT0TIl9Lk3Q==
-
 react-color@^2.17.0:
   version "2.18.1"
   resolved "https://registry.yarnpkg.com/react-color/-/react-color-2.18.1.tgz#2cda8cc8e06a9e2c52ad391a30ddad31972472f4"
@@ -16764,7 +16679,7 @@ tsconfig-paths@^3.4.0, tsconfig-paths@^3.9.0:
     minimist "^1.2.0"
     strip-bom "^3.0.0"
 
-tslib@^1.10.0, tslib@^1.11.1, tslib@^1.13.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.10.0, tslib@^1.13.0, tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
   version "1.13.0"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
   integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==

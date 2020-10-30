@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@gpn-prototypes/vega-file-input": "^0.1.2",
-    "@gpn-prototypes/vega-hooks": "0.0.8",
+    "@gpn-prototypes/vega-hooks": "0.5.2",
     "bem-cn": "^3.0.1"
   }
 }

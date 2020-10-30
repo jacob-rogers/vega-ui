@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Root, useTheme } from '../../packages/components/root/src';
 
+import './whitepaper.css';
+
 type ThemeName = 'default' | 'dark' | 'display';
 
 type VegaThemeDecoratorProps = {

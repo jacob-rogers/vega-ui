@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@gpn-prototypes/vega-button": "^0.2.2",
-    "@gpn-prototypes/vega-hooks": "^0.0.8",
+    "@gpn-prototypes/vega-hooks": "^0.5.2",
     "@gpn-prototypes/vega-icons": "^0.2.3",
     "@gpn-prototypes/vega-root": "^0.2.5",
     "@gpn-prototypes/vega-text": "^0.1.7",

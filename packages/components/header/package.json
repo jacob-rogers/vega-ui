@@ -21,10 +21,10 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-button": "^0.1.4",
+    "@gpn-prototypes/vega-button": "^0.2.2",
     "@gpn-prototypes/vega-dropdown": "^1.2.9",
     "@gpn-prototypes/vega-icons": "^0.2.3",
-    "@gpn-prototypes/vega-tabs": "^0.0.9",
+    "@gpn-prototypes/vega-tabs": "^0.0.17",
     "@gpn-prototypes/vega-text": "^0.1.7",
     "bem-cn": "^3.0.1"
   }
