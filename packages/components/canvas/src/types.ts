@@ -1,5 +1,6 @@
 import Konva from 'konva';
 
+import { StepData } from './components/List/types';
 import { Tree } from './entities/Tree';
 
 export type Position = {
@@ -51,6 +52,7 @@ export type CanvasData = {
   type: ItemType;
   position: Position;
   width?: number;
+  stepData?: StepData;
 };
 
 export type CanvasTree = Tree<CanvasData>;
@@ -60,9 +62,12 @@ export type CanvasUpdate =
   | { type: 'add-tree'; id: string }
   | { type: 'change'; id: string; changes: Partial<CanvasData> }
   | { type: 'change-multiple'; ids: string[]; changes: Partial<CanvasData>[] }
+  | { type: 'select'; selected: SelectedData | null }
+  | { type: 'unselect' }
+  | { type: 'drop-event'; intersectionId: string }
   | { type: 'remove-tree'; id: string }
   | { type: 'remove-trees'; ids: string[] }
-  | { type: 'disconnect-tree'; id: string }
+  | { type: 'disconnect-tree'; parentId: string; childId: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
   | { type: 'clear' }
   | { type: 'update-children'; id: string; newChildrenIds: string[] }
