@@ -131,7 +131,7 @@
     "remark-lint": "^8.0.0",
     "remark-preset-lint-recommended": "^5.0.0",
     "size-limit": "^4.5.0",
-    "storybook-addon-performance": "^0.12.0",
+    "storybook-addon-performance": "^0.13.0",
     "storybook-addon-themes": "^6.0.0",
     "style-loader": "^1.1.4",
     "ts-jest": "^26.1.3",
