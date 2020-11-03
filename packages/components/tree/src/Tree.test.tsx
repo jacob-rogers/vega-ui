@@ -21,7 +21,7 @@ describe('Tree', () => {
   });
 
   test('рендерится только с одним узлом', () => {
-    renderComponent({ nodeList: [{ name: 'Усть-Енисей', id: '1', nodeList: [] }] });
+    renderComponent({ nodeList: [{ name: 'Участок 1', id: '1', nodeList: [] }] });
 
     const item = screen.getAllByRole('treeitem')[0];
 

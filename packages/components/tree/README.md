@@ -23,7 +23,7 @@ const icons = {
 
 const nodeList = [
   {
-    name: 'Усть-Енисей',
+    name: 'Участок 1',
     isDraggable: false,
     iconId: 'blue-line',
     nodeList: [
@@ -103,7 +103,7 @@ const icons = {
 
 const nodeList = [
   {
-    name: 'Усть-Енисей',
+    name: 'Участок 1',
     isDraggable: false,
     iconId: 'blue-line',
     nodeList: [
@@ -198,7 +198,7 @@ import { Tree } from '@gpn-prototypes/vega-tree';
 
 const nodeList = [
   {
-    name: 'Усть-Енисей',
+    name: 'Участок 1',
     isDraggable: false,
     nodeList: [
       {

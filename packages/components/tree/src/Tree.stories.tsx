@@ -64,7 +64,7 @@ export const RedLineSvg = (
 
 export const rootProps: TreeItem[] = [
   {
-    name: 'Усть-Енисей',
+    name: 'Участок 1',
     isDraggable: false,
     isDropZone: false,
     iconId: 'blue-line',
