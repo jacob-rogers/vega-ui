@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.14.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.6...@gpn-prototypes/vega-ui@2.14.7) (2020-11-05)
+
+
+### Bug Fixes
+
+* **global:** добавить basic-select в общий пакет ([#355](https://github.com/gpn-prototypes/vega-ui/issues/355)) ([67282db](https://github.com/gpn-prototypes/vega-ui/commit/67282db16c65a2d87862398c2ebade87cf267baf))
+
+
+
+
+
 ## [2.14.6](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.5...@gpn-prototypes/vega-ui@2.14.6) (2020-11-05)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
