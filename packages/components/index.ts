@@ -3,6 +3,7 @@ export * from '@gpn-prototypes/vega-animation';
 export * from '@gpn-prototypes/vega-attach';
 export * from '@gpn-prototypes/vega-avatar';
 export * from '@gpn-prototypes/vega-badge';
+export * from '@gpn-prototypes/vega-basic-select';
 export * from '@gpn-prototypes/vega-button';
 export * from '@gpn-prototypes/vega-carousel';
 export * from '@gpn-prototypes/vega-checkbox';

@@ -51,6 +51,7 @@
     "packages/components/attach",
     "packages/components/avatar",
     "packages/components/badge",
+    "packages/components/basic-select",
     "packages/components/button",
     "packages/components/carousel",
     "packages/components/checkbox",

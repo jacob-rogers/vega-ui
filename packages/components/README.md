@@ -1,6 +1,7 @@
 # Компоненты Vega UI
 
 -   [Animation](animation)
+-   [BasicSelect](basic-select)
 -   [Carousel](carousel)
 -   [Dropdown](dropdown)
 -   [Dropzone](dropzone)
