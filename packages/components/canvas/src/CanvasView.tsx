@@ -18,7 +18,7 @@ import {
 import { NAMES_MAP } from './constants';
 import { CanvasContext } from './context';
 import { Canvas, CanvasView as CanvasViewEntity, State, Tree, ViewUpdate } from './entities';
-import { CanvasData, ItemType, KonvaMouseEvent } from './types';
+import { CanvasData, ItemType, KonvaMouseEvent, SelectedData } from './types';
 import { createScrollbarPointGetter, getBgRect, getContentPadding } from './utils';
 
 import './Canvas.css';
@@ -118,6 +118,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     });
   };
 
+  const handleRemoveSelectedItem = (): void => {
+    view.removeSelectedItem();
+  };
+
   const handleMouseMove = (event: KonvaMouseEvent): void => {
     view.drawConnectingLine();
 
@@ -156,6 +160,38 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         width: Math.abs(x1 - x0),
         height: Math.abs(y1 - y0),
       });
+      layer.batchDraw();
+    }
+  };
+
+  const handleMouseDown = (e: KonvaMouseEvent): void => {
+    if (pinning.isKeyPressed || mode === 'dragging') {
+      pinning.isMousePressed = true;
+
+      pinning.data.clientX = e.evt.clientX;
+      pinning.data.clientY = e.evt.clientY;
+    } else if (e.target === stageRef.current) {
+      const stage = stageRef.current;
+      const layer = layerRef.current;
+      const selectionRect = selectionRectRef.current;
+
+      if (stage === null || layer === null || selectionRect === null) {
+        return;
+      }
+
+      const pointerPosition = stage.getPointerPosition();
+
+      if (pointerPosition === null) {
+        return;
+      }
+
+      selectionData.x0 = (pointerPosition.x - layer.x()) * (1 / layer.scaleX());
+      selectionData.y0 = (pointerPosition.y - layer.y()) * (1 / layer.scaleY());
+      selectionData.isActive = true;
+
+      selectionRect.width(0);
+      selectionRect.height(0);
+      selectionRect.visible(true);
       layer.batchDraw();
     }
   };
@@ -220,10 +256,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
-  const handleRemoveSelectedItem = (): void => {
-    view.removeSelectedItem();
-  };
-
   const createStep = useCallback(
     (type: ItemType) => {
       const treeData: CanvasData = {
@@ -245,46 +277,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     },
     [canvas],
   );
-
-  const handleClick = (): void => {
-    if (selectedData !== null) {
-      view.updateState({ selectedData: null });
-
-      canvas.itemsSelectionNotification(null);
-    }
-  };
-
-  const handleMouseDown = (e: KonvaMouseEvent): void => {
-    if (pinning.isKeyPressed || mode === 'dragging') {
-      pinning.isMousePressed = true;
-
-      pinning.data.clientX = e.evt.clientX;
-      pinning.data.clientY = e.evt.clientY;
-    } else if (e.target === stageRef.current) {
-      const stage = stageRef.current;
-      const layer = layerRef.current;
-      const selectionRect = selectionRectRef.current;
-
-      if (stage === null || layer === null || selectionRect === null) {
-        return;
-      }
-
-      const pointerPosition = stage.getPointerPosition();
-
-      if (pointerPosition === null) {
-        return;
-      }
-
-      selectionData.x0 = (pointerPosition.x - layer.x()) * (1 / layer.scaleX());
-      selectionData.y0 = (pointerPosition.y - layer.y()) * (1 / layer.scaleY());
-      selectionData.isActive = true;
-
-      selectionRect.width(0);
-      selectionRect.height(0);
-      selectionRect.visible(true);
-      layer.batchDraw();
-    }
-  };
 
   useMount(
     (): VoidFunction => {
@@ -335,8 +327,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         const intersectId = intersect.attrs.id;
 
         if (!selected || (selected?.type === 'item' && !selected.ids.includes(intersectId))) {
+          const selectEvtObject: SelectedData = { type: 'item', ids: [intersectId] };
+
           view.updateState({
-            selectedData: { type: 'item', ids: [intersectId] },
+            selectedData: selectEvtObject,
           });
         }
       };
@@ -345,7 +339,15 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         const intersect = getTargetIntersection();
 
         if (intersect) {
-          canvas.dropEventNotification(intersect.attrs.id);
+          const { id } = intersect.attrs;
+
+          canvas.dropEventNotification(id);
+
+          canvas.itemsSelectionNotification({ type: 'item', ids: [id] });
+        } else {
+          view.updateState({
+            selectedData: null,
+          });
         }
       };
 
@@ -536,7 +538,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        onClick={handleClick}
         onMouseLeave={handleMouseLeave}
       >
         <CanvasContext.Provider

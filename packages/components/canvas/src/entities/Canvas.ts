@@ -140,7 +140,8 @@ export class Canvas extends Notifier<CanvasUpdate> {
     parentTree.disconnect(childTree);
     this.notify({
       type: 'disconnect-tree',
-      id: childTree.getId(),
+      childId: childTree.getId(),
+      parentId: parentTree.getId(),
     });
   }
 
@@ -210,10 +211,14 @@ export class Canvas extends Notifier<CanvasUpdate> {
   }
 
   public itemsSelectionNotification(selected: SelectedData | null): void {
-    this.notify({
-      type: 'select',
-      selected,
-    });
+    const evtObject: CanvasUpdate = selected
+      ? {
+          type: 'select',
+          selected,
+        }
+      : { type: 'unselect' };
+
+    this.notify(evtObject);
   }
 
   public dropEventNotification(intersectionId: string): void {

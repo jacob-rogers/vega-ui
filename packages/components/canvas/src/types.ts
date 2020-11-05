@@ -63,10 +63,11 @@ export type CanvasUpdate =
   | { type: 'change'; id: string; changes: Partial<CanvasData> }
   | { type: 'change-multiple'; ids: string[]; changes: Partial<CanvasData>[] }
   | { type: 'select'; selected: SelectedData | null }
+  | { type: 'unselect' }
   | { type: 'drop-event'; intersectionId: string }
   | { type: 'remove-tree'; id: string }
   | { type: 'remove-trees'; ids: string[] }
-  | { type: 'disconnect-tree'; id: string }
+  | { type: 'disconnect-tree'; parentId: string; childId: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
   | { type: 'clear' }
   | { type: 'update-children'; id: string; newChildrenIds: string[] }
