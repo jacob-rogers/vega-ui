@@ -13,6 +13,7 @@ import { Option, OptionProps } from './Option';
 
 export interface CreateOptionProps extends Omit<OptionProps, 'onClick'> {
   onCreate(type: ItemType): void;
+
   disabledOptions: OptionType[];
 }
 
@@ -26,7 +27,7 @@ export const CreateOption: React.FC<CreateOptionProps> = (props) => {
   const [dropdownOpen, dropdownToggle] = useToggle(false);
   const { portal } = usePortal();
 
-  const { onCreate, disabledOptions, ...rest } = props;
+  const { onCreate, disabledOptions, className, ...rest } = props;
 
   const handleItemClick = (type: ItemType): void => {
     onCreate(type);
@@ -56,7 +57,12 @@ export const CreateOption: React.FC<CreateOptionProps> = (props) => {
       <Dropdown.Menu>
         {({ props: menuProps }): React.ReactNode => {
           return (
-            <div role="menu" aria-label="Меню для создания элементов" {...menuProps}>
+            <div
+              className={className}
+              role="menu"
+              aria-label="Меню для создания элементов"
+              {...menuProps}
+            >
               <NavigationList className={cnCanvas('CreateOptionsList')}>
                 {items.map((item) => {
                   return (

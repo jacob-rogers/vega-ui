@@ -10,6 +10,10 @@
     box-shadow: none;
   }
 
+  &__CreateOptionWrapper {
+    z-index: 99;
+  }
+
   &__CreateOptionItem {
     width: 100%;
   }
