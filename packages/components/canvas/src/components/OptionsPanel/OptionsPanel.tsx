@@ -30,6 +30,7 @@ export const OptionsPanel: React.FC<OptionsPanelProps> = (props) => {
           return (
             <CreateOption
               disabled={disabled}
+              className={cnCanvas('CreateOptionWrapper')}
               option={option}
               key={option.type}
               onCreate={(type): void => onChange({ itemType: type, type: option.type })}

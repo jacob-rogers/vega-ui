@@ -24,6 +24,12 @@ export type CanvasItemProps = {
 
 type ConnectionKey = 'parentId' | 'childId';
 
+const stepData = {
+  name: 'Шаг 1',
+  id: '1',
+  events: [],
+};
+
 export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const {
     item,
@@ -50,7 +56,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const isEnd = data.type === 'end';
 
   const isSelected = selectedData?.type === 'item' && selectedData.ids.includes(id);
-  const isСonnectionPossible =
+  const isConnectionPossible =
     hasActiveData &&
     activeData?.item.canConnectedWith(item) &&
     !(activeData?.connector.type === 'children' && isRoot) &&
@@ -164,11 +170,11 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   };
 
   const handleMouseEnter = (): void => {
-    if (!hasActiveData || isСonnectionPossible) {
+    if (!hasActiveData || isConnectionPossible) {
       setCursor('pointer');
     }
 
-    if (isСonnectionPossible) {
+    if (isConnectionPossible) {
       setStroke(metrics.step.strokeSelected);
     }
   };
@@ -178,13 +184,13 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
       setCursor('default');
     }, 0);
 
-    if (isСonnectionPossible) {
+    if (isConnectionPossible) {
       setStroke(undefined);
     }
   };
 
   const handleMouseUp = (e: KonvaMouseEvent): void => {
-    if (isСonnectionPossible) {
+    if (isConnectionPossible) {
       setStroke(undefined);
     }
 
@@ -209,9 +215,9 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     children: stepContent,
   };
 
-  return !isStep ? (
-    <ListItem {...itemProps} onWidthUpdate={handleUpdateWidth} />
+  return isStep ? (
+    <List {...itemProps} stepData={data.stepData || stepData} />
   ) : (
-    <List {...itemProps} />
+    <ListItem {...itemProps} onWidthUpdate={handleUpdateWidth} />
   );
 };
