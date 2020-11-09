@@ -266,7 +266,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
       if (type === 'step') {
         treeData.stepData = {
-          name: 'Шаг 1',
+          name: NAMES_MAP[type],
           id: uuid(),
           events: [],
         };
