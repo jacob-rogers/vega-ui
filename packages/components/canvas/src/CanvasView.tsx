@@ -110,6 +110,80 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [stageSize]);
 
+  useEffect(() => {
+    const stage = stageRef.current;
+    const layout = layerRef.current;
+
+    const getTargetIntersection = () => {
+      let intersect;
+
+      const position = stage?.getPointerPosition();
+
+      if (position) {
+        intersect = layout?.getIntersection(position, 'Group');
+      }
+
+      return intersect;
+    };
+
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+
+      stage?.setPointersPositions(e);
+
+      const intersect = getTargetIntersection();
+      const selected = view.getState().selectedData;
+
+      if (!intersect) {
+        if (selected) {
+          view.updateState({
+            selectedData: null,
+          });
+        }
+
+        return;
+      }
+
+      const intersectId = intersect.attrs.id;
+
+      if (!selected || (selected?.type === 'item' && !selected.ids.includes(intersectId))) {
+        const selectEvtObject: SelectedData = { type: 'item', ids: [intersectId] };
+
+        view.updateState({
+          selectedData: selectEvtObject,
+        });
+      }
+    };
+
+    const handleDrop = (): void => {
+      const intersect = getTargetIntersection();
+
+      if (intersect) {
+        const { id } = intersect.attrs;
+
+        canvas.dropEventNotification(id);
+
+        canvas.itemsSelectionNotification({ type: 'item', ids: [id] });
+      } else {
+        view.updateState({
+          selectedData: null,
+        });
+      }
+    };
+
+    const container = stage?.container();
+
+    if (container) {
+      container.addEventListener('dragover', handleDragOver);
+      container.addEventListener('drop', handleDrop);
+    }
+
+    return (): void => {
+      container?.removeEventListener('dragover', handleDragOver);
+      container?.removeEventListener('drop', handleDrop);
+    };
+  }, [canvas, view]);
+
   const abortActiveData = (): void => {
     view.updateState({
       activeData: null,
@@ -278,92 +352,23 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     [canvas],
   );
 
-  useMount(
-    (): VoidFunction => {
-      if (containerRef.current) {
-        view.updateState({
-          stageSize: {
-            width: containerRef.current.offsetWidth,
-            height: containerRef.current.offsetHeight,
-          },
-        });
-      }
+  useMount(() => {
+    if (containerRef.current) {
+      view.updateState({
+        stageSize: {
+          width: containerRef.current.offsetWidth,
+          height: containerRef.current.offsetHeight,
+        },
+      });
+    }
 
-      const stage = stageRef.current;
-      const layout = layerRef.current;
+    const stage = stageRef.current;
+    const container = stage?.container();
 
-      const container = stage?.container();
-
-      const getTargetIntersection = () => {
-        let intersect;
-
-        const position = stage?.getPointerPosition();
-
-        if (position) {
-          intersect = layout?.getIntersection(position, 'Group');
-        }
-
-        return intersect;
-      };
-
-      const handleDragOver = (e: DragEvent) => {
-        e.preventDefault();
-
-        stage?.setPointersPositions(e);
-
-        const intersect = getTargetIntersection();
-        const selected = view.getState().selectedData;
-
-        if (!intersect) {
-          if (selected) {
-            view.updateState({
-              selectedData: null,
-            });
-          }
-
-          return;
-        }
-
-        const intersectId = intersect.attrs.id;
-
-        if (!selected || (selected?.type === 'item' && !selected.ids.includes(intersectId))) {
-          const selectEvtObject: SelectedData = { type: 'item', ids: [intersectId] };
-
-          view.updateState({
-            selectedData: selectEvtObject,
-          });
-        }
-      };
-
-      const handleDrop = (): void => {
-        const intersect = getTargetIntersection();
-
-        if (intersect) {
-          const { id } = intersect.attrs;
-
-          canvas.dropEventNotification(id);
-
-          canvas.itemsSelectionNotification({ type: 'item', ids: [id] });
-        } else {
-          view.updateState({
-            selectedData: null,
-          });
-        }
-      };
-
-      if (container) {
-        container.tabIndex = 1;
-
-        container.addEventListener('dragover', handleDragOver);
-        container.addEventListener('drop', handleDrop);
-      }
-
-      return (): void => {
-        container?.removeEventListener('dragover', handleDragOver);
-        container?.removeEventListener('drop', handleDrop);
-      };
-    },
-  );
+    if (container) {
+      container.tabIndex = 1;
+    }
+  });
 
   const handleKeyDown = (e: KeyboardEvent): void => {
     if (e.code === 'Space') {
