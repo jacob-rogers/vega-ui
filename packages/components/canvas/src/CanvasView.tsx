@@ -120,7 +120,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       const position = stage?.getPointerPosition();
 
       if (position) {
-        intersect = layout?.getIntersection(position, 'Group');
+        const overlap = layout?.getIntersection(position, 'Group');
+
+        intersect = overlap?.attrs.name === 'List' ? overlap : undefined;
       }
 
       return intersect;
@@ -168,6 +170,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         view.updateState({
           selectedData: null,
         });
+
+        canvas.itemsSelectionNotification(null);
       }
     };
 

@@ -32,7 +32,6 @@ export type ListProps = {
 export const List: React.FC<ListProps> = (props) => {
   const {
     id,
-    name, // TODO: Для данных используется заглушка stepData
     position,
     stroke = metrics.step.stroke,
     draggable,
