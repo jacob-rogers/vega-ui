@@ -17,7 +17,7 @@ export type ScrollbarData = {
 type getBgRectProps = {
   contentRect: RectParams;
   contentPadding: {
-    horizonal: number;
+    horizontal: number;
     vertical: number;
   };
   scale?: number;
@@ -88,9 +88,9 @@ export const getBgRect = (props: getBgRectProps): RectParams => {
   const { contentRect, contentPadding, scale = 1 } = props;
   const { blockSize } = metrics.grid;
 
-  const x0 = contentRect.x - contentPadding.horizonal * (1 / scale);
+  const x0 = contentRect.x - contentPadding.horizontal * (1 / scale);
   const y0 = contentRect.y - contentPadding.vertical * (1 / scale);
-  const width = contentRect.width + 2 * contentPadding.horizonal * (1 / scale);
+  const width = contentRect.width + 2 * contentPadding.horizontal * (1 / scale);
   const height = contentRect.height + 2 * contentPadding.vertical * (1 / scale);
   const x1 = x0 + width;
   const y1 = y0 + height;
@@ -144,16 +144,16 @@ export const getBgRect = (props: getBgRectProps): RectParams => {
   return bgRect;
 };
 
-export const getContentPadding = (stageSize: Size): { horizonal: number; vertical: number } => {
+export const getContentPadding = (stageSize: Size): { horizontal: number; vertical: number } => {
   return {
-    horizonal: stageSize.width,
+    horizontal: stageSize.width,
     vertical: stageSize.height,
   };
 };
 
 const getHorizontalScrollbarX = (params: ScrollbarPointsParams): number => {
   const { layer, stageSize, scrollbar, contentRect } = params;
-  const { horizonal: horizontalPadding } = getContentPadding(stageSize);
+  const { horizontal: horizontalPadding } = getContentPadding(stageSize);
 
   if (!layer || !scrollbar) {
     return 0;

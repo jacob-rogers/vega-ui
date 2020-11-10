@@ -49,7 +49,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const { activeData, setActiveData, selectedData, setSelectedData, setCursor } = useCanvas();
 
   const hasActiveData = activeData !== null;
-  const hasActiveConnnector = activeData !== null && activeData.item.getId() === id;
+  const hasActiveConector = activeData !== null && activeData.item.getId() === id;
 
   const isRoot = data.type === 'root';
   const isStep = data.type === 'step';
@@ -78,7 +78,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   });
 
   const [isParentConnectorActive, isChildConnectorActive] = keys.map((key) => {
-    return hasActiveConnnector && activeData?.connector.type === key;
+    return hasActiveConector && activeData?.connector.type === key;
   });
 
   const [isParentConnectorDisabled, disableChildConnector] = keys.map((key) => {

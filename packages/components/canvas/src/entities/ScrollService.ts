@@ -24,7 +24,7 @@ export class ScrollService {
       contentRect,
     } = this.service.getData();
 
-    const { horizonal: horizontalPadding, vertical: verticalPadding } = getContentPadding(
+    const { horizontal: horizontalPadding, vertical: verticalPadding } = getContentPadding(
       stageSize,
     );
 
@@ -81,7 +81,7 @@ export class ScrollService {
 
   public scrollHorizontal(): void {
     const { layer, horizontalScrollbar, stageSize, contentRect } = this.service.getData();
-    const { horizonal: horizontalPadding } = getContentPadding(stageSize);
+    const { horizontal: horizontalPadding } = getContentPadding(stageSize);
 
     if (!layer || !horizontalScrollbar) {
       return;

@@ -47,6 +47,7 @@ storiesOf('ui/Canvas', module)
         setTreeState([]);
         return;
       }
+      console.log(change);
       setChanges([...changes, change.update]);
       setLocalState(change.state);
     };
