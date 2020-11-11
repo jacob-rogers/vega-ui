@@ -1,15 +1,14 @@
 # @gpn-prototypes/vega-basic-select
 
 # BasicSelect
+
 Обёртка для компонента [BasicSelect](https://consta-uikit.vercel.app/?path=/docs/components-basicselect--default-story) из Consta.
 
 <img src="docs/pic-1.png" height="50">
 
 ### Установка
 
-```
-yarn add @gpn-prototypes/vega-basic-select
-```
+    yarn add @gpn-prototypes/vega-basic-select
 
 ### Примеры использования
 

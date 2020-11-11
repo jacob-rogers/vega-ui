@@ -1,14 +1,37 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
-import { Combobox, ComboboxProps } from './Combobox';
+import { Combobox, СomboboxProps } from './Combobox';
 
-function renderComponent(props?: ComboboxProps): RenderResult {
-  return render(<Combobox {...props} />);
+type Option = {
+  label: string;
+  value: string;
+};
+
+function renderComponent(props?: СomboboxProps): RenderResult {
+  const opt = [
+    {
+      label: 'option 1',
+      value: 'option 1',
+    },
+    {
+      label: 'option 2',
+      value: 'option 2',
+    },
+  ];
+
+  return render(
+    <Combobox
+      options={opt}
+      getOptionLabel={(item: Option): string => item.label}
+      id="testSelect"
+      {...props}
+    />,
+  );
 }
 
 describe('Combobox', () => {
   test('рендерится без ошибок', () => {
-    renderComponent({ title: 'Test' });
+    expect(renderComponent).not.toThrow();
   });
 });
