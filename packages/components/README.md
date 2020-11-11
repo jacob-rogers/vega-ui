@@ -3,6 +3,7 @@
 -   [Animation](animation)
 -   [BasicSelect](basic-select)
 -   [Carousel](carousel)
+-   [Combobox](combobox)
 -   [Dropdown](dropdown)
 -   [Dropzone](dropzone)
 -   [FileInput](file-input)

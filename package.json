@@ -56,6 +56,7 @@
     "packages/components/carousel",
     "packages/components/checkbox",
     "packages/components/choice-group",
+    "packages/components/combobox",
     "packages/components/dropdown",
     "packages/components/dropzone",
     "packages/components/file-input",

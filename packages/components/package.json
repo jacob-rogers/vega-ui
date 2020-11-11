@@ -30,6 +30,7 @@
     "@gpn-prototypes/vega-carousel": "^0.0.12",
     "@gpn-prototypes/vega-checkbox": "^0.1.8",
     "@gpn-prototypes/vega-choice-group": "^0.1.11",
+    "@gpn-prototypes/vega-combobox": "^0.0.1",
     "@gpn-prototypes/vega-dropdown": "^1.2.11",
     "@gpn-prototypes/vega-dropzone": "^0.1.6",
     "@gpn-prototypes/vega-file": "^0.1.8",

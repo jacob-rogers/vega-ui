@@ -8,6 +8,7 @@ export * from '@gpn-prototypes/vega-button';
 export * from '@gpn-prototypes/vega-carousel';
 export * from '@gpn-prototypes/vega-checkbox';
 export * from '@gpn-prototypes/vega-choice-group';
+export * from '@gpn-prototypes/vega-combobox';
 export * from '@gpn-prototypes/vega-dropdown';
 export * from '@gpn-prototypes/vega-dropzone';
 export * from '@gpn-prototypes/vega-file-input';
