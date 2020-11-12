@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.7...@gpn-prototypes/vega-ui@2.15.0) (2020-11-12)
+
+
+### Bug Fixes
+
+* **combobox:** исправить тест ([e3832c4](https://github.com/gpn-prototypes/vega-ui/commit/e3832c488312ce48347e8602a08c081b6925a8e7))
+* **vega-icons:** поднял версию @consta/uikit до 1.10.4 ([7498655](https://github.com/gpn-prototypes/vega-ui/commit/7498655deeb11e179b0535f80df75510059ea1b5))
+
+
+### Features
+
+* **combobox:** создать обёртку ([6fa354e](https://github.com/gpn-prototypes/vega-ui/commit/6fa354e9473782f2c804a74d518c08f06d8c911f))
+
+
+
+
+
 ## [2.14.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.14.6...@gpn-prototypes/vega-ui@2.14.7) (2020-11-05)
 
 

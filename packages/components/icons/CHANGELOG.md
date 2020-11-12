@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-icons@0.2.5...@gpn-prototypes/vega-icons@0.2.6) (2020-11-12)
+
+
+### Bug Fixes
+
+* **vega-icons:** поднял версию @consta/uikit до 1.10.4 ([7498655](https://github.com/gpn-prototypes/vega-ui/commit/7498655deeb11e179b0535f80df75510059ea1b5))
+
+
+
+
+
 ## [0.2.5](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-icons@0.2.4...@gpn-prototypes/vega-icons@0.2.5) (2020-10-30)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-icons
