@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.2](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-canvas@0.1.1...@gpn-prototypes/vega-canvas@0.1.2) (2020-11-13)
+
+
+### Bug Fixes
+
+* **components:** вынес handleDragOver handleDrop в useEffect с зависимостями ([015848f](https://github.com/gpn-prototypes/vega-ui/commit/015848f22cfb40c7fa6438b2b4935c4e4356c05c))
+* **components:** правки по ревью ([99cc1e1](https://github.com/gpn-prototypes/vega-ui/commit/99cc1e150f5eab4c6d735fedd5d88ac0b075db67))
+* **components:** фиксы по ревью ([6df2aef](https://github.com/gpn-prototypes/vega-ui/commit/6df2aef9559094f1e2ae7e0b3ea5003d9460a883))
+
+
+
+
+
 ## [0.1.1](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-canvas@0.1.0...@gpn-prototypes/vega-canvas@0.1.1) (2020-11-12)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-canvas
