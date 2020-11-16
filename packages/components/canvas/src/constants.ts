@@ -4,4 +4,5 @@ export const NAMES_MAP: Record<ItemType, string> = {
   step: 'Шаг',
   root: 'Начало',
   end: 'Конец',
+  event: '',
 };

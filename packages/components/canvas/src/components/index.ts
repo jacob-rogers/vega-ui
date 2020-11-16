@@ -1,5 +1,5 @@
-export * from './List';
-export * from './ListItem';
+export * from './StepItem';
+export * from './ExtremePointItem';
 export * from './Text';
 export * from './Connector';
 export * from './CanvasItem';

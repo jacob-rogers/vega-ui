@@ -12,6 +12,7 @@ export type Option =
   | 'create'
   | 'ordering'
   | 'step'
+  | 'event'
   | 'root'
   | 'end';
 

@@ -215,3 +215,36 @@ export const createScrollbarPointGetter = (params: ViewData): ScrollbarPointsGet
     return 0;
   };
 };
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/no-explicit-any
+export function throttle(func: any, ms: number): () => void {
+  let isThrottled = false;
+  let savedArgs: unknown[] | null;
+  let savedThis: unknown | null;
+
+  function wrapper(this: unknown, ...args: unknown[]) {
+    if (isThrottled) {
+      savedArgs = args;
+      savedThis = this;
+      return;
+    }
+
+    console.log('throttle');
+
+    func.apply(this, args);
+
+    isThrottled = true;
+
+    setTimeout(() => {
+      isThrottled = false;
+
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = null;
+        savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}

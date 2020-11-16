@@ -10,7 +10,7 @@ type ConnectorProps = {
   position: Position;
   isSelected: boolean;
   isActive: boolean;
-  isСonnectionPossible: boolean;
+  isConnectionPossible: boolean;
   isDisabled: boolean;
   onActivate: (e: ConnectorActivateData) => void;
 };
@@ -22,7 +22,7 @@ export const Connector: React.FC<ConnectorProps> = (props) => {
     position,
     isSelected,
     isActive,
-    isСonnectionPossible,
+    isConnectionPossible,
     isDisabled,
     onActivate,
   } = props;
@@ -50,7 +50,7 @@ export const Connector: React.FC<ConnectorProps> = (props) => {
       return metrics.connector.strokeSelected;
     }
 
-    if (isActive || isСonnectionPossible) {
+    if (isActive || isConnectionPossible) {
       return metrics.connector.strokeActive;
     }
 

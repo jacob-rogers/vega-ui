@@ -5,7 +5,7 @@ export const metrics = {
     strokeSelected: '#0AA5FF',
     strokeWidth: 2,
     width: 251,
-    emptyHeight: 47,
+    emptyHeight: 40,
     headerHeight: 39,
     padding: {
       top: 8,

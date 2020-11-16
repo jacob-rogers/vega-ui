@@ -27,7 +27,7 @@ export type ExtremePointProps = {
   onWidthUpdate?: (width: number) => void;
 };
 
-export const ListItem: React.FC<ExtremePointProps> = (props) => {
+export const ExtremePointItem: React.FC<ExtremePointProps> = (props) => {
   const {
     id,
     name,
@@ -66,7 +66,7 @@ export const ListItem: React.FC<ExtremePointProps> = (props) => {
     <Group
       {...rest}
       id={id}
-      name="ListItem" // TODO: изменить name на Item ExtremePoint
+      name="ExtremePointItem"
       x={position.x}
       y={position.y}
       width={width}

@@ -4,8 +4,9 @@ import { useCanvas } from '../../context';
 import { metrics } from '../../metrics';
 import { CanvasTree, ConnectorActivateData, KonvaMouseEvent, Position } from '../../types';
 import { Connector } from '../Connector';
-import { List } from '../List';
-import { ExtremePointProps, ListItem } from '../ListItem';
+import { EventItem } from '../EventItem/EventItem';
+import { ExtremePointItem, ExtremePointProps } from '../ExtremePointItem';
+import { StepItem } from '../StepItem';
 
 import {
   getAbsoluteConnectorsPosition,
@@ -30,6 +31,8 @@ const stepData = {
   events: [],
 };
 
+const eventData = { name: 'Сейсмика', id: '1' };
+
 export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const {
     item,
@@ -49,10 +52,11 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   const { activeData, setActiveData, selectedData, setSelectedData, setCursor } = useCanvas();
 
   const hasActiveData = activeData !== null;
-  const hasActiveConector = activeData !== null && activeData.item.getId() === id;
+  const hasActiveConnector = activeData !== null && activeData.item.getId() === id;
 
   const isRoot = data.type === 'root';
   const isStep = data.type === 'step';
+  const isEvent = data.type === 'event';
   const isEnd = data.type === 'end';
 
   const isSelected = selectedData?.type === 'item' && selectedData.ids.includes(id);
@@ -78,7 +82,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
   });
 
   const [isParentConnectorActive, isChildConnectorActive] = keys.map((key) => {
-    return hasActiveConector && activeData?.connector.type === key;
+    return hasActiveConnector && activeData?.connector.type === key;
   });
 
   const [isParentConnectorDisabled, disableChildConnector] = keys.map((key) => {
@@ -113,7 +117,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
           // Идет процесс соединения от данного коннектора, либо элемент имеет родителей
           isActive={isParentConnectorActive || item.getParents().length > 0}
           // Идет процесс соединения (не от данного элемента) и можно подсоединиться к данному коннектору/элементу
-          isСonnectionPossible={hasActiveData && !isParentConnectorDisabled}
+          isConnectionPossible={hasActiveData && !isParentConnectorDisabled}
           // Нельзя подсоединить к этому элементу или активный коннектор совпадает по типу с данным коннектором
           isDisabled={isParentConnectorDisabled}
           onActivate={handleConnectorActivate}
@@ -126,7 +130,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
           position={relativeConnectorsPosition.children}
           isActive={isChildConnectorActive || item.getChildren().length > 0}
           isSelected={isChildConnectorSelected}
-          isСonnectionPossible={hasActiveData && !disableChildConnector}
+          isConnectionPossible={hasActiveData && !disableChildConnector}
           isDisabled={disableChildConnector}
           onActivate={handleConnectorActivate}
         />
@@ -215,9 +219,17 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     children: stepContent,
   };
 
-  return isStep ? (
-    <List {...itemProps} stepData={data.stepData || stepData} />
-  ) : (
-    <ListItem {...itemProps} onWidthUpdate={handleUpdateWidth} />
-  );
+  const renderItem = () => {
+    if (isStep) {
+      return <StepItem {...itemProps} stepData={data.stepData || stepData} />;
+    }
+
+    if (isEvent) {
+      return <EventItem {...itemProps} eventData={data.eventData || eventData} />;
+    }
+
+    return <ExtremePointItem {...itemProps} onWidthUpdate={handleUpdateWidth} />;
+  };
+
+  return renderItem();
 };

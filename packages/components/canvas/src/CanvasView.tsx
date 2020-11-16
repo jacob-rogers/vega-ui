@@ -3,6 +3,7 @@ import { Layer, Rect, Stage } from 'react-konva';
 import { useKey, useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 import { ScalePanel } from '@gpn-prototypes/vega-scale-panel';
 import Konva from 'konva';
+import { Shape, ShapeConfig } from 'konva/types/Shape';
 import { v4 as uuid } from 'uuid';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
@@ -61,10 +62,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<Konva.Stage>(null);
   const layerRef = useRef<Konva.Layer>(null);
+  const tempLayerRef = useRef<Konva.Layer>(null);
   const backgroundRectRef = useRef<Konva.Rect>(null);
   const selectionRectRef = useRef<Konva.Rect>(null);
   const horizontalScrollbarRef = useRef<Konva.Rect>(null);
   const verticalScrollbarRef = useRef<Konva.Rect>(null);
+  const lastDropZoneShape = useRef<Konva.Group | Shape<ShapeConfig> | null>(null);
 
   const view = useMemo(
     () =>
@@ -116,6 +119,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       cursor: 'default',
       linePoints: null,
     });
+  };
+
+  const setLastDropZoneShape = (value: Konva.Group | Shape<ShapeConfig> | null) => {
+    lastDropZoneShape.current = value;
   };
 
   const handleRemoveSelectedItem = (): void => {
@@ -233,14 +240,17 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         layer.batchDraw();
       });
 
-      const shapes = stage.find('.List, .ListItem').toArray();
+      const shapes = stage.find('.StepItem, .ExtremePointItem, .EventItem').toArray();
       const box = selectionRect.getClientRect({});
       const selected = shapes.filter((shape) =>
         Konva.Util.haveIntersection(box, shape.getClientRect()),
       );
 
       const selectedItems = selected.filter(
-        (shape) => shape.attrs.name === 'List' || shape.attrs.name === 'ListItem',
+        (shape) =>
+          shape.attrs.name === 'StepItem' ||
+          shape.attrs.name === 'ExtremePointItem' ||
+          shape.attrs.name === 'EventItem',
       );
       const ids = selectedItems.map((item) => item.attrs.id);
 
@@ -549,6 +559,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           value={{
             stage: view.getStage(),
             layer: view.getLayer(),
+            tempLayer: tempLayerRef.current,
+            lastDropZoneShape: lastDropZoneShape.current,
+            setLastDropZoneShape,
             setActiveData: (newData): void => view.changeActiveData(newData),
             activeData,
             setCursor: (newCursor): void => view.updateState({ cursor: newCursor }),
@@ -582,6 +595,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
               fill="rgba(0, 150, 235, 0.4)"
             />
           </Layer>
+          <Layer ref={tempLayerRef} />
           <Layer>
             {overlay && (
               <Rect

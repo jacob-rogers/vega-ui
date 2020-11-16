@@ -12,7 +12,7 @@ import { Event } from './Event';
 import { StepData } from './types';
 import { getStepReferencePoints } from './utils';
 
-export type ListProps = {
+export type StepItemProps = {
   id: string;
   name: string;
   position: Position;
@@ -29,10 +29,9 @@ export type ListProps = {
   stepData: StepData;
 };
 
-export const List: React.FC<ListProps> = (props) => {
+export const StepItem: React.FC<StepItemProps> = (props) => {
   const {
     id,
-    name, // TODO: Для данных используется заглушка stepData
     position,
     stroke = metrics.step.stroke,
     draggable,
@@ -40,6 +39,7 @@ export const List: React.FC<ListProps> = (props) => {
     onPositionChange,
     stepData,
     children,
+    onClick,
     ...rest
   } = props;
 
@@ -47,7 +47,7 @@ export const List: React.FC<ListProps> = (props) => {
 
   const [arrowDown] = useImage(arrowDownSVG);
 
-  const { updateContentRect } = useCanvas();
+  const { updateContentRect, setSelectedData } = useCanvas();
 
   const { stepHeight, eventPoints } = getStepReferencePoints(stepData.events);
 
@@ -57,7 +57,7 @@ export const List: React.FC<ListProps> = (props) => {
     <Group
       {...rest}
       id={id}
-      name="List" // TODO: изменить name на Item Step
+      name="StepItem"
       x={position.x}
       y={position.y}
       width={metrics.step.width}
@@ -68,6 +68,9 @@ export const List: React.FC<ListProps> = (props) => {
         lastPosition.current = { x: newPosition.x, y: newPosition.y };
 
         onDragStart(e);
+      }}
+      onDragEnter={(e: KonvaDragEvent): void => {
+        onClick(e);
       }}
       onDragMove={(e): void => {
         const newPosition = e.target.position();
@@ -80,6 +83,9 @@ export const List: React.FC<ListProps> = (props) => {
         lastPosition.current = { x: newPosition.x, y: newPosition.y };
 
         onPositionChange(newPosition, delta);
+      }}
+      onDragLeave={(): void => {
+        setSelectedData(null);
       }}
       onDragEnd={updateContentRect}
     >

@@ -31,6 +31,18 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
     canvas.setTrees(new Set(Canvas.moveToTop(tree, canvas.extract())));
   };
 
+  const checkConnection = (item: CanvasTree): boolean => {
+    const data = item.getData();
+
+    return (
+      activeData !== null &&
+      data.type !== 'event' &&
+      activeData.item.canConnectedWith(item) &&
+      !(activeData.connector.type === 'children' && data.type === 'root') &&
+      !(activeData.connector.type === 'parent' && data.type === 'end')
+    );
+  };
+
   const handleConnectionLineMouseDown = (parent: CanvasTree, child: CanvasTree): void => {
     if (stage !== null && layer !== null) {
       const parentConnectors = getAbsoluteConnectorsPosition(parent);
@@ -65,15 +77,9 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   };
 
   const handleItemMouseUp = (item: CanvasTree): void => {
-    const data = item.getData();
+    const isConnectionPossible = checkConnection(item);
 
-    const isСonnectionPossible =
-      activeData !== null &&
-      activeData.item.canConnectedWith(item) &&
-      !(activeData.connector.type === 'children' && data.type === 'root') &&
-      !(activeData.connector.type === 'parent' && data.type === 'end');
-
-    if (isСonnectionPossible && activeData !== null) {
+    if (isConnectionPossible && activeData !== null) {
       const items: [CanvasTree, CanvasTree] =
         activeData.connector.type === 'parent' ? [item, activeData.item] : [activeData.item, item];
       canvas.connect(...items);
@@ -117,15 +123,9 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
   };
 
   const handleItemMouseMove = (e: KonvaMouseEvent, item: CanvasTree): void => {
-    const data = item.getData();
+    const isConnectionPossible = checkConnection(item);
 
-    const isСonnectionPossible =
-      activeData !== null &&
-      activeData.item.canConnectedWith(item) &&
-      !(activeData.connector.type === 'children' && data.type === 'root') &&
-      !(activeData.connector.type === 'parent' && data.type === 'end');
-
-    if (isСonnectionPossible) {
+    if (isConnectionPossible) {
       e.cancelBubble = true;
       magnetizeItem(item);
     }
