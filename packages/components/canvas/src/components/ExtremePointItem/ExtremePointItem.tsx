@@ -15,7 +15,8 @@ export type ExtremePointProps = {
   name: string;
   position: Position;
   stroke?: string;
-  draggable: boolean; // TODO: проверить нужно ли это поле
+  draggable: boolean;
+  selectItem: (e: KonvaMouseEvent) => void;
   onClick: (e: KonvaMouseEvent) => void;
   onMouseEnter: (e: KonvaMouseEvent) => void;
   onMouseMove: (e: KonvaMouseEvent) => void;
@@ -23,6 +24,7 @@ export type ExtremePointProps = {
   onMouseUp: (e: KonvaMouseEvent) => void;
   onDragStart: (e: KonvaDragEvent) => void;
   onPositionChange: (position: Position, positionDelta: Position) => void;
+  notifyDropEvent: (dropZoneId: string, draggingId: string) => void;
   children: JSX.Element;
   onWidthUpdate?: (width: number) => void;
 };

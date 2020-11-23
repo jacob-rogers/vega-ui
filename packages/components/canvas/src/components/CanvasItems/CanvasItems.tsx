@@ -186,6 +186,9 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
             onDragStart={(): void => moveItemToTop(tree)}
             onClick={(): void => moveItemToTop(tree)}
             onMouseUp={(): void => handleItemMouseUp(tree)}
+            notifyDropEvent={(dropZoneId: string, draggingId: string) =>
+              canvas.dropEventNotification(dropZoneId, draggingId)
+            }
             onMouseMove={(e): void => handleItemMouseMove(e, tree)}
           />
         );

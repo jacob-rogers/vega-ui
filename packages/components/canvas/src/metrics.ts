@@ -56,7 +56,7 @@ export const metrics = {
   step: {
     cornerRadius: 2,
     stroke: 'rgba(255, 255, 255, 0.2)',
-    strokeSelected: '#0078D2',
+    strokeSelected: 'rgba(255, 255, 255, 0.9)',
     strokeWidth: 2,
     width: 251,
     emptyHeight: 40,

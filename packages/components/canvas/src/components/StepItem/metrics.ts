@@ -2,7 +2,7 @@ export const metrics = {
   step: {
     cornerRadius: 2,
     stroke: 'rgba(255, 255, 255, 0.2)',
-    strokeSelected: '#0AA5FF',
+    strokeSelected: 'rgba(255, 255, 255, 0.9)',
     strokeWidth: 2,
     width: 251,
     emptyHeight: 40,
@@ -20,6 +20,8 @@ export const metrics = {
     },
     event: {
       width: 227,
+      strokeWidth: 2,
+      strokeSelected: 'rgba(255, 255, 255, 0.9)',
       fill: '#22272B',
       headerHeight: 41,
       emptyHeight: 40,

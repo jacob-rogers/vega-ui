@@ -1,6 +1,8 @@
 import React, { useMemo, useRef } from 'react';
 import { Group, Rect } from 'react-konva';
+import Konva from 'konva';
 import { KonvaEventObject } from 'konva/types/Node';
+import { Shape, ShapeConfig } from 'konva/types/Shape';
 
 import { useCanvas } from '../../context';
 import { KonvaDragEvent, KonvaMouseEvent, Position } from '../../types';
@@ -28,37 +30,32 @@ export type EventItemProps = {
 };
 
 export const EventItem: React.FC<EventItemProps> = (props) => {
-  const {
-    id,
-    position,
-    draggable,
-    onDragStart,
-    eventData,
-    onPositionChange,
-    onClick,
-    ...rest
-  } = props;
+  const { id, position, draggable, onDragStart, eventData, onPositionChange, ...rest } = props;
 
   const lastPosition = useRef({ x: position.x, y: position.y });
+  const lastDropZoneShapeRef = useRef<Konva.Group | Shape<ShapeConfig> | null>(null);
+  const currentDropZoneShapeRef = useRef<Konva.Group | Shape<ShapeConfig> | null>(null);
 
-  const {
-    updateContentRect,
-    stage,
-    layer,
-    tempLayer,
-    lastDropZoneShape,
-    setLastDropZoneShape,
-  } = useCanvas();
+  const lastDropZoneShape = lastDropZoneShapeRef.current;
+  const currentDropZoneShape = currentDropZoneShapeRef.current;
+
+  const setLastDropZoneShape = (value: Konva.Group | Shape<ShapeConfig> | null) => {
+    lastDropZoneShapeRef.current = value;
+  };
+
+  const setCurrentDropZoneShape = (value: Konva.Group | Shape<ShapeConfig> | null) => {
+    currentDropZoneShapeRef.current = value;
+  };
+
+  const { updateContentRect, stage, layer, tempLayer } = useCanvas();
 
   const eventNameWidth =
     metrics.event.width - metrics.event.padding.left - metrics.event.padding.right;
 
   const handleDragStart = (evt: KonvaEventObject<DragEvent>) => {
-    // if (evt.target.attrs.name !== 'EventItem') {
-    //   return;
-    // }
+    onDragStart(evt);
     evt.target.moveTo(tempLayer);
-    layer?.draw();
+    layer?.batchDraw();
   };
 
   const handleDragMove = (evt: KonvaEventObject<DragEvent>) => {
@@ -71,65 +68,56 @@ export const EventItem: React.FC<EventItemProps> = (props) => {
 
     lastPosition.current = { x: newPosition.x, y: newPosition.y };
 
-    // const { name } = evt.target.attrs;
-    //
-    // if (name !== 'EventItem') {
-    //   return;
-    // }
-
     const pos = stage?.getPointerPosition();
-    const previousElement = lastDropZoneShape;
 
     if (!pos) {
       return;
     }
 
-    const currentElement = layer?.getIntersection(pos, '.StepItem');
+    setCurrentDropZoneShape(layer?.getIntersection(pos, '.StepItem'));
 
-    console.log(currentElement, previousElement);
-
-    if (previousElement && currentElement) {
-      if (previousElement !== currentElement) {
-        previousElement.fire(
+    if (lastDropZoneShape && currentDropZoneShape) {
+      if (lastDropZoneShape !== currentDropZoneShape) {
+        lastDropZoneShape.fire(
           'dragleave',
           {
             type: 'dragleave',
-            target: previousElement,
+            target: lastDropZoneShape,
             evt: evt.evt,
           },
           true,
         );
 
-        currentElement.fire(
+        currentDropZoneShape.fire(
           'dragenter',
           {
             type: 'dragenter',
-            target: currentElement,
+            target: currentDropZoneShape,
             evt: evt.evt,
           },
           true,
         );
 
-        setLastDropZoneShape(currentElement);
+        setLastDropZoneShape(currentDropZoneShape);
       }
-    } else if (!previousElement && currentElement) {
-      setLastDropZoneShape(currentElement);
+    } else if (!lastDropZoneShape && currentDropZoneShape) {
+      setLastDropZoneShape(currentDropZoneShape);
 
-      currentElement.fire(
+      currentDropZoneShape.fire(
         'dragenter',
         {
           type: 'dragenter',
-          target: currentElement,
+          target: currentDropZoneShape,
           evt: evt.evt,
         },
         true,
       );
-    } else if (previousElement && !currentElement) {
-      previousElement.fire(
+    } else if (lastDropZoneShape && !currentDropZoneShape) {
+      lastDropZoneShape.fire(
         'dragleave',
         {
           type: 'dragleave',
-          target: previousElement,
+          target: lastDropZoneShape,
           evt: evt.evt,
         },
         true,
@@ -139,68 +127,40 @@ export const EventItem: React.FC<EventItemProps> = (props) => {
     }
 
     onPositionChange(newPosition, delta);
-
-    onDragStart(evt);
   };
 
-  const throttled = useMemo(
-    () => throttle((e: KonvaEventObject<DragEvent>) => handleDragMove(e), 1000),
+  const throttled: (evt: KonvaEventObject<DragEvent>) => void = useMemo(
+    () => throttle((e: KonvaEventObject<DragEvent>) => handleDragMove(e), 250),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [stage, lastDropZoneShape],
+    [stage, lastDropZoneShape, currentDropZoneShape],
   );
 
-  // const handleDragEnter = (evt: KonvaEventObject<DragEvent>) => {
-  //   evt.evt.stopPropagation();
-  //   console.log(evt, 'drag-enter');
-  //
-  //   onClick(evt);
-  // };
-
-  const handleDragLeave = () => {
-    // view.updateState({
-    //   selectedData: null,
-    // });
-
-    console.log('drag-leave');
-  };
-
-  const handleDrop = (evt: KonvaEventObject<DragEvent>) => {
-    console.log(evt, 'drop');
-  };
-
   const handleDragEnd = (evt: KonvaEventObject<DragEvent>) => {
-    console.log(evt, 'drag-end');
-    const { name } = evt.target.attrs;
-
-    if (name !== 'EventItem') {
-      return;
-    }
-
-    const previousElement = lastDropZoneShape;
-
     const pos = stage?.getPointerPosition();
 
     if (!pos) {
       return;
     }
 
-    const currentElement = layer?.getIntersection(pos, '.StepItem');
+    setCurrentDropZoneShape(layer?.getIntersection(pos, '.StepItem'));
 
-    if (currentElement) {
-      previousElement?.fire(
+    if (currentDropZoneShape) {
+      lastDropZoneShape?.fire(
         'drop',
         {
           type: 'drop',
-          target: previousElement,
+          target: lastDropZoneShape,
           evt: evt.evt,
+          draggingTarget: evt,
         },
         true,
       );
-
-      setLastDropZoneShape(null);
-      evt.target.moveTo(layer);
-      layer?.draw();
     }
+
+    setLastDropZoneShape(null);
+    evt.target.moveTo(layer);
+    layer?.draw();
+    tempLayer?.draw();
 
     updateContentRect();
   };
@@ -215,10 +175,7 @@ export const EventItem: React.FC<EventItemProps> = (props) => {
       width={metrics.event.width}
       height={metrics.event.emptyHeight}
       draggable={draggable}
-      // onDragEnter={handleDragEnter}
-      onDragLeave={handleDragLeave}
       onDragEnd={handleDragEnd}
-      onDrop={handleDrop}
       onDragStart={(e): void => {
         const newPosition = e.target.position();
         lastPosition.current = { x: newPosition.x, y: newPosition.y };

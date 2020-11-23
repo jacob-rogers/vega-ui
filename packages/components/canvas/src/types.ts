@@ -42,7 +42,8 @@ export type ActiveData = {
 
 export type SelectedData =
   | { type: 'item'; ids: string[] }
-  | { type: 'line'; parentId: string; childId: string };
+  | { type: 'line'; parentId: string; childId: string }
+  | { type: 'event'; itemId: string; eventId: string };
 
 export type ItemType = 'step' | 'root' | 'end' | 'event';
 
@@ -66,7 +67,7 @@ export type CanvasUpdate =
   | { type: 'change-multiple'; ids: string[]; changes: Partial<CanvasData>[] }
   | { type: 'select'; selected: SelectedData | null }
   | { type: 'unselect' }
-  | { type: 'drop-event'; intersectionId: string }
+  | { type: 'drop-event'; intersectionId: string; draggingElementId?: string }
   | { type: 'remove-tree'; id: string }
   | { type: 'remove-trees'; ids: string[] }
   | { type: 'disconnect-tree'; parentId: string; childId: string }

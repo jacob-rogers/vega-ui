@@ -229,8 +229,6 @@ export function throttle(func: any, ms: number): () => void {
       return;
     }
 
-    console.log('throttle');
-
     func.apply(this, args);
 
     isThrottled = true;

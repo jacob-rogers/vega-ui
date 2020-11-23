@@ -3,7 +3,6 @@ import { Layer, Rect, Stage } from 'react-konva';
 import { useKey, useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
 import { ScalePanel } from '@gpn-prototypes/vega-scale-panel';
 import Konva from 'konva';
-import { Shape, ShapeConfig } from 'konva/types/Shape';
 import { v4 as uuid } from 'uuid';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
@@ -67,7 +66,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const selectionRectRef = useRef<Konva.Rect>(null);
   const horizontalScrollbarRef = useRef<Konva.Rect>(null);
   const verticalScrollbarRef = useRef<Konva.Rect>(null);
-  const lastDropZoneShape = useRef<Konva.Group | Shape<ShapeConfig> | null>(null);
 
   const view = useMemo(
     () =>
@@ -121,10 +119,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     });
   };
 
-  const setLastDropZoneShape = (value: Konva.Group | Shape<ShapeConfig> | null) => {
-    lastDropZoneShape.current = value;
-  };
-
   const handleRemoveSelectedItem = (): void => {
     view.removeSelectedItem();
   };
@@ -170,6 +164,14 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       layer.batchDraw();
     }
   };
+
+  // const throttledHandleMouseMove = useMemo(
+  //   () =>
+  //     throttle((event: KonvaMouseEvent) => {
+  //       handleMouseMove(event);
+  //     }, 250),
+  //   [],
+  // );
 
   const handleMouseDown = (e: KonvaMouseEvent): void => {
     if (pinning.isKeyPressed || mode === 'dragging') {
@@ -560,8 +562,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
             stage: view.getStage(),
             layer: view.getLayer(),
             tempLayer: tempLayerRef.current,
-            lastDropZoneShape: lastDropZoneShape.current,
-            setLastDropZoneShape,
             setActiveData: (newData): void => view.changeActiveData(newData),
             activeData,
             setCursor: (newCursor): void => view.updateState({ cursor: newCursor }),

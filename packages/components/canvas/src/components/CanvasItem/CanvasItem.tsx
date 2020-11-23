@@ -4,7 +4,7 @@ import { useCanvas } from '../../context';
 import { metrics } from '../../metrics';
 import { CanvasTree, ConnectorActivateData, KonvaMouseEvent, Position } from '../../types';
 import { Connector } from '../Connector';
-import { EventItem } from '../EventItem/EventItem';
+import { EventItem } from '../EventItem';
 import { ExtremePointItem, ExtremePointProps } from '../ExtremePointItem';
 import { StepItem } from '../StepItem';
 
@@ -19,6 +19,7 @@ export type CanvasItemProps = {
   onClick: (e: KonvaMouseEvent) => void;
   onMouseUp: (e: KonvaMouseEvent) => void;
   onMouseMove: (e: KonvaMouseEvent) => void;
+  notifyDropEvent: (dropZoneId: string, draggingId: string) => void;
   onPositionChange: (position: Position, positionDelta: Position) => void;
   onWidthUpdate: (width: number) => void;
 };
@@ -42,6 +43,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onMouseMove,
     onPositionChange,
     onWidthUpdate,
+    notifyDropEvent,
   } = props;
 
   const id = item.getId();
@@ -152,9 +154,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onWidthUpdate(newWidth);
   };
 
-  const handleClick = (e: KonvaMouseEvent): void => {
-    e.cancelBubble = true;
-
+  const selectItem = (e: KonvaMouseEvent): void => {
     if (!isSelected) {
       if (e.evt.shiftKey && selectedData?.type === 'item') {
         setSelectedData({
@@ -168,6 +168,13 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
         });
       }
     }
+  };
+
+  const handleClick = (e: KonvaMouseEvent): void => {
+    e.cancelBubble = true;
+
+    selectItem(e);
+
     if (onClick) {
       onClick(e);
     }
@@ -209,6 +216,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     position: data.position,
     stroke: getStroke(),
     draggable: !hasActiveData,
+    selectItem,
     onClick: handleClick,
     onMouseEnter: handleMouseEnter,
     onMouseMove,
@@ -216,6 +224,7 @@ export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
     onMouseUp: handleMouseUp,
     onDragStart,
     onPositionChange,
+    notifyDropEvent,
     children: stepContent,
   };
 

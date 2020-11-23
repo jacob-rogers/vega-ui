@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Group, Image, Rect } from 'react-konva';
+import { KonvaEventObject } from 'konva/types/Node';
 
 import { useCanvas } from '../../context';
 import { useImage } from '../../hooks';
@@ -18,6 +19,7 @@ export type StepItemProps = {
   position: Position;
   stroke?: string;
   draggable: boolean;
+  selectItem: (e: KonvaMouseEvent) => void;
   onClick: (e: KonvaMouseEvent) => void;
   onMouseEnter: (e: KonvaMouseEvent) => void;
   onMouseMove: (e: KonvaMouseEvent) => void;
@@ -25,6 +27,7 @@ export type StepItemProps = {
   onMouseUp: (e: KonvaMouseEvent) => void;
   onDragStart: (e: KonvaDragEvent) => void;
   onPositionChange: (position: Position, positionDelta: Position) => void;
+  notifyDropEvent: (dropZoneId: string, draggingId: string) => void;
   children: JSX.Element;
   stepData: StepData;
 };
@@ -40,6 +43,8 @@ export const StepItem: React.FC<StepItemProps> = (props) => {
     stepData,
     children,
     onClick,
+    selectItem,
+    notifyDropEvent,
     ...rest
   } = props;
 
@@ -60,6 +65,7 @@ export const StepItem: React.FC<StepItemProps> = (props) => {
       name="StepItem"
       x={position.x}
       y={position.y}
+      onClick={onClick}
       width={metrics.step.width}
       height={stepHeight}
       draggable={draggable}
@@ -70,7 +76,9 @@ export const StepItem: React.FC<StepItemProps> = (props) => {
         onDragStart(e);
       }}
       onDragEnter={(e: KonvaDragEvent): void => {
-        onClick(e);
+        e.cancelBubble = true;
+
+        selectItem(e);
       }}
       onDragMove={(e): void => {
         const newPosition = e.target.position();
@@ -84,8 +92,18 @@ export const StepItem: React.FC<StepItemProps> = (props) => {
 
         onPositionChange(newPosition, delta);
       }}
-      onDragLeave={(): void => {
+      onDragLeave={(e: KonvaEventObject<DragEvent>): void => {
+        e.cancelBubble = true;
+
         setSelectedData(null);
+      }}
+      onDrop={(
+        e: KonvaEventObject<DragEvent> & { draggingTarget: KonvaEventObject<DragEvent> },
+      ) => {
+        const intersectionId = e.target.attrs.id;
+        const draggingElementId = e.draggingTarget.target.attrs.id;
+
+        notifyDropEvent(intersectionId, draggingElementId);
       }}
       onDragEnd={updateContentRect}
     >
@@ -113,10 +131,12 @@ export const StepItem: React.FC<StepItemProps> = (props) => {
 
         return (
           <Event
+            id={event.id}
             key={event.id}
             x={eventPosX}
             y={eventPosY}
             name={event.name}
+            stepId={id}
             height={eventHeight}
             containerHeight={containerHeight}
             content={event.content}
