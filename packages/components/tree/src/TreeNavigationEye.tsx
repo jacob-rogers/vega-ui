@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Text, Tooltip } from '@gpn-prototypes/vega-ui';
+import { Text } from '@gpn-prototypes/vega-text';
+import { Tooltip } from '@gpn-prototypes/vega-tooltip';
 
 import cnTree from './cn-tree';
 import { NavigationEyeProps } from './types';

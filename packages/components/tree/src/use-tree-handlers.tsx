@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { TargetData } from '@gpn-prototypes/vega-ui';
+
+import { TargetData } from './types';
 
 type UseTreeHandlersProps = {
   id: string;

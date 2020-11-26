@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { TreeItem } from '@gpn-prototypes/vega-ui';
+
+import { TreeItem } from './types';
 
 const getNewTree = (
   nodes: TreeItem[],
