@@ -6,7 +6,7 @@ import { ItemType } from '../../../types';
 import { Option as OptionType, OptionView } from '../types';
 
 export type OptionProps = {
-  option: OptionView<OptionType | ItemType>;
+  option: OptionView<OptionType | Exclude<ItemType, 'event'>>;
   onClick: (e: React.MouseEvent) => void;
   isActive?: boolean;
   disabled?: boolean;

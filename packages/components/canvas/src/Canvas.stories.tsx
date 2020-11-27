@@ -16,6 +16,40 @@ const startNode = Tree.of<CanvasData>({
     type: 'root',
   },
 });
+const eventNode = Tree.of<CanvasData>({
+  data: {
+    position: { x: 800, y: 300 },
+    title: 'Сейсмика',
+    eventData: {
+      name: 'Сейсмика',
+      id: '0',
+    },
+    type: 'event',
+  },
+});
+
+const stepNode = Tree.of<CanvasData>({
+  data: {
+    position: { x: 900, y: 300 },
+    title: 'Шаг',
+    type: 'step',
+    stepData: {
+      name: 'Шаг',
+      id: '1',
+      events: [
+        {
+          id: '0',
+          content: [
+            { id: '1', name: 'Залежь - 1', type: 'domainObject' },
+            { id: '2', name: 'Залежь - 2', type: 'domainObject' },
+            { id: '3', name: 'Залежь - 3', type: 'domainObject' },
+          ],
+          name: 'Сейсмика',
+        },
+      ],
+    },
+  },
+});
 const endNode = Tree.of<CanvasData>({
   data: {
     position: { x: 600, y: 300 },
@@ -24,7 +58,7 @@ const endNode = Tree.of<CanvasData>({
   },
 });
 
-const defaultTreeState: CanvasTree[] = [startNode, endNode];
+const defaultTreeState: CanvasTree[] = [startNode, endNode, eventNode, stepNode];
 
 storiesOf('ui/Canvas', module)
   .addDecorator(withKnobs)
@@ -47,6 +81,7 @@ storiesOf('ui/Canvas', module)
         setTreeState([]);
         return;
       }
+
       setChanges([...changes, change.update]);
       setLocalState(change.state);
     };

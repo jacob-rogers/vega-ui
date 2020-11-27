@@ -53,13 +53,34 @@ export const metrics = {
       fill: '#FAFAFA',
     },
   },
-  step: {
+  event: {
     cornerRadius: 2,
     stroke: 'rgba(255, 255, 255, 0.2)',
     strokeSelected: '#0078D2',
     strokeWidth: 2,
     width: 251,
-    emptyHeight: 47,
+    emptyHeight: 40,
+    headerHeight: 39,
+    fill: '#22272B',
+    padding: {
+      top: 12,
+      left: 12,
+      right: 36,
+      bottom: 12,
+    },
+    name: {
+      fontSize: 14,
+      lineHeight: 1.4,
+      fill: '#FAFAFA',
+    },
+  },
+  step: {
+    cornerRadius: 2,
+    stroke: 'rgba(255, 255, 255, 0.2)',
+    strokeSelected: 'rgba(255, 255, 255, 0.9)',
+    strokeWidth: 2,
+    width: 251,
+    emptyHeight: 40,
     headerHeight: 39,
     padding: {
       top: 8,
@@ -78,6 +99,8 @@ export const metrics = {
       headerHeight: 41,
       emptyHeight: 40,
       marginBottom: 8,
+      strokeWidth: 2,
+      strokeSelected: 'rgba(255, 255, 255, 0.9)',
       padding: {
         top: 10,
         left: 12,
@@ -101,6 +124,8 @@ export const metrics = {
     object: {
       width: 195,
       height: 32,
+      strokeWidth: 2,
+      strokeSelected: 'rgba(255, 255, 255, 0.9)',
       marginBottom: 4,
       cornerRadius: 2,
       fill: '#4f5255',

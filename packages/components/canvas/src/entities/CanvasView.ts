@@ -155,7 +155,7 @@ export class CanvasView extends Notifier<ViewUpdate> {
       return;
     }
 
-    const collection = stage.find('.List, .ListItem');
+    const collection = stage.find('.StepItem, .ExtremePointItem, .EventItem');
     const elements = collection.toArray();
 
     const rect = getContentRect(elements, stageSize.width, stageSize.height);

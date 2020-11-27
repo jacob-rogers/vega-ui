@@ -17,7 +17,7 @@ export interface CreateOptionProps extends Omit<OptionProps, 'onClick'> {
   disabledOptions: OptionType[];
 }
 
-export const items: OptionView<ItemType>[] = [
+export const items: OptionView<Exclude<ItemType, 'event'>>[] = [
   { type: 'root', icon: IconNodeStart, label: 'Начало' },
   { type: 'end', icon: IconNodeStep, label: 'Выход' },
   { type: 'step', icon: IconNodeEnd, label: 'Шаг' },

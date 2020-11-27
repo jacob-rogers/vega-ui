@@ -122,7 +122,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       if (position) {
         const overlap = layout?.getIntersection(position, 'Group');
 
-        intersect = overlap?.attrs.name === 'List' ? overlap : undefined;
+        intersect = overlap?.attrs.name === 'StepItem' ? overlap : undefined;
       }
 
       return intersect;
@@ -311,15 +311,16 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         layer.batchDraw();
       });
 
-      const shapes = stage.find('.List, .ListItem').toArray();
+      const shapes = stage.find('.StepItem, .ExtremePointItem, .EventItem').toArray();
       const box = selectionRect.getClientRect({});
       const selected = shapes.filter((shape) =>
         Konva.Util.haveIntersection(box, shape.getClientRect()),
       );
 
-      const selectedItems = selected.filter(
-        (shape) => shape.attrs.name === 'List' || shape.attrs.name === 'ListItem',
+      const selectedItems = selected.filter((shape) =>
+        ['StepItem', 'ExtremePointItem', 'EventItem'].includes(shape.attrs.name),
       );
+
       const ids = selectedItems.map((item) => item.attrs.id);
 
       if (selectedItems.length) {

@@ -1,4 +1,5 @@
-import { metrics } from './metrics';
+import { metrics } from '../../metrics';
+
 import { Event } from './types';
 
 export type EventReferencePoints = {

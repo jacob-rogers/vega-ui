@@ -15,7 +15,8 @@ export type ExtremePointProps = {
   name: string;
   position: Position;
   stroke?: string;
-  draggable: boolean; // TODO: проверить нужно ли это поле
+  draggable: boolean;
+  selectItem: (e: KonvaMouseEvent) => void;
   onClick: (e: KonvaMouseEvent) => void;
   onMouseEnter: (e: KonvaMouseEvent) => void;
   onMouseMove: (e: KonvaMouseEvent) => void;
@@ -27,7 +28,7 @@ export type ExtremePointProps = {
   onWidthUpdate?: (width: number) => void;
 };
 
-export const ListItem: React.FC<ExtremePointProps> = (props) => {
+export const ExtremePointItem: React.FC<ExtremePointProps> = (props) => {
   const {
     id,
     name,
@@ -66,7 +67,7 @@ export const ListItem: React.FC<ExtremePointProps> = (props) => {
     <Group
       {...rest}
       id={id}
-      name="ListItem" // TODO: изменить name на Item ExtremePoint
+      name="ExtremePointItem"
       x={position.x}
       y={position.y}
       width={width}

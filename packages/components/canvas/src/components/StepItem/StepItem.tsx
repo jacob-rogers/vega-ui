@@ -12,12 +12,13 @@ import { Event } from './Event';
 import { StepData } from './types';
 import { getStepReferencePoints } from './utils';
 
-export type ListProps = {
+export type StepItemProps = {
   id: string;
   name: string;
   position: Position;
   stroke?: string;
   draggable: boolean;
+  selectItem: (e: KonvaMouseEvent) => void;
   onClick: (e: KonvaMouseEvent) => void;
   onMouseEnter: (e: KonvaMouseEvent) => void;
   onMouseMove: (e: KonvaMouseEvent) => void;
@@ -29,7 +30,7 @@ export type ListProps = {
   stepData: StepData;
 };
 
-export const List: React.FC<ListProps> = (props) => {
+export const StepItem: React.FC<StepItemProps> = (props) => {
   const {
     id,
     position,
@@ -56,7 +57,7 @@ export const List: React.FC<ListProps> = (props) => {
     <Group
       {...rest}
       id={id}
-      name="List" // TODO: изменить name на Item Step
+      name="StepItem"
       x={position.x}
       y={position.y}
       width={metrics.step.width}
@@ -106,10 +107,12 @@ export const List: React.FC<ListProps> = (props) => {
 
         return (
           <Event
+            id={event.id}
             key={event.id}
             x={eventPosX}
             y={eventPosY}
             name={event.name}
+            stepId={id}
             height={eventHeight}
             containerHeight={containerHeight}
             content={event.content}

@@ -1,6 +1,7 @@
 import Konva from 'konva';
 
-import { StepData } from './components/List/types';
+import { EventData } from './components/EventItem/types';
+import { StepData } from './components/StepItem/types';
 import { Tree } from './entities/Tree';
 
 export type Position = {
@@ -41,9 +42,11 @@ export type ActiveData = {
 
 export type SelectedData =
   | { type: 'item'; ids: string[] }
-  | { type: 'line'; parentId: string; childId: string };
+  | { type: 'line'; parentId: string; childId: string }
+  | { type: 'event'; itemId: string; eventId: string }
+  | { type: 'domainObject'; eventId: string; objectId: string; stepId?: string };
 
-export type ItemType = 'step' | 'root' | 'end';
+export type ItemType = 'step' | 'root' | 'end' | 'event';
 
 export type Connection = 'children' | 'parent';
 
@@ -53,6 +56,7 @@ export type CanvasData = {
   position: Position;
   width?: number;
   stepData?: StepData;
+  eventData?: EventData;
 };
 
 export type CanvasTree = Tree<CanvasData>;
