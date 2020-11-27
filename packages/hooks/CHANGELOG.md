@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.5.3...@gpn-prototypes/vega-hooks@0.5.4) (2020-11-27)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-hooks
+
+
+
+
+
 ## [0.5.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.5.2...@gpn-prototypes/vega-hooks@0.5.3) (2020-10-30)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-hooks
