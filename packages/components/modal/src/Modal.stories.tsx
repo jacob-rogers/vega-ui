@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
+import { Combobox } from '@gpn-prototypes/vega-combobox';
 import { usePortal } from '@gpn-prototypes/vega-root';
 import { Text } from '@gpn-prototypes/vega-text';
 import { action } from '@storybook/addon-actions';
@@ -70,6 +71,86 @@ storiesOf('ui/Modal', module)
           </Modal.Header>
           <Modal.Body>
             <Text>{example.text}</Text>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button
+              size="m"
+              view="primary"
+              label="Закрыть окно"
+              onClick={(e): void => {
+                closeAction(e);
+                handleClose();
+              }}
+            />
+          </Modal.Footer>
+        </Modal>
+      </>
+    );
+  })
+  .add('c Combobox', () => {
+    const { isOpen, close: handleClose, open: handleOpen } = useModal({ initialOpen: false });
+    const example = exampleKnobs();
+
+    const openAction = action('Modal opened');
+    const { portal } = usePortal({ name: 'modalRoot' });
+    const closeAction = action('Modal closed');
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+    type Option = {
+      label: string;
+      value: string;
+    };
+
+    const items = [
+      { label: 'Москва', value: 'moscow' },
+      { label: 'Санкт-Петербург', value: 'spb' },
+      { label: 'Томск', value: 'tomsk' },
+      { label: 'Омск', value: 'omsk' },
+      { label: 'Орск', value: 'orsk' },
+      { label: 'Тверь', value: 'tver' },
+      { label: 'Тула', value: 'tula' },
+      { label: 'Тамбов', value: 'tambov' },
+      { label: 'Краснодар', value: 'krasnodar' },
+      { label: 'Белгород', value: 'belgorod' },
+    ];
+
+    const getItemLabel = (option: Option): string => option.label;
+    const [value, setValue] = useState<Option | null | undefined>();
+
+    return (
+      <>
+        <Button
+          size="m"
+          view="primary"
+          label="Открыть модальное окно"
+          onClick={(e): void => {
+            openAction(e);
+            handleOpen();
+          }}
+        />
+        <Modal
+          portal={portal}
+          onClose={(e): void => {
+            closeAction(e);
+            handleClose();
+          }}
+          isOpen={isOpen}
+          refsForExcludeClickOutside={[dropdownRef]}
+          {...modalKnobs()}
+        >
+          <Modal.Header>
+            <Text size="xs">{example.title}</Text>
+          </Modal.Header>
+          <Modal.Body>
+            <Combobox
+              placeholder="Выберите город"
+              id="city"
+              value={value}
+              onChange={setValue}
+              options={items}
+              getOptionLabel={getItemLabel}
+              dropdownRef={dropdownRef}
+            />
           </Modal.Body>
           <Modal.Footer>
             <Button

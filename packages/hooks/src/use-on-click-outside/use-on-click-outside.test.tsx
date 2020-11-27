@@ -48,9 +48,9 @@ describe('useOnClickOutside', () => {
 
     const div = screen.getByTestId('div-test-id');
 
-    const event: MouseEvent = new MouseEvent('click');
+    const event: MouseEvent = new MouseEvent('mousedown');
 
-    eventsMap.click({ ...event, target: div });
+    eventsMap.mousedown({ ...event, target: div });
 
     expect(handleClickOutside).not.toBeCalled();
   });
@@ -66,9 +66,9 @@ describe('useOnClickOutside', () => {
 
     const button = screen.getByTestId('button-test-id');
 
-    const event: MouseEvent = new MouseEvent('click');
+    const event: MouseEvent = new MouseEvent('mousedown');
 
-    eventsMap.click({ ...event, target: button });
+    eventsMap.mousedown({ ...event, target: button });
 
     expect(handleClickOutside).toBeCalled();
   });

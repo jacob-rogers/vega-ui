@@ -71,7 +71,7 @@ describe('Dropdown', () => {
 
     const root = findRoot();
 
-    fireEvent.click(root);
+    fireEvent.mouseDown(root);
     expect(handleClickOutside).toBeCalledTimes(1);
   });
 

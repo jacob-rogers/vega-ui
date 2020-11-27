@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { usePreviousRef } from '../use-previous-ref';
 
 const TOUCHSTART = 'touchstart';
-const CLICK = 'click';
+const CLICK = 'mousedown';
 
 type HandledEvents = [typeof TOUCHSTART, typeof CLICK];
 
@@ -66,5 +66,5 @@ export function useOnClickOutside({ ref, handler }: Args): void {
       });
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [handler]);
+  }, [handler, ref]);
 }

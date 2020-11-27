@@ -13,7 +13,7 @@ import './Modal.css';
 
 type DivProps = JSX.IntrinsicElements['div'];
 
-type PossibleCloseEvent = CloseEvent | React.SyntheticEvent;
+type PossibleCloseEvent = CloseEvent | Event;
 
 export type ModalProps = {
   onClose: (e: PossibleCloseEvent) => void;
@@ -24,6 +24,7 @@ export type ModalProps = {
   onOverlayClick?: React.EventHandler<React.MouseEvent>;
   portal?: HTMLDivElement | null;
   className?: string;
+  refsForExcludeClickOutside?: React.RefObject<HTMLElement>[];
 };
 
 interface ModalComponent extends React.FC<ModalProps>, DivProps {
@@ -42,13 +43,14 @@ export const Modal: ModalComponent = (props) => {
     hasOverlay,
     portal = document.body,
     className,
+    refsForExcludeClickOutside,
     ...rest
   } = props;
   const ref = useRef<HTMLDivElement | null>(null);
 
   const { renderPortalWithTheme } = usePortalRender();
 
-  const onCloseModal = (e: PossibleCloseEvent): void => {
+  const handleCloseModal = (e: PossibleCloseEvent): void => {
     if (isOpen) {
       onClose(e);
     }
@@ -59,8 +61,7 @@ export const Modal: ModalComponent = (props) => {
       onOverlayClick(e);
     }
   };
-
-  useRootClose(ref, onCloseModal);
+  useRootClose([ref, ...(refsForExcludeClickOutside || [])], handleCloseModal);
 
   if (!portal || !isOpen) {
     return null;
@@ -81,7 +82,7 @@ export const Modal: ModalComponent = (props) => {
             className={cnModal('CloseButton').toString()}
             view="ghost"
             type="button"
-            onClick={onCloseModal}
+            onClick={(e: React.SyntheticEvent) => handleCloseModal(e.nativeEvent)}
             onlyIcon
             iconLeft={IconClose}
             iconSize="s"
