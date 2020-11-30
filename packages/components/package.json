@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-ui",
-  "version": "2.15.4",
+  "version": "2.15.5",
   "description": "",
   "author": "CSSSR",
   "license": "MIT",
@@ -27,7 +27,7 @@
     "@gpn-prototypes/vega-basic-select": "^0.0.3",
     "@gpn-prototypes/vega-button": "^0.2.4",
     "@gpn-prototypes/vega-canvas": "^0.1.4",
-    "@gpn-prototypes/vega-carousel": "^0.0.14",
+    "@gpn-prototypes/vega-carousel": "^0.0.15",
     "@gpn-prototypes/vega-checkbox": "^0.1.9",
     "@gpn-prototypes/vega-choice-group": "^0.1.12",
     "@gpn-prototypes/vega-combobox": "^0.1.1",
