@@ -18,6 +18,7 @@ interface CarouselArrowsViewProps extends CarouselArrowsProps {
 
 export const CarouselArrowsView: React.FC<CarouselArrowsViewProps> = (props) => {
   const { nextLabel, prevLabel, nextClassName, prevClassName, onPrev, onNext } = props;
+  const { testId } = useCarousel();
   return (
     <>
       <Button
@@ -29,6 +30,7 @@ export const CarouselArrowsView: React.FC<CarouselArrowsViewProps> = (props) => 
         size="l"
         view="clear"
         onClick={onPrev}
+        data-testid={testId && `${testId}:button:prevSlide`}
       />
       <Button
         title={nextLabel}
@@ -38,6 +40,7 @@ export const CarouselArrowsView: React.FC<CarouselArrowsViewProps> = (props) => 
         size="l"
         view="clear"
         onClick={onNext}
+        data-testid={testId && `${testId}:button:nextSlide`}
       />
     </>
   );

@@ -14,6 +14,7 @@ interface CarouselSlideViewProps extends CarouselSlideProps {
 
 export const CarouselSlideView: React.FC<CarouselSlideViewProps> = (props) => {
   const { className, children, onPointerEnter, onPointerLeave, ...rest } = props;
+  const { testId, currentIdx } = useCarousel();
 
   return (
     <div
@@ -24,6 +25,7 @@ export const CarouselSlideView: React.FC<CarouselSlideViewProps> = (props) => {
       onMouseLeave={onPointerLeave}
       onTouchStart={onPointerEnter}
       onTouchEnd={onPointerLeave}
+      data-testId={testId && `${testId}:slide:${currentIdx}`}
     >
       {children}
     </div>

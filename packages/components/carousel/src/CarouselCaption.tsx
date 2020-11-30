@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from '@gpn-prototypes/vega-text';
 
-import { b, useSlide } from './context';
+import { b, useCarousel, useSlide } from './context';
 
 interface CarouselCaptionProps {
   className?: string;
@@ -13,6 +13,7 @@ interface CarouselCaptionViewProps extends CarouselCaptionProps {
 
 export const CarouselCaptionView: React.FC<CarouselCaptionViewProps> = (props) => {
   const { caption = '', className } = props;
+  const { testId, currentIdx } = useCarousel();
 
   if (caption === '') {
     return null;
@@ -24,6 +25,7 @@ export const CarouselCaptionView: React.FC<CarouselCaptionViewProps> = (props) =
       lineHeight="xs"
       view="secondary"
       className={b('Caption').mix(className).toString()}
+      data-testId={testId && `${testId}:caption:${currentIdx}`}
     >
       {caption}
     </Text>

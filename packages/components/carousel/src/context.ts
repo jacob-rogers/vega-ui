@@ -22,6 +22,7 @@ export interface CarouselAPI {
   to: (idx: number) => void;
   next: () => void;
   prev: () => void;
+  testId?: string;
 }
 
 const noop = (): void => {};

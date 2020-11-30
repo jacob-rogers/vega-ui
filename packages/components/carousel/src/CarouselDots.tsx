@@ -15,6 +15,7 @@ interface CarouselDotsViewProps extends CarouselDotsProps {
 
 export const CarouselDotsView: React.FC<CarouselDotsViewProps> = (props) => {
   const { slides, activeIdx, className, dotClassName, dotsLabel, onChange } = props;
+  const { testId } = useCarousel();
 
   if (slides.length < 2) {
     return null;
@@ -38,6 +39,7 @@ export const CarouselDotsView: React.FC<CarouselDotsViewProps> = (props) => {
           aria-selected={slide.idx === activeIdx}
           aria-controls="slide"
           onClick={(): void => onChange(slide.idx)}
+          data-testId={testId && `${testId}:dot:${slide.idx}`}
         />
       ))}
     </div>

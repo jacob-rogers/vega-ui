@@ -9,6 +9,7 @@ interface CarouselManagerProps {
   slides: Slide[];
   autoPlay?: number;
   onChange: (idx: number) => void;
+  testId?: string;
 }
 
 function useCallbackRef<T>(value: T): React.MutableRefObject<T> {
@@ -64,7 +65,7 @@ function useAutoplay({ interval, idx, onNext }: AutoPlayOptions): AutoPlayAPI {
 }
 
 export const CarouselManager: React.FC<CarouselManagerProps> = (props) => {
-  const { currentIdx, slides, children, autoPlay = 0, onChange } = props;
+  const { currentIdx, slides, children, autoPlay = 0, onChange, testId } = props;
   const total = slides.length;
 
   const dir = useRef<CarouselAPI['direction']>('next');
@@ -93,6 +94,7 @@ export const CarouselManager: React.FC<CarouselManagerProps> = (props) => {
     to,
     prev,
     next,
+    testId,
   };
 
   return <CarouselContext.Provider value={value}>{children}</CarouselContext.Provider>;

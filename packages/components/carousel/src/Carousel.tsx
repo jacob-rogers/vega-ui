@@ -36,6 +36,7 @@ interface CarouselProps extends Omit<React.ComponentProps<typeof CarouselManager
   className?: string;
   children: Child | Child[];
   onChange: (idx: number) => void;
+  testId?: string;
 }
 
 interface CarouselComponent<P> extends React.FC<P> {
@@ -60,6 +61,7 @@ export const Carousel: CarouselComponent<CarouselProps> = (props) => {
     currentIdx,
     autoPlay,
     onChange,
+    testId,
   } = props;
 
   const slides: ManagerSlide[] = [];
@@ -91,8 +93,9 @@ export const Carousel: CarouselComponent<CarouselProps> = (props) => {
       slides={slides}
       autoPlay={autoPlay}
       onChange={onChange}
+      testId={testId}
     >
-      <div className={b.mix(className).toString()}>
+      <div className={b.mix(className).toString()} data-testId={testId}>
         <div className={b('Container').toString()}>
           {arrows && (
             <CarouselArrows

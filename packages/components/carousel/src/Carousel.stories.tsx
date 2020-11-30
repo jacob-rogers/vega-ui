@@ -76,7 +76,7 @@ const Image = styled.div<{ src: string }>`
 stories.add('с изображением', () => {
   const props = useStoryProps();
   return (
-    <Carousel {...props}>
+    <Carousel {...props} testId="story">
       <Carousel.Slide caption="caption 1">
         <Image src="https://picsum.photos/1000/560" />
       </Carousel.Slide>
