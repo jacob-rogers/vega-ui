@@ -18,14 +18,15 @@ export const Tree: React.FC<TreeProps> = (props) => {
     nodeList = [],
     onDragStart,
     onDragEnd,
-    onRenameItem,
-    onDuplicateItem,
-    onDeleteItem,
     onPasteItem,
+    onSelectItem,
+    onHideItem,
+    contextMenuItems,
     actionItemComponents,
     isContextMenuEnable = false,
     withVisibilitySwitcher = true,
     withDropZoneIndicator = true,
+    withMultiSelect = true,
     showIndentGuides = true,
   } = props;
 
@@ -44,8 +45,24 @@ export const Tree: React.FC<TreeProps> = (props) => {
     enabled: isContextMenuEnable,
   });
 
-  useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown' });
-  useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup' });
+  useKey(
+    'Control',
+    () => {
+      if (withMultiSelect) {
+        setIsMultiSelect(true);
+      }
+    },
+    { keyevent: 'keydown' },
+  );
+  useKey(
+    'Control',
+    () => {
+      if (withMultiSelect) {
+        setIsMultiSelect(false);
+      }
+    },
+    { keyevent: 'keyup' },
+  );
 
   const handleSelectItem = (selectItem: TargetData): void => {
     if (isMultiSelect && selectedItems) {
@@ -53,22 +70,34 @@ export const Tree: React.FC<TreeProps> = (props) => {
         const newState = selectedItems.filter((item: TargetData) => item.id !== selectItem.id);
 
         setSelectedItems([...newState]);
+        if (onSelectItem) {
+          onSelectItem([...newState]);
+        }
 
         return;
       }
 
       setSelectedItems([...selectedItems, selectItem]);
+      if (onSelectItem) {
+        onSelectItem([...selectedItems, selectItem]);
+      }
 
       return;
     }
 
     if (selectedItems?.includes(selectItem)) {
       setSelectedItems([]);
-
+      if (onSelectItem) {
+        onSelectItem([]);
+      }
       return;
     }
 
     setSelectedItems([selectItem]);
+
+    if (onSelectItem) {
+      onSelectItem([selectItem]);
+    }
   };
 
   const handleHideItem = (ref: React.RefObject<HTMLElement>): void => {
@@ -76,12 +105,18 @@ export const Tree: React.FC<TreeProps> = (props) => {
       const newState = hiddenItems.filter((refItem) => refItem !== ref);
 
       setHiddenItems([...newState]);
-
+      if (onHideItem) {
+        onHideItem([...newState, ref]);
+      }
       return;
     }
 
     if (hiddenItems) {
-      setHiddenItems([...hiddenItems, ref]);
+      const newHiddenItems = [...hiddenItems, ref];
+      setHiddenItems(newHiddenItems);
+      if (onHideItem) {
+        onHideItem(newHiddenItems);
+      }
     }
   };
 
@@ -200,14 +235,11 @@ export const Tree: React.FC<TreeProps> = (props) => {
             {nodeList && renderTree(nodeList)}
           </ul>
 
-          {isOpen && menuCoordinates && (
+          {isOpen && menuCoordinates && contextMenuItems?.length && (
             <TreeContextMenu
               menuCoordinates={menuCoordinates}
               closeContextMenu={close}
-              handleRename={onRenameItem}
-              handleCopy={onDuplicateItem}
-              handleDelete={onDeleteItem}
-              handlePaste={onPasteItem}
+              items={contextMenuItems}
             />
           )}
         </div>

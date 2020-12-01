@@ -1,79 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 
 import cnTree from '../../cn-tree';
+import TreeContext from '../../context';
+import { ContextMenuItem } from '../../types';
 
 type ContextMenuListProps = {
-  handleRename?: () => void;
-  handleCopy?: () => void;
-  handleDelete?: () => void;
-  handlePaste?: (transferringIds: string[], receivingId: string) => void;
+  items: ContextMenuItem[];
 };
 
 const TreeContextMenuList: React.FC<ContextMenuListProps> = (props) => {
-  const handleRenameAction = (): void => {
-    if (typeof props.handleRename === 'function') {
-      props.handleRename();
-    }
-  };
-
-  const handleCopyAction = (): void => {
-    if (typeof props.handleCopy === 'function') {
-      props.handleCopy();
-    }
-  };
-
-  const handleDeleteAction = (): void => {
-    if (typeof props.handleDelete === 'function') {
-      props.handleDelete();
-    }
-  };
+  const { items } = props;
+  const { selectedItems } = useContext(TreeContext);
 
   return (
     <div className={cnTree('ContextMenuList')}>
-      <Button
-        label="Переименовать"
-        aria-label="Переименовать"
-        onClick={handleRenameAction}
-        size="l"
-        form="default"
-        width="full"
-        view="clear"
-        className={cnTree('ContextMenuItem', { withSeparator: true }).toString()}
-      />
-
-      <Button
-        label="Копировать"
-        aria-label="Копировать"
-        onClick={handleCopyAction}
-        size="l"
-        form="default"
-        width="full"
-        view="clear"
-        className={cnTree('ContextMenuItem').toString()}
-      />
-
-      <Button
-        label="Вставить"
-        aria-label="Вставить"
-        onClick={(): void => {}}
-        size="l"
-        form="default"
-        width="full"
-        view="clear"
-        className={cnTree('ContextMenuItem').toString()}
-      />
-
-      <Button
-        label="Удалить"
-        aria-label="Удалить"
-        onClick={handleDeleteAction}
-        size="l"
-        form="default"
-        width="full"
-        view="clear"
-        className={cnTree('ContextMenuItem').toString()}
-      />
+      {items.map((item) => (
+        <Button
+          key={item.key}
+          label={item.title}
+          aria-label={item.title}
+          onClick={() => {
+            item.callback(selectedItems[selectedItems.length - 1].id);
+          }}
+          size="l"
+          form="default"
+          width="full"
+          view="clear"
+          className={cnTree('ContextMenuItem', { withSeparator: item.withSeparator }).toString()}
+        />
+      ))}
     </div>
   );
 };
