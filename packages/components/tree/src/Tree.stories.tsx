@@ -288,7 +288,7 @@ const contextMenuItems: ContextMenuItem[] = [
       action('Collapse')(args);
     },
     withSeparator: true,
-    key: '2',
+    key: '1',
   },
   {
     title: 'Переименовать',

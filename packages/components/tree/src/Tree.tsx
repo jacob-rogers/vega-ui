@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { PropsWithChildren, useRef, useState } from 'react';
 import { useKey } from '@gpn-prototypes/vega-hooks';
 
 import { TreeContextMenu } from './components/TreeContextMenu';
@@ -11,7 +11,9 @@ import { useOnChangeTreeWidth } from './use-on-change-width';
 
 import './Tree.css';
 
-export const Tree: React.FC<TreeProps> = (props) => {
+export function Tree<T extends unknown>(
+  props: PropsWithChildren<TreeProps<T>>,
+): React.ReactElement {
   const {
     isDndEnable = true,
     icons,
@@ -70,6 +72,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
         const newState = selectedItems.filter((item: TargetData) => item.id !== selectItem.id);
 
         setSelectedItems([...newState]);
+
         if (onSelectItem) {
           onSelectItem([...newState]);
         }
@@ -78,6 +81,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
       }
 
       setSelectedItems([...selectedItems, selectItem]);
+
       if (onSelectItem) {
         onSelectItem([...selectedItems, selectItem]);
       }
@@ -87,6 +91,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
 
     if (selectedItems?.includes(selectItem)) {
       setSelectedItems([]);
+
       if (onSelectItem) {
         onSelectItem([]);
       }
@@ -105,6 +110,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
       const newState = hiddenItems.filter((refItem) => refItem !== ref);
 
       setHiddenItems([...newState]);
+
       if (onHideItem) {
         onHideItem([...newState, ref]);
       }
@@ -114,6 +120,7 @@ export const Tree: React.FC<TreeProps> = (props) => {
     if (hiddenItems) {
       const newHiddenItems = [...hiddenItems, ref];
       setHiddenItems(newHiddenItems);
+
       if (onHideItem) {
         onHideItem(newHiddenItems);
       }
@@ -246,4 +253,4 @@ export const Tree: React.FC<TreeProps> = (props) => {
       </div>
     </TreeContext.Provider>
   );
-};
+}
