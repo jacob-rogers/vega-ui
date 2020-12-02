@@ -4,7 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Tree } from './Tree';
-import { TreeItem } from './types';
+import { ContextMenuItem, TreeItem } from './types';
 import { useTreeApi } from './use-tree-api';
 
 export const OrangeLineSvg = (
@@ -281,6 +281,24 @@ export const rootProps: TreeItem[] = [
   },
 ];
 
+const contextMenuItems: ContextMenuItem[] = [
+  {
+    title: 'Свернуть',
+    callback: (args) => {
+      action('Collapse')(args);
+    },
+    withSeparator: true,
+    key: '1',
+  },
+  {
+    title: 'Переименовать',
+    callback: (args) => {
+      action('Rename')(args);
+    },
+    key: '2',
+  },
+];
+
 const icons = {
   'blue-line': BlueLineSvg,
   'orange-line': OrangeLineSvg,
@@ -338,7 +356,13 @@ storiesOf('ui/Tree', module)
         actionItemComponents={[<ActionItemComponent />]}
         isContextMenuEnable
         nodeList={sourceTree}
-        onRenameItem={(): void => action('Renamed')('Item')}
+        onSelectItem={(selectedItems) => {
+          action('Select')(selectedItems);
+        }}
+        onHideItem={(hideItems) => {
+          action('Hide')(hideItems);
+        }}
+        contextMenuItems={contextMenuItems}
         onDuplicateItem={(): void => action('Copied')('Item')}
         onDeleteItem={(): void => action('Deleted')('Item')}
         onPasteItem={handlers.handlePaste}

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { PropsWithChildren, useRef, useState } from 'react';
 import { useKey } from '@gpn-prototypes/vega-hooks';
 
 import { TreeContextMenu } from './components/TreeContextMenu';
@@ -11,21 +11,24 @@ import { useOnChangeTreeWidth } from './use-on-change-width';
 
 import './Tree.css';
 
-export const Tree: React.FC<TreeProps> = (props) => {
+export function Tree<T extends unknown>(
+  props: PropsWithChildren<TreeProps<T>>,
+): React.ReactElement {
   const {
     isDndEnable = true,
     icons,
     nodeList = [],
     onDragStart,
     onDragEnd,
-    onRenameItem,
-    onDuplicateItem,
-    onDeleteItem,
     onPasteItem,
+    onSelectItem,
+    onHideItem,
+    contextMenuItems,
     actionItemComponents,
-    isContextMenuEnable = false,
+    isContextMenuEnable = true,
     withVisibilitySwitcher = true,
     withDropZoneIndicator = true,
+    withMultiSelect = true,
     showIndentGuides = true,
   } = props;
 
@@ -33,7 +36,9 @@ export const Tree: React.FC<TreeProps> = (props) => {
 
   const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Array<TargetData>>([]);
-
+  const [contextMenuTarget, setContextMenuTarget] = useState<React.RefObject<HTMLElement> | null>(
+    null,
+  );
   const [hiddenItems, setHiddenItems] = useState<Array<React.RefObject<HTMLElement>> | null>([]);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -44,9 +49,24 @@ export const Tree: React.FC<TreeProps> = (props) => {
     enabled: isContextMenuEnable,
   });
 
-  useKey('Control', () => setIsMultiSelect(true), { keyevent: 'keydown' });
-  useKey('Control', () => setIsMultiSelect(false), { keyevent: 'keyup' });
-
+  useKey(
+    'Control',
+    () => {
+      if (withMultiSelect) {
+        setIsMultiSelect(true);
+      }
+    },
+    { keyevent: 'keydown' },
+  );
+  useKey(
+    'Control',
+    () => {
+      if (withMultiSelect) {
+        setIsMultiSelect(false);
+      }
+    },
+    { keyevent: 'keyup' },
+  );
   const handleSelectItem = (selectItem: TargetData): void => {
     if (isMultiSelect && selectedItems) {
       if (selectedItems.includes(selectItem)) {
@@ -54,10 +74,18 @@ export const Tree: React.FC<TreeProps> = (props) => {
 
         setSelectedItems([...newState]);
 
+        if (onSelectItem) {
+          onSelectItem([...newState]);
+        }
+
         return;
       }
 
       setSelectedItems([...selectedItems, selectItem]);
+
+      if (onSelectItem) {
+        onSelectItem([...selectedItems, selectItem]);
+      }
 
       return;
     }
@@ -65,10 +93,17 @@ export const Tree: React.FC<TreeProps> = (props) => {
     if (selectedItems?.includes(selectItem)) {
       setSelectedItems([]);
 
+      if (onSelectItem) {
+        onSelectItem([]);
+      }
       return;
     }
 
     setSelectedItems([selectItem]);
+
+    if (onSelectItem) {
+      onSelectItem([selectItem]);
+    }
   };
 
   const handleHideItem = (ref: React.RefObject<HTMLElement>): void => {
@@ -77,11 +112,19 @@ export const Tree: React.FC<TreeProps> = (props) => {
 
       setHiddenItems([...newState]);
 
+      if (onHideItem) {
+        onHideItem([...newState, ref]);
+      }
       return;
     }
 
     if (hiddenItems) {
-      setHiddenItems([...hiddenItems, ref]);
+      const newHiddenItems = [...hiddenItems, ref];
+      setHiddenItems(newHiddenItems);
+
+      if (onHideItem) {
+        onHideItem(newHiddenItems);
+      }
     }
   };
 
@@ -170,6 +213,11 @@ export const Tree: React.FC<TreeProps> = (props) => {
     setDropZone(null);
   };
 
+  const handleContextMenu = (event: React.MouseEvent, ref: React.RefObject<HTMLElement>) => {
+    setContextMenuTarget(ref);
+    open(event, ref);
+  };
+
   return (
     <TreeContext.Provider
       value={{
@@ -178,12 +226,13 @@ export const Tree: React.FC<TreeProps> = (props) => {
         withDropZoneIndicator,
         showIndentGuides,
         icons,
+        contextMenuTarget,
         actionItemComponents,
         hiddenItems,
         selectedItems,
         isDndEnable,
         dropZone,
-        onContextMenu: open,
+        onContextMenu: handleContextMenu,
         onDragStart: handleDragStart,
         onDragOver: handleDragOver,
         onDragEnter: handleDragEnter,
@@ -200,18 +249,15 @@ export const Tree: React.FC<TreeProps> = (props) => {
             {nodeList && renderTree(nodeList)}
           </ul>
 
-          {isOpen && menuCoordinates && (
+          {isOpen && menuCoordinates && !!contextMenuItems?.length && contextMenuTarget && (
             <TreeContextMenu
               menuCoordinates={menuCoordinates}
               closeContextMenu={close}
-              handleRename={onRenameItem}
-              handleCopy={onDuplicateItem}
-              handleDelete={onDeleteItem}
-              handlePaste={onPasteItem}
+              items={contextMenuItems}
             />
           )}
         </div>
       </div>
     </TreeContext.Provider>
   );
-};
+}

@@ -7,6 +7,7 @@ type TreeApi = {
   showIndentGuides: boolean;
   selectedItems: TargetData[];
   hiddenItems: React.RefObject<HTMLElement>[] | null;
+  contextMenuTarget: React.RefObject<HTMLElement> | null;
   withVisibilitySwitcher?: boolean;
   withDropZoneIndicator?: boolean;
   actionItemComponents?: React.ReactElement[];
@@ -30,6 +31,7 @@ const TreeContext = React.createContext<TreeApi>({
   withVisibilitySwitcher: true,
   showIndentGuides: true,
   selectedItems: [],
+  contextMenuTarget: null,
   hiddenItems: [],
   isDndEnable: true,
 });

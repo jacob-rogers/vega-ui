@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 
 export type TargetData = {
   ref: React.RefObject<HTMLElement> | null;
@@ -12,9 +12,9 @@ export type DropZone = {
   id: string;
 };
 
-export interface TreeItem {
+export interface TreeItem<T = unknown> {
   name: string;
-  nodeList: Array<TreeItem>;
+  nodeList: Array<TreeItem<T>>;
   id: string;
   parentId?: string;
   iconId?: string | number;
@@ -22,10 +22,19 @@ export interface TreeItem {
   isDraggable?: boolean;
   isDropZone?: boolean;
   isExpanded?: boolean;
+  data?: T;
 }
 
-export type TreeProps = {
-  nodeList: TreeItem[];
+export type ContextMenuItem = {
+  callback: (id: string) => void;
+  title: string;
+  key: string;
+  withSeparator?: boolean;
+};
+
+export type TreeProps<T = unknown> = {
+  nodeList: TreeItem<T>[];
+  contextMenuItems?: ContextMenuItem[];
   icons?: {
     [iconId: string]: React.ReactElement;
   };
@@ -36,12 +45,15 @@ export type TreeProps = {
   withVisibilitySwitcher?: boolean;
   withDropZoneIndicator?: boolean;
   showIndentGuides?: boolean;
+  withMultiSelect?: boolean;
   onRenameItem?: () => void;
   onDuplicateItem?: () => void;
   onDeleteItem?: () => void;
   onPasteItem?: (transferringIds: string[], receivingId: string) => void;
   onDragStart?: (transferringElems: Array<TargetData>) => void;
   onDragEnd?: () => void;
+  onSelectItem?: (items: TargetData[]) => void;
+  onHideItem?: (items: RefObject<HTMLElement>[]) => void;
 };
 
 export type NavigationEyeProps = {

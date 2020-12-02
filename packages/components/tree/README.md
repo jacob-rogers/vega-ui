@@ -263,6 +263,13 @@ type TreeItem = {
     isDropZone?: boolean // Возможность запретить принимать элементы перемещаемые с помощью Drag and Drop
 }
 
+type ContextMenuItem = {
+  callback: (id: string) => void;
+  title: string;
+  key: string;
+  withSeparator?: boolean;
+};
+
 type TransferringElements = { 
     id: string,
     ref: React.RefObject<HTMLElement>,
@@ -278,13 +285,16 @@ type TreeProps = {
     showIndentGuides?: boolean; // Отвечает за показ линий слева от узлов Дерева. По умолчанию включены.
     withVisibilitySwitcher?: boolean; // Позволяет отключить иконку, скрывающую элемент Дерева. При нажатии меняет стилизацию своего родителя. По умолчанию включено.
     withDropZoneIndicator?: boolean; // Позволяет отключить подсвечивание зоны для дропа переносимого элемента. По умолчанию включено.
-    isContextMenuEnable?: boolean; // Возможность добавить контекстное меню. По умолчанию выключено.
+    withMultiSelect?: boolean; // Позволяет отключить множественное выделение. По умолчанию включено.
+    isContextMenuEnable?: boolean; // Возможность добавить контекстное меню. По умолчанию включено.
+    contextMenuItems?: ContextMenuItem[]; // Элементы контекстного меню
     isDndEnable?: boolean; //  Возможность выключить Drag and Drop. По умолчанию включено.
-    onRenameItem?: (id) => void; // Функция-обработчик, которая вызывается при попытке переименовать аргумент
     onDuplicateItem?: (id) => void; // Аналогично для дублирования/копирования элемента
     onDeleteItem?: (id) => void; // Аналогично для удаления
+    onSelectItem?: (id) => void; // Сработает при выделении элемента.
     onPasteItem?: (transferringIds: string[], receivingId: string) => void; // Прокинет два аргумента: массив id переносимых элементов; id принимающего. Сработает при вставке и перенесении через DND узла в другой узел. 
     onDragStart?: (transferringElems: Array<TransferringElements>) => void; // Сработает при перенесении элементов через DND. Прокинет массив объектов, состоящий из id и ref переносимых элементов.
     onDragEnd?: () => void; // Сработает при окончании перетягивания элемента.
+    onHideItem?: (items: RefObject<HTMLElement>[]) => void; // Сработает по нажатию на иконку, скрывающую элемент Дерева.
 };
 ```

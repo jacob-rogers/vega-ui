@@ -3,6 +3,7 @@ import { useOnClickOutside } from '@gpn-prototypes/vega-hooks';
 import { usePortal, usePortalRender } from '@gpn-prototypes/vega-root';
 
 import cnTree from '../../cn-tree';
+import { ContextMenuItem } from '../../types';
 
 import TreeContextMenuList from './TreeContextMenuList';
 
@@ -12,14 +13,11 @@ export type ContextMenuProps = {
     top: string | number;
   };
   closeContextMenu: () => void;
-  handleRename?: () => void;
-  handleCopy?: () => void;
-  handleDelete?: () => void;
-  handlePaste?: (transferringIds: string[], receivingId: string) => void;
+  items: ContextMenuItem[];
 };
 
 export const TreeContextMenu: React.FC<ContextMenuProps> = (props) => {
-  const { menuCoordinates, closeContextMenu } = props;
+  const { menuCoordinates, closeContextMenu, items } = props;
 
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,12 +36,7 @@ export const TreeContextMenu: React.FC<ContextMenuProps> = (props) => {
         top: menuCoordinates?.top,
       }}
     >
-      <TreeContextMenuList
-        handleCopy={props.handleCopy}
-        handleRename={props.handleRename}
-        handleDelete={props.handleDelete}
-        handlePaste={props.handlePaste}
-      />
+      <TreeContextMenuList items={items} />
     </div>
   );
 
