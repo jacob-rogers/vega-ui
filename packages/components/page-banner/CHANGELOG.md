@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.5](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-page-banner@0.2.4...@gpn-prototypes/vega-page-banner@0.2.5) (2020-12-02)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-page-banner
+
+
+
+
+
 ## [0.2.4](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-page-banner@0.2.3...@gpn-prototypes/vega-page-banner@0.2.4) (2020-07-23)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-page-banner

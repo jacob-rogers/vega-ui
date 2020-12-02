@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-ui",
-  "version": "2.15.6",
+  "version": "2.15.7",
   "description": "",
   "author": "CSSSR",
   "license": "MIT",
@@ -45,7 +45,7 @@
     "@gpn-prototypes/vega-logo": "^0.0.8",
     "@gpn-prototypes/vega-modal": "^0.3.14",
     "@gpn-prototypes/vega-navigation-list": "^1.0.4",
-    "@gpn-prototypes/vega-page-banner": "^0.2.4",
+    "@gpn-prototypes/vega-page-banner": "^0.2.5",
     "@gpn-prototypes/vega-page-footer": "^0.2.7",
     "@gpn-prototypes/vega-popover": "^0.0.6",
     "@gpn-prototypes/vega-progress-spin": "^0.1.7",
