@@ -22,4 +22,4 @@ storiesOf('ui/PageBanner', module)
       },
     },
   })
-  .add('Page banner', () => <PageBanner {...defaultKnobs()} />);
+  .add('Page banner', () => <PageBanner {...defaultKnobs()} testId="story" />);
