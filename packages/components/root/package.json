@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-root",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -22,7 +22,7 @@
     "react-dom": "^16.13.1"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-hooks": "^0.5.4",
+    "@gpn-prototypes/vega-hooks": "^0.5.5",
     "@gpn-prototypes/vega-theme": "^0.0.9"
   }
 }
