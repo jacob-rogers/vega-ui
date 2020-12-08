@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
@@ -40,12 +40,29 @@ storiesOf('ui/Combobox', module)
       { label: 'Белгород', value: 'belgorod' },
     ];
 
+    const [options, setOptions] = useState(items);
+    const [value, setValue] = useState<Option | null | undefined>();
+
     const getItemLabel = (option: Option): string => option.label;
+
+    const handleCreate = (label: string): void => {
+      const newVal: Option = { label, value: label };
+      setValue(newVal);
+      setOptions([newVal, ...options]);
+    };
 
     return (
       <>
         <div>
-          <Combobox {...getCommonKnobs()} id="city" options={items} getOptionLabel={getItemLabel} />
+          <Combobox
+            {...getCommonKnobs()}
+            id="city"
+            options={options}
+            value={value}
+            getOptionLabel={getItemLabel}
+            onChange={setValue}
+            onCreate={handleCreate}
+          />
         </div>
       </>
     );

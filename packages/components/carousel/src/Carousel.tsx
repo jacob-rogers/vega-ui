@@ -95,7 +95,7 @@ export const Carousel: CarouselComponent<CarouselProps> = (props) => {
       onChange={onChange}
       testId={testId}
     >
-      <div className={b.mix(className).toString()} data-testId={testId}>
+      <div className={b.mix(className).toString()} data-testid={testId}>
         <div className={b('Container').toString()}>
           {arrows && (
             <CarouselArrows

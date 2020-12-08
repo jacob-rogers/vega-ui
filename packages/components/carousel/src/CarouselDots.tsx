@@ -39,7 +39,7 @@ export const CarouselDotsView: React.FC<CarouselDotsViewProps> = (props) => {
           aria-selected={slide.idx === activeIdx}
           aria-controls="slide"
           onClick={(): void => onChange(slide.idx)}
-          data-testId={testId && `${testId}:dot:${slide.idx}`}
+          data-testid={testId && `${testId}:dot:${slide.idx}`}
         />
       ))}
     </div>

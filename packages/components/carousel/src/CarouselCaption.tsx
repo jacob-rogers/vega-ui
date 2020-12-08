@@ -25,7 +25,7 @@ export const CarouselCaptionView: React.FC<CarouselCaptionViewProps> = (props) =
       lineHeight="xs"
       view="secondary"
       className={b('Caption').mix(className).toString()}
-      data-testId={testId && `${testId}:caption:${currentIdx}`}
+      data-testid={testId && `${testId}:caption:${currentIdx}`}
     >
       {caption}
     </Text>

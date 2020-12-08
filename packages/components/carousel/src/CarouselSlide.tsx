@@ -25,7 +25,7 @@ export const CarouselSlideView: React.FC<CarouselSlideViewProps> = (props) => {
       onMouseLeave={onPointerLeave}
       onTouchStart={onPointerEnter}
       onTouchEnd={onPointerLeave}
-      data-testId={testId && `${testId}:slide:${currentIdx}`}
+      data-testid={testId && `${testId}:slide:${currentIdx}`}
     >
       {children}
     </div>

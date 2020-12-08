@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
@@ -40,6 +40,8 @@ storiesOf('ui/BasicSelect', module)
       { label: 'Белгород', value: 'belgorod' },
     ];
 
+    const [value, setValue] = useState<Option | null | undefined>();
+
     const getItemLabel = (option: Option): string => option.label;
 
     return (
@@ -50,6 +52,8 @@ storiesOf('ui/BasicSelect', module)
             id="city"
             options={items}
             getOptionLabel={getItemLabel}
+            value={value}
+            onChange={setValue}
           />
         </div>
       </>

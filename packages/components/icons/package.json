@@ -19,7 +19,7 @@
     "registry": "https://npm.pkg.github.com/gpn-prototypes"
   },
   "dependencies": {
-    "@consta/uikit": "^1.10.8"
+    "@consta/uikit": "^1.10.9"
   },
   "peerDependencies": {
     "react": "^16.13.1"
