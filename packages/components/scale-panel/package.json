@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-scale-panel",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -21,10 +21,10 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-button": "^0.2.4",
-    "@gpn-prototypes/vega-icons": "^0.2.7",
-    "@gpn-prototypes/vega-text": "^0.1.9",
-    "@gpn-prototypes/vega-text-field": "^0.1.10",
+    "@gpn-prototypes/vega-button": "^0.2.5",
+    "@gpn-prototypes/vega-icons": "^0.2.8",
+    "@gpn-prototypes/vega-text": "^0.1.10",
+    "@gpn-prototypes/vega-text-field": "^0.1.11",
     "bem-cn": "^3.0.1"
   }
 }
