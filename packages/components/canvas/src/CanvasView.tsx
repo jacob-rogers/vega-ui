@@ -163,10 +163,22 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
       if (intersect) {
         const { id } = intersect.attrs;
 
-        canvas.dropEventNotification(id);
+        canvas.dropEventNotification({ intersectionId: id });
 
         canvas.itemsSelectionNotification({ type: 'item', ids: [id] });
       } else {
+        const pointerPosition = stage?.getPointerPosition();
+        const layer = layerRef.current;
+
+        if (pointerPosition?.x && pointerPosition?.y && layer) {
+          const position = {
+            x: (pointerPosition.x - layer.x()) * (1 / layer.scaleX()),
+            y: (pointerPosition.y - layer.y()) * (1 / layer.scaleY()),
+          };
+
+          canvas.dropEventNotification({ position });
+        }
+
         view.updateState({
           selectedData: null,
         });

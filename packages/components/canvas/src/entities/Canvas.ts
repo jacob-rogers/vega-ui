@@ -221,10 +221,17 @@ export class Canvas extends Notifier<CanvasUpdate> {
     this.notify(evtObject);
   }
 
-  public dropEventNotification(intersectionId: string): void {
+  public dropEventNotification({
+    intersectionId,
+    position,
+  }: {
+    intersectionId?: string;
+    position?: { x: number; y: number };
+  }): void {
     this.notify({
       type: 'drop-event',
       intersectionId,
+      position,
     });
   }
 

@@ -68,7 +68,7 @@ export type CanvasUpdate =
   | { type: 'change-multiple'; ids: string[]; changes: Partial<CanvasData>[] }
   | { type: 'select'; selected: SelectedData | null }
   | { type: 'unselect' }
-  | { type: 'drop-event'; intersectionId: string }
+  | { type: 'drop-event'; intersectionId?: string; position?: Position }
   | { type: 'remove-tree'; id: string }
   | { type: 'remove-trees'; ids: string[] }
   | { type: 'disconnect-tree'; parentId: string; childId: string }
