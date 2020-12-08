@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Layer, Rect, Stage } from 'react-konva';
-import { useKey, useMount, useUnmount } from '@gpn-prototypes/vega-hooks';
+import { useKey, useMount, useResizeObserver, useUnmount } from '@gpn-prototypes/vega-hooks';
 import { ScalePanel } from '@gpn-prototypes/vega-scale-panel';
 import Konva from 'konva';
 import { v4 as uuid } from 'uuid';
@@ -357,16 +357,21 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     [canvas],
   );
 
-  useMount(() => {
-    if (containerRef.current) {
+  const { height: containerHeight, width: containerWidth } = useResizeObserver(containerRef);
+
+  useLayoutEffect(() => {
+    if (containerHeight && containerWidth) {
       view.updateState({
         stageSize: {
-          width: containerRef.current.offsetWidth,
-          height: containerRef.current.offsetHeight,
+          width: containerWidth,
+          height: containerHeight,
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [containerHeight, containerWidth]);
 
+  useMount(() => {
     const stage = stageRef.current;
     const container = stage?.container();
 

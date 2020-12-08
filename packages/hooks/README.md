@@ -8,3 +8,5 @@
 -   [useMount](src/use-mount)
 -   [useUnmout](src/use-unmount)
 -   [useClose](src/use-close)
+-   [useResizeObserver](src/use-resize-observer)
+-   [useWindowSize](src/use-window-size)

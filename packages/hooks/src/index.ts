@@ -10,3 +10,5 @@ export * from './use-toggle';
 export * from './use-local-storage';
 export * from './use-on-change';
 export * from './use-timers';
+export * from './use-window-size';
+export * from './use-resize-observer';

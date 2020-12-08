@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useRef, useState } from 'react';
-import { useKey } from '@gpn-prototypes/vega-hooks';
+import { useKey, useResizeObserver } from '@gpn-prototypes/vega-hooks';
 
 import { TreeContextMenu } from './components/TreeContextMenu';
 import { useContextMenu } from './components/TreeContextMenu/use-context-menu';
@@ -7,7 +7,6 @@ import cnTree from './cn-tree';
 import TreeContext from './context';
 import renderTree from './tree-creator';
 import { DropZone, TargetData, TreeProps } from './types';
-import { useOnChangeTreeWidth } from './use-on-change-width';
 
 import './Tree.css';
 
@@ -43,7 +42,7 @@ export function Tree<T extends unknown>(
 
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  const treeContainerWidth = useOnChangeTreeWidth(rootRef);
+  const { width: treeContainerWidth } = useResizeObserver(rootRef);
 
   const { isOpen, menuCoordinates, open, close } = useContextMenu({
     enabled: isContextMenuEnable,

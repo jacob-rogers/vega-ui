@@ -1,17 +1,23 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-type ContainerWidth = number;
+type ElementSize = {
+  width?: number;
+  height?: number;
+};
 
-export function useOnChangeTreeWidth(
-  targetRef: React.RefObject<HTMLElement>,
-): ContainerWidth | undefined {
-  const [treeContainerWidth, setWidth] = useState<ContainerWidth>();
+export function useResizeObserver(targetRef: React.RefObject<HTMLElement>): ElementSize {
+  const [elementSize, setSize] = useState<ElementSize>({
+    width: undefined,
+    height: undefined,
+  });
 
   const ro = useMemo(
     () =>
       new ResizeObserver((entries) => {
         entries.forEach((entry) => {
-          setWidth(entry.contentRect.width);
+          const { width, height } = entry.contentRect;
+
+          setSize({ width, height });
         });
       }),
     [],
@@ -31,5 +37,5 @@ export function useOnChangeTreeWidth(
     };
   }, [targetRef, ro]);
 
-  return treeContainerWidth;
+  return elementSize;
 }
