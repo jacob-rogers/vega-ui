@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-canvas",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -23,11 +23,11 @@
   },
   "dependencies": {
     "@gpn-prototypes/vega-button": "^0.2.5",
-    "@gpn-prototypes/vega-dropdown": "^1.2.14",
+    "@gpn-prototypes/vega-dropdown": "^1.2.15",
     "@gpn-prototypes/vega-hooks": "^0.6.0-alpha.0",
     "@gpn-prototypes/vega-icons": "^0.2.8",
     "@gpn-prototypes/vega-navigation-list": "^1.0.1",
-    "@gpn-prototypes/vega-root": "^0.2.10",
+    "@gpn-prototypes/vega-root": "^0.2.11",
     "bem-cn": "^3.0.1",
     "konva": "^7.0.6",
     "react-konva": "^16.13.0-6",

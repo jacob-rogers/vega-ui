@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.17](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.3.15...@gpn-prototypes/vega-modal@0.3.17) (2020-12-09)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-modal
+
+
+
+
+
 ## [0.3.16](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-modal@0.3.15...@gpn-prototypes/vega-modal@0.3.16) (2020-12-08)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-modal
