@@ -1,6 +1,6 @@
 # @gpn-prototypes/vega-file-input
 
-Компонент является полем для ввода/загрузки файлов
+Обёртка для компонента [BasicSelect](https://consta-uikit.vercel.app/?path=/story/components-filefield--playground) из Consta.
 
 <img src="docs/pic-1.png" height="50">
 
@@ -27,6 +27,4 @@ export const MyComponent = props => {
 };
 ```
 
-### API
-
-Принимает на вход пропсы инпута и метод `children`, который должен возвращать компонент `Button`, либо обычный `children`.
+### [API](https://consta-uikit.vercel.app/?path=/docs/components-filefield--playground)

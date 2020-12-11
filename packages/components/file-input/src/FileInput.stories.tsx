@@ -16,11 +16,10 @@ storiesOf('ui/FileInput', module)
   .addDecorator(withKnobs)
   .addParameters({
     metadata: {
-      author: 'CSSSR',
+      author: 'Consta',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/file-input/README.md',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-filefield--playground',
         text: 'Документация',
       },
     },
