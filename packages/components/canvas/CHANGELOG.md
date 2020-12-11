@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.9](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-canvas@0.1.8...@gpn-prototypes/vega-canvas@0.1.9) (2020-12-11)
+
+
+### Bug Fixes
+
+* **components:** фикс слепой зоны в StepItem для dragover, фикс по дублированию выделения Event & Objects ([#408](https://github.com/gpn-prototypes/vega-ui/issues/408)) ([6c41fa8](https://github.com/gpn-prototypes/vega-ui/commit/6c41fa8e845b66edfd2ce3442cfd02d4b0b65fe0))
+
+
+
+
+
 ## [0.1.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-canvas@0.1.7...@gpn-prototypes/vega-canvas@0.1.8) (2020-12-09)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-canvas
