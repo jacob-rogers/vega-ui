@@ -3,6 +3,7 @@ import { Layer, Rect, Stage } from 'react-konva';
 import { useKey, useMount, useResizeObserver, useUnmount } from '@gpn-prototypes/vega-hooks';
 import { ScalePanel } from '@gpn-prototypes/vega-scale-panel';
 import Konva from 'konva';
+import { Node as CanvasNode, NodeConfig } from 'konva/types/Node';
 import { v4 as uuid } from 'uuid';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
@@ -114,18 +115,40 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     const stage = stageRef.current;
     const layout = layerRef.current;
 
-    const getTargetIntersection = () => {
-      let intersect;
-
-      const position = stage?.getPointerPosition();
-
-      if (position) {
-        const overlap = layout?.getIntersection(position, 'Group');
-
-        intersect = overlap?.attrs.name === 'StepItem' ? overlap : undefined;
+    const findIntersectionStepId = (intersection: CanvasNode<NodeConfig>) => {
+      if (intersection?.attrs.name === 'StepItem') {
+        return intersection.attrs.id;
       }
 
-      return intersect;
+      const { parent } = intersection;
+
+      if (!parent) return undefined;
+
+      if (parent.attrs?.name === 'StepItem') {
+        return parent.attrs.id;
+      }
+
+      if (parent.attrs.name === 'EventContent' || parent.attrs.name === 'DomainObject') {
+        return parent.attrs.stepId;
+      }
+
+      return undefined;
+    };
+
+    const getTargetIntersectionId = () => {
+      const position = stage?.getPointerPosition();
+
+      if (!position) {
+        return undefined;
+      }
+
+      const overlap = layout?.getIntersection(position, 'Group');
+
+      if (!overlap) {
+        return undefined;
+      }
+
+      return findIntersectionStepId(overlap);
     };
 
     const handleDragOver = (e: DragEvent) => {
@@ -133,10 +156,10 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
       stage?.setPointersPositions(e);
 
-      const intersect = getTargetIntersection();
+      const intersectId = getTargetIntersectionId();
       const selected = view.getState().selectedData;
 
-      if (!intersect) {
+      if (!intersectId) {
         if (selected) {
           view.updateState({
             selectedData: null,
@@ -145,8 +168,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
         return;
       }
-
-      const intersectId = intersect.attrs.id;
 
       if (!selected || (selected?.type === 'item' && !selected.ids.includes(intersectId))) {
         const selectEvtObject: SelectedData = { type: 'item', ids: [intersectId] };
@@ -158,14 +179,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     };
 
     const handleDrop = (): void => {
-      const intersect = getTargetIntersection();
+      const intersectionId = getTargetIntersectionId();
 
-      if (intersect) {
-        const { id } = intersect.attrs;
+      if (intersectionId) {
+        canvas.dropEventNotification({ intersectionId });
 
-        canvas.dropEventNotification({ intersectionId: id });
-
-        canvas.itemsSelectionNotification({ type: 'item', ids: [id] });
+        canvas.itemsSelectionNotification({ type: 'item', ids: [intersectionId] });
       } else {
         const pointerPosition = stage?.getPointerPosition();
         const layer = layerRef.current;

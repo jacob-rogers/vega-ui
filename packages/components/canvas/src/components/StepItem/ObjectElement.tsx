@@ -24,7 +24,11 @@ export const ObjectElement: React.FC<ObjectElementProps> = (props) => {
   const { x, y, name, id, eventId, stepId } = props;
 
   const { setSelectedData, selectedData } = useCanvas();
-  const isSelected = selectedData?.type === 'domainObject' && selectedData.objectId === id;
+
+  const isSelected =
+    selectedData?.type === 'domainObject' &&
+    selectedData.objectId === id &&
+    selectedData.stepId === stepId;
 
   const objectNameWidth =
     metrics.step.object.width -
@@ -40,7 +44,7 @@ export const ObjectElement: React.FC<ObjectElementProps> = (props) => {
   };
 
   return (
-    <Group x={x} y={y} onClick={handleClick}>
+    <Group stepId={stepId} name="DomainObject" x={x} y={y} onClick={handleClick}>
       <Rect
         strokeEnabled={isSelected}
         stroke={metrics.step.object.strokeSelected}

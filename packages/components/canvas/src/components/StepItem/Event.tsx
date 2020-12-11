@@ -27,7 +27,8 @@ export const Event: React.FC<ObjectElementProps> = (props) => {
   const refEventGroup = useRef<Konva.Group>(null);
   const { setSelectedData, selectedData } = useCanvas();
 
-  const isSelected = selectedData?.type === 'event' && selectedData.eventId === id;
+  const isSelected =
+    selectedData?.type === 'event' && selectedData.eventId === id && selectedData.itemId === stepId;
 
   useEffect(() => {
     if (refEventGroup.current) {
@@ -53,7 +54,7 @@ export const Event: React.FC<ObjectElementProps> = (props) => {
   };
 
   return (
-    <Group id={id} name="EventContent" x={x} y={y} onClick={handleClick}>
+    <Group id={id} stepId={stepId} name="EventContent" x={x} y={y} onClick={handleClick}>
       <Group ref={refEventGroup}>
         <Rect
           strokeEnabled={isSelected}
