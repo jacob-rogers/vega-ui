@@ -40,7 +40,7 @@ export const Event: React.FC<ObjectElementProps> = (props) => {
         layer.batchDraw();
       }
     }
-  }, [isSelected]);
+  }, [isSelected, containerHeight, content]);
 
   const eventNameWidth =
     metrics.step.event.width - metrics.step.event.padding.left - metrics.step.event.padding.right;
