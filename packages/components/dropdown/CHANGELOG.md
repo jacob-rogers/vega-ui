@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.16](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@1.2.15...@gpn-prototypes/vega-dropdown@1.2.16) (2020-12-14)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-dropdown
+
+
+
+
+
 ## [1.2.15](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-dropdown@1.2.13...@gpn-prototypes/vega-dropdown@1.2.15) (2020-12-09)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-dropdown

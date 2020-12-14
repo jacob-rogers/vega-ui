@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.15.14](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.15.13...@gpn-prototypes/vega-ui@2.15.14) (2020-12-14)
+
+
+### Bug Fixes
+
+* **global:** fix removing portal ([#414](https://github.com/gpn-prototypes/vega-ui/issues/414)) ([6c1da13](https://github.com/gpn-prototypes/vega-ui/commit/6c1da13a6f4c3fc71090c7c38c46be4d6f7741f2))
+
+
+
+
+
 ## [2.15.13](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.15.11...@gpn-prototypes/vega-ui@2.15.13) (2020-12-11)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.5.6...@gpn-prototypes/vega-hooks@0.5.7) (2020-12-14)
+
+
+### Bug Fixes
+
+* **global:** fix removing portal ([#414](https://github.com/gpn-prototypes/vega-ui/issues/414)) ([6c1da13](https://github.com/gpn-prototypes/vega-ui/commit/6c1da13a6f4c3fc71090c7c38c46be4d6f7741f2))
+
+
+
+
+
 ## [0.5.6](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-hooks@0.5.4...@gpn-prototypes/vega-hooks@0.5.6) (2020-12-09)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-hooks
