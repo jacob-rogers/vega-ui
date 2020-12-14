@@ -36,7 +36,6 @@ addDecorator(withThemes);
 
 function loadStories(): void {
   const req = require.context('../packages', true, /\.stories\.tsx$/);
-
   req.keys().forEach(req);
 }
 

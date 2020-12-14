@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import { Button } from '@gpn-prototypes/vega-button';
 import { PossibleCloseEvent as CloseEvent, useRootClose } from '@gpn-prototypes/vega-hooks';
 import { IconClose } from '@gpn-prototypes/vega-icons';
@@ -8,6 +8,7 @@ import { cnModal } from './cn-modal';
 import { ModalBody } from './ModalBody';
 import { ModalFooter } from './ModalFooter';
 import { ModalHeader } from './ModalHeader';
+import { getScrollBarWidth } from './utils';
 
 import './Modal.css';
 
@@ -24,7 +25,9 @@ export type ModalProps = {
   onOverlayClick?: React.EventHandler<React.MouseEvent>;
   portal?: HTMLDivElement | null;
   className?: string;
+  overlayClassName?: string;
   refsForExcludeClickOutside?: React.RefObject<HTMLElement>[];
+  blockBodyScroll?: boolean;
 };
 
 interface ModalComponent extends React.FC<ModalProps>, DivProps {
@@ -43,7 +46,9 @@ export const Modal: ModalComponent = (props) => {
     hasOverlay,
     portal = document.body,
     className,
+    overlayClassName,
     refsForExcludeClickOutside,
+    blockBodyScroll = true,
     ...rest
   } = props;
   const ref = useRef<HTMLDivElement | null>(null);
@@ -61,14 +66,28 @@ export const Modal: ModalComponent = (props) => {
       onOverlayClick(e);
     }
   };
+
   useRootClose([ref, ...(refsForExcludeClickOutside || [])], handleCloseModal);
+
+  useLayoutEffect(() => {
+    const scrollBarWidth = getScrollBarWidth();
+    if (blockBodyScroll && isOpen) {
+      document.body.classList.add('VegaModal-open');
+      if (scrollBarWidth !== 0) {
+        document.body.style.setProperty('--scrollBarWidth', `${scrollBarWidth}px`);
+      }
+    } else {
+      document.body.classList.remove('VegaModal-open');
+      document.body.style.setProperty('--scrollBarWidth', '0');
+    }
+  }, [blockBodyScroll, isOpen]);
 
   if (!portal || !isOpen) {
     return null;
   }
 
   return renderPortalWithTheme(
-    <>
+    <div className={cnModal('Container')}>
       <div
         {...rest}
         aria-modal="true"
@@ -95,10 +114,10 @@ export const Modal: ModalComponent = (props) => {
           aria-label="Оверлей модального окна"
           type="button"
           onClick={handleOverlayClick}
-          className={cnModal('Overlay')}
+          className={cnModal('Overlay').mix(overlayClassName)}
         />
       )}
-    </>,
+    </div>,
     portal,
   );
 };

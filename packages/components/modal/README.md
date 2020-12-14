@@ -45,6 +45,8 @@ type ModalProps = {
   hasOverlay?: boolean; // нужно ли рендерить оверлей
   onOverlayClick?: (e: React.SyntheticEvent) => void; // метод, который вызовется по клику на оверлей (по умолчанию onClose)
   portal?: HTMLDivElement | null; // контейнер, в котором рендерить модальное окно (по умолчанию body)
+  overlayClassName?: string; // дополнительный класс для overlay
+  blockBodyScroll?: boolean; // блокировать ли прокрутку страницы при открытом модальном окне, по умолчанию true
 };
 ```
 

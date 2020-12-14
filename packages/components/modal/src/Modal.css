@@ -1,20 +1,48 @@
+body {
+  --scrollBarWidth: 0;
+}
+
 .VegaModal {
-  &__Root {
-    position: absolute;
+  &-open {
+    padding-right: var(--scrollBarWidth) !important;
+
+    overflow: hidden;
+
+    height: 100%;
+  }
+
+  &__Container {
+    position: fixed;
     z-index: 100;
-    top: 50%;
-    left: 50%;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    padding-right: var(--scrollBarWidth);
+
+    display: flex;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+  }
+
+  &__Root {
+    position: relative;
+    z-index: 10;
 
     padding-right: var(--space-m);
     padding-left: var(--space-m);
+
+    box-sizing: border-box;
 
     min-width: 400px;
     max-width: 900px;
 
     background-color: var(--color-bg-default);
     border-radius: calc(var(--control-radius) * 2);
-
-    transform: translate(-50%, -50%);
   }
 
   &__CloseButton {
@@ -31,31 +59,36 @@
     opacity: 0.4;
   }
 
-  &__Header,
-  &__Body {
+  &__Header {
+    padding: 3px var(--space-l);
+
     display: flex;
     justify-content: center;
     align-items: center;
   }
 
-  &__Header {
-    padding: 3px var(--space-l);
-  }
-
   &__Body {
     margin-bottom: var(--space-xl);
     padding-top: var(--space-s);
+
+    display: flex;
   }
 
   &__Overlay {
     position: fixed;
-    z-index: 99;
+    z-index: 9;
     top: 0;
+    left: 0;
+
+    margin: 0;
+    padding: 0;
 
     width: 100vw;
     height: 100vh;
 
     background: rgb(12, 17, 19, 0.85);
+    border: none;
+    outline: none;
   }
 
   &__Footer {
