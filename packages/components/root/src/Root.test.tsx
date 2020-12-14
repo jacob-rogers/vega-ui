@@ -9,6 +9,8 @@ const TestComponent = (): React.ReactElement => {
   const { portal } = usePortal({ name: 'default' });
   usePortal({ name: 'second' });
 
+  usePortal({ name: 'same_name' });
+  usePortal({ name: 'same_name' });
   return (
     <div>
       <span aria-label="Portal id">{portal?.id}</span>
@@ -63,10 +65,10 @@ describe('Root', () => {
   describe('Portals', () => {
     test('создает порталы', () => {
       renderComponent({
-        initialPortals: [{ name: 'default' }, { name: 'second' }],
+        initialPortals: [{ name: 'default' }, { name: 'second' }, { name: 'same_name' }],
       });
 
-      const portals = ['default', 'second'];
+      const portals = ['default', 'second', 'same_name'];
 
       portals.forEach((portal) => {
         expect(document.body).toContainElement(document.getElementById(portal));
@@ -94,7 +96,7 @@ describe('Root', () => {
         initialPortals: [{ name: 'default' }, { name: 'second' }],
       });
 
-      const portals = ['default', 'second'];
+      const portals = ['default', 'second', 'same_name'];
 
       unmount();
 

@@ -25,6 +25,10 @@ export type PortalsMap = {
   [key: string]: HTMLDivElement;
 };
 
+export type PortalsCount = {
+  [key: string]: number;
+};
+
 export type PortalsAPI = {
   ref: React.MutableRefObject<PortalsMap>;
   createContainer(portal: PortalParams): void;
@@ -36,10 +40,12 @@ export const usePortals = (portals: PortalParams[] | PortalParams): PortalsAPI =
   const params = useRef(Array.isArray(portals) ? portals : [portals]);
 
   const ref = useRef<PortalsMap>({});
+  const count = useRef<PortalsCount>({});
 
   const createPortalContainer = (portal: PortalParams): void => {
     if (ref.current[portal.name] === undefined) {
       ref.current[portal.name] = document.createElement('div');
+      count.current[portal.name] = 0;
     }
 
     if (portal.className) {
@@ -52,16 +58,21 @@ export const usePortals = (portals: PortalParams[] | PortalParams): PortalsAPI =
   const appendPortal = (portal: PortalParams): void => {
     const currentPortal = ref.current[portal.name];
     const parent = portal.parentSelector ? getParentNode(portal.parentSelector) : document.body;
+    count.current[portal.name] += 1;
     if (currentPortal && parent && !parent.contains(currentPortal)) {
       parent.appendChild(currentPortal);
     }
   };
 
   const removePortal = (portalName: string): void => {
-    const parent = ref.current[portalName].parentElement;
+    const parent = ref.current[portalName] && ref.current[portalName].parentElement;
 
     if (parent) {
-      parent.removeChild(ref.current[portalName]);
+      if (count.current[portalName] > 1) {
+        count.current[portalName] -= 1;
+      } else {
+        parent.removeChild(ref.current[portalName]);
+      }
     }
   };
 
