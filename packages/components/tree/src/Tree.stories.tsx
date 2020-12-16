@@ -283,15 +283,20 @@ export const rootProps: TreeItem[] = [
 
 const contextMenuItems: ContextMenuItem[] = [
   {
-    title: 'Свернуть',
-    callback: (args) => {
-      action('Collapse')(args);
+    title: (ref, state) => {
+      return state.hiddenItems?.includes(ref) ? 'Раскрыть слой' : 'Скрыть слой';
+    },
+    callback: (ref, actions) => {
+      action('Collapse')(ref);
+      if (actions.onHideItem) {
+        actions.onHideItem(ref);
+      }
     },
     withSeparator: true,
     key: '1',
   },
   {
-    title: 'Переименовать',
+    title: () => 'Переименовать',
     callback: (args) => {
       action('Rename')(args);
     },

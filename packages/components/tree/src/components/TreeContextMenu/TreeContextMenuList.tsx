@@ -11,27 +11,39 @@ type ContextMenuListProps = {
 
 const TreeContextMenuList: React.FC<ContextMenuListProps> = (props) => {
   const { items } = props;
-  const { contextMenuTarget } = useContext(TreeContext);
-
+  const { contextMenuTarget, onHideItem, onSelectItem, selectedItems, hiddenItems } = useContext(
+    TreeContext,
+  );
   return (
     <div className={cnTree('ContextMenuList')}>
-      {items.map((item) => (
-        <Button
-          key={item.key}
-          label={item.title}
-          aria-label={item.title}
-          onClick={() => {
-            if (contextMenuTarget?.current) {
-              item.callback(contextMenuTarget.current.id);
-            }
-          }}
-          size="l"
-          form="default"
-          width="full"
-          view="clear"
-          className={cnTree('ContextMenuItem', { withSeparator: item.withSeparator }).toString()}
-        />
-      ))}
+      {items.map((item) => {
+        const title = contextMenuTarget?.current
+          ? item.title(contextMenuTarget, {
+              selectedItems,
+              hiddenItems,
+            })
+          : '';
+        return (
+          <Button
+            key={item.key}
+            label={title}
+            aria-label={title}
+            onClick={() => {
+              if (contextMenuTarget?.current) {
+                item.callback(contextMenuTarget, {
+                  onHideItem,
+                  onSelectItem,
+                });
+              }
+            }}
+            size="l"
+            form="default"
+            width="full"
+            view="clear"
+            className={cnTree('ContextMenuItem', { withSeparator: item.withSeparator }).toString()}
+          />
+        );
+      })}
     </div>
   );
 };
