@@ -33,7 +33,14 @@ export class ZoomService {
 
     const { source, scale, delta } = props;
 
-    if (!stage || !layer || !horizontalScrollbar || !verticalScrollbar || !background) {
+    if (
+      !stage ||
+      !layer ||
+      !horizontalScrollbar ||
+      !verticalScrollbar ||
+      !background ||
+      delta === 0
+    ) {
       return 0;
     }
 
