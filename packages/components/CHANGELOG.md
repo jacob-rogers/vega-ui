@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.15.16...@gpn-prototypes/vega-ui@2.16.0) (2020-12-22)
+
+
+### Bug Fixes
+
+* **components:** фикс опасного скролла ([#417](https://github.com/gpn-prototypes/vega-ui/issues/417)) ([5c0bdad](https://github.com/gpn-prototypes/vega-ui/commit/5c0bdad52a90f1c449cf07fc7b78608671f86b7c))
+
+
+### Features
+
+* **components:** добавил canvasViewAccessor ([#422](https://github.com/gpn-prototypes/vega-ui/issues/422)) ([4f93b85](https://github.com/gpn-prototypes/vega-ui/commit/4f93b85032f1822588461ac2acaee2ba4b6ba670))
+
+
+
+
+
 ## [2.15.16](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.15.15...@gpn-prototypes/vega-ui@2.15.16) (2020-12-16)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
