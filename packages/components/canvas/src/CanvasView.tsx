@@ -26,6 +26,7 @@ import './Canvas.css';
 
 type CanvasViewProps = {
   canvas: Canvas;
+  canvasViewAccessor?: (view: CanvasViewEntity) => void;
 };
 
 export const defaultState: State = {
@@ -55,7 +56,7 @@ const selectionData = {
   isActive: false,
 };
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
-  const { canvas } = props;
+  const { canvas, canvasViewAccessor } = props;
 
   const [state, setState] = useState(defaultState);
 
@@ -100,6 +101,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   useEffect(() => {
     view.addListener(handleChange);
+
+    if (canvasViewAccessor) canvasViewAccessor(view);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [view, handleChange]);
 
   useUnmount(() => {
