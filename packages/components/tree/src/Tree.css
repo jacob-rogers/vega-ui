@@ -2,6 +2,7 @@
   --context-menu-z-portal: 999;
   --navigation-backlight-z: 0;
   --navigation-item-z: 1;
+  --navigation-item-tooltip-z: 2;
 }
 
 .VegaTree {
@@ -223,6 +224,10 @@
   background: transparent;
   border: none;
   outline: none;
+}
+
+.VegaTree__NavigationEyeTooltip {
+  z-index: var(--navigation-item-tooltip-z);
 }
 
 .VegaTree:hover .VegaTree__ActionItems {

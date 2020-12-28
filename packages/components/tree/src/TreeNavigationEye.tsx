@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Text } from '@gpn-prototypes/vega-text';
 import { Tooltip } from '@gpn-prototypes/vega-tooltip';
 
@@ -29,60 +29,42 @@ const CloseEye: React.FC = () => (
 
 const TreeNavigationEye: React.FC<NavigationEyeProps> = ({ onHide, hidden }) => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-  const [position, setPosition] = useState<{ x: number; y: number }>();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  useEffect(() => setIsTooltipVisible(false), [buttonRef]);
-
-  const handleMouseOver = () => {
-    const boundingClientRect = buttonRef.current?.getBoundingClientRect();
-
-    if (boundingClientRect) {
-      const { x, y, width } = boundingClientRect;
-
-      if (!x || !y || !width) {
-        return;
-      }
-
-      setPosition({
-        x: x + width / 2,
-        y,
-      });
-
-      if (!isTooltipVisible) setIsTooltipVisible(true);
-    }
-  };
+  const handleMouseOver = () => !isTooltipVisible && setIsTooltipVisible(true);
 
   const handleMouseLeave = () => setIsTooltipVisible(false);
 
   return (
-    <button
-      type="button"
-      className={cnTree('NavigationEye', { hidden })}
-      onClick={onHide}
-      ref={buttonRef}
-      aria-label="Скрыть ветвь"
-      tabIndex={0}
-      onFocus={() => {}}
-      onMouseOver={handleMouseOver}
-      onMouseLeave={handleMouseLeave}
-      role="switch"
-      aria-checked={hidden}
-    >
+    <>
+      <button
+        type="button"
+        className={cnTree('NavigationEye', { hidden })}
+        onClick={onHide}
+        ref={buttonRef}
+        aria-label="Скрыть ветвь"
+        tabIndex={0}
+        onFocus={() => {}}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}
+        role="switch"
+        aria-checked={hidden}
+      >
+        {hidden ? <CloseEye /> : <Eye />}
+      </button>
+
       {isTooltipVisible && (
         <Tooltip
-          isInteractive={false}
-          position={position}
-          size="s"
+          className={cnTree('NavigationEyeTooltip').toString()}
+          anchorRef={buttonRef}
           direction="upCenter"
-          possibleDirections={['upCenter']}
+          isInteractive={false}
+          size="s"
         >
           <Text size="xs">{hidden ? 'Показать' : 'Скрыть'}</Text>
         </Tooltip>
       )}
-
-      {hidden ? <CloseEye /> : <Eye />}
-    </button>
+    </>
   );
 };
 
