@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.14](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tree@0.0.13...@gpn-prototypes/vega-tree@0.0.14) (2020-12-28)
+
+
+### Bug Fixes
+
+* **components:** фикс позиции для тултипа ([#418](https://github.com/gpn-prototypes/vega-ui/issues/418)) ([c38fd12](https://github.com/gpn-prototypes/vega-ui/commit/c38fd12d39efde066d43180c635dd471a165a878))
+
+
+
+
+
 ## [0.0.13](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-tree@0.0.12...@gpn-prototypes/vega-tree@0.0.13) (2020-12-16)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-tree
