@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.0.8](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-popover@0.0.7...@gpn-prototypes/vega-popover@0.0.8) (2021-01-11)
+
+**Note:** Version bump only for package @gpn-prototypes/vega-popover
+
+
+
+
+
 ## [0.0.7](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-popover@0.0.6...@gpn-prototypes/vega-popover@0.0.7) (2020-12-08)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-popover

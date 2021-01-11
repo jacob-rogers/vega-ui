@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-radio-list",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -21,8 +21,8 @@
     "react": "^16.8.0"
   },
   "dependencies": {
-    "@gpn-prototypes/vega-icons": "^0.2.8",
-    "@gpn-prototypes/vega-text": "^0.1.10",
+    "@gpn-prototypes/vega-icons": "^0.2.9",
+    "@gpn-prototypes/vega-text": "^0.1.11",
     "bem-cn": "^3.0.1"
   }
 }

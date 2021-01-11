@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-tooltip",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "dist/src/index.js",
   "module": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -24,7 +24,7 @@
     "@consta/uikit": "^1.10.13"
   },
   "devDependencies": {
-    "@gpn-prototypes/vega-button": "^0.2.5",
-    "@gpn-prototypes/vega-text": "^0.1.10"
+    "@gpn-prototypes/vega-button": "^0.2.6",
+    "@gpn-prototypes/vega-text": "^0.1.11"
   }
 }
