@@ -21,6 +21,6 @@
     "react": "^16.13.1"
   },
   "dependencies": {
-    "@consta/uikit": "^1.10.9"
+    "@consta/uikit": "^1.10.13"
   }
 }
