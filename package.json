@@ -116,7 +116,7 @@
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^11.0.2",
     "@types/jest": "^26.0.7",
-    "@types/node": "^12.0.0",
+    "@types/node": "^13.13.39",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
     "@types/react-transition-group": "^4.4.0",
