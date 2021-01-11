@@ -11568,9 +11568,9 @@ known-css-properties@^0.19.0:
   integrity sha512-eYboRV94Vco725nKMlpkn3nV2+96p9c3gKXRsYqAJSswSENvBhN7n5L+uDhY58xQa0UukWsDMTGELzmD8Q+wTA==
 
 konva@^7.0.6:
-  version "7.2.0"
-  resolved "https://registry.yarnpkg.com/konva/-/konva-7.2.0.tgz#5a670a2a953463e04ecbe48bddc9103b89887f5a"
-  integrity sha512-YgSNIV588TWZuVlgP9vD+/TpLIpyNAw3ZwhXGCSC/6wKVKo/z5rqWMedw9Mg8MhvvSLWlEFQXEMPbgNJLIHVgw==
+  version "7.2.2"
+  resolved "https://registry.yarnpkg.com/konva/-/konva-7.2.2.tgz#e46598850d864b0dca68c82013f1e436b1eef55d"
+  integrity sha512-3vtCLFV8S9ooMEC/ELMoHJLWK3YtVUIx44FZFdM1FUBZi88qF4ctdzeII5hfT9Lx6ulVlhC0a6cRdP0uRWjMmw==
 
 language-subtag-registry@~0.3.2:
   version "0.3.20"
