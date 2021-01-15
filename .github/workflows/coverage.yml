@@ -1,13 +1,10 @@
-name: Проверки кода
+name: Проверка покрытия
 on:
-  push:
-    branches: [master]
   pull_request:
     types: [unlabeled, opened, synchronize, reopened, ready_for_review]
 
 jobs:
-  checks:
-    name: Проверки кода
+  coverage:
     runs-on: ubuntu-latest
     if: github.event.pull_request.draft == false && contains(github.event.pull_request.labels.*.name, 'WIP') == false && contains(github.event.pull_request.labels.*.name, 'Blocked') == false && contains(github.event.pull_request.labels.*.name, 'Suspended') == false
 
@@ -29,10 +26,14 @@ jobs:
       - name: Сборка пакетов
         run: yarn build
 
-      - name: Тестирование
-        run: yarn test
+      - name: Создание отчета покрытия
+        run: yarn coverage:changes
         if: always()
 
-      - name: Проверка code style
-        run: yarn lint
-        if: always()
+      - name: Проверка покрытия
+        uses: Inzephirum/gha-test-coverage-check@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          min_threshold: '100'
+          report_file_path: './coverage/lcov.info'
+
