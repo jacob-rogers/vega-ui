@@ -30,6 +30,7 @@
       "@gpn-prototypes/vega-loader": ["packages/components/loader/src/index.ts"],
       "@gpn-prototypes/vega-logo": ["packages/components/logo/src/index.ts"],
       "@gpn-prototypes/vega-modal": ["packages/components/modal/src/index.ts"],
+      "@gpn-prototypes/vega-multi-combobox": ["packages/components/multi-combobox/src/index.ts"],
       "@gpn-prototypes/vega-navigation-list": ["packages/components/navigation-list/src/index.ts"],
       "@gpn-prototypes/vega-page-banner": ["packages/components/page-banner/src/index.ts"],
       "@gpn-prototypes/vega-page-footer": ["packages/components/page-footer/src/index.ts"],

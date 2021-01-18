@@ -12,6 +12,7 @@
 -   [Layout](layout)
 -   [Logo](logo)
 -   [Modal](modal)
+-   [MultiCombobox](multi-combobox)
 -   [NavigationList](navigation-list)
 -   [PageBanner](page-banner)
 -   [PageFooter](page-footer)

@@ -22,6 +22,7 @@ export * from '@gpn-prototypes/vega-layout';
 export * from '@gpn-prototypes/vega-loader';
 export * from '@gpn-prototypes/vega-logo';
 export * from '@gpn-prototypes/vega-modal';
+export * from '@gpn-prototypes/vega-multi-combobox';
 export * from '@gpn-prototypes/vega-navigation-list';
 export * from '@gpn-prototypes/vega-page-banner';
 export * from '@gpn-prototypes/vega-page-footer';
