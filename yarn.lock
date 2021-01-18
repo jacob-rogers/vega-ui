@@ -16876,9 +16876,9 @@ storybook-addon-performance@^0.13.0:
     xstate "^4.11.0"
 
 storybook-addon-themes@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/storybook-addon-themes/-/storybook-addon-themes-6.0.0.tgz#a509f5ee3b80dcfdbe4f7dc8433562a31b659309"
-  integrity sha512-BfAdWLb72WLaJOZG+TSlWUl8A+qcyQlu3eQZmKNATWNwMsofdo0SAN+kB4aJ1CkpqZAVvEjHeXLtYR3YDKsq0A==
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/storybook-addon-themes/-/storybook-addon-themes-6.0.1.tgz#5154834412f175ecaf1ab5fb66e91de52daacb76"
+  integrity sha512-v76JfzbXdiwsnG1PwgPOLFKIZ+XtluS6fqx7dozEND4PiglWojdQC7mbtagE/P0H9zz1sdLg2xaivJ+VnAsKyQ==
   dependencies:
     "@storybook/addons" "^6.0.0"
     "@storybook/api" "^6.0.0"
