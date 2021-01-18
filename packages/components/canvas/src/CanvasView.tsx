@@ -34,7 +34,7 @@ export const defaultState: State = {
   cursor: 'default',
   activeData: null,
   selectedData: null,
-  stageSize: { width: 0, height: 0 },
+  stageSize: { width: 1, height: 1 },
   linePoints: null,
   contentRect: { x: 0, y: 0, height: 0, width: 0 },
   overlay: false,
@@ -44,6 +44,7 @@ export const defaultState: State = {
 const pinning = {
   isKeyPressed: false,
   isMousePressed: false,
+  isControlPressed: false,
   data: {
     clientX: 0,
     clientY: 0,
@@ -446,6 +447,40 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
+  const handleScaleChange = (number: number) => {
+    view.zoom({ source: 'panel', scale: number / 100 });
+  };
+
+  const handleCanvasKeyDown = (e: KeyboardEvent): void => {
+    switch (e.key) {
+      case 'Control': {
+        if (!e.repeat) {
+          pinning.isControlPressed = true;
+        }
+        break;
+      }
+      default:
+        break;
+    }
+  };
+
+  const handleCanvasKeyUp = (e: KeyboardEvent): void => {
+    switch (e.key) {
+      case 'Control': {
+        pinning.isControlPressed = false;
+        break;
+      }
+      case '0': {
+        if (pinning.isControlPressed) {
+          handleScaleChange(100);
+        }
+        break;
+      }
+      default:
+        break;
+    }
+  };
+
   const handleWheel = (event: Konva.KonvaEventObject<WheelEvent>): void => {
     event.evt.preventDefault();
 
@@ -483,6 +518,16 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   useKey('Space', handleKeyUp, {
     element: stageRef.current?.container(),
+    keyevent: 'keyup',
+  });
+
+  useKey(['Control'], handleCanvasKeyDown, {
+    element: stageRef.current?.container()?.parentElement as Element,
+    keyevent: 'keydown',
+  });
+
+  useKey(['Control', '0'], handleCanvasKeyUp, {
+    element: stageRef.current?.container()?.parentElement as Element,
     keyevent: 'keyup',
   });
 
@@ -529,10 +574,6 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     return disabledOptions;
   };
 
-  const handleScaleChange = (number: number) => {
-    view.zoom({ source: 'panel', scale: number / 100 });
-  };
-
   const handleContentAlign = () => {
     let newScale;
 
@@ -562,7 +603,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   };
 
   return (
-    <div ref={containerRef} id="VegaCanvas" className={cnCanvas()}>
+    <div ref={containerRef} id="VegaCanvas" className={cnCanvas()} data-testid="container">
       <div className={cnCanvas('OptionsPanelWrapper')}>
         <OptionsPanel
           disabledOptions={getDisabledOptions()}
