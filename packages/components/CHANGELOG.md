@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.17.0](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.16.3...@gpn-prototypes/vega-ui@2.17.0) (2021-01-18)
+
+
+### Features
+
+* **components:** добавить обёртку multi-combobox ([#382](https://github.com/gpn-prototypes/vega-ui/issues/382)) ([7128f23](https://github.com/gpn-prototypes/vega-ui/commit/7128f235a53d11cc7d847f41b5e5b3780eb297ca))
+
+
+
+
+
 ## [2.16.3](https://github.com/gpn-prototypes/vega-ui/compare/@gpn-prototypes/vega-ui@2.16.2...@gpn-prototypes/vega-ui@2.16.3) (2021-01-18)
 
 **Note:** Version bump only for package @gpn-prototypes/vega-ui
