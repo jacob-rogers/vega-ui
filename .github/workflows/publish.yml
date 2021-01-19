@@ -34,6 +34,11 @@ jobs:
       - name: Сборка пакетов
         run: yarn build
 
+      - name: Настройка git
+        run: |
+          git config --local user.name "GitHub Workflow"
+          git config --local user.email "workflow@github.com"
+
       - name: Поднятие версии
         run: |
           yarn release --no-verify --releaseCommitMessageFormat "chore(package): обновление пакета [skip ci]"
