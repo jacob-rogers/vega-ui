@@ -4,13 +4,7 @@
 
     yarn upgrade @gpn-prototypes/vega-ui
 
-Если необходимо обновить отдельный пакет:
-
-    yarn upgrade @gpn-prototypes/[package-name]
-
 Подробнее об [организации пакетов](publishing.md).
-
-Чтобы посмотреть, какие пакеты можно обновить, выполните `yarn upgrade-interactive`.
 
 ## Проблемы при обновлении
 

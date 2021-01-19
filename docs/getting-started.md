@@ -8,7 +8,7 @@
 
     $ yarn nc <component-name>
 
-Собрать и слинковать все пакеты
+Собрать пакет vega-ui
 
     $ yarn build # включает в себя:
     $ yarn build:ts # сборка typescript
@@ -25,17 +25,6 @@
 Сформировать отчет по покрытию тестами
 
     $ yarn coverage
-
-Удалить директории node_modules и dist у всех пакетов
-
-    $ yarn packages:clean
-
-lerna
-
-    $ yarn packages:diff
-    $ yarn packages:bootstrap
-    $ yarn packages:version
-    $ yarn packages:link
 
 Запустить Storybook на 6006 порту
 
@@ -56,3 +45,7 @@ lerna
 Автофикс ошибок линтеров
 
     $ yarn lint:fix
+
+Создать новую версию
+
+    $ yarn release

@@ -31,11 +31,12 @@ addParameters({ themes: { list: themes, Decorator: VegaRootDecorator } });
 addDecorator(withMetadata);
 addDecorator(withKnobs);
 addDecorator(withPerformance);
+// @ts-expect-error: в декораторе проблема с типизацией возвращаемого параметра
 addDecorator(withA11y);
 addDecorator(withThemes);
 
 function loadStories(): void {
-  const req = require.context('../packages', true, /\.stories\.tsx$/);
+  const req = require.context('../src', true, /\.stories\.tsx$/);
   req.keys().forEach(req);
 }
 

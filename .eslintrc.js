@@ -12,4 +12,15 @@ module.exports = {
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
   },
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['vega-components', './src/components'],
+          ['vega-hooks', './src/hooks/index.ts'],
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json'],
+      },
+    },
+  },
 };

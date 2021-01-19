@@ -3,7 +3,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  stories: ['../packages/**/*.stories.@(tsx)'],
+  stories: ['../src/**/*.stories.@(tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-knobs',

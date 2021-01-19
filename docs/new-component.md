@@ -30,13 +30,9 @@
 
 Рассмотрим на примере команды `yarn nc apple-orange`.
 
-1.  В `package.json` добавит новую запись в раздел `workspaces`: `"packages/components/apple-orange:`
-2.  В `tsconfig.json` добавит новую запись в раздел `compilerOptions.paths`:
-    `"@gpn-prototypes/vega-apple-orange"`: `["packages/components/apple-orange/src/index.ts"]`
-3.  В `packages/components/index.ts` добавит новый экспорт: `export * from '@gpn-prototypes/vega-apple-orange';`
-4.  В `packages/components/package.json` добавит новую запись в раздел `dependencies`: `"@gpn-prototypes/vega-apple-orange": "^0.0.1"`
-5.  В `packages/components/README.md` добавит новую ссылку на документацию: `- [AppleOrange](apple-orange)`
-6.  Добавит папку `packages/components/apple-orange` со следующей структурой:
+1.  В `src/components/index.ts` добавит новый экспорт: `export * './vega-apple-orange';`
+2.  В `src/components/README.md` добавит новую ссылку на документацию: `- [AppleOrange](apple-orange)`
+3.  Добавит папку `src/components/apple-orange` со следующей структурой:
 
 <img src="static/new-component/pic-1.png" height="300">
 

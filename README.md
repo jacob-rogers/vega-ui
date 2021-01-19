@@ -16,7 +16,7 @@
 ## Структура проекта
 
     .
-    ├── packages
+    ├── src
     │   ├── components # директория для компонентов
     │   ├── hooks # директория для react-хуков
     │   ...
@@ -36,7 +36,7 @@
 
 ## Компоненты Vega UI
 
-Полный список в [Readme компонентов](packages/components/README.md) и [Storybook](http://master.vega-ui-storybook.csssr.cloud/). Дополнительно разработаны [React-хуки](packages/hooks/README.md).
+Полный список в [Readme компонентов](src/components/README.md) и [Storybook](http://master.vega-ui-storybook.csssr.cloud/). Дополнительно разработаны [React-хуки](src/hooks/README.md).
 
 ## Браузеры
 

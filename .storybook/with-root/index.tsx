@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Root, useTheme } from '../../packages/components/root/src';
+import { Root, useTheme } from '../../src/components';
 
 import './whitepaper.css';
 
