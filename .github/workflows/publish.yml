@@ -37,18 +37,18 @@ jobs:
       - name: Поднятие версии
         run: |
           yarn release --no-verify --releaseCommitMessageFormat "chore(package): обновление пакета [skip ci]"
-        if: "contains(steps.gh.output.branch, 'master')"
+        if: contains(steps.gh.outputs.branch, 'master')
 
       - name: Создание альфа-версии
         run: |
           yarn release --prerelease alpha --no-verify --releaseCommitMessageFormat "chore(package): обновление пакета [skip ci]"
-        if: "!contains(steps.gh.output.branch, 'master')"
+        if: contains(steps.gh.outputs.branch, 'master')
 
       - name: Обновление тегов
         run: git push origin "$GITHUB_BRANCH" --follow-tags
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_BRANCH: ${{ steps.gh.output.branch }}
+          GITHUB_BRANCH: ${{ steps.gh.outputs.branch }}
 
       - name: Публикация на gh registry
         run: |

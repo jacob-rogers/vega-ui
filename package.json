@@ -43,7 +43,8 @@
     "lint": "yarn run lint:ts && yarn run lint:css && yarn run lint:md",
     "lint:fix": "yarn run lint:ts:fix && yarn run lint:css:fix && yarn run lint:md:fix",
     "nc": "hygen component new",
-    "size": "yarn build && size-limit"
+    "size": "yarn build && size-limit",
+    "release": "standard-version"
   },
   "config": {
     "commitizen": {
