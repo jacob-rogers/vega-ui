@@ -27,7 +27,7 @@ jobs:
         run: yarn build
 
       - name: Создание отчета покрытия
-        run: yarn coverage:changes
+        run: yarn coverage
         if: always()
 
       - name: Проверка покрытия
