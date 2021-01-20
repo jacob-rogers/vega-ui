@@ -12,7 +12,7 @@ const stories = storiesOf('ui/Carousel', module).addParameters({
     status: 'Approved',
     link: {
       href:
-        'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/carousel/README.md',
+        'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/carousel/README.md',
       text: 'Документация',
     },
   },

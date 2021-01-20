@@ -34,7 +34,7 @@ storiesOf('ui/Modal', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/modal',
+        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/src/components/modal',
         text: 'Документация',
       },
     },

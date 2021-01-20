@@ -32,7 +32,7 @@ storiesOf('ui/RadioList', module)
       status: 'Draft',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/radio-list/README.md',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/radio-list/README.md',
         text: 'Документация',
       },
     },

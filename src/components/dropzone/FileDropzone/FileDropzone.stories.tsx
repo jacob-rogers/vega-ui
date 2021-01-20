@@ -50,7 +50,7 @@ storiesOf('ui/FileDropzone', module)
       status: 'Approved',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/dropzone/README.md',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/dropzone/README.md',
         text: 'Документация',
       },
     },

@@ -6,21 +6,17 @@
 
 ```jsx
 import { MultiCombobox } from '@gpn-prototypes/vega-ui';
-
 type Option = {
   label: string;
   value: string;
 };
-
 const items = [
   { label: 'Москва', value: 'moscow' },
   { label: 'Санкт-Петербург', value: 'spb' },
   { label: 'Томск', value: 'tomsk' },
 ];
-
 export const MyComponent = () => {
   const getItemLabel = (option: Option): string => option.label;
-
   return (
     <MultiCombobox
       id="city"

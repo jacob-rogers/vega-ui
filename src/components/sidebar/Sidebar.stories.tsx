@@ -52,7 +52,7 @@ storiesOf('ui/Sidebar', module)
       status: 'Approved',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/sidebar/README.md',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/sidebar/README.md',
         text: 'Документация',
       },
     },

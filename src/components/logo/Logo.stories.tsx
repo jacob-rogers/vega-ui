@@ -11,8 +11,7 @@ storiesOf('ui/Logo', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/logo/README.md',
+        href: 'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/logo/README.md',
         text: 'Документация',
       },
     },

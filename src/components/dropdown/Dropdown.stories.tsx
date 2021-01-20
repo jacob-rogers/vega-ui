@@ -70,7 +70,7 @@ storiesOf('ui/Dropdown', module)
       status: 'Approved',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/dropdown/README.md',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/dropdown/README.md',
         text: 'Документация',
       },
     },

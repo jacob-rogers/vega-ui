@@ -11,7 +11,7 @@ const stories = storiesOf('ui/ScalePanel', module).addParameters({
     status: 'Approved',
     link: {
       href:
-        'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/scale-panel/README.md',
+        'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/scale-panel/README.md',
       text: 'Документация',
     },
   },

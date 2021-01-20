@@ -36,7 +36,7 @@ storiesOf('ui/NavigationList', module)
       status: 'Approved',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/navigation-list/README.md',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/navigation-list/README.md',
         text: 'Документация',
       },
     },

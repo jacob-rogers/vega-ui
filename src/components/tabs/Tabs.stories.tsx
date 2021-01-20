@@ -88,7 +88,7 @@ storiesOf('ui/Tabs', module)
       status: 'Approved',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/tabs/README.md ',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/tabs/README.md ',
         text: 'Документация',
       },
     },

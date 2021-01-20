@@ -43,3 +43,4 @@ export * from './radio-list';
 export * from './tree';
 export * from './split-panes';
 export * from './canvas';
+export * from './multi-combobox';

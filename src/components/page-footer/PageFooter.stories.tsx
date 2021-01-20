@@ -40,7 +40,7 @@ storiesOf('ui/PageFooter', module)
       status: 'Approved',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/page-footer/README.md',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/page-footer/README.md',
         text: 'Документация',
       },
     },

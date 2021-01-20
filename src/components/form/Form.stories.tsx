@@ -74,8 +74,7 @@ storiesOf('ui/Form', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/form/README.md',
+        href: 'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/form/README.md',
         text: 'Документация',
       },
     },

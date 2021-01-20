@@ -36,7 +36,7 @@ storiesOf('ui/Layout', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/layout',
+        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/src/components/layout',
         text: 'Документация',
       },
     },

@@ -347,7 +347,7 @@ storiesOf('ui/Tree', module)
       author: 'Ланит',
       status: 'Draft',
       link: {
-        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/packages/components/tree',
+        href: 'https://github.com/gpn-prototypes/vega-ui/tree/master/src/components/tree',
         text: 'Документация',
       },
     },

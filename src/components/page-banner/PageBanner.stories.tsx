@@ -17,7 +17,7 @@ storiesOf('ui/PageBanner', module)
       status: 'Approved',
       link: {
         href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/packages/components/page-banner/README.md',
+          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/page-banner/README.md',
         text: 'Документация',
       },
     },
