@@ -110,7 +110,7 @@
     "webpack": "^4.42.1"
   },
   "dependencies": {
-    "@consta/uikit": "^1.10.13",
+    "@consta/uikit": "^1.11.1",
     "@popperjs/core": "^2.6.0",
     "bem-cn": "^3.0.1",
     "konva": "^7.0.6",
