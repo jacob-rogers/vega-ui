@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.2](https://github.com/gpn-prototypes/vega-ui/compare/v3.0.1...v3.0.2) (2021-01-20)
+
+
+### Bug Fixes
+
+* **multi-combobox:** добавил экспорт ([#458](https://github.com/gpn-prototypes/vega-ui/issues/458)) ([1ff4096](https://github.com/gpn-prototypes/vega-ui/commit/1ff40967caf0b44bb31ec0dccfcea9543a28e009))
+
 ### [3.0.1](https://github.com/gpn-prototypes/vega-ui/compare/v3.0.1-alpha.0...v3.0.1) (2021-01-19)
 
 
