@@ -1885,7 +1885,7 @@
     resolve-from "^5.0.0"
     resolve-global "^1.0.0"
 
-"@consta/uikit@^1.11.1":
+"@consta/uikit@^1.11.2":
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/@consta/uikit/-/uikit-1.11.2.tgz#3308e4351291c0a771d30bdb15ece7594dfadec0"
   integrity sha512-qHYxGkTk01Olmmd/VUPENlZvdhWiOX6XwMqeEEN9EJHlojtvI40btGloS1xNLX2nOzJSrcA8iuy/5fnHsiFvyQ==
