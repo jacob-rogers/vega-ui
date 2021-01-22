@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.7](https://github.com/gpn-prototypes/vega-ui/compare/v3.0.6...v3.0.7) (2021-01-22)
+
 ### [3.0.6](https://github.com/gpn-prototypes/vega-ui/compare/v3.0.5...v3.0.6) (2021-01-22)
 
 ### [3.0.5](https://github.com/gpn-prototypes/vega-ui/compare/v3.0.4...v3.0.5) (2021-01-20)
