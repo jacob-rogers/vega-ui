@@ -38,7 +38,17 @@ const Header = styled(Text)`
 `;
 
 storiesOf('ui/SplitPanes', module)
-  .addParameters({ metadata: { author: 'CSSSR', status: 'Approved' } })
+  .addParameters({
+    metadata: {
+      author: 'CSSSR',
+      status: 'Approved',
+      link: {
+        href:
+          'https://github.com/gpn-prototypes/vega-ui/tree/master/src/components/split-panes/README.md',
+        text: 'Документация',
+      },
+    },
+  })
   .add('по умолчанию', () => {
     return (
       <SplitPanes {...defaultKnobs()}>
