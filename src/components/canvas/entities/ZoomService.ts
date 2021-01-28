@@ -91,6 +91,9 @@ export class ZoomService {
 
     background.setAttrs(bgRect);
 
+    sessionStorage.setItem('canvas-scale', String(newScale));
+    sessionStorage.setItem('canvas-scroll-position', JSON.stringify(newPosition));
+
     stage.batchDraw();
 
     return newScale;

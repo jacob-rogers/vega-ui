@@ -8,6 +8,7 @@ import { useKey, useMount, useResizeObserver, useUnmount } from '../../hooks';
 import { ScalePanel } from '../scale-panel';
 
 import { ConnectionLineView } from './components/ConnectionLineView';
+import { useSavedScreen } from './hooks/use-saved-screen';
 import { cnCanvas } from './cn-canvas';
 import {
   CanvasGrid,
@@ -57,6 +58,7 @@ const selectionData = {
   y0: 0,
   isActive: false,
 };
+
 export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   const { canvas, canvasViewAccessor } = props;
 
@@ -96,6 +98,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     mode,
     scale,
   } = view.getState();
+
+  useSavedScreen({ view, layerRef, stageRef, backgroundRectRef });
 
   const handleChange = useCallback((updates: ViewUpdate): void => {
     setState({ ...updates.newState });

@@ -53,6 +53,8 @@ export class ScrollService {
 
     this.scrollbarService.updateScrollbars();
 
+    sessionStorage.setItem('canvas-scroll-position', JSON.stringify({ x, y }));
+
     stage.batchDraw();
   }
 
