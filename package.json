@@ -81,7 +81,7 @@
     "@types/uuid": "^8.3.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-module-resolver": "^4.1.0",
-    "commitizen": "^4.0.4",
+    "commitizen": "^4.2.3",
     "copy-webpack-plugin": "^6.1.0",
     "cpx": "^1.5.0",
     "cz-customizable": "^6.2.0",
