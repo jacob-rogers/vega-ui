@@ -1,44 +1,53 @@
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+
+type Task<T> = T | null;
+
+type TaskAPI<T> = {
+  clear: VoidFunction;
+  restart: VoidFunction;
+  start: VoidFunction;
+  flush: VoidFunction;
+  task: Task<T>;
+};
+
+type CreateTask<T> = (done: VoidFunction) => T;
+type CancelTask<T> = (task: T) => void;
 
 type Options = {
   autostart?: boolean;
 };
 
-type Task = number | null | NodeJS.Timeout;
-
-type ReturnAPI = {
-  clear: () => void;
-  restart: () => void;
-  start: () => void;
-  task: Task;
+type Props<T> = {
+  skip: boolean;
+  callback: VoidFunction;
+  createTask: CreateTask<T>;
+  cancelTask: CancelTask<T>;
+  opts?: Options;
 };
 
-type Props = {
-  callback: () => void;
-  delay: number;
-  createTask: typeof setInterval | typeof setTimeout;
-  cancelTask: typeof clearInterval | typeof clearTimeout;
-  opts: Options;
-};
+// istanbul ignore next
+const noop = () => {};
 
-const useTask = ({ callback, delay, createTask, cancelTask, opts }: Props): ReturnAPI => {
+function useTask<T>({ skip, callback, createTask, cancelTask, opts }: Props<T>): TaskAPI<T> {
+  const { autostart = true } = opts ?? {};
+
   const callbackRef = useRef(callback);
-  const clearRef = useRef(() => {});
-  const restartRef = useRef(() => {});
-  const startRef = useRef(() => {});
+  const clearRef = useRef(noop);
+  const restartRef = useRef(noop);
+  const startRef = useRef(noop);
+  const task = useRef<Task<T>>(null);
 
   callbackRef.current = callback;
-  const task = useRef<Task>(null);
 
   useEffect(() => {
-    if (delay === Infinity) {
-      // infinity timeout issue: https://github.com/denysdovhan/wtfjs/issues/61
+    if (skip) {
       return undefined;
     }
 
     clearRef.current = (): void => {
       if (typeof task.current === 'number') {
         cancelTask(task.current);
+        task.current = null;
       }
     };
 
@@ -49,7 +58,7 @@ const useTask = ({ callback, delay, createTask, cancelTask, opts }: Props): Retu
 
       task.current = createTask(() => {
         callbackRef.current();
-      }, delay);
+      });
     };
 
     restartRef.current = (): void => {
@@ -57,15 +66,19 @@ const useTask = ({ callback, delay, createTask, cancelTask, opts }: Props): Retu
       startRef.current();
     };
 
-    if (opts.autostart) {
+    if (autostart) {
       startRef.current();
     }
 
     return clearRef.current;
-  }, [cancelTask, delay, createTask, opts.autostart]);
+  }, [skip, cancelTask, createTask, autostart]);
 
   return {
     clear: (): void => {
+      clearRef.current();
+    },
+    flush: (): void => {
+      callbackRef.current();
       clearRef.current();
     },
     restart: (): void => {
@@ -76,32 +89,60 @@ const useTask = ({ callback, delay, createTask, cancelTask, opts }: Props): Retu
     },
     task: task.current,
   };
-};
+}
 
-export const useTimeout = (
+type TimeoutTask = ReturnType<typeof setTimeout>;
+
+export function useTimeout(
   delay: number,
-  callback: () => void,
-  opts: Options = { autostart: true },
-): ReturnType<typeof useTask> => {
+  callback: VoidFunction,
+  opts?: Options,
+): TaskAPI<TimeoutTask> {
+  const createTask = useCallback<CreateTask<TimeoutTask>>(
+    (done) => {
+      return setTimeout(done, delay);
+    },
+    [delay],
+  );
+
+  const cancelTask = useCallback<CancelTask<TimeoutTask>>((tiemoutID) => {
+    clearTimeout(tiemoutID);
+  }, []);
+
   return useTask({
-    delay,
+    // infinity timeout issue: https://github.com/denysdovhan/wtfjs/issues/61
+    skip: delay === Infinity,
     callback,
-    createTask: setTimeout,
-    cancelTask: clearTimeout,
+    createTask,
+    cancelTask,
     opts,
   });
-};
+}
 
-export const useInterval = (
+type IntervalTask = ReturnType<typeof setInterval>;
+
+export function useInterval(
   delay: number,
-  callback: () => void,
-  opts: Options = { autostart: true },
-): ReturnType<typeof useTask> => {
+  callback: VoidFunction,
+  opts?: Options,
+): TaskAPI<IntervalTask> {
+  const createTask = useCallback<CreateTask<IntervalTask>>(
+    (done) => {
+      return setInterval(done, delay);
+    },
+    [delay],
+  );
+
+  const cancelTask = useCallback<CancelTask<IntervalTask>>((intervalID) => {
+    clearInterval(intervalID);
+  }, []);
+
   return useTask({
-    delay,
+    // infinity timeout issue: https://github.com/denysdovhan/wtfjs/issues/61
+    skip: delay === Infinity,
     callback,
-    createTask: setInterval,
-    cancelTask: clearInterval,
+    createTask,
+    cancelTask,
     opts,
   });
-};
+}
