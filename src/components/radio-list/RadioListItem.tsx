@@ -18,6 +18,7 @@ export const RadioListItem: React.FC<RadioListItemProps> = (props) => {
   const { currentValue, change, name } = useRadioList();
 
   const onItemClick = (event: ChangeEvent<HTMLInputElement>): void => {
+    /* istanbul ignore else */
     if (change) {
       change(event.target.value);
     }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { fireEvent, render, RenderResult, screen } from '@testing-library/react';
+import { render, RenderResult, screen, waitFor } from '@testing-library/react';
+import userEvents from '@testing-library/user-event';
 
 import { RadioList, RadioListProps } from './RadioList';
 import { RadioListItemProps } from './RadioListItem';
@@ -15,17 +16,13 @@ const renderComponent = (componentsProps: ComponentsProps = {}): RenderResult =>
     radioListProps,
     itemProps,
   };
-  const onChange = jest.fn();
-
-  beforeEach(() => {
-    onChange.mockClear();
-  });
+  const onChange = radioListProps?.onChange;
 
   return render(
     <RadioList
       name="name"
       {...props.radioListProps}
-      value="test1"
+      value={radioListProps?.value}
       onChange={onChange}
       data-testid="RadioList"
     >
@@ -39,14 +36,6 @@ const renderComponent = (componentsProps: ComponentsProps = {}): RenderResult =>
   );
 };
 
-const findInputArray = (title = 'radioInput'): Element[] => {
-  return screen.getAllByTitle(title);
-};
-
-const findRadioArray = (role = 'radio'): Element[] => {
-  return screen.getAllByRole(role);
-};
-
 describe('RadioList', () => {
   test('рендерится без ошибок', () => {
     renderComponent();
@@ -54,20 +43,39 @@ describe('RadioList', () => {
 });
 
 describe('RadioListItem', () => {
-  test('проставляется active', () => {
-    renderComponent();
-
-    const item = findRadioArray()[0];
-    expect(item).toHaveAttribute('aria-checked', 'true');
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
-  test('Переключаются radio ', () => {
+
+  test('по умолчанию не выбрано значение', () => {
     renderComponent();
 
-    const item = findInputArray()[0];
+    expect(screen.queryAllByRole('aria-checked').length).toBe(0);
+  });
 
-    if (item) {
-      fireEvent.change(item, { target: { value: 'test2' } });
-      expect(item.value).toBe('test2');
-    }
+  test('проставляется active', () => {
+    renderComponent({ radioListProps: { value: 'test1' } });
+
+    waitFor(() => {
+      expect(screen.queryAllByRole('aria-checked').length).toBe(1);
+    });
+  });
+
+  test('переключаются radio ', () => {
+    renderComponent();
+
+    userEvents.click(screen.getByLabelText('тест2'));
+
+    expect(screen.getAllByTitle('radioInput')[1]).toHaveAttribute('value', 'test2');
+  });
+
+  test('срабатывает onChange', () => {
+    const onChange = jest.fn();
+    renderComponent({ radioListProps: { onChange } });
+
+    userEvents.click(screen.getByLabelText('тест2'));
+
+    expect(onChange).toBeCalled();
+    expect(onChange).toBeCalledWith('test2');
   });
 });

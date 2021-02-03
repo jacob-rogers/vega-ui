@@ -6,6 +6,7 @@ export interface RadioListAPI {
   change: (value: string) => void;
 }
 
+/* istanbul ignore next */
 const noop = (): void => {};
 
 export const RadioListContext = React.createContext<RadioListAPI>({

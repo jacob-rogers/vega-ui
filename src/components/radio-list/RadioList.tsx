@@ -22,6 +22,7 @@ export const RadioList: RadioListType<RadioListProps> = (props) => {
   const { children, onChange, name, value, className, ...rest } = props;
 
   function change(val: string): void {
+    /* istanbul ignore else */
     if (onChange) onChange(val);
   }
 
