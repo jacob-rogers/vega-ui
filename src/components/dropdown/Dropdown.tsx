@@ -18,6 +18,7 @@ export type DropdownProps = {
   placement?: DropdownPlacement;
 };
 
+/* istanbul ignore next */
 const noop = (): void => {};
 
 export type DropdownType<T> = React.FC<T> & {

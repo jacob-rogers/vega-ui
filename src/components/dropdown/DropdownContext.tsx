@@ -18,6 +18,7 @@ export interface DropdownContextValue {
   };
 }
 
+/* istanbul ignore next */
 const noop = (): void => {};
 
 export const DropdownContext = React.createContext<DropdownContextValue>({
@@ -28,11 +29,11 @@ export const DropdownContext = React.createContext<DropdownContextValue>({
   clickOutside: noop,
   triggerProps: {
     triggerElement: null,
-    setTriggerElement: (): void => {},
+    setTriggerElement: noop,
   },
   menuProps: {
     menuElement: null,
-    setMenuElement: (): void => {},
+    setMenuElement: noop,
     style: {},
     attributes: {},
   },
