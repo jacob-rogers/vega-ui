@@ -22,13 +22,13 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
   const {
     className,
     children,
-    onDragEnd = defaultDragHandler,
-    onDragExit = defaultDragHandler,
-    onDragOver = defaultDragHandler,
-    onDragStart = defaultDragHandler,
+    onDragEnd,
+    onDragExit,
+    onDragOver,
+    onDragStart,
     onDragEnter = defaultDragHandler,
-    onDragLeave = defaultDragHandler,
-    onDrop = defaultDragHandler,
+    onDragLeave,
+    onDrop,
     fullscreen = false,
     inDropArea = false,
     show = true,
@@ -80,10 +80,6 @@ export const Dropzone: React.FC<DropzoneProps> = (props) => {
       </div>,
       portal,
     );
-  }
-
-  if (portal === null && fullscreen) {
-    return null;
   }
 
   return content;

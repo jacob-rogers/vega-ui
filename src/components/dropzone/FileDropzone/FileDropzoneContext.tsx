@@ -2,6 +2,12 @@ import React from 'react';
 
 import { FileDropzoneAPI } from '../types';
 
-export const FileDropzoneContext = React.createContext<FileDropzoneAPI>({} as FileDropzoneAPI);
+export const FileDropzoneContext = React.createContext<FileDropzoneAPI | null>(null);
 
-export const useFileDropzoneProvider = (): FileDropzoneAPI => React.useContext(FileDropzoneContext);
+export const useFileDropzoneProvider = (): FileDropzoneAPI => {
+  const fileDropzone = React.useContext(FileDropzoneContext);
+  if (fileDropzone === null) {
+    throw new Error('useShell called outside from ShellProvider');
+  }
+  return fileDropzone;
+};

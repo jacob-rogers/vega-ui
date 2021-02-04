@@ -9,7 +9,7 @@ import { useFileDropzoneProvider } from './FileDropzoneContext';
 
 import './FileDropzone.css';
 
-type FileDropzoneInputProps = React.ComponentProps<typeof FileInput> & { label: string };
+type FileDropzoneInputProps = React.ComponentProps<typeof FileInput> & { label?: string };
 
 export const FileDropzoneInput: React.FC<FileDropzoneInputProps> = ({
   className,

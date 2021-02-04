@@ -21,12 +21,14 @@ export const useFileDropzone = (
   const [inDropArea, setInDropArea] = useState(false);
 
   const closeFullscreenVisible = (): void => {
+    /* istanbul ignore else */
     if (fullscreenVisible) {
       setFullscreenVisible(false);
     }
   };
 
   const closeDropArea = (): void => {
+    /* istanbul ignore else */
     if (inDropArea) {
       setInDropArea(false);
     }
@@ -35,14 +37,15 @@ export const useFileDropzone = (
   const handleDragEnter: ReactDragEventHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    /* istanbul ignore else */
     if (!fullscreenVisible && options.withFullscreen) {
       setFullscreenVisible(true);
     }
-
+    /* istanbul ignore else */
     if (!inDropArea) {
       setInDropArea(true);
     }
-
+    /* istanbul ignore else */
     if (handlers.onDragEnter) {
       handlers.onDragEnter(e);
     }
@@ -53,6 +56,7 @@ export const useFileDropzone = (
     e.stopPropagation();
     closeFullscreenVisible();
     closeDropArea();
+    /* istanbul ignore else */
     if (handlers.onDragLeave) {
       handlers.onDragLeave(e);
     }
@@ -61,6 +65,7 @@ export const useFileDropzone = (
   const handleDragOver: ReactDragEventHandler = (e) => {
     e.preventDefault();
     e.stopPropagation();
+    /* istanbul ignore else */
     if (e.dataTransfer) {
       e.dataTransfer.dropEffect = 'copy';
       e.dataTransfer.effectAllowed = 'copy';
@@ -72,10 +77,12 @@ export const useFileDropzone = (
     e.stopPropagation();
     closeFullscreenVisible();
     closeDropArea();
+    /* istanbul ignore else */
     if (e.target instanceof HTMLInputElement) {
       handlers.onDrop(e.target.files);
     }
 
+    /* istanbul ignore else */
     if ('dataTransfer' in e && e.dataTransfer) {
       handlers.onDrop(e.dataTransfer.files);
     }
