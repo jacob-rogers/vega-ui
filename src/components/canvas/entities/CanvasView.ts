@@ -193,7 +193,7 @@ export class CanvasView extends Notifier<ViewUpdate> {
         }
       }
 
-      canvas.removeM(trees);
+      canvas.remove(trees);
     }
 
     this.updateContentRect();

@@ -44,18 +44,18 @@ export class ZoomService {
       return 0;
     }
 
-    const pointerPosition = stage.getPointerPosition();
-
-    if (!pointerPosition) {
-      return 0;
-    }
-
     const oldScale = layer.scaleX();
 
     let newScale;
     let pointer;
 
     if (source === 'event' && delta) {
+      const pointerPosition = stage.getPointerPosition();
+
+      if (!pointerPosition) {
+        return 0;
+      }
+
       newScale = delta < 0 ? oldScale * metrics.zoom.ratio : oldScale / metrics.zoom.ratio;
       pointer = pointerPosition;
     } else {
@@ -66,7 +66,7 @@ export class ZoomService {
       };
     }
 
-    newScale = Math.min(1.5, Math.max(0.1, newScale));
+    newScale = Math.min(metrics.zoom.max, Math.max(metrics.zoom.min, newScale));
 
     const mousePointTo = {
       x: (pointer.x - layer.x()) / oldScale,

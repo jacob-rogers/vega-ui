@@ -1,4 +1,12 @@
-import { CanvasData, CanvasSet, CanvasTree, CanvasUpdate, Position, SelectedData } from '../types';
+import {
+  CanvasData,
+  CanvasSet,
+  CanvasTree,
+  CanvasUpdate,
+  Position,
+  RemovedTrees,
+  SelectedData,
+} from '../types';
 
 import { Notifier } from './Notifier';
 import { Tree, TreeData } from './Tree';
@@ -59,35 +67,13 @@ export class Canvas extends Notifier<CanvasUpdate> {
     return Array.from(this.trees);
   }
 
-  public remove(tree: CanvasTree): void {
-    this.trees.delete(tree);
-    tree
-      .getParents()
-      .map((parent) => this.searchTree(parent))
-      .forEach((parent) => {
-        if (parent) {
-          parent.removeChild(tree);
-        }
-      });
-    tree
-      .getChildren()
-      .map((child) => this.searchTree(child))
-      .forEach((child) => {
-        if (child) {
-          child.removeParent(tree);
-        }
-      });
-    this.notify({
-      type: 'remove-tree',
-      id: tree.getId(),
-    });
-  }
+  public remove(trees: CanvasTree | CanvasTree[]): void {
+    const removingTrees = Array.isArray(trees) ? trees : [trees];
 
-  public removeM(trees: CanvasTree[]): void {
-    const ids = [];
+    const removedTrees: RemovedTrees[] = [];
 
-    for (let i = 0; i < trees.length; i += 1) {
-      const tree = trees[i];
+    for (let i = 0; i < removingTrees.length; i += 1) {
+      const tree = removingTrees[i];
 
       this.trees.delete(tree);
 
@@ -108,12 +94,15 @@ export class Canvas extends Notifier<CanvasUpdate> {
           }
         });
 
-      ids.push(tree.getId());
+      removedTrees.push({
+        treeId: tree.getId(),
+        stepDataId: tree.getData().stepData?.id,
+      });
     }
 
     this.notify({
       type: 'remove-trees',
-      ids,
+      removedTrees,
     });
   }
 

@@ -4,6 +4,8 @@ export const metrics = {
   },
   zoom: {
     ratio: 1.04, // Коэффициент масштабирования, определяет скорост приближения/отдаления
+    max: 2.0,
+    min: 0.3,
   },
   scrollbar: {
     fill: 'gray',

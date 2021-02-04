@@ -21,6 +21,7 @@ import {
 import { NAMES_MAP } from './constants';
 import { CanvasContext } from './context';
 import { Canvas, CanvasView as CanvasViewEntity, State, Tree, ViewUpdate } from './entities';
+import { metrics } from './metrics';
 import { CanvasData, ItemType, KonvaMouseEvent, SelectedData } from './types';
 import { createScrollbarPointGetter, getBgRect, getContentPadding } from './utils';
 
@@ -618,8 +619,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         <ScalePanel
           step={10}
           scale={Number((scale * 100).toFixed())}
-          minScale={10}
-          maxScale={150}
+          minScale={metrics.zoom.min * 100}
+          maxScale={metrics.zoom.max * 100}
           onChange={handleScaleChange}
           onAlign={handleContentAlign}
         />

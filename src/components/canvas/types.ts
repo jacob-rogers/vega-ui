@@ -59,6 +59,11 @@ export type CanvasData = {
   eventData?: EventData;
 };
 
+export type RemovedTrees = {
+  treeId: string;
+  stepDataId?: string;
+};
+
 export type CanvasTree = Tree<CanvasData>;
 export type CanvasSet = Set<CanvasTree>;
 
@@ -69,8 +74,7 @@ export type CanvasUpdate =
   | { type: 'select'; selected: SelectedData | null }
   | { type: 'unselect' }
   | { type: 'drop-event'; intersectionId?: string; position?: Position }
-  | { type: 'remove-tree'; id: string }
-  | { type: 'remove-trees'; ids: string[] }
+  | { type: 'remove-trees'; removedTrees: RemovedTrees[] }
   | { type: 'disconnect-tree'; parentId: string; childId: string }
   | { type: 'connect-tree'; parentId: string; childId: string }
   | { type: 'clear' }

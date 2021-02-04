@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import Konva from 'konva';
 
 import { CanvasView } from '../entities';
+import { metrics } from '../metrics';
 import { Position } from '../types';
 import { getBgRect, getContentPadding } from '../utils';
 
@@ -76,7 +77,7 @@ export const useSavedScreen = ({
 
       const oldScale = layer.scaleX();
 
-      const newScale = Math.min(1.5, Math.max(0.1, Number(scaleFromStorage)));
+      const newScale = Math.min(metrics.zoom.max, Math.max(metrics.zoom.min, scaleFromStorage));
 
       const pointer = {
         x: stageSize.width / 2,
