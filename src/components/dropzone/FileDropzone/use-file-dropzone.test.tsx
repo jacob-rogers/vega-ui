@@ -9,6 +9,9 @@ describe('useFileDropzone', () => {
       onDragEnter: jest.fn(),
       onDragLeave: jest.fn(),
     };
-    renderHook(() => useFileDropzone(handlers));
+
+    const { result } = renderHook(() => useFileDropzone(handlers));
+
+    expect(result.current.fullscreenVisible).toBe(false);
   });
 });
