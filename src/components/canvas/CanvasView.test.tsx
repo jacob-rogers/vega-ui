@@ -43,9 +43,21 @@ jest.mock('./entities/ZoomService', () => {
   };
 });
 
+const mockScroll = jest.fn();
+
+jest.mock('./entities/ScrollService', () => {
+  return {
+    ScrollService: jest.fn().mockImplementation(() => ({ scroll: mockScroll })),
+  };
+});
+
 const findContainer = (): HTMLElement => screen.getByTestId('container');
 
 describe('CanvasView', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   test('рендерится без ошибок', () => {
     expect(renderComponent).not.toThrow();
   });
@@ -99,18 +111,97 @@ describe('CanvasView', () => {
 
     const container = findContainer();
 
-    fireEvent.keyDown(container, {
-      key: 'Control',
-      code: 'ControlLeft',
-    });
-
     fireEvent.keyUp(container, {
       key: '0',
       code: 'Digit0',
+      ctrlKey: true,
+      bubbles: true,
+      cancelable: false,
     });
 
     await waitFor(() => expect(scaleSizeInput).toHaveAttribute('value', `100`));
 
     expect(scaleSizeInput).toHaveAttribute('value', `100`);
+  });
+
+  test('переключает режимы по нажатию на клавишу H', async () => {
+    const component = renderComponent();
+
+    const selectingItems = await component.findByLabelText('Выбор элементов');
+    const movingOnCanvas = await component.findByLabelText('Перемещение по полотну');
+
+    expect(selectingItems).toHaveClass('VegaCanvas__Option_active');
+    expect(movingOnCanvas).not.toHaveClass('VegaCanvas__Option_active');
+
+    const container = findContainer();
+
+    fireEvent.keyPress(container, {
+      key: 'h',
+      code: 'KeyH',
+      bubbles: true,
+      cancelable: false,
+    });
+
+    await waitFor(() => expect(selectingItems).not.toHaveClass('VegaCanvas__Option_active'));
+    await waitFor(() => expect(movingOnCanvas).toHaveClass('VegaCanvas__Option_active'));
+  });
+
+  test('вызывает функцию перемещения по canvas по нажатию mouse wheel', async () => {
+    const component = renderComponent();
+
+    const stageСanvas = component.container.querySelector(
+      `.${cnCanvas('Stage')} canvas`,
+    ) as HTMLElement;
+
+    const dx = 125;
+    const dy = 125;
+
+    fireEvent.mouseMove(stageСanvas, {
+      button: 1,
+      buttons: 4,
+      movementX: dx,
+      movementY: dy,
+      bubbles: true,
+      cancelable: false,
+    });
+
+    await waitFor(() => expect(mockScroll).toHaveBeenCalledTimes(1));
+  });
+
+  test('вызывает функцию перемещения по нажатию стрелок', async () => {
+    const component = renderComponent();
+
+    const stageСanvas = component.container.querySelector(
+      `.${cnCanvas('Stage')} canvas`,
+    ) as HTMLElement;
+
+    ['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].forEach((value) => {
+      fireEvent.keyDown(stageСanvas, {
+        code: value,
+        bubbles: true,
+        cancelable: false,
+      });
+    });
+
+    await waitFor(() => expect(mockScroll).toHaveBeenCalledTimes(4));
+  });
+
+  test('срабатывает горизонтальный скролл по canvas по Alt + mouse wheel', async () => {
+    const component = renderComponent();
+
+    const stageСanvas = component.container.querySelector(
+      `.${cnCanvas('Stage')} canvas`,
+    ) as HTMLElement;
+
+    const deltaY = 125;
+
+    fireEvent.wheel(stageСanvas, {
+      bubbles: true,
+      cancelable: false,
+      deltaY,
+      altKey: true,
+    });
+
+    await waitFor(() => expect(mockScroll).toHaveBeenCalledTimes(1));
   });
 });

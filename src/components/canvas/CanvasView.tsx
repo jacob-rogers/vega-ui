@@ -22,7 +22,7 @@ import { NAMES_MAP } from './constants';
 import { CanvasContext } from './context';
 import { Canvas, CanvasView as CanvasViewEntity, State, Tree, ViewUpdate } from './entities';
 import { metrics } from './metrics';
-import { CanvasData, ItemType, KonvaMouseEvent, SelectedData } from './types';
+import { CanvasData, CanvasTree, ItemType, KonvaMouseEvent, Position, SelectedData } from './types';
 import { createScrollbarPointGetter, getBgRect, getContentPadding } from './utils';
 
 import './Canvas.css';
@@ -47,7 +47,6 @@ export const defaultState: State = {
 const pinning = {
   isKeyPressed: false,
   isMousePressed: false,
-  isControlPressed: false,
   data: {
     clientX: 0,
     clientY: 0,
@@ -244,6 +243,14 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
   const handleMouseMove = (event: KonvaMouseEvent): void => {
     view.drawConnectingLine();
+    if (event.evt.buttons === 4) {
+      event.evt.preventDefault();
+      if (cursor !== 'grab') {
+        view.updateState({ cursor: 'grab' });
+      }
+      view.scroll(event.evt.movementX, event.evt.movementY);
+      return;
+    }
 
     if (pinning.isMousePressed && activeOption === 'dragging') {
       const dx = pinning.data.clientX - event.evt.clientX;
@@ -285,6 +292,11 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
   };
 
   const handleMouseDown = (e: KonvaMouseEvent): void => {
+    if (e.evt.button === 1) {
+      e.evt.preventDefault();
+      return;
+    }
+
     if (pinning.isKeyPressed || mode === 'dragging') {
       pinning.isMousePressed = true;
 
@@ -316,7 +328,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
-  const handleMouseUp = (): void => {
+  const handleMouseUp = (e: KonvaMouseEvent): void => {
+    if (e.evt.button === 1) {
+      view.updateState({ cursor: 'default' });
+      return;
+    }
+
     if (state.activeData || state.linePoints) {
       setTimeout(() => {
         abortActiveData();
@@ -422,18 +439,90 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   });
 
-  const handleKeyDown = (e: KeyboardEvent): void => {
-    if (e.code === 'Space') {
-      e.preventDefault();
+  const handleChangeItemPosition = (position: Position, delta: Position, tree?: CanvasTree) => {
+    if (selectedData && selectedData.type === 'item') {
+      if (selectedData.ids.length === 1 && tree) {
+        canvas.onTreePositionChange(tree, position);
+      } else {
+        const res = [];
 
-      if (!e.repeat) {
-        pinning.isKeyPressed = true;
-        view.updateState({
-          overlay: true,
-          activeOption: 'dragging',
-          cursor: 'grab',
-        });
+        for (let i = 0; i < selectedData.ids.length; i += 1) {
+          const sTree = canvas.searchTree(selectedData.ids[i]);
+
+          if (sTree) {
+            const sPosition = sTree.getData().position;
+            const newPosition = {
+              x: sPosition.x + delta.x,
+              y: sPosition.y + delta.y,
+            };
+
+            res.push({
+              tree: sTree,
+              position: newPosition,
+            });
+          }
+        }
+        canvas.onTreePositionChangeM(res);
       }
+    } else if (tree) {
+      canvas.onTreePositionChange(tree, position);
+    }
+  };
+
+  const handleArrowKeysDown = (dx: number, dy: number) => {
+    if (selectedData && selectedData.type === 'item') {
+      const sTree = canvas.searchTree(selectedData.ids[0]);
+      if (sTree) {
+        const sPosition = sTree.getData().position;
+        const newPosition = {
+          x: sPosition.x + dx,
+          y: sPosition.y + dy,
+        };
+        handleChangeItemPosition(newPosition, { x: dx, y: dy }, sTree);
+      }
+    } else {
+      view.scroll(dx, dy);
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent): void => {
+    e.preventDefault();
+    const scrollSize = !e.shiftKey ? 25 : 50;
+
+    switch (e.code) {
+      case 'Space': {
+        if (!e.repeat) {
+          pinning.isKeyPressed = true;
+          view.updateState({
+            overlay: true,
+            activeOption: 'dragging',
+            cursor: 'grab',
+          });
+        }
+        break;
+      }
+      case 'ArrowUp': {
+        handleArrowKeysDown(0, -scrollSize);
+        break;
+      }
+      case 'ArrowDown': {
+        handleArrowKeysDown(0, scrollSize);
+        break;
+      }
+      case 'ArrowRight': {
+        handleArrowKeysDown(scrollSize, 0);
+        break;
+      }
+      case 'ArrowLeft': {
+        handleArrowKeysDown(-scrollSize, 0);
+        break;
+      }
+      case 'Alt': {
+        e.stopPropagation();
+        break;
+      }
+      default:
+        break;
     }
 
     if (['Backspace', 'Delete'].includes(e.code)) {
@@ -453,16 +542,12 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
-  const handleScaleChange = (number: number) => {
-    view.zoom({ source: 'panel', scale: number / 100 });
-  };
-
-  const handleCanvasKeyDown = (e: KeyboardEvent): void => {
-    switch (e.key) {
-      case 'Control': {
-        if (!e.repeat) {
-          pinning.isControlPressed = true;
-        }
+  const handleKeyPress = (e: KeyboardEvent): void => {
+    e.preventDefault();
+    switch (e.code) {
+      case 'KeyH': {
+        const activeOptionType = activeOption === 'dragging' ? 'selection' : 'dragging';
+        view.changeActiveOption(activeOptionType);
         break;
       }
       default:
@@ -470,14 +555,14 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }
   };
 
+  const handleScaleChange = (number: number) => {
+    view.zoom({ source: 'panel', scale: number / 100 });
+  };
+
   const handleCanvasKeyUp = (e: KeyboardEvent): void => {
     switch (e.key) {
-      case 'Control': {
-        pinning.isControlPressed = false;
-        break;
-      }
       case '0': {
-        if (pinning.isControlPressed) {
+        if (e.ctrlKey || e.metaKey) {
           handleScaleChange(100);
         }
         break;
@@ -492,6 +577,8 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
 
     if (event.evt.ctrlKey || event.evt.metaKey) {
       view.zoom({ source: 'event', delta: event.evt.deltaY });
+    } else if (event.evt.altKey) {
+      view.scroll(event.evt.deltaY, event.evt.deltaX);
     } else {
       view.scroll(event.evt.deltaX, event.evt.deltaY);
     }
@@ -517,23 +604,25 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
     }, 0);
   };
 
-  useKey(['Backspace', 'Delete', 'Space'], handleKeyDown, {
-    element: stageRef.current?.container(),
-    keyevent: 'keydown',
-  });
+  useKey(
+    ['Backspace', 'Delete', 'Space', 'ArrowUp', 'ArrowDown', 'ArrowRight', 'ArrowLeft', 'Alt'],
+    handleKeyDown,
+    {
+      element: stageRef.current?.container(),
+      keyevent: 'keydown',
+    },
+  );
 
   useKey('Space', handleKeyUp, {
     element: stageRef.current?.container(),
     keyevent: 'keyup',
   });
 
-  useKey(['Control'], handleCanvasKeyDown, {
-    element: stageRef.current?.container()?.parentElement as Element,
-    keyevent: 'keydown',
+  useKey(['KeyH'], handleKeyPress, {
+    keyevent: 'keypress',
   });
 
-  useKey(['Control', '0'], handleCanvasKeyUp, {
-    element: stageRef.current?.container()?.parentElement as Element,
+  useKey(['0'], handleCanvasKeyUp, {
     keyevent: 'keyup',
   });
 
@@ -660,7 +749,7 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
         >
           <Layer ref={layerRef}>
             <CanvasGrid innerRef={backgroundRectRef} rect={bgRect} />
-            <CanvasItems canvas={canvas} />
+            <CanvasItems canvas={canvas} onItemsPositionChanged={handleChangeItemPosition} />
             {linePoints && (
               <ConnectionLineView parent={linePoints.parent} child={linePoints.child} />
             )}

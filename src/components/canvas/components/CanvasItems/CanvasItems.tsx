@@ -8,6 +8,7 @@ import { ConnectionLine } from '../ConnectionLine';
 
 type CanvasItemsProps = {
   canvas: Canvas;
+  onItemsPositionChanged: (position: Position, delta: Position, tree: CanvasTree) => void;
 };
 
 const positionEquals = (pos1: Position, pos2: Position): boolean => {
@@ -15,7 +16,7 @@ const positionEquals = (pos1: Position, pos2: Position): boolean => {
 };
 
 export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
-  const { canvas } = props;
+  const { canvas, onItemsPositionChanged } = props;
   const {
     stage,
     layer,
@@ -24,7 +25,6 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
     abortActiveData,
     setConnectingLinePoints,
     connectingLinePoints,
-    selectedData,
   } = useCanvas();
 
   const moveItemToTop = (tree: CanvasTree): void => {
@@ -150,38 +150,7 @@ export const CanvasItems: React.FC<CanvasItemsProps> = (props) => {
           <CanvasItem
             item={tree}
             key={tree.getId()}
-            onPositionChange={(position, delta): void => {
-              // TODO: Перенести метод
-              if (selectedData && selectedData.type === 'item') {
-                if (selectedData.ids.length === 1) {
-                  canvas.onTreePositionChange(tree, position);
-                } else {
-                  const res = [];
-
-                  for (let i = 0; i < selectedData.ids.length; i += 1) {
-                    const sTree = canvas.searchTree(selectedData.ids[i]);
-
-                    if (sTree) {
-                      const sData = sTree.getData();
-                      const sPosition = sData.position;
-                      const positionNew = {
-                        x: sPosition.x + delta.x,
-                        y: sPosition.y + delta.y,
-                      };
-
-                      res.push({
-                        tree: sTree,
-                        position: positionNew,
-                      });
-                    }
-                  }
-
-                  canvas.onTreePositionChangeM(res);
-                }
-              } else {
-                canvas.onTreePositionChange(tree, position);
-              }
-            }}
+            onPositionChange={(position, delta) => onItemsPositionChanged(position, delta, tree)}
             onWidthUpdate={(width): void => canvas.setData(tree, { width })}
             onDragStart={(): void => moveItemToTop(tree)}
             onClick={(): void => moveItemToTop(tree)}
