@@ -38,8 +38,7 @@ function createDtWithFiles(files: File[] = []) {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function createFile(name: string, size: number, type: any): File {
+function createFile(name: string, size: number, type: string): File {
   const file = new File([], name, { type });
   Object.defineProperty(file, 'size', {
     get() {
