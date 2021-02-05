@@ -7,7 +7,7 @@ const config = require('@gpn-prototypes/frontend-configs/jest/jest.config');
 
 module.exports = {
   ...config({ setupFilesAfterEnv: setupTestFile }),
-  coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/types/'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/coverage/', '/types/', '/mocks/'],
   collectCoverageFrom: ['**/*.{ts,tsx}', '!**/*.stories.tsx', '!**/*.d.ts'],
   coverageReporters: ['lcov', 'json-summary', 'text', 'text-summary'],
   moduleNameMapper: {

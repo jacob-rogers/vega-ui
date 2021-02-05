@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
 import { useMount } from '../use-mount';
-import { useUnmount } from '../use-unmount';
 
-type API<T> = [T, (value: T) => void];
+type Setter<T> = (value: T | ((value: T) => T)) => void;
+
+type API<T> = [T, Setter<T>];
 
 export function useLocalStorage<T>(key: string, initialValue: T): API<T> {
   const [storedValue, setStoredValue] = useState<T>(() => {
@@ -16,6 +17,7 @@ export function useLocalStorage<T>(key: string, initialValue: T): API<T> {
   });
 
   const handleStorageUpdate = (e: StorageEvent): void => {
+    // istanbul ignore else
     if (
       typeof e.newValue === 'string' &&
       e.newValue !== JSON.stringify(storedValue) &&
@@ -31,13 +33,13 @@ export function useLocalStorage<T>(key: string, initialValue: T): API<T> {
 
   useMount(() => {
     window.addEventListener('storage', handleStorageUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageUpdate);
+    };
   });
 
-  useUnmount(() => {
-    window.removeEventListener('storage', handleStorageUpdate);
-  });
-
-  const setValue = (value: T): void => {
+  const setValue: Setter<T> = (value): void => {
     const valueToStore = value instanceof Function ? value(storedValue) : value;
     setStoredValue(valueToStore);
   };
