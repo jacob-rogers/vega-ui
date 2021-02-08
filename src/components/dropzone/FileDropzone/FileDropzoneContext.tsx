@@ -7,7 +7,7 @@ export const FileDropzoneContext = React.createContext<FileDropzoneAPI | null>(n
 export const useFileDropzoneProvider = (): FileDropzoneAPI => {
   const fileDropzone = React.useContext(FileDropzoneContext);
   if (fileDropzone === null) {
-    throw new Error('useShell called outside from ShellProvider');
+    throw new Error('useFileDropzone called outside from ShellProvider');
   }
   return fileDropzone;
 };
