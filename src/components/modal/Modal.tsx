@@ -57,12 +57,14 @@ export const Modal: ModalComponent = (props) => {
   const { renderPortalWithTheme } = usePortalRender();
 
   const handleCloseModal = (e: PossibleCloseEvent): void => {
+    // istanbul ignore else
     if (isOpen) {
       onClose(e);
     }
   };
 
   const handleOverlayClick = (e: React.MouseEvent): void => {
+    // istanbul ignore else
     if (onOverlayClick) {
       onOverlayClick(e);
     }
@@ -74,6 +76,7 @@ export const Modal: ModalComponent = (props) => {
     const scrollBarWidth = getScrollBarWidth();
     if (blockBodyScroll && isOpen) {
       document.body.classList.add('VegaModal-open');
+      // istanbul ignore else
       if (scrollBarWidth !== 0) {
         document.body.style.setProperty('--scrollBarWidth', `${scrollBarWidth}px`);
       }

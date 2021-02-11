@@ -3,8 +3,8 @@ import { fireEvent, render, RenderResult, screen } from '@testing-library/react'
 
 import { Modal, ModalProps } from './Modal';
 
-function renderComponent(props: ModalProps): RenderResult {
-  const { onClose, ...rest } = props;
+function renderComponent(props: Partial<ModalProps> = {}): RenderResult {
+  const { onClose = jest.fn(), ...rest } = props;
   return render(<Modal onClose={onClose} isOpen {...rest} />);
 }
 
@@ -16,9 +16,27 @@ describe('Modal', () => {
     renderComponent({ onClose: jest.fn() });
   });
 
+  test('если isOpen false, то ничего не рендерится', () => {
+    const result = renderComponent({ isOpen: false });
+
+    expect(result.queryByRole('dialog')).not.toBeInTheDocument();
+  });
+
+  describe('blockBodyScroll', () => {
+    test('если blockBodyScroll true, то к body добавляется дополнительный класс', () => {
+      renderComponent({ blockBodyScroll: true });
+      expect(global.document.body).toHaveClass('VegaModal-open');
+    });
+
+    test('если blockBodyScroll false, то дополнительный класс к body не добавляется', () => {
+      renderComponent({ blockBodyScroll: false });
+      expect(global.document.body).not.toHaveClass('VegaModal-open');
+    });
+  });
+
   describe('Кнопка закрытия', () => {
     test('рендерится кнопка, если передать hasCloseButton', () => {
-      renderComponent({ onClose: jest.fn(), hasCloseButton: true });
+      renderComponent({ hasCloseButton: true });
 
       const closeButton = screen.getByLabelText(closeButtonLabel);
 
@@ -40,7 +58,7 @@ describe('Modal', () => {
 
   describe('Оверлей', () => {
     test('рендерится оверлей, если передать hasOverlay', () => {
-      renderComponent({ onClose: jest.fn(), hasOverlay: true });
+      renderComponent({ hasOverlay: true });
 
       const overlay = screen.getByLabelText(overlayLabel);
 
@@ -49,7 +67,7 @@ describe('Modal', () => {
 
     test('можно прокинуть onOverlayClick', () => {
       const onOverlayClick = jest.fn();
-      renderComponent({ onClose: jest.fn(), hasOverlay: true, onOverlayClick });
+      renderComponent({ hasOverlay: true, onOverlayClick });
 
       const overlay = screen.getByLabelText(overlayLabel);
 
@@ -69,7 +87,7 @@ describe('Modal', () => {
 
       const header = screen.getByTestId('modal-header');
 
-      expect(header.classList.contains('custom-header')).toBe(true);
+      expect(header).toHaveClass('custom-header');
     });
   });
 
@@ -81,23 +99,23 @@ describe('Modal', () => {
         </Modal.Body>,
       );
 
-      const header = screen.getByTestId('modal-body');
+      const body = screen.getByTestId('modal-body');
 
-      expect(header.classList.contains('custom-body')).toBe(true);
+      expect(body).toHaveClass('custom-body');
     });
   });
 
   describe('ModalFooter', () => {
     test('прокидывается className', () => {
       render(
-        <Modal.Body className="custom-footer" data-testid="modal-footer">
+        <Modal.Footer className="custom-footer" data-testid="modal-footer">
           test
-        </Modal.Body>,
+        </Modal.Footer>,
       );
 
-      const header = screen.getByTestId('modal-footer');
+      const footer = screen.getByTestId('modal-footer');
 
-      expect(header.classList.contains('custom-footer')).toBe(true);
+      expect(footer.classList.contains('custom-footer')).toBe(true);
     });
   });
 });
