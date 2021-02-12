@@ -49,6 +49,7 @@ export const ScalePanel: React.FC<ScalePanelProps> = (props) => {
   };
 
   const handleChange = ({ value: inputValue }: { value: string | null }) => {
+    /* istanbul ignore if */
     if (inputValue === null) {
       setValue('');
     } else {
@@ -72,17 +73,12 @@ export const ScalePanel: React.FC<ScalePanelProps> = (props) => {
 
     const clampedNumber = clamp(number);
 
-    if (clampedNumber !== scale) {
-      onChange(clamp(number));
-      return;
-    }
-
-    if (clampedNumber.toString() !== value) {
-      setValue(scale.toString());
-    }
+    onChange(clampedNumber);
+    handleChange({ value: clampedNumber.toString() });
   };
 
   const handleKeyUp = (e: React.KeyboardEvent) => {
+    /* istanbul ignore else */
     if (e.key === 'Enter') {
       handleSubmit();
     }
