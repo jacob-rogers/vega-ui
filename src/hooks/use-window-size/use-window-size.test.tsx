@@ -15,7 +15,7 @@ const TestComponent: React.FC = () => {
 };
 
 describe('useWindowSize', () => {
-  test('размер окна отображатеся в компоненте', () => {
+  test('размер окна отображается в компоненте', () => {
     const { baseElement } = render(<TestComponent />);
 
     global.innerWidth = 10;

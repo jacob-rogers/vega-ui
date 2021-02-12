@@ -9,10 +9,8 @@ const items = [
   { label: 'test3', value: 'test3' },
 ];
 
-function renderComponent(
-  props: Omit<LayoutMenuProps, 'items'> = { activeValue: '', onChange: jest.fn() },
-): RenderResult {
-  return render(<LayoutMenu {...props} items={items} />);
+function renderComponent(props: LayoutMenuProps = {}): RenderResult {
+  return render(<LayoutMenu {...props} />);
 }
 
 function findTrigger(): Promise<HTMLElement> {
@@ -40,8 +38,8 @@ describe('LayoutMenu', () => {
     });
   });
 
-  it('рендерится элементы меню', async () => {
-    renderComponent();
+  it('рендерятся элементы меню', async () => {
+    renderComponent({ items });
 
     await clickByTrigger();
 
@@ -54,7 +52,7 @@ describe('LayoutMenu', () => {
   it('вызывается onChange по клику на элемент', async () => {
     const onChange = jest.fn();
 
-    renderComponent({ onChange });
+    renderComponent({ items, onChange });
 
     await clickByTrigger();
 
@@ -66,8 +64,22 @@ describe('LayoutMenu', () => {
     expect(onChange).toBeCalled();
   });
 
+  it('по умолчанию активный элемент отсутствует', async () => {
+    renderComponent({ items, onChange: jest.fn() });
+
+    await clickByTrigger();
+
+    const buttons = screen
+      .getAllByRole('button')
+      .filter((button) => button.hasAttribute('aria-current'));
+
+    buttons.forEach((button) => {
+      expect(button).not.toHaveAttribute('aria-current', 'true');
+    });
+  });
+
   it('выставляется активный элемент', async () => {
-    renderComponent({ activeValue: 'test', onChange: jest.fn() });
+    renderComponent({ items, activeValue: 'test' });
 
     await clickByTrigger();
 

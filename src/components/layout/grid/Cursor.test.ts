@@ -11,6 +11,12 @@ describe('Cursor', () => {
     expect(cursor.index()).toBe(0);
   });
 
+  test('указывает -1 при любом отрицательном индексе', () => {
+    [-1, -2, -3].forEach((index) => {
+      expect(Cursor.of(index).index()).toBe(-1);
+    });
+  });
+
   test('clone', () => {
     const clone = cursor.clone();
     expect(cursor).not.toBe(clone);
@@ -53,6 +59,13 @@ describe('Cursor', () => {
     expect(cursor.parent()).toBe(0);
     cursor.to(2);
     expect(cursor.parent()).toBe(0);
+    cursor.to(0);
+    expect(cursor.parent()).toBe(-1);
+  });
+
+  test('sibling', () => {
+    cursor.to(0);
+    expect(cursor.sibling()).toBe(-1);
   });
 
   test('sibling', () => {

@@ -51,13 +51,9 @@ export class Tree {
     return root;
   }
 
-  public max(): TreeEntry | [number, null] {
+  public max(): TreeEntry {
     let index = 0;
     let node = this.root();
-
-    if (node === undefined) {
-      return [index, null];
-    }
 
     this.iterate((n, idx) => {
       node = idx > index ? n : node;
@@ -135,6 +131,7 @@ export class Tree {
     const cursor = Cursor.of(idx);
     const parent = this.nth(cursor.parent());
 
+    /* istanbul ignore else */
     if (parent !== undefined && Node.isBranch(parent)) {
       delete this.state[idx];
       this.lift(cursor.sibling(), cursor.parent());

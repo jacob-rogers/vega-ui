@@ -13,6 +13,10 @@ describe('Split', () => {
     });
   });
 
+  test('getDirection', () => {
+    expect(Split.of('up').getDirection()).toBe('up');
+  });
+
   test('isVertical', () => {
     expect(Split.of('up').isVertical()).toBe(true);
     expect(Split.of('down').isVertical()).toBe(true);

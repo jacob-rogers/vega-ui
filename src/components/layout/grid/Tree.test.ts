@@ -35,6 +35,20 @@ describe('Tree', () => {
     expect(tree.root()).toBe(node);
   });
 
+  test('root возвращает ошибку', () => {
+    const tree = Tree.from([]);
+    expect(() => tree.root()).toThrow('Отсутствует корневой элемент');
+  });
+
+  test('indexOf', () => {
+    const branch = Node.createBranch('up');
+    const left = Node.createLeaf();
+    const right = Node.createLeaf();
+    const tree = Tree.from([branch, left, right]);
+
+    expect(tree.indexOf(left)).toBe(1);
+  });
+
   test('max', () => {
     const branch = Node.createBranch('up');
     const left = Node.createLeaf();
@@ -49,10 +63,40 @@ describe('Tree', () => {
   test('toBranch', () => {
     const leaf = Node.createLeaf();
     const tree = Tree.from([leaf]);
+    let [max, node] = tree.max();
+
+    expect(max).toBe(0);
+    expect(tree.indexOf(node)).toBe(max);
+
+    tree.toBranch(max, 'up');
+    [max, node] = tree.max();
+
+    expect(max).toBe(2);
+    expect(tree.indexOf(node)).toBe(max);
+
+    tree.toBranch(max, 'left');
+    [max, node] = tree.max();
+
+    expect(max).toBe(6);
+    expect(tree.indexOf(node)).toBe(max);
+  });
+
+  test('toBranch не выполняется если узел branch', () => {
+    const leaf = Node.createLeaf();
+    const tree = Tree.from([leaf]);
     let [max] = tree.max();
+
+    expect(max).toBe(0);
+
     tree.toBranch(max, 'up');
     [max] = tree.max();
-    tree.toBranch(max, 'left');
+
+    expect(max).toBe(2);
+
+    tree.toBranch(0, 'left');
+
+    [max] = tree.max();
+    expect(max).toBe(2);
   });
 
   describe('remove', () => {
@@ -72,6 +116,17 @@ describe('Tree', () => {
       tree = Tree.of(state);
       tree.remove(2);
       expect(tree.nth(0)).toBe(state[1]);
+    });
+
+    test('нет ошибки при попытке удалении несуществующего узла', () => {
+      const state = {
+        0: Node.createBranch('up'),
+        1: Node.createLeaf(),
+      };
+
+      const tree = Tree.of(state);
+
+      expect(() => tree.remove(1)).not.toThrow();
     });
 
     test('поднятие левого идеального поддерева на место родителя', () => {

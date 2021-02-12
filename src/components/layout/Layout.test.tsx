@@ -33,6 +33,7 @@ function findDataViews(): HTMLElement[] {
 }
 
 const OPTIONS_TRIGGER_LABEL = 'Открыть опции панели';
+const TITLE_LIST_TRIGGER_LABEL = 'Открыть список виджетов';
 
 function findOptionsTrigger(): Promise<HTMLElement> {
   return screen.findByLabelText(OPTIONS_TRIGGER_LABEL);
@@ -40,6 +41,10 @@ function findOptionsTrigger(): Promise<HTMLElement> {
 
 function findAllOptionsTriggers(): Promise<HTMLElement[]> {
   return screen.findAllByLabelText(OPTIONS_TRIGGER_LABEL);
+}
+
+function findAllTitleListTriggers(): Promise<HTMLElement[]> {
+  return screen.findAllByLabelText(TITLE_LIST_TRIGGER_LABEL);
 }
 
 function findCloseOption(): Promise<HTMLElement> {
@@ -186,7 +191,77 @@ describe('Layout', () => {
       }
 
       renderComponent({ state: grid.extract(), widgets, widgetsOverrides });
+
       expect(await screen.findByLabelText(label)).toBeInTheDocument();
+    });
+
+    test('виджет меняется', async () => {
+      const grid = Grid.create();
+      const view = grid.get(0);
+      const label = 'vega-react-widget';
+
+      if (Grid.isDataView(view)) {
+        view.setWidget('vega-widget-two');
+        view.setContext({ 'aria-label': label });
+      }
+
+      renderComponent({ state: grid.extract(), widgets, widgetsOverrides });
+
+      expect(screen.getByLabelText('Открыть список виджетов')).toHaveTextContent('Widget 2');
+
+      const [trigger] = await findAllTitleListTriggers();
+
+      fireEvent.click(trigger);
+
+      fireEvent.click(screen.getByText('Widget 1'));
+      expect(screen.getByLabelText('Открыть список виджетов')).toHaveTextContent('Widget 1');
+    });
+
+    test('происходит resize панелей', async () => {
+      const grid = Grid.create();
+      const view = grid.get(0);
+      const label = 'vega-react-widget';
+
+      Object.defineProperties(window.HTMLElement.prototype, {
+        offsetWidth: {
+          // eslint-disable-next-line consistent-return
+          get() {
+            return 100;
+          },
+        },
+      });
+
+      if (Grid.isDataView(view)) {
+        view.setWidget('vega-widget-two');
+        view.setContext({ 'aria-label': label });
+      }
+
+      renderComponent({ state: grid.extract(), widgets, widgetsOverrides });
+
+      expect(findDataViews().length).toBe(1);
+
+      await clickByOption(splitLabels[0]);
+
+      expect(findDataViews().length).toBe(2);
+
+      const resizer = screen.getByTitle('Потянуть');
+
+      expect(resizer).toBeVisible();
+
+      fireEvent.mouseDown(resizer, {
+        clientX: 50,
+      });
+      fireEvent.mouseMove(resizer, {
+        clientX: 75,
+      });
+      fireEvent.mouseUp(resizer, {
+        clientX: 75,
+      });
+
+      expect(screen.getByRole('group')).toHaveAttribute(
+        'style',
+        '--first-view-size: 75fr; --second-view-size: 25fr;',
+      );
     });
   });
 });
