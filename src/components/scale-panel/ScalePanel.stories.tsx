@@ -4,16 +4,15 @@ import { number } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { ScalePanel } from './ScalePanel';
+import mdx from './ScalePanel.mdx';
 
 const stories = storiesOf('ui/ScalePanel', module).addParameters({
   metadata: {
     author: 'CSSSR',
     status: 'Approved',
-    link: {
-      href:
-        'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/scale-panel/README.md',
-      text: 'Документация',
-    },
+  },
+  docs: {
+    page: mdx,
   },
 });
 

@@ -3,77 +3,86 @@
   padding: 0 !important;
 }
 
-.Metadata {
-  &__panel {
-    position: fixed;
-    z-index: 50;
-    top: 0;
-    left: 0;
+#root,
+#docs-root {
+  .Metadata {
+    &__panel {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
 
-    padding-left: var(--space-2xl);
+      padding-left: var(--space-2xl);
 
-    display: flex;
-    align-items: center;
+      display: flex;
+      align-items: center;
 
-    box-sizing: border-box;
-    height: 50px;
+      box-sizing: border-box;
+      height: 50px;
 
-    font-size: 13px;
-    line-height: 17px;
-  }
-
-  &__tag {
-    padding: 4px 9px;
-
-    font-weight: 500;
-
-    background-color: #f1f1f1;
-    border-radius: 16px;
-
-    &_success {
-      color: #008000;
-      background-color: #d2f39e;
+      font-size: 13px;
+      line-height: 17px;
     }
 
-    &_warning {
-      color: #e87700;
-      background-color: #ffe5c0;
+    &__tag {
+      padding: 4px 9px;
+
+      font-weight: 500;
+
+      background-color: #f1f1f1;
+      border-radius: 16px;
+
+      &_success {
+        color: #008000;
+        background-color: #d2f39e;
+      }
+
+      &_warning {
+        color: #e87700;
+        background-color: #ffe5c0;
+      }
+
+      &_alert {
+        color: #e80101;
+        background-color: #ffc9c9;
+      }
     }
 
-    &_alert {
-      color: #e80101;
-      background-color: #ffc9c9;
+    &__link {
+      text-decoration: none;
+
+      color: rgb(30, 167, 253);
+
+      &:hover {
+        color: rgb(21, 103, 154);
+      }
+    }
+
+    &__tag + &__tag {
+      margin-left: 5px;
+    }
+
+    &__description {
+      margin-left: 10px;
+
+      padding: 4px 9px;
+
+      background-color: #f1f1f1;
+      border-radius: 16px;
+    }
+
+    &__wrapper {
+      padding: 50px var(--space-2xl) var(--space-4xl) var(--space-2xl);
+
+      min-height: 100vh;
+
+      background: var(--color-bg-default);
     }
   }
+}
 
-  &__link {
-    text-decoration: none;
-
-    color: rgb(30, 167, 253);
-
-    &:hover {
-      color: rgb(21, 103, 154);
-    }
-  }
-
-  &__tag + &__tag {
-    margin-left: 5px;
-  }
-
-  &__description {
-    margin-left: 10px;
-
-    padding: 4px 9px;
-
-    background-color: #f1f1f1;
-    border-radius: 16px;
-  }
-
-  &__wrapper {
-    padding: 50px var(--space-2xl) var(--space-4xl) var(--space-2xl);
-
-    min-height: 100vh;
-
-    background: var(--color-bg-default);
+#docs-root {
+  .Metadata__wrapper {
+    min-height: inherit;
   }
 }

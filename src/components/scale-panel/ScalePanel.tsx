@@ -12,20 +12,42 @@ import './ScalePanel.css';
 type DivProps = JSX.IntrinsicElements['div'];
 
 interface ScalePanelProps extends Omit<DivProps, 'onChange'> {
+  /**
+   * Размер шага масштабирования, используется при нажатии на кнопки "-" и "+"
+   */
   step: number;
+  /**
+   * Текущее значение масштаба
+   */
   scale: number;
+  /**
+   * Минимальное значение масштаба
+   */
   minScale: number;
+  /**
+   * Максмальное значение масштаба
+   */
   maxScale: number;
+  /**
+   * Имя класса для переопределения стилей
+   */
   className?: string;
+  /**
+   * Обработчик изменения значения масштаба
+   */
   onChange: (scale: number) => void;
+  /**
+   * Обработчик нажатия на кнопку "выровнить содержимое"
+   */
   onAlign?: () => void;
 }
 
 const getClamp = (min: number, max: number) => (number: number): number =>
   Math.min(max, Math.max(min, number));
 
-export const ScalePanel: React.FC<ScalePanelProps> = (props) => {
-  const { step, scale, minScale, maxScale, className, onChange, onAlign, ...rest } = props;
+// Деструктуризация для того чтобы дока уловила дефолтное значение пропа
+export const ScalePanel: React.FC<ScalePanelProps> = ({ onAlign = () => {}, ...props }) => {
+  const { step, scale, minScale, maxScale, className, onChange, ...rest } = props;
 
   const clamp = getClamp(minScale, maxScale);
 

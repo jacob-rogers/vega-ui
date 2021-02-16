@@ -1,0 +1,47 @@
+import { ArgsTable, Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { useState } from 'react';
+
+import { Theme, presetGpnDark } from '../theme';
+
+import { ScalePanel } from './ScalePanel.tsx';
+
+# ScalePanel
+
+Данный компонент необходим для управления масштабом
+
+### Пример использования
+
+<Story id="ui-scalepanel--по-умолчанию" />
+
+<!-- Добавил пример написанный руками, так как в стори хранится не оч валидный пример для использования пользователями -->
+
+```tsx
+import { ScalePanel } from '@gpn-prototypes/vega-ui';
+
+export const MyComponent = () => {
+  const [scale, setScale] = useState(100);
+
+  const handleChange = (newScale) => {
+    setScale(newScale);
+  };
+
+  const handleAlign = () => {
+    console.log('align');
+  };
+
+  return (
+    <ScalePanel
+      step={10}
+      scale={scale}
+      minScale={20}
+      maxScale={150}
+      onChange={handleChange}
+      onAlign={handleAlign}
+    />
+  );
+};
+```
+
+### Пропсы
+<ArgsTable of={ScalePanel} />
+

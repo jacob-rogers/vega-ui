@@ -1,6 +1,6 @@
 import { withA11y } from '@storybook/addon-a11y';
 import { withKnobs } from '@storybook/addon-knobs';
-import { addDecorator, addParameters, configure } from '@storybook/react';
+import { addDecorator, addParameters } from '@storybook/react';
 import { withPerformance } from 'storybook-addon-performance';
 import { withThemes } from 'storybook-addon-themes';
 
@@ -34,10 +34,3 @@ addDecorator(withPerformance);
 // @ts-expect-error: в декораторе проблема с типизацией возвращаемого параметра
 addDecorator(withA11y);
 addDecorator(withThemes);
-
-function loadStories(): void {
-  const req = require.context('../src', true, /\.stories\.tsx$/);
-  req.keys().forEach(req);
-}
-
-configure(loadStories, module);
