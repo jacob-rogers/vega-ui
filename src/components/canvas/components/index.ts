@@ -7,3 +7,4 @@ export * from './CanvasItems';
 export * from './OptionsPanel';
 export * from './Scrollbar';
 export * from './CanvasGrid';
+export * from './HotkeyPrompt';

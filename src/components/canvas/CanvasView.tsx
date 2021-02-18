@@ -14,6 +14,7 @@ import {
   CanvasGrid,
   CanvasItems,
   Changes as OptionalPanelChanges,
+  HotkeyPrompt,
   Option,
   OptionsPanel,
   Scrollbar,
@@ -713,6 +714,9 @@ export const CanvasView: React.FC<CanvasViewProps> = (props) => {
           onChange={handleScaleChange}
           onAlign={handleContentAlign}
         />
+      </div>
+      <div className={cnCanvas('HotkeyPromptWrapper')}>
+        <HotkeyPrompt />
       </div>
       <Stage
         style={{ cursor }}
