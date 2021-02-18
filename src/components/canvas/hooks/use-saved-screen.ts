@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import Konva from 'konva';
 
 import { CanvasView } from '../entities';
+import { screenSaverService } from '../entities/ScreenSaverService';
 import { metrics } from '../metrics';
 import { Position } from '../types';
 import { getBgRect, getContentPadding } from '../utils';
@@ -17,7 +18,8 @@ const isNumber = (value: unknown): boolean => typeof value === 'number' && Numbe
 
 const getScrollPositionFromStorage = (): Position | undefined => {
   let result;
-  const rawScrollData = sessionStorage.getItem('canvas-scroll-position');
+
+  const rawScrollData = screenSaverService.getCanvasScrollPosition();
 
   if (rawScrollData) {
     const parsedData = JSON.parse(rawScrollData);
@@ -32,7 +34,8 @@ const getScrollPositionFromStorage = (): Position | undefined => {
 
 const getScaleFromStorage = (): number => {
   let result = 0;
-  const rawScale = sessionStorage.getItem('canvas-scale');
+
+  const rawScale = screenSaverService.getCanvasScale();
 
   if (rawScale) {
     const convertedScale = parseFloat(rawScale);

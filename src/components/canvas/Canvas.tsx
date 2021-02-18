@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { useUnmount } from '../../hooks';
 
+import { screenSaverService } from './entities/ScreenSaverService';
 import { CanvasView } from './CanvasView';
 import { Canvas as CanvasEntity, CanvasView as CanvasViewEntity } from './entities';
 import { CanvasTree, CanvasUpdate } from './types';
@@ -17,10 +18,11 @@ type CanvasProps = {
   state?: CanvasTree[];
   onChange?: (change: Change) => void;
   canvasViewAccessor?: (view: CanvasViewEntity) => void;
+  savedScreenId?: string;
 };
 
 export const Canvas: React.FC<CanvasProps> = (props) => {
-  const { state = [], onChange, canvasViewAccessor } = props;
+  const { state = [], onChange, canvasViewAccessor, savedScreenId } = props;
 
   const canvas = useMemo(() => CanvasEntity.of(state), [state]);
 
@@ -45,6 +47,10 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
     //   unsub();
     // };
   }, [canvas, handleChange]);
+
+  useEffect(() => {
+    screenSaverService.setSavedScreenId(savedScreenId);
+  }, [savedScreenId]);
 
   useUnmount(() => {
     canvas.removeAllListeners();

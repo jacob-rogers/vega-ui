@@ -2,6 +2,7 @@ import { metrics } from '../metrics';
 import { getBgRect, getContentPadding } from '../utils';
 
 import { CanvasService, CanvasServiceData } from './CanvasService';
+import { screenSaverService } from './ScreenSaverService';
 import { ScrollbarService } from './ScrollbarService';
 
 export type ZoomProps = {
@@ -91,8 +92,8 @@ export class ZoomService {
 
     background.setAttrs(bgRect);
 
-    sessionStorage.setItem('canvas-scale', String(newScale));
-    sessionStorage.setItem('canvas-scroll-position', JSON.stringify(newPosition));
+    screenSaverService.setCanvasScale(newScale);
+    screenSaverService.setCanvasScrollPosition(newPosition);
 
     stage.batchDraw();
 

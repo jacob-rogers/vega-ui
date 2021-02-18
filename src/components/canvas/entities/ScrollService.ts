@@ -2,6 +2,7 @@ import { metrics } from '../metrics';
 import { getContentPadding } from '../utils';
 
 import { CanvasService, CanvasServiceData } from './CanvasService';
+import { screenSaverService } from './ScreenSaverService';
 import { ScrollbarService } from './ScrollbarService';
 
 export class ScrollService {
@@ -53,7 +54,7 @@ export class ScrollService {
 
     this.scrollbarService.updateScrollbars();
 
-    sessionStorage.setItem('canvas-scroll-position', JSON.stringify({ x, y }));
+    screenSaverService.setCanvasScrollPosition({ x, y });
 
     stage.batchDraw();
   }
