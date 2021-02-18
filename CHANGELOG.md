@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/gpn-prototypes/vega-ui/compare/v3.0.8...v3.1.0) (2021-02-18)
+
+
+### Features
+
+* **doc:** добавление документации через mdx ([#85](https://github.com/gpn-prototypes/vega-ui/issues/85)) ([8305402](https://github.com/gpn-prototypes/vega-ui/commit/8305402bf82c6529b01fe57171bacfd84fb7baf7))
+
+
+### Bug Fixes
+
+* **dropzone:** исправить тест ([14c361b](https://github.com/gpn-prototypes/vega-ui/commit/14c361b77bbd1fd3a3bdb3be2c80d707ced9ef83))
+
 ### [3.0.8](https://github.com/gpn-prototypes/vega-ui/compare/v3.0.7...v3.0.8) (2021-02-08)
 
 
