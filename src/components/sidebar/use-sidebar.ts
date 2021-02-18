@@ -1,15 +1,15 @@
 import { useMemo, useReducer } from 'react';
 
-type State = {
-  isOpen: boolean;
-  isMinimized: boolean;
+export type State = {
+  isOpen?: boolean;
+  isMinimized?: boolean;
 };
 
-enum ActionType {
-  open,
-  close,
-  maximize,
-  minimize,
+export enum ActionType {
+  open = 'open',
+  close = 'close',
+  maximize = 'maximize',
+  minimize = 'minimize',
 }
 
 type Action = {
@@ -24,6 +24,7 @@ type SidebarAPI = {
   minimize: () => void;
 };
 
+// istanbul ignore next
 class UnreachableCaseError extends Error {
   constructor(val: never) {
     super(`Unreachable case: ${val}`);
@@ -40,12 +41,15 @@ function reducer(state: State, action: Action): State {
       return { ...state, isMinimized: false };
     case ActionType.minimize:
       return { ...state, isMinimized: true };
+    // istanbul ignore next
     default:
       throw new UnreachableCaseError(action.type);
   }
 }
 
-export function useSidebar(initialState = { isOpen: false, isMinimized: false }): SidebarAPI {
+export function useSidebar(
+  initialState: State = { isOpen: false, isMinimized: false },
+): SidebarAPI {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const callbacks = useMemo(

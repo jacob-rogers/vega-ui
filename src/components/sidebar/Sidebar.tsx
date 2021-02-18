@@ -18,7 +18,7 @@ export type SidebarProps = {
   align?: 'left' | 'right';
   hasOverlay?: boolean;
   onOverlayClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | KeyboardEvent) => void;
-  portal?: HTMLDivElement | null;
+  portal?: Element | null;
   onMinimize?: (event: React.MouseEvent) => void;
   onClose?: (event: React.MouseEvent) => void;
   className?: string;
