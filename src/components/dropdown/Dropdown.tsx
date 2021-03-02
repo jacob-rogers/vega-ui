@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { usePopper } from 'react-popper';
-import { Placement } from 'popper.js';
+import { Placement } from '@popperjs/core';
 
 import { DropdownMenu, DropdownTrigger } from './components';
 import { DropdownContext, DropdownContextValue } from './DropdownContext';
