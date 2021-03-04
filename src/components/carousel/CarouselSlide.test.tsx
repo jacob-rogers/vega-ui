@@ -2,6 +2,7 @@ import React from 'react';
 import * as tl from '@testing-library/react';
 
 import { CarouselSlideView as CarouselSlide } from './CarouselSlide';
+import { CarouselContext, defaultContext } from './context';
 
 describe('CarouselSlide', () => {
   type Props = Partial<React.ComponentProps<typeof CarouselSlide>>;
@@ -16,9 +17,11 @@ describe('CarouselSlide', () => {
 
   function render(props: Props = {}): tl.RenderResult {
     return tl.render(
-      <CarouselSlide {...props} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
-        content
-      </CarouselSlide>,
+      <CarouselContext.Provider value={{ ...defaultContext, testId: 'Carousel' }}>
+        <CarouselSlide {...props} onPointerEnter={onPointerEnter} onPointerLeave={onPointerLeave}>
+          content
+        </CarouselSlide>
+      </CarouselContext.Provider>,
     );
   }
 

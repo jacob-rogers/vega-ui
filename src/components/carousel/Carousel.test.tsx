@@ -1,7 +1,10 @@
 import React from 'react';
 import * as tl from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react-hooks';
 
 import { Carousel } from './Carousel';
+import { useAutoplay } from './CarouselManager';
+import { CarouselContext, defaultContext, useSlide } from './context';
 
 describe('Carousel', () => {
   type CarouselProps = React.ComponentProps<typeof Carousel>;
@@ -19,6 +22,7 @@ describe('Carousel', () => {
   const defaultSlides = [
     { caption: 'caption 1', content: 'slide 1' },
     { caption: 'caption 2', content: 'slide 2' },
+    { content: 'slide 3' },
   ];
 
   function render(props: Props = {}): tl.RenderResult {
@@ -61,6 +65,12 @@ describe('Carousel', () => {
     expect(container.childElementCount).toBe(0);
   });
 
+  test('при некорректном currentIdx ничего не рендерится', () => {
+    const { container } = render({ currentIdx: 5 });
+
+    expect(container.childElementCount).toBe(0);
+  });
+
   test('рендерит стрелки только если передан arrows=true', () => {
     render({ arrows: false });
     expect(findNextArrow).toThrow();
@@ -84,12 +94,16 @@ describe('Carousel', () => {
     const dot = findDot(1);
     tl.fireEvent.click(dot);
     expect(onChange).toBeCalledWith(1);
+
+    tl.fireEvent.click(findDot(0));
+
+    expect(onChange).toBeCalledWith(0);
   });
 
   test('вызывается onChange по клику на стрелку', () => {
     const current = 0;
     const nextIdx = 1;
-    const prevIdx = 1;
+    const prevIdx = 2;
     render({ currentIdx: current, arrows: true });
 
     const prev = findPrevArrow();
@@ -139,5 +153,79 @@ describe('Carousel', () => {
 
       expect(onChange).toBeCalledTimes(1);
     });
+  });
+});
+
+describe('use-slide', () => {
+  test('корректно возвращает слайд', () => {
+    const slide = { idx: 0 };
+
+    const wrapper = ({ children }: { children: React.ReactNode }) => (
+      <CarouselContext.Provider value={{ ...defaultContext, currentIdx: 0, slides: [slide] }}>
+        {children}
+      </CarouselContext.Provider>
+    );
+
+    const { result } = renderHook(() => useSlide(0), { wrapper });
+
+    expect(result.current).toEqual({
+      active: true,
+      idx: 0,
+      caption: '',
+    });
+  });
+});
+
+describe('use-autoplay', () => {
+  const interval = 1000;
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+  test('вызывает callback', () => {
+    const handleNext = jest.fn();
+    renderHook(() => useAutoplay({ idx: 0, onNext: handleNext, interval }));
+
+    jest.advanceTimersByTime(interval);
+
+    expect(handleNext).toBeCalled();
+  });
+
+  test('выставляет паузу', () => {
+    const handleNext = jest.fn();
+    const { result } = renderHook(() => useAutoplay({ idx: 0, onNext: handleNext, interval }));
+
+    act(() => {
+      result.current.pause();
+    });
+
+    expect(result.current.isPaused()).toBeTruthy();
+
+    jest.advanceTimersByTime(interval);
+
+    expect(handleNext).not.toBeCalled();
+  });
+
+  test('возобновляет воспроизведение', () => {
+    const handleNext = jest.fn();
+    const { result } = renderHook(() => useAutoplay({ idx: 0, onNext: handleNext, interval }));
+
+    act(() => {
+      result.current.pause();
+    });
+
+    act(() => {
+      result.current.resume();
+    });
+
+    expect(result.current.isPaused()).not.toBeTruthy();
+
+    jest.advanceTimersByTime(interval);
+
+    expect(handleNext).toBeCalled();
   });
 });

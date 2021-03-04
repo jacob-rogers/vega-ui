@@ -14,6 +14,7 @@ interface SlideProps extends CarouselSlideProps {
   caption?: string;
 }
 
+// istanbul ignore next
 const Slide: React.FC<SlideProps> = () => {
   return null;
 };
@@ -57,7 +58,7 @@ export const Carousel: CarouselComponent<CarouselProps> = (props) => {
     dotsLabel,
     dotsContainerClassName,
     dotClassName,
-    children = [],
+    children,
     currentIdx,
     autoPlay,
     onChange,

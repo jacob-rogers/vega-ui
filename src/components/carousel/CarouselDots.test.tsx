@@ -2,7 +2,7 @@ import React from 'react';
 import * as tl from '@testing-library/react';
 
 import { CarouselDotsView as CarouselDots } from './CarouselDots';
-import { Slide } from './context';
+import { CarouselContext, defaultContext, Slide } from './context';
 
 describe('CarouselDots', () => {
   type Props = Partial<React.ComponentProps<typeof CarouselDots>>;
@@ -13,7 +13,9 @@ describe('CarouselDots', () => {
 
   function render(props: Props = {}): tl.RenderResult {
     return tl.render(
-      <CarouselDots activeIdx={0} slides={slides} onChange={jest.fn()} {...props} />,
+      <CarouselContext.Provider value={{ ...defaultContext, testId: 'Carousel' }}>
+        <CarouselDots activeIdx={0} slides={slides} onChange={jest.fn()} {...props} />
+      </CarouselContext.Provider>,
     );
   }
 

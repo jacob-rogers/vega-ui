@@ -2,6 +2,7 @@ import React from 'react';
 import * as tl from '@testing-library/react';
 
 import { CarouselCaptionView as CarouselCaption } from './CarouselCaption';
+import { CarouselContext, defaultContext } from './context';
 
 describe('CarouselCaption', () => {
   type Props = Partial<React.ComponentProps<typeof CarouselCaption>>;
@@ -9,7 +10,11 @@ describe('CarouselCaption', () => {
   const caption = 'test caption';
 
   function render(props: Props = {}): tl.RenderResult {
-    return tl.render(<CarouselCaption caption={caption} {...props} />);
+    return tl.render(
+      <CarouselContext.Provider value={{ ...defaultContext, testId: 'Carousel' }}>
+        <CarouselCaption caption={caption} {...props} />
+      </CarouselContext.Provider>,
+    );
   }
 
   function findCaption(value = caption): HTMLElement {

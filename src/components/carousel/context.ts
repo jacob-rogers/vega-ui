@@ -5,7 +5,7 @@ export const b = block('VegaCarousel');
 
 export interface Slide {
   idx: number;
-  caption: string;
+  caption?: string;
 }
 
 export interface AutoPlayAPI {
@@ -25,9 +25,12 @@ export interface CarouselAPI {
   testId?: string;
 }
 
+// istanbul ignore next
 const noop = (): void => {};
+// istanbul ignore next
+const isPausedDefault = (): boolean => true;
 
-export const CarouselContext = React.createContext<CarouselAPI>({
+export const defaultContext: CarouselAPI = {
   currentIdx: 0,
   direction: 'next',
   slides: [],
@@ -37,9 +40,11 @@ export const CarouselContext = React.createContext<CarouselAPI>({
   autoPlay: {
     pause: noop,
     resume: noop,
-    isPaused: (): boolean => true,
+    isPaused: isPausedDefault,
   },
-});
+};
+
+export const CarouselContext = React.createContext<CarouselAPI>(defaultContext);
 
 export function useCarousel(): CarouselAPI {
   return useContext(CarouselContext);

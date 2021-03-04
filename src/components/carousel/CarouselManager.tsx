@@ -25,7 +25,7 @@ interface AutoPlayOptions {
   onNext(): void;
 }
 
-function useAutoplay({ interval, idx, onNext }: AutoPlayOptions): AutoPlayAPI {
+export function useAutoplay({ interval, idx, onNext }: AutoPlayOptions): AutoPlayAPI {
   const callbackRef = useCallbackRef(onNext);
   const interavalIDRef = useRef<null | ReturnType<typeof setInterval>>(null);
   const [isPaused, setPause] = useState<boolean>(false);
@@ -44,6 +44,7 @@ function useAutoplay({ interval, idx, onNext }: AutoPlayOptions): AutoPlayAPI {
     }, interval);
 
     return (): void => {
+      // istanbul ignore else
       if (interavalIDRef.current !== null) {
         clearInterval(interavalIDRef.current);
         interavalIDRef.current = null;

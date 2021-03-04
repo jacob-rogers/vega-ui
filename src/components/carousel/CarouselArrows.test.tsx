@@ -2,6 +2,7 @@ import React from 'react';
 import * as tl from '@testing-library/react';
 
 import { CarouselArrowsView as CarouselArrows } from './CarouselArrows';
+import { CarouselContext, defaultContext } from './context';
 
 describe('CarouselArrows', () => {
   type Props = Partial<React.ComponentProps<typeof CarouselArrows>>;
@@ -9,13 +10,15 @@ describe('CarouselArrows', () => {
   function render(props: Props = {}): tl.RenderResult {
     const { onNext = jest.fn(), onPrev = jest.fn(), ...rest } = props;
     return tl.render(
-      <CarouselArrows
-        prevLabel="prev"
-        nextLabel="next"
-        onNext={onNext}
-        onPrev={onPrev}
-        {...rest}
-      />,
+      <CarouselContext.Provider value={{ ...defaultContext, testId: 'Carousel' }}>
+        <CarouselArrows
+          prevLabel="prev"
+          nextLabel="next"
+          onNext={onNext}
+          onPrev={onPrev}
+          {...rest}
+        />
+      </CarouselContext.Provider>,
     );
   }
 
@@ -53,5 +56,12 @@ describe('CarouselArrows', () => {
 
     expect(findPrev().classList.contains(prevClassName)).toBe(true);
     expect(findNext().classList.contains(nextClassName)).toBe(true);
+  });
+
+  test('проставляются дефолтные лейблы', () => {
+    render({ prevLabel: undefined, nextLabel: undefined });
+
+    expect(tl.screen.queryByLabelText('Предыдущий слайд')).toBeInTheDocument();
+    expect(tl.screen.queryByLabelText('Следующий слайд')).toBeInTheDocument();
   });
 });
