@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-ui",
-  "version": "3.1.2-alpha.0",
+  "version": "3.1.2-alpha.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
