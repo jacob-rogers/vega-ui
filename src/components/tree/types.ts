@@ -57,6 +57,7 @@ export type TreeProps<T = unknown> = {
   withVisibilitySwitcher?: boolean;
   withDropZoneIndicator?: boolean;
   showIndentGuides?: boolean;
+  isExternalDraggingElement?: boolean;
   withMultiSelect?: boolean;
   onRenameItem?: () => void;
   onDuplicateItem?: () => void;

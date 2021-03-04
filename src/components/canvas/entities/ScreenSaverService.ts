@@ -25,6 +25,10 @@ export class ScreenSaverService {
   }
 
   public setSavedScreenId(id: string | undefined): void {
+    if (id === this.savedScreenId) {
+      return;
+    }
+
     this.savedScreenId = id;
   }
 

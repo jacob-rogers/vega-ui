@@ -29,6 +29,8 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
   const onChangeRef = useRef(onChange);
   onChangeRef.current = onChange;
 
+  screenSaverService.setSavedScreenId(savedScreenId);
+
   const handleChange = useCallback(
     (changes: CanvasUpdate): void => {
       if (typeof onChangeRef.current === 'function') {
@@ -47,10 +49,6 @@ export const Canvas: React.FC<CanvasProps> = (props) => {
     //   unsub();
     // };
   }, [canvas, handleChange]);
-
-  useEffect(() => {
-    screenSaverService.setSavedScreenId(savedScreenId);
-  }, [savedScreenId]);
 
   useUnmount(() => {
     canvas.removeAllListeners();

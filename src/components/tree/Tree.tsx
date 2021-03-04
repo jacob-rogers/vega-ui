@@ -25,6 +25,7 @@ export function Tree<T extends unknown>(
     onHideItem,
     contextMenuItems,
     actionItemComponents,
+    isExternalDraggingElement = false,
     isContextMenuEnable = true,
     withVisibilitySwitcher = true,
     withDropZoneIndicator = true,
@@ -163,13 +164,14 @@ export function Tree<T extends unknown>(
 
     const inaccessible =
       !dropZoneItem.isDropZone ||
-      selectedItems?.some((item) => {
-        return (
-          item.ref?.current?.contains(dropZoneItem.ref?.current as Node) ||
-          dropZoneItem.id === item.id ||
-          item.ref?.current?.draggable === false
-        );
-      });
+      (!isExternalDraggingElement &&
+        selectedItems?.some((item) => {
+          return (
+            item.ref?.current?.contains(dropZoneItem.ref?.current as Node) ||
+            dropZoneItem.id === item.id ||
+            item.ref?.current?.draggable === false
+          );
+        }));
 
     if (inaccessible) {
       newState.accessible = false;
