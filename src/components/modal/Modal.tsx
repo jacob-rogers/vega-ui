@@ -29,6 +29,7 @@ export type ModalProps = {
   overlayClassName?: string;
   refsForExcludeClickOutside?: React.RefObject<HTMLElement>[];
   blockBodyScroll?: boolean;
+  testId?: string;
 };
 
 interface ModalComponent extends React.FC<ModalProps>, DivProps {
@@ -50,6 +51,7 @@ export const Modal: ModalComponent = (props) => {
     overlayClassName,
     refsForExcludeClickOutside,
     blockBodyScroll = true,
+    testId,
     ...rest
   } = props;
   const ref = useRef<HTMLDivElement | null>(null);
@@ -97,12 +99,14 @@ export const Modal: ModalComponent = (props) => {
         aria-modal="true"
         role="dialog"
         ref={ref}
+        data-testid={testId && `${testId}:root`}
         className={cnModal('Root').mix(className)}
       >
         {hasCloseButton && (
           <Button
             aria-label="Кнопка закрытия модального окна"
             className={cnModal('CloseButton').toString()}
+            data-testid={testId && `${testId}:button:close`}
             view="ghost"
             type="button"
             onClick={(e: React.SyntheticEvent) => handleCloseModal(e.nativeEvent)}
