@@ -2123,10 +2123,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@gpn-prototypes/frontend-configs@1.2.16-alpha.2":
-  version "1.2.16-alpha.2"
-  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/frontend-configs/1.2.16-alpha.2/e11ce603c5516014e1d013fa65c586d38c2da1b989bfe43b032c2d2764e6a43a#0a759b48d7424c2c9ab3b1e3dafcbf6ca9968410"
-  integrity sha1-CnWbSNdCTCyas7Hj2vy/bKmWhBA=
+"@gpn-prototypes/frontend-configs@^1.3.1":
+  version "1.3.1"
+  resolved "https://npm.pkg.github.com/download/@gpn-prototypes/frontend-configs/1.3.1/ad63775eb5adb0d6328e69363760b01b4bed50cdf016a48e3b18f55ec48f2d40#153aefd61e6edc8c1963f30b09b94fb9c3343eaf"
+  integrity sha512-VaiSBEGnNYzlJn1aFlzSvgcsF/AYcfpd/lvN9ARfmhNrJLKTWMN6usl+2sbBEHpzZOU6T4SMhOiv5jKFusls4g==
   dependencies:
     "@babel/core" "^7.11.6"
     "@babel/plugin-transform-runtime" "^7.10.1"
