@@ -30,14 +30,14 @@ export type ContextMenuItem = {
     ref: React.RefObject<HTMLElement>,
     actions: {
       onSelectItem?: (ref: TargetData) => void;
-      onHideItem?: (ref: RefObject<HTMLElement>) => void;
+      onHideItem?: (item: HiddenItem) => void;
     },
   ) => void;
   title: (
     ref: RefObject<HTMLElement>,
     state: {
       selectedItems: Array<TargetData>;
-      hiddenItems: Array<React.RefObject<HTMLElement>> | null;
+      hiddenItems: Array<HiddenItem> | null;
     },
   ) => string;
   key: string;
