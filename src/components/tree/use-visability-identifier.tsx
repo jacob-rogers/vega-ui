@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
+import { stateSaverService } from './entities/StateSaverService';
 import cnTree from './cn-tree';
 import NavigationDot from './NavigationDotSvg';
 import TreeNavigationEye from './TreeNavigationEye';
-import { NavigationEyeProps } from './types';
+import { HiddenItem, NavigationEyeProps } from './types';
 
 type VisibilityIdentifierAPI = {
   renderVisibilitySwitcher: () => React.ReactElement;
@@ -13,37 +14,40 @@ type VisibilityIdentifierAPI = {
 const children = 'children';
 const parent = 'parent';
 type UseVisibilityIdentifier = {
-  ref: React.RefObject<HTMLElement>;
+  item: HiddenItem;
   handleHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
-  hiddenItems?: React.RefObject<HTMLElement>[] | null;
+  hiddenItems?: HiddenItem[] | null;
 };
 type VisibilityIdentifierData = typeof children | typeof parent | null;
 
 export const useVisibilityIdentifier = ({
-  ref,
+  item,
   handleHide,
   hiddenItems,
 }: UseVisibilityIdentifier): VisibilityIdentifierAPI => {
+  const savedHiddenItemsIds = stateSaverService.getHiddenElements();
+
   const [
     visibilityIdentifierData,
     setVisibilityIdentifierData,
   ] = useState<VisibilityIdentifierData | null>(null);
 
   useEffect(() => {
-    if (hiddenItems?.includes(ref)) {
+    if (hiddenItems?.includes(item) || savedHiddenItemsIds.includes(item.id)) {
       setVisibilityIdentifierData(parent);
 
       return;
     }
 
-    const isHiddenAsChild = hiddenItems?.some((_ref) => {
-      const isValidElms = _ref.current instanceof HTMLElement && ref.current instanceof HTMLElement;
+    const isHiddenAsChild = hiddenItems?.some((_item) => {
+      const isValidElms =
+        _item.ref.current instanceof HTMLElement && item.ref.current instanceof HTMLElement;
 
       if (!isValidElms) {
         return undefined;
       }
 
-      return _ref.current?.contains(ref.current);
+      return _item.ref.current?.contains(item.ref.current);
     });
 
     if (isHiddenAsChild) {
@@ -53,7 +57,7 @@ export const useVisibilityIdentifier = ({
     }
 
     setVisibilityIdentifierData(null);
-  }, [ref, hiddenItems]);
+  }, [item, hiddenItems, savedHiddenItemsIds]);
 
   const renderVisibilitySwitcher = (): React.ReactElement<NavigationEyeProps> => {
     if (visibilityIdentifierData === children) {

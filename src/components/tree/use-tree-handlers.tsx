@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-import { TargetData } from './types';
+import { HiddenItem, TargetData } from './types';
 
 type UseTreeHandlersProps = {
   id: string;
   ref: React.RefObject<HTMLElement>;
   isDraggable: boolean;
-  onHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
+  onHideItem?: (item: HiddenItem) => void;
   onSelectItem?: (selectedItem: TargetData) => void;
   dropZoneRef: React.RefObject<HTMLElement> | null;
   isDropZone: boolean;
@@ -63,7 +63,7 @@ export const useTreeHandlers = (props: UseTreeHandlersProps): TreeHandlersApi =>
     event.stopPropagation();
 
     if (onHideItem) {
-      onHideItem(ref);
+      onHideItem({ id, ref });
     }
   };
 

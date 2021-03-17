@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
 
+import { stateSaverService } from './entities/StateSaverService';
 import { Tree } from './Tree';
 import { BlueLineSvg, OrangeLineSvg, RedLineSvg, rootProps } from './Tree.stories';
 import { TreeItem, TreeProps } from './types';
@@ -16,6 +17,10 @@ function renderComponent(props: TreeProps): RenderResult {
 }
 
 describe('Tree', () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
   test('рендерится без ошибок', () => {
     renderComponent({ nodeList: rootProps });
   });
@@ -98,6 +103,40 @@ describe('Tree', () => {
 
     await waitFor(() => {
       expect(container.className.includes('VegaTree__NavigationItem_Hidden')).toBe(false);
+    });
+  });
+
+  test('скрытые элементы Дерева, восстанавливаются после перезагрузки', async () => {
+    const mockProjectId = 'mock project id';
+    stateSaverService.setProjectId(mockProjectId);
+    stateSaverService.setHiddenElements([rootProps[0].nodeList[0].id]); // сохранение состояния элемента 'Поднятие 44-23'
+
+    renderComponent({
+      nodeList: rootProps as TreeItem[],
+      projectId: mockProjectId,
+    });
+
+    const item = screen.getByText('Поднятие 44-23');
+
+    await waitFor(() => {
+      expect(item?.parentElement?.className.includes('VegaTree__NavigationItem_Hidden')).toBe(true);
+    });
+  });
+
+  test('все элементы видимы после перезагрузки, если сохраненных скрытых элементов Дерева нет', async () => {
+    const mockProjectId = 'mock project id';
+    stateSaverService.setProjectId(mockProjectId);
+    stateSaverService.setHiddenElements([]); // сохранение состояния элемента 'Поднятие 44-23'
+
+    const { baseElement } = renderComponent({
+      nodeList: rootProps as TreeItem[],
+      projectId: mockProjectId,
+    });
+
+    const hiddenItems = baseElement.querySelector('.VegaTree__NavigationItem_Hidden');
+
+    await waitFor(() => {
+      expect(hiddenItems).toBeNull();
     });
   });
 

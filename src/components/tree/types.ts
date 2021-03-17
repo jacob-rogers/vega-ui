@@ -44,8 +44,14 @@ export type ContextMenuItem = {
   withSeparator?: boolean;
 };
 
+export type HiddenItem = {
+  id: string;
+  ref: RefObject<HTMLElement>;
+};
+
 export type TreeProps<T = unknown> = {
   nodeList: TreeItem<T>[];
+  projectId: string;
   contextMenuItems?: ContextMenuItem[];
   icons?: {
     [iconId: string]: React.ReactElement;
@@ -66,7 +72,7 @@ export type TreeProps<T = unknown> = {
   onDragStart?: (transferringElems: Array<TargetData>) => void;
   onDragEnd?: () => void;
   onSelectItem?: (items: TargetData[]) => void;
-  onHideItem?: (items: RefObject<HTMLElement>[]) => void;
+  onHideItem?: (items: HiddenItem[]) => void;
 };
 
 export type NavigationEyeProps = {

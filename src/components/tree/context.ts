@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { DropZone, TargetData } from './types';
+import { DropZone, HiddenItem, TargetData } from './types';
 
 type TreeApi = {
   treeContainerWidth?: number | string;
   showIndentGuides: boolean;
   selectedItems: TargetData[];
-  hiddenItems: React.RefObject<HTMLElement>[] | null;
+  hiddenItems: HiddenItem[] | null;
   contextMenuTarget: React.RefObject<HTMLElement> | null;
   withVisibilitySwitcher?: boolean;
   withDropZoneIndicator?: boolean;
@@ -24,7 +24,8 @@ type TreeApi = {
   onDragEnd?(event: React.DragEvent): void;
   dropZone?: DropZone | null;
   onSelectItem?: (selectedItem: TargetData) => void;
-  onHideItem?: (ref: React.RefObject<HTMLElement | HTMLLIElement>) => void;
+  onHideItem?: (item: HiddenItem) => void;
+  restoreHiddenItem?: (item: HiddenItem) => void;
 };
 
 const TreeContext = React.createContext<TreeApi>({
