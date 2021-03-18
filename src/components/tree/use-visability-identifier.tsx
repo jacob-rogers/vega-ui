@@ -38,14 +38,11 @@ export const useVisibilityIdentifier = ({
     }
 
     const isHiddenAsChild = hiddenItems?.some((_item) => {
-      const isValidElms =
-        _item.ref.current instanceof HTMLElement && item.ref.current instanceof HTMLElement;
-
-      if (!isValidElms) {
-        return undefined;
+      if (_item.ref?.current instanceof HTMLElement && item.ref?.current instanceof HTMLElement) {
+        return _item.ref?.current?.contains(item.ref?.current);
       }
 
-      return _item.ref.current?.contains(item.ref.current);
+      return undefined;
     });
 
     if (isHiddenAsChild) {
