@@ -16,9 +16,9 @@ export const Appearance: React.FC<AppearanceProps> = ({
   children,
   ...rest
 }) => {
-  const appearClasseNames = {
-    appear: `is-${side}-enter`,
-    appearActive: `is-${side}-enter-active`,
+  const appearClassNames = {
+    appear: `is-appear-${side}-enter`,
+    appearActive: `is-appear-${side}-enter-active`,
   };
 
   const cssTransitionClassNames = {
@@ -26,7 +26,10 @@ export const Appearance: React.FC<AppearanceProps> = ({
     enterActive: `is-${side}-enter-active`,
     exit: `is-${side}-exit`,
     exitActive: `is-${side}-exit-active`,
-    ...(appear ? appearClasseNames : {}),
+
+    ...(appear
+      ? /* istanbul ignore next: классы в тестах не прокидываются */ appearClassNames
+      : {}),
   };
 
   return (

@@ -6,16 +6,12 @@ type CSSTransitionClassNames = Exclude<CSSTransitionProps['classNames'], string 
 type Timeout = Exclude<CSSTransitionProps['timeout'], undefined>;
 
 export type BaseProps = {
-  timeout: Timeout;
+  timeout?: Timeout;
   cssTransitionClassNames: CSSTransitionClassNames;
 } & Partial<React.ComponentProps<typeof CSSTransition>>;
 
-export const Base: React.FC<BaseProps> = ({
-  timeout,
-  cssTransitionClassNames,
-  children,
-  ...rest
-}) => {
+export const Base: React.FC<BaseProps> = ({ cssTransitionClassNames, children, ...rest }) => {
+  const timeout = rest.timeout ?? /* istanbul ignore next: стили в тестах не прокидываются */ 300;
   let appearTimeout;
   let enterTimeout;
   let exitTimeout;
@@ -24,7 +20,7 @@ export const Base: React.FC<BaseProps> = ({
     appearTimeout = timeout;
     enterTimeout = timeout;
     exitTimeout = timeout;
-  } else {
+  } /* istanbul ignore next: стили в тестах не прокидываются */ else {
     appearTimeout = timeout.appear;
     enterTimeout = timeout.enter;
     exitTimeout = timeout.exit;

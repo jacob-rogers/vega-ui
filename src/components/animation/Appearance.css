@@ -3,6 +3,10 @@
   transform: translateX(-100%);
 }
 
+.is-appear-left-enter {
+  transform: translateX(-100%);
+}
+
 .is-left-enter-active {
   transition: transform var(--transition-duration-enter) ease;
   transform: translateX(0);
@@ -22,7 +26,16 @@
   transform: translateX(100%);
 }
 
+.is-appear-right-enter {
+  transform: translateX(100%);
+}
+
 .is-right-enter-active {
+  transition: transform var(--transition-duration-enter) ease;
+  transform: translateX(0);
+}
+
+.is-appear-right-enter-active {
   transition: transform var(--transition-duration-enter) ease;
   transform: translateX(0);
 }
@@ -38,6 +51,10 @@
 
 /* Top */
 .is-top-enter {
+  transform: translateY(-100%);
+}
+
+.is-appear-top-enter {
   transform: translateY(-100%);
 }
 
@@ -57,6 +74,10 @@
 
 /* Bottom */
 .is-bottom-enter {
+  transform: translateY(100%);
+}
+
+.is-appear-bottom-enter {
   transform: translateY(100%);
 }
 

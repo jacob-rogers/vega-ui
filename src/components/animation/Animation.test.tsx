@@ -20,14 +20,15 @@ function renderBase(props: BaseProps): RenderResult {
   );
 }
 
-describe('Animation | Appearance', () => {
-  test('рендерится без ошибок', () => {
-    renderAppearance({ in: true, side: 'right' });
+describe('Animation', () => {
+  describe('Appearance', () => {
+    it('рендерит без ошибок', () => {
+      renderAppearance({ in: true, side: 'right' });
+    });
   });
-});
-
-describe('Animation | Base', () => {
-  test('рендерится без ошибок', () => {
-    renderBase({ in: true, timeout: 300, cssTransitionClassNames: {} });
+  describe('Base', () => {
+    it('рендерит без ошибок', () => {
+      renderBase({ in: true, timeout: 300, cssTransitionClassNames: {} });
+    });
   });
 });
