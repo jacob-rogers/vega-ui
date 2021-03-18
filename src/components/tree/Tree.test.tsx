@@ -1,7 +1,7 @@
 import React from 'react';
 import { fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
-import { stateSaverService } from './entities/StateSaverService';
 import { Tree } from './Tree';
 import { BlueLineSvg, OrangeLineSvg, RedLineSvg, rootProps } from './Tree.stories';
 import { TreeItem, TreeProps } from './types';
@@ -21,12 +21,17 @@ describe('Tree', () => {
     sessionStorage.clear();
   });
 
+  const mockProjectId = 'mock project id';
+
   test('рендерится без ошибок', () => {
-    renderComponent({ nodeList: rootProps });
+    renderComponent({ nodeList: rootProps, projectId: mockProjectId });
   });
 
   test('рендерится только с одним узлом', () => {
-    renderComponent({ nodeList: [{ name: 'Участок 1', id: '1', nodeList: [] }] });
+    renderComponent({
+      nodeList: [{ name: 'Участок 1', id: '1', nodeList: [] }],
+      projectId: mockProjectId,
+    });
 
     const item = screen.getAllByRole('treeitem')[0];
 
@@ -34,7 +39,7 @@ describe('Tree', () => {
   });
 
   test('рендерится с пустым nodeList', () => {
-    renderComponent({ nodeList: [] });
+    renderComponent({ nodeList: [], projectId: mockProjectId });
 
     const tree = screen.getByRole('tree');
 
@@ -42,7 +47,7 @@ describe('Tree', () => {
   });
 
   test('рендерится с иконками', () => {
-    const { container } = renderComponent({ icons, nodeList: rootProps });
+    const { container } = renderComponent({ icons, nodeList: rootProps, projectId: mockProjectId });
 
     const icon = container.querySelectorAll('.VegaTree__Icon')[0];
 
@@ -50,86 +55,87 @@ describe('Tree', () => {
   });
 
   test('при клике выделяется', async () => {
-    renderComponent({ nodeList: rootProps });
+    renderComponent({ nodeList: rootProps, projectId: mockProjectId });
 
     const item = screen.getAllByRole('treeitem')[1];
 
-    fireEvent.click(item);
+    userEvent.click(item);
 
     await waitFor(() => {
-      expect(item.className.includes('VegaTree__NavigationItem_Selected')).toBe(true);
+      expect(item).toHaveClass('VegaTree__NavigationItem_Selected');
     });
   });
 
   test('при клике на иконку стрелки список элементов открывается и закрывается', async () => {
-    renderComponent({ nodeList: rootProps });
+    renderComponent({ nodeList: rootProps, projectId: mockProjectId });
 
     const item = screen.getAllByRole('menuitem')[0];
 
-    fireEvent.click(item);
+    userEvent.click(item);
 
     await waitFor(() => {
-      expect(
-        document
-          .querySelector('[data-container-id~="1"]')
-          ?.className.includes('VegaTree__NodeList_expanded'),
-      ).toBe(true);
+      expect(document.querySelector('[data-container-id~="1"]')).toHaveClass(
+        'VegaTree__NodeList_expanded',
+      );
     });
 
-    fireEvent.click(item);
+    userEvent.click(item);
 
     await waitFor(() => {
-      expect(
-        document
-          .querySelector('[data-container-id~="1"]')
-          ?.className.includes('VegaTree__NodeList_expanded'),
-      ).toBe(false);
+      expect(document.querySelector('[data-container-id~="1"]')).not.toHaveClass(
+        'VegaTree__NodeList_expanded',
+      );
     });
   });
 
   test('при клике на иконку, скрывающую элементы Дерева, элемент меняет стилизацию', async () => {
-    renderComponent({ nodeList: rootProps });
+    renderComponent({ nodeList: rootProps, projectId: mockProjectId });
 
     const container = screen.getAllByRole('treeitem')[1];
     const item = screen.getAllByRole('switch')[0];
 
-    fireEvent.click(item);
+    userEvent.click(item);
 
     await waitFor(() => {
-      expect(container.className.includes('VegaTree__NavigationItem_Hidden')).toBe(true);
+      expect(container).toHaveClass('VegaTree__NavigationItem_Hidden');
     });
 
-    fireEvent.click(item);
+    userEvent.click(item);
 
     await waitFor(() => {
-      expect(container.className.includes('VegaTree__NavigationItem_Hidden')).toBe(false);
+      expect(container).not.toHaveClass('VegaTree__NavigationItem_Hidden');
     });
   });
 
   test('скрытые элементы Дерева, восстанавливаются после перезагрузки', async () => {
-    const mockProjectId = 'mock project id';
-    stateSaverService.setProjectId(mockProjectId);
-    stateSaverService.setHiddenElements([rootProps[0].nodeList[0].id]); // сохранение состояния элемента 'Поднятие 44-23'
-
-    renderComponent({
-      nodeList: rootProps as TreeItem[],
+    const props = {
+      nodeList: rootProps,
       projectId: mockProjectId,
-    });
+    };
 
-    const item = screen.getByText('Поднятие 44-23');
+    const { rerender } = renderComponent(props);
+
+    const container = screen.getAllByRole('treeitem')[1];
+    const item = container.querySelector('[role="switch"]') as HTMLElement;
+
+    userEvent.click(item);
 
     await waitFor(() => {
-      expect(item?.parentElement?.className.includes('VegaTree__NavigationItem_Hidden')).toBe(true);
+      expect(container).toHaveClass('VegaTree__NavigationItem_Hidden');
+    });
+
+    rerender(<Tree {...props} />);
+
+    const containerAfterReload = screen.getAllByRole('treeitem')[1];
+
+    await waitFor(() => {
+      expect(containerAfterReload).toHaveClass('VegaTree__NavigationItem_Hidden');
     });
   });
 
   test('все элементы видимы после перезагрузки, если сохраненных скрытых элементов Дерева нет', async () => {
-    const mockProjectId = 'mock project id';
-    stateSaverService.setProjectId(mockProjectId);
-    stateSaverService.setHiddenElements([]); // сохранение состояния элемента 'Поднятие 44-23'
-
     const { baseElement } = renderComponent({
-      nodeList: rootProps as TreeItem[],
+      nodeList: rootProps,
       projectId: mockProjectId,
     });
 
@@ -173,6 +179,7 @@ describe('Tree', () => {
     const { container } = renderComponent({
       nodeList: nodes,
       onPasteItem: onPasteClick,
+      projectId: mockProjectId,
     });
 
     const dragItem = container.querySelector('#drag-item');
