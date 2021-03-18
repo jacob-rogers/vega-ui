@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
-import { stateSaverService } from './entities/StateSaverService';
 import cnTree from './cn-tree';
+import TreeContext from './context';
 import NavigationDot from './NavigationDotSvg';
 import TreeNavigationEye from './TreeNavigationEye';
 import { HiddenItem, NavigationEyeProps } from './types';
@@ -16,16 +16,14 @@ const parent = 'parent';
 type UseVisibilityIdentifier = {
   item: HiddenItem;
   handleHide: (event: React.MouseEvent | React.KeyboardEvent) => void;
-  hiddenItems?: HiddenItem[] | null;
 };
 type VisibilityIdentifierData = typeof children | typeof parent | null;
 
 export const useVisibilityIdentifier = ({
   item,
   handleHide,
-  hiddenItems,
 }: UseVisibilityIdentifier): VisibilityIdentifierAPI => {
-  const savedHiddenItemsIds = stateSaverService.getHiddenElements();
+  const { hiddenItems } = useContext(TreeContext);
 
   const [
     visibilityIdentifierData,
@@ -33,7 +31,7 @@ export const useVisibilityIdentifier = ({
   ] = useState<VisibilityIdentifierData | null>(null);
 
   useEffect(() => {
-    if (hiddenItems?.includes(item) || savedHiddenItemsIds.includes(item.id)) {
+    if (hiddenItems?.find((hiddenItem) => hiddenItem.id === item.id)) {
       setVisibilityIdentifierData(parent);
 
       return;
@@ -57,7 +55,7 @@ export const useVisibilityIdentifier = ({
     }
 
     setVisibilityIdentifierData(null);
-  }, [item, hiddenItems, savedHiddenItemsIds]);
+  }, [item, hiddenItems]);
 
   const renderVisibilitySwitcher = (): React.ReactElement<NavigationEyeProps> => {
     if (visibilityIdentifierData === children) {

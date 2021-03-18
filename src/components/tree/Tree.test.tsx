@@ -108,9 +108,34 @@ describe('Tree', () => {
   });
 
   test('скрытые элементы Дерева, восстанавливаются после перезагрузки', async () => {
-    const props = {
+    const props: TreeProps = {
       nodeList: rootProps,
       projectId: mockProjectId,
+    };
+
+    const { rerender } = renderComponent(props);
+
+    const container = screen.getAllByRole('treeitem')[1];
+    const item = container.querySelector('[role="switch"]') as HTMLElement;
+
+    userEvent.click(item);
+
+    await waitFor(() => {
+      expect(container).toHaveClass('VegaTree__NavigationItem_Hidden');
+    });
+
+    rerender(<Tree {...props} />);
+
+    const containerAfterReload = screen.getAllByRole('treeitem')[1];
+
+    await waitFor(() => {
+      expect(containerAfterReload).toHaveClass('VegaTree__NavigationItem_Hidden');
+    });
+  });
+
+  test('скрытые элементы Дерева, восстанавливаются после перезагрузки, без указания projectId', async () => {
+    const props: TreeProps = {
+      nodeList: rootProps,
     };
 
     const { rerender } = renderComponent(props);
@@ -143,6 +168,37 @@ describe('Tree', () => {
 
     await waitFor(() => {
       expect(hiddenItems).toBeNull();
+    });
+  });
+
+  test('Вызывается onHideItem при переключении видимости элемента', async () => {
+    const onHideItemMock = jest.fn();
+
+    const props: TreeProps = {
+      nodeList: rootProps,
+      projectId: mockProjectId,
+      onHideItem: onHideItemMock,
+    };
+
+    renderComponent(props);
+
+    const container = screen.getAllByRole('treeitem')[1];
+    const item = container.querySelector('[role="switch"]') as HTMLElement;
+
+    userEvent.click(item);
+
+    await waitFor(() => {
+      expect(container).toHaveClass('VegaTree__NavigationItem_Hidden');
+    });
+
+    userEvent.click(item);
+
+    await waitFor(() => {
+      expect(container).not.toHaveClass('VegaTree__NavigationItem_Hidden');
+    });
+
+    await waitFor(() => {
+      expect(onHideItemMock).toHaveBeenCalledTimes(2);
     });
   });
 

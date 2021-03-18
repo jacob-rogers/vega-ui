@@ -24,7 +24,6 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
   const {
     showIndentGuides,
     selectedItems,
-    hiddenItems,
     isDndEnable,
     dropZone,
     onHideItem,
@@ -36,7 +35,7 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     onDragLeave,
     onDragOver,
     onDragDrop,
-    restoreHiddenItem,
+    onRestoreHiddenItem,
     withDropZoneIndicator,
   } = useContext(TreeContext);
 
@@ -78,15 +77,14 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
   });
 
   useEffect(() => {
-    if (restoreHiddenItem) {
-      restoreHiddenItem({ id, ref: targetRef });
+    if (onRestoreHiddenItem) {
+      onRestoreHiddenItem({ id, ref: targetRef });
     }
-  }, [id, restoreHiddenItem]);
+  }, [id, onRestoreHiddenItem]);
 
   const visibilityIdentifier = useVisibilityIdentifier({
     item: { id, ref: targetRef },
     handleHide,
-    hiddenItems,
   });
 
   const handleToggleExpand = (event: React.MouseEvent | React.KeyboardEvent): void => {

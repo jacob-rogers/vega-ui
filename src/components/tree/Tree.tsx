@@ -4,11 +4,11 @@ import { useKey, useResizeObserver } from '../../hooks';
 
 import { TreeContextMenu } from './components/TreeContextMenu';
 import { useContextMenu } from './components/TreeContextMenu/use-context-menu';
-import { stateSaverService } from './entities/StateSaverService';
 import cnTree from './cn-tree';
 import TreeContext from './context';
 import renderTree from './tree-creator';
 import { DropZone, HiddenItem, TargetData, TreeProps } from './types';
+import { useHiddenItems } from './use-hidden-items';
 
 import './Tree.css';
 
@@ -43,9 +43,7 @@ export function Tree<T extends unknown>(
     null,
   );
 
-  stateSaverService.setProjectId(projectId);
-  const savedHiddenElements = stateSaverService.getHiddenElements();
-  const [hiddenItems, setHiddenItems] = useState<HiddenItem[]>([]);
+  const { hiddenItems, handleHideItem, handleRestoreHiddenItem } = useHiddenItems();
 
   const rootRef = useRef<HTMLDivElement | null>(null);
 
@@ -109,40 +107,6 @@ export function Tree<T extends unknown>(
 
     if (onSelectItem) {
       onSelectItem([selectItem]);
-    }
-  };
-
-  const handleHideItem = (item: HiddenItem): void => {
-    if (hiddenItems?.find((hiddenItem) => hiddenItem.id === item.id)) {
-      const newState = hiddenItems.filter((hiddenItem) => hiddenItem.id !== item.id);
-
-      setHiddenItems([...newState]);
-
-      stateSaverService.setHiddenElements(newState.map((hiddenItem) => hiddenItem.id));
-
-      if (onHideItem) {
-        onHideItem([...newState, item]);
-      }
-      return;
-    }
-
-    if (hiddenItems) {
-      const newHiddenItems = [...hiddenItems, item];
-      setHiddenItems(newHiddenItems);
-
-      stateSaverService.setHiddenElements(newHiddenItems.map((hiddenItem) => hiddenItem.id));
-      if (onHideItem) {
-        onHideItem(newHiddenItems);
-      }
-    }
-  };
-
-  const handleRestoreHiddenItem = (item: HiddenItem): void => {
-    if (
-      savedHiddenElements.includes(item.id) &&
-      !hiddenItems.find((hiddenItem) => hiddenItem.id === item.id)
-    ) {
-      setHiddenItems([...hiddenItems, item]);
     }
   };
 
@@ -251,6 +215,7 @@ export function Tree<T extends unknown>(
         selectedItems,
         isDndEnable,
         dropZone,
+        projectId,
         onContextMenu: handleContextMenu,
         onDragStart: handleDragStart,
         onDragOver: handleDragOver,
@@ -259,8 +224,8 @@ export function Tree<T extends unknown>(
         onDragEnd: handleDragEnd,
         onDragLeave: handleDragLeave,
         onSelectItem: handleSelectItem,
-        onHideItem: handleHideItem,
-        restoreHiddenItem: handleRestoreHiddenItem,
+        onHideItem: (item: HiddenItem) => handleHideItem(item, onHideItem),
+        onRestoreHiddenItem: handleRestoreHiddenItem,
       }}
     >
       <div className={cnTree()}>

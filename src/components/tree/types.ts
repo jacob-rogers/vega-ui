@@ -51,7 +51,7 @@ export type HiddenItem = {
 
 export type TreeProps<T = unknown> = {
   nodeList: TreeItem<T>[];
-  projectId: string;
+  projectId?: string;
   contextMenuItems?: ContextMenuItem[];
   icons?: {
     [iconId: string]: React.ReactElement;

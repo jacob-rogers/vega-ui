@@ -9,7 +9,7 @@ export class StateSaverService {
 
   private projectId?: string;
 
-  setProjectId(projectId: string): void {
+  setProjectId(projectId?: string): void {
     this.projectId = projectId;
   }
 
@@ -40,5 +40,3 @@ export class StateSaverService {
     return [];
   }
 }
-
-export const stateSaverService = new StateSaverService();

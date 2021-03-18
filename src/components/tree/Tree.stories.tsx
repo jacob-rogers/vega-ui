@@ -358,7 +358,7 @@ storiesOf('ui/Tree', module)
     return (
       <Tree
         icons={icons}
-        projectId="mock project id"
+        projectId="a3333333-b111-c111-d111-e00000000011"
         actionItemComponents={[<ActionItemComponent />]}
         isContextMenuEnable
         nodeList={sourceTree}
