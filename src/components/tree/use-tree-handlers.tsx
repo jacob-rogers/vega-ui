@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { HiddenItem, TargetData } from './types';
+import { ContextMenuTarget, HiddenItem, TargetData } from './types';
 
 type UseTreeHandlersProps = {
   id: string;
@@ -11,7 +11,7 @@ type UseTreeHandlersProps = {
   dropZoneRef: React.RefObject<HTMLElement> | null;
   isDropZone: boolean;
 
-  onContextMenu?(event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void;
+  onContextMenu?(event: React.MouseEvent, target: ContextMenuTarget): void;
 
   onDragStart?(event: React.DragEvent, dragItem: TargetData): void;
   onDragEnter?(event: React.DragEvent, dropZoneItem: TargetData & { isDropZone: boolean }): void;
@@ -79,7 +79,7 @@ export const useTreeHandlers = (props: UseTreeHandlersProps): TreeHandlersApi =>
     if (onContextMenu) {
       handleSelect(event);
 
-      onContextMenu(event, ref);
+      onContextMenu(event, { id, ref });
     }
   };
 

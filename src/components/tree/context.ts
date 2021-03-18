@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { DropZone, HiddenItem, TargetData } from './types';
+import { ContextMenuTarget, DropZone, HiddenItem, TargetData } from './types';
 
 type TreeApi = {
   treeContainerWidth?: number | string;
   showIndentGuides: boolean;
   selectedItems: TargetData[];
   hiddenItems: HiddenItem[] | null;
-  contextMenuTarget: React.RefObject<HTMLElement> | null;
+  contextMenuTarget: ContextMenuTarget | null;
   withVisibilitySwitcher?: boolean;
   withDropZoneIndicator?: boolean;
   actionItemComponents?: React.ReactElement[];
@@ -16,7 +16,7 @@ type TreeApi = {
   };
   isDndEnable: boolean;
   projectId?: string;
-  onContextMenu?(event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void;
+  onContextMenu?(event: React.MouseEvent, target: ContextMenuTarget): void;
   onDragStart?(event: React.DragEvent, dragItem: TargetData): void;
   onDragEnter?(event: React.DragEvent, dropZoneItem: TargetData & { isDropZone: boolean }): void;
   onDragOver?(event: React.DragEvent): void;

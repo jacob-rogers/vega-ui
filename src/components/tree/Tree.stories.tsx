@@ -284,12 +284,12 @@ export const rootProps: TreeItem[] = [
 const contextMenuItems: ContextMenuItem[] = [
   {
     title: (ref, state) => {
-      return state.hiddenItems?.includes(ref) ? 'Раскрыть слой' : 'Скрыть слой';
+      return state.hiddenItems?.find((item) => item.ref === ref) ? 'Раскрыть слой' : 'Скрыть слой';
     },
-    callback: (ref, actions) => {
-      action('Collapse')(ref);
+    callback: (item, actions) => {
+      action('Collapse')(item.ref);
       if (actions.onHideItem) {
-        actions.onHideItem(ref);
+        actions.onHideItem(item);
       }
     },
     withSeparator: true,

@@ -7,7 +7,7 @@ import { useContextMenu } from './components/TreeContextMenu/use-context-menu';
 import cnTree from './cn-tree';
 import TreeContext from './context';
 import renderTree from './tree-creator';
-import { DropZone, HiddenItem, TargetData, TreeProps } from './types';
+import { ContextMenuTarget, DropZone, HiddenItem, TargetData, TreeProps } from './types';
 import { useHiddenItems } from './use-hidden-items';
 
 import './Tree.css';
@@ -39,9 +39,7 @@ export function Tree<T extends unknown>(
 
   const [isMultiSelect, setIsMultiSelect] = useState(false);
   const [selectedItems, setSelectedItems] = useState<Array<TargetData>>([]);
-  const [contextMenuTarget, setContextMenuTarget] = useState<React.RefObject<HTMLElement> | null>(
-    null,
-  );
+  const [contextMenuTarget, setContextMenuTarget] = useState<ContextMenuTarget | null>(null);
 
   const { hiddenItems, handleHideItem, handleRestoreHiddenItem } = useHiddenItems();
 
@@ -196,9 +194,9 @@ export function Tree<T extends unknown>(
     setDropZone(null);
   };
 
-  const handleContextMenu = (event: React.MouseEvent, ref: React.RefObject<HTMLElement>) => {
-    setContextMenuTarget(ref);
-    open(event, ref);
+  const handleContextMenu = (event: React.MouseEvent, target: ContextMenuTarget) => {
+    setContextMenuTarget(target);
+    open(event, target);
   };
 
   return (

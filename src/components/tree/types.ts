@@ -27,7 +27,7 @@ export interface TreeItem<T = unknown> {
 
 export type ContextMenuItem = {
   callback: (
-    ref: React.RefObject<HTMLElement>,
+    item: HiddenItem,
     actions: {
       onSelectItem?: (ref: TargetData) => void;
       onHideItem?: (item: HiddenItem) => void;
@@ -46,7 +46,12 @@ export type ContextMenuItem = {
 
 export type HiddenItem = {
   id: string;
-  ref: RefObject<HTMLElement>;
+  ref: RefObject<HTMLElement> | null;
+};
+
+export type ContextMenuTarget = {
+  id: string;
+  ref: RefObject<HTMLElement> | null;
 };
 
 export type TreeProps<T = unknown> = {
