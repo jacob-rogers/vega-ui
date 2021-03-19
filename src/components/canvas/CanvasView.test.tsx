@@ -82,8 +82,8 @@ describe('CanvasView', () => {
       .getByTitle('Масштаб')
       .querySelector('input');
 
-    await waitFor(() => expect(scaleSizeInput).toHaveAttribute('value', `104`));
-    expect(scaleSizeInput).toHaveAttribute('value', `104`);
+    await waitFor(() => expect(scaleSizeInput).toHaveValue(`104`));
+    expect(scaleSizeInput).toHaveValue(`104`);
   });
 
   test('возвращает масштаб в исходное значение по Ctrl + 0', async () => {
@@ -106,8 +106,8 @@ describe('CanvasView', () => {
       .getByTitle('Масштаб')
       .querySelector('input');
 
-    await waitFor(() => expect(scaleSizeInput).toHaveAttribute('value', `104`));
-    expect(scaleSizeInput).toHaveAttribute('value', `104`);
+    await waitFor(() => expect(scaleSizeInput).toHaveValue(`104`));
+    expect(scaleSizeInput).toHaveValue(`104`);
 
     const container = findContainer();
 
@@ -119,9 +119,9 @@ describe('CanvasView', () => {
       cancelable: false,
     });
 
-    await waitFor(() => expect(scaleSizeInput).toHaveAttribute('value', `100`));
+    await waitFor(() => expect(scaleSizeInput).toHaveValue(`100`));
 
-    expect(scaleSizeInput).toHaveAttribute('value', `100`);
+    expect(scaleSizeInput).toHaveValue(`100`);
   });
 
   test('переключает режимы по нажатию на клавишу H', async () => {

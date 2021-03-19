@@ -23,6 +23,6 @@ describe('useWindowSize', () => {
 
     global.dispatchEvent(new Event('resize'));
 
-    expect(baseElement.textContent).toEqual('10,10');
+    expect(baseElement).toHaveTextContent('10,10');
   });
 });

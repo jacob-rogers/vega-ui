@@ -1,5 +1,6 @@
 module.exports = {
   extends: [require.resolve('@gpn-prototypes/frontend-configs/.eslintrc')],
+  plugins: ['testing-library', 'jest-dom'],
   rules: {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
@@ -11,6 +12,19 @@ module.exports = {
     '@typescript-eslint/no-shadow': ['error'],
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
+    'jest-dom/prefer-checked': 'error',
+    'jest-dom/prefer-empty': 'error',
+    'jest-dom/prefer-to-have-text-content': 'error',
+    'jest-dom/prefer-to-have-value': 'error',
+    'jest-dom/prefer-enabled-disabled': 'error',
+    'jest-dom/prefer-required': 'error',
+    'jest-dom/prefer-to-have-attribute': 'error',
+    'jest-dom/prefer-in-document': 'error',
+    'jest-dom/prefer-to-have-class': 'error',
+    'jest-dom/prefer-to-have-style': 'error',
+    'testing-library/await-async-query': 'error',
+    'testing-library/no-await-sync-query': 'error',
+    'testing-library/no-debug': 'warn',
   },
   settings: {
     'import/resolver': {

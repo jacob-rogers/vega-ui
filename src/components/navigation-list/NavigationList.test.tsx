@@ -67,7 +67,7 @@ describe('NavigationList', () => {
 
     const list = screen.getByTestId(listTestId);
 
-    expect(list.classList.contains('VegaNavigationList_ordered')).toBe(true);
+    expect(list).toHaveClass('VegaNavigationList_ordered');
   });
 });
 
@@ -77,7 +77,7 @@ describe('NavigationList.Item', () => {
 
     const item = screen.getByTestId(buttonTestId);
 
-    expect(item.classList.contains('VegaNavigationList__Item_active')).toBe(true);
+    expect(item).toHaveClass('VegaNavigationList__Item_active');
   });
   test('при клике по элементу срабатывает onClick', () => {
     const onClick = jest.fn();

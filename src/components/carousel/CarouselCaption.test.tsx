@@ -27,7 +27,7 @@ describe('CarouselCaption', () => {
 
   test('ничего не рендерится, если не передан caption', () => {
     const { container } = render({ caption: undefined });
-    expect(container.firstChild).toBe(null);
+    expect(container).toBeEmptyDOMElement();
   });
 
   test('выводится caption', () => {
@@ -38,6 +38,6 @@ describe('CarouselCaption', () => {
   test('передается className', () => {
     const className = 'test';
     render({ className });
-    expect(findCaption().classList.contains(className)).toBe(true);
+    expect(findCaption()).toHaveClass(className);
   });
 });

@@ -115,7 +115,7 @@ describe('Modal', () => {
 
       const footer = screen.getByTestId('modal-footer');
 
-      expect(footer.classList.contains('custom-footer')).toBe(true);
+      expect(footer).toHaveClass('custom-footer');
     });
   });
 });

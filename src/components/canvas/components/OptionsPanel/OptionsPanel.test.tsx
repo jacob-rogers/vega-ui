@@ -98,7 +98,7 @@ describe('OptionsPanel', () => {
         const result = renderComponent({ disabledOptions: [type as Option] });
         const option = result.getByLabelText(label);
 
-        expect(option).toHaveAttribute('disabled');
+        expect(option).toBeDisabled();
       },
     );
 
@@ -109,7 +109,7 @@ describe('OptionsPanel', () => {
 
       labels.forEach((label) => {
         const option = result.getByLabelText(label);
-        expect(option).toHaveAttribute('disabled');
+        expect(option).toBeDisabled();
       });
     });
   });

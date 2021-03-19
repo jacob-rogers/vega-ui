@@ -58,6 +58,6 @@ describe('CarouselSlide', () => {
 
     render({ className });
 
-    expect(findSlide().classList.contains(className)).toBe(true);
+    expect(findSlide()).toHaveClass(className);
   });
 });

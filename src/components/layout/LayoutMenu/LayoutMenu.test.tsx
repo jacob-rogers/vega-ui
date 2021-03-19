@@ -43,10 +43,7 @@ describe('LayoutMenu', () => {
 
     await clickByTrigger();
 
-    await act(async () => {
-      const menuItem = await screen.getByLabelText('test');
-      expect(menuItem).toBeInTheDocument();
-    });
+    expect(await screen.findByLabelText('test')).toBeInTheDocument();
   });
 
   it('вызывается onChange по клику на элемент', async () => {
@@ -85,6 +82,6 @@ describe('LayoutMenu', () => {
 
     const menuItem = screen.getByLabelText('test');
 
-    expect(menuItem.getAttribute('aria-current')).toBe('true');
+    expect(menuItem).toHaveAttribute('aria-current', 'true');
   });
 });

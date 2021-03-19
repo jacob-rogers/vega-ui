@@ -168,13 +168,13 @@ describe('ScalePanel', () => {
       renderComponent({ scale: 100, maxScale: 150 });
 
       enterInputValue('200');
-      expect(findInput()).toHaveAttribute('value', '150');
+      expect(findInput()).toHaveValue('150');
 
       enterInputValue('170');
-      expect(findInput()).toHaveAttribute('value', '150');
+      expect(findInput()).toHaveValue('150');
 
       enterInputValue('10');
-      expect(findInput()).toHaveAttribute('value', '20');
+      expect(findInput()).toHaveValue('20');
     });
   });
 });

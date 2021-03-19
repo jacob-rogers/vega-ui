@@ -66,6 +66,8 @@ describe('RadioListItem', () => {
 
     userEvents.click(screen.getByLabelText('тест2'));
 
+    // есть какие-то проблемы с чекбоксами и радио с toHaveValue
+    // eslint-disable-next-line jest-dom/prefer-to-have-value
     expect(screen.getAllByTitle('radioInput')[1]).toHaveAttribute('value', 'test2');
   });
 

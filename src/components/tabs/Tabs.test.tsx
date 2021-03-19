@@ -56,7 +56,7 @@ describe('Tabs', () => {
     const activeTab = component.container.querySelectorAll('.TabsTab_checked');
 
     expect(activeTab.length).toBe(1);
-    expect(activeTab[0].textContent).toBe('Очень длинный второй вариант');
+    expect(activeTab[0]).toHaveTextContent('Очень длинный второй вариант');
   });
 
   test('срабатывает onChange', () => {

@@ -54,8 +54,8 @@ describe('CarouselArrows', () => {
 
     render({ prevClassName, nextClassName });
 
-    expect(findPrev().classList.contains(prevClassName)).toBe(true);
-    expect(findNext().classList.contains(nextClassName)).toBe(true);
+    expect(findPrev()).toHaveClass(prevClassName);
+    expect(findNext()).toHaveClass(nextClassName);
   });
 
   test('проставляются дефолтные лейблы', () => {

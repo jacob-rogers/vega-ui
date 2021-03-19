@@ -258,8 +258,7 @@ describe('Layout', () => {
         clientX: 75,
       });
 
-      expect(screen.getByRole('group')).toHaveAttribute(
-        'style',
+      expect(screen.getByRole('group')).toHaveStyle(
         '--first-view-size: 75fr; --second-view-size: 25fr;',
       );
     });

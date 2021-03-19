@@ -27,7 +27,7 @@ describe('Dropzone', () => {
       const { getByTestId } = renderComponent();
       const dropzone = getByTestId('test-dropzone');
 
-      expect(dropzone.className).toBe('VegaDropzone');
+      expect(dropzone).toHaveClass('VegaDropzone');
     });
   });
 
@@ -43,7 +43,7 @@ describe('Dropzone', () => {
       const { getByTestId } = renderComponent({ fullscreen: true });
       const dropzone = getByTestId('test-dropzone');
 
-      expect(dropzone.classList.contains('is-fullscreen')).toBe(true);
+      expect(dropzone).toHaveClass('is-fullscreen');
     });
     test('рендерит оверлей', () => {
       const { getByTestId } = renderComponent({ fullscreen: true });

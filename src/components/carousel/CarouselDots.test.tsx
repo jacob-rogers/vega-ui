@@ -29,11 +29,11 @@ describe('CarouselDots', () => {
 
   test('ничего не рендерится, если слайдов меньше двух', () => {
     let wrapper = render({ slides: [slide1] });
-    expect(wrapper.container.firstChild).toBe(null);
+    expect(wrapper.container).toBeEmptyDOMElement();
     wrapper = render({ slides: [slide1] });
-    expect(wrapper.container.firstChild).toBe(null);
+    expect(wrapper.container).toBeEmptyDOMElement();
     wrapper = render({ slides: [slide1, slide2] });
-    expect(wrapper.container.firstChild).not.toBe(null);
+    expect(wrapper.container).not.toBeEmptyDOMElement();
   });
 
   test('добавляется className для контейнера', () => {
@@ -46,7 +46,7 @@ describe('CarouselDots', () => {
     render({ dotClassName: 'test' });
     expect(slides.length > 1).toBe(true);
     slides.forEach((slide) => {
-      expect(findDotForSlide(slide).classList.contains('test')).toBe(true);
+      expect(findDotForSlide(slide)).toHaveClass('test');
     });
   });
 

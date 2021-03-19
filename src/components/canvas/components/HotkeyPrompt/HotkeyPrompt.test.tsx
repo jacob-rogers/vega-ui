@@ -25,7 +25,7 @@ describe('HotkeyPrompt', () => {
     renderComponent();
 
     let promptHeader = screen.queryByText('Горячие клавиши');
-    expect(promptHeader).toBeNull();
+    expect(promptHeader).not.toBeInTheDocument();
 
     openPrompt();
 
