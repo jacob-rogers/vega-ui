@@ -58,10 +58,6 @@
       }
     }
 
-    &__tag + &__tag {
-      margin-left: 5px;
-    }
-
     &__description {
       margin-left: 10px;
 
@@ -78,6 +74,10 @@
 
       background: var(--color-bg-default);
     }
+  }
+
+  .Metadata__tag + .Metadata__tag {
+    margin-left: 5px;
   }
 }
 
