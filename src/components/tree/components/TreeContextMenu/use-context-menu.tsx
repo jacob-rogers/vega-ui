@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { ContextMenuTarget } from '../../types';
+
 type useContextMenuProps = {
   enabled: boolean;
 };
@@ -11,7 +13,7 @@ type contextMenuApi = {
     top: string | number;
   };
   isOpen: boolean;
-  open: (event: React.MouseEvent, ref: React.RefObject<HTMLElement>) => void;
+  open: (event: React.MouseEvent, target: ContextMenuTarget) => void;
   close: () => void;
 };
 
@@ -23,14 +25,14 @@ export const useContextMenu = ({ enabled }: useContextMenuProps): contextMenuApi
     top: string | number;
   }>({ left: 0, top: 0 });
 
-  const open = (event: React.MouseEvent, ref: React.RefObject<HTMLElement>): void => {
+  const open = (event: React.MouseEvent, target: ContextMenuTarget): void => {
     if (!enabled) {
       return;
     }
 
     event.preventDefault();
 
-    setCallerRef(ref);
+    setCallerRef(target.ref);
     setCoordinates({
       left: event.clientX,
       top: event.clientY,

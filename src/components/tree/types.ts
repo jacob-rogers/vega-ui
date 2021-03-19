@@ -27,25 +27,36 @@ export interface TreeItem<T = unknown> {
 
 export type ContextMenuItem = {
   callback: (
-    ref: React.RefObject<HTMLElement>,
+    item: HiddenItem,
     actions: {
       onSelectItem?: (ref: TargetData) => void;
-      onHideItem?: (ref: RefObject<HTMLElement>) => void;
+      onHideItem?: (item: HiddenItem) => void;
     },
   ) => void;
   title: (
     ref: RefObject<HTMLElement>,
     state: {
       selectedItems: Array<TargetData>;
-      hiddenItems: Array<React.RefObject<HTMLElement>> | null;
+      hiddenItems: Array<HiddenItem> | null;
     },
   ) => string;
   key: string;
   withSeparator?: boolean;
 };
 
+export type HiddenItem = {
+  id: string;
+  ref: RefObject<HTMLElement> | null;
+};
+
+export type ContextMenuTarget = {
+  id: string;
+  ref: RefObject<HTMLElement> | null;
+};
+
 export type TreeProps<T = unknown> = {
   nodeList: TreeItem<T>[];
+  projectId?: string;
   contextMenuItems?: ContextMenuItem[];
   icons?: {
     [iconId: string]: React.ReactElement;
@@ -66,7 +77,7 @@ export type TreeProps<T = unknown> = {
   onDragStart?: (transferringElems: Array<TargetData>) => void;
   onDragEnd?: () => void;
   onSelectItem?: (items: TargetData[]) => void;
-  onHideItem?: (items: RefObject<HTMLElement>[]) => void;
+  onHideItem?: (items: HiddenItem[]) => void;
 };
 
 export type NavigationEyeProps = {

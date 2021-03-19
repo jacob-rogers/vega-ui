@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import cnTree from './cn-tree';
 import TreeContext from './context';
@@ -15,7 +15,6 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
 
   const {
     selectedItems,
-    hiddenItems,
     isDndEnable,
     dropZone,
     onHideItem,
@@ -27,6 +26,7 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     onDragLeave,
     onDragOver,
     onDragDrop,
+    onRestoreHiddenItem,
     withDropZoneIndicator,
   } = useContext(TreeContext);
 
@@ -56,7 +56,16 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     onDragDrop,
   });
 
-  const visibilityIdentifier = useVisibilityIdentifier({ ref: targetRef, handleHide, hiddenItems });
+  useEffect(() => {
+    if (onRestoreHiddenItem) {
+      onRestoreHiddenItem({ id, ref: targetRef });
+    }
+  }, [id, onRestoreHiddenItem]);
+
+  const visibilityIdentifier = useVisibilityIdentifier({
+    item: { id, ref: targetRef },
+    handleHide,
+  });
 
   return (
     <TreeItemContainer

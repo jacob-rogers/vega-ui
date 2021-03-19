@@ -17,8 +17,8 @@ const TreeContextMenuList: React.FC<ContextMenuListProps> = (props) => {
   return (
     <div className={cnTree('ContextMenuList')}>
       {items.map((item) => {
-        const title = contextMenuTarget?.current
-          ? item.title(contextMenuTarget, {
+        const title = contextMenuTarget?.ref?.current
+          ? item.title(contextMenuTarget.ref, {
               selectedItems,
               hiddenItems,
             })
@@ -29,7 +29,7 @@ const TreeContextMenuList: React.FC<ContextMenuListProps> = (props) => {
             label={title}
             aria-label={title}
             onClick={() => {
-              if (contextMenuTarget?.current) {
+              if (contextMenuTarget) {
                 item.callback(contextMenuTarget, {
                   onHideItem,
                   onSelectItem,

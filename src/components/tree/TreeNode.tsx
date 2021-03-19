@@ -1,4 +1,4 @@
-import React, { useContext, useLayoutEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { IconArrowDown, IconArrowRight } from '../icons';
 
@@ -24,7 +24,6 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
   const {
     showIndentGuides,
     selectedItems,
-    hiddenItems,
     isDndEnable,
     dropZone,
     onHideItem,
@@ -36,6 +35,7 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     onDragLeave,
     onDragOver,
     onDragDrop,
+    onRestoreHiddenItem,
     withDropZoneIndicator,
   } = useContext(TreeContext);
 
@@ -76,7 +76,16 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     onDragDrop,
   });
 
-  const visibilityIdentifier = useVisibilityIdentifier({ ref: targetRef, handleHide, hiddenItems });
+  useEffect(() => {
+    if (onRestoreHiddenItem) {
+      onRestoreHiddenItem({ id, ref: targetRef });
+    }
+  }, [id, onRestoreHiddenItem]);
+
+  const visibilityIdentifier = useVisibilityIdentifier({
+    item: { id, ref: targetRef },
+    handleHide,
+  });
 
   const handleToggleExpand = (event: React.MouseEvent | React.KeyboardEvent): void => {
     event.stopPropagation();
