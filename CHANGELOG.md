@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.10](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.9...v3.1.10) (2021-03-23)
+
+
+### Bug Fixes
+
+* **storybook:** добавить babel config ([#551](https://github.com/gpn-prototypes/vega-ui/issues/551)) ([53a3289](https://github.com/gpn-prototypes/vega-ui/commit/53a3289f8273779c041aff31690e61bec680d1e6))
+
 ### [3.1.9](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.8...v3.1.9) (2021-03-19)
 
 ### [3.1.8](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.7...v3.1.8) (2021-03-18)
