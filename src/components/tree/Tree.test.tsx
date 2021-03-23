@@ -202,6 +202,47 @@ describe('Tree', () => {
     });
   });
 
+  test('скрытые элементы Дерева, сохраняются с корректным projectId', async () => {
+    const props: TreeProps = {
+      nodeList: rootProps,
+      projectId: 'a3333333-b111-c111-d111-e00000000011',
+    };
+
+    renderComponent(props);
+
+    const container = screen.getByText(rootProps[0].name).parentElement;
+    const item = container?.querySelector('[role="switch"]') as HTMLElement;
+
+    userEvent.click(item);
+
+    await waitFor(() => {
+      expect(container).toHaveClass('VegaTree__NavigationItem_Hidden');
+    });
+
+    const savedHiddenElements = sessionStorage.getItem(`hiddenElements-${props.projectId}`);
+    expect(savedHiddenElements).toBe(JSON.stringify([rootProps[0].id]));
+  });
+
+  test('скрытые элементы Дерева, сохраняются под стандартным именем, если нет projectId', async () => {
+    const props: TreeProps = {
+      nodeList: rootProps,
+    };
+
+    renderComponent(props);
+
+    const container = screen.getByText(rootProps[0].name).parentElement;
+    const item = container?.querySelector('[role="switch"]') as HTMLElement;
+
+    userEvent.click(item);
+
+    await waitFor(() => {
+      expect(container).toHaveClass('VegaTree__NavigationItem_Hidden');
+    });
+
+    const savedHiddenElements = sessionStorage.getItem('hiddenElements');
+    expect(savedHiddenElements).toBe(JSON.stringify([rootProps[0].id]));
+  });
+
   test('drag and drop работает, при событии drop обработчик onPaste срабатывает и передает нужные параметры', () => {
     const nodes: TreeItem[] = [
       {

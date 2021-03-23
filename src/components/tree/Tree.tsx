@@ -41,7 +41,7 @@ export function Tree<T extends unknown>(
   const [selectedItems, setSelectedItems] = useState<Array<TargetData>>([]);
   const [contextMenuTarget, setContextMenuTarget] = useState<ContextMenuTarget | null>(null);
 
-  const { hiddenItems, handleHideItem, handleRestoreHiddenItem } = useHiddenItems();
+  const { hiddenItems, handleHideItem, handleRestoreHiddenItem } = useHiddenItems(projectId);
 
   const rootRef = useRef<HTMLDivElement | null>(null);
 

@@ -1,7 +1,6 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 
 import { StateSaverService } from './entities/StateSaverService';
-import TreeContext from './context';
 import { HiddenItem } from './types';
 
 type UseHiddenItems = {
@@ -10,9 +9,7 @@ type UseHiddenItems = {
   handleRestoreHiddenItem(item: HiddenItem): void;
 };
 
-export const useHiddenItems = (): UseHiddenItems => {
-  const { projectId } = useContext(TreeContext);
-
+export const useHiddenItems = (projectId?: string): UseHiddenItems => {
   const [hiddenItems, setHiddenItems] = useState<HiddenItem[]>([]);
 
   const stateSaverService = new StateSaverService();
