@@ -1,21 +1,39 @@
-## Описание изменений
+## Problem statement
 
-## Чек-лист
+_{Jira issue number, description or crucial excerpts}_
 
-- [ ] PR: направлен в правильную ветку
-- [ ] PR: назначен исполнитель PR и указаны нужные лейблы
-- [ ] PR: проверен diff, ничего лишнего в PR не попало
-- [ ] PR: есть описание изменений или приложена ссылка на задачу с описанием, оставлены пояснительные комментарии к diff
-- [ ] JS: нет варнингов и ошибок в консоли браузера
-- [ ] Тесты: новый функционал и исправленные баги покрыты тестами
-- [ ] Документация: отражены все изменения в API компонентов и описаны важные особенности реализации или использования
-- [ ] Сторибук: для компонентов написаны или обновлены stories
-- [ ] Сторибук: stories соответствует [правилам](https://github.com/gpn-prototypes/vega-ui/blob/master/docs/storybook.md)
-- [ ] Верстка: используются [переменные](https://github.com/gpn-prototypes/ui-kit/tree/master/src/components/Theme) и [css-классы](https://github.com/gpn-prototypes/ui-kit/blob/master/src/utils/whitepaper/whitepaper.css) из [дизайн-системы ГПН](https://github.com/gpn-prototypes/ui-kit)
-- [ ] Верстка: проверена с разным количеством контента
+## Solution details
 
-## Опционально
+_{What has been done (list of details)}_
 
-- [ ] PR: прилинкованы затронутые issue и связанные PR
-- [ ] Доработки: заведены задачи для дальнейшей работы, если что-то решено не править в текущем PR
-- [ ] Коммиты: проименованы в соответствии с [правилами](../docs/commits-style.md)
+## Type
+- [ ] Feature
+- [ ] Bug Fix
+- [ ] Refactoring
+- [ ] Test
+- [ ] Other
+
+## Associated issues
+
+_{Jira issues or PRs related to this one}_
+
+## Quality control
+- [ ] PR: Based on a correct branch
+- [ ] PR: Head branch is rebased on the base branch
+- [ ] PR: Assignee chosen and necessary labels are set
+- [ ] PR: Current form is filled out (where it makes sense)
+- [ ] PR: Diff checked for irrelevant changes
+- [ ] PR: Commit messages follow [the rules](../docs/commits-style.md)
+- [ ] JS: There's no errors/warnings in the browser dev console
+- [ ] Layout: Uses [variables](https://github.com/gpn-prototypes/ui-kit/tree/master/src/components/Theme) and [CSS classes](https://github.com/gpn-prototypes/ui-kit/blob/master/src/utils/whitepaper/whitepaper.css) from [GPN design system](https://github.com/gpn-prototypes/ui-kit)
+- [ ] Layout: Tested with various content amounts
+- [ ] Docs: All changes to the component API are reflected and key points are described
+- [ ] Storybook: Stories are written/updated for components
+- [ ] Storybook: Stories follow [the rules](https://github.com/gpn-prototypes/vega-ui/blob/master/docs/storybook.md)
+- [ ] Tests: New features and bugfixes are covered with tests
+- [ ] Tests: Existing tests passed successfully
+
+## Notable statements
+- [ ] Affects configuration files
+- [ ] Brings new packages or updates existing
+- [ ] Opened follow-up tasks to resolve
