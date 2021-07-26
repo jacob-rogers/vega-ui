@@ -9,6 +9,7 @@ export * from './carousel';
 export * from './checkbox';
 export * from './choice-group';
 export * from './combobox';
+export * from './collapse';
 export * from './dropdown';
 export * from './dropzone';
 export * from './file-input';
