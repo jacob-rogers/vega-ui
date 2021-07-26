@@ -53,7 +53,12 @@ const items = [
   },
 ];
 
-function Stories({ size, view, onlyIcon, withIcon }: StoriesProps): React.ReactElement {
+const Stories = ({
+  size,
+  view,
+  onlyIcon = false,
+  withIcon = false,
+}: StoriesProps): React.ReactElement => {
   const [valueTab, setValueTab] = useState<Item | null>(items[0]);
 
   const getIcon = (item: Item): IconElement | undefined => {
@@ -72,7 +77,7 @@ function Stories({ size, view, onlyIcon, withIcon }: StoriesProps): React.ReactE
       onlyIcon={onlyIcon}
     />
   );
-}
+};
 
 const knobs = (): StoriesProps => ({
   size: select('size', ['s', 'm'], 'm'),

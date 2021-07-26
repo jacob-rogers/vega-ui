@@ -1,6 +1,6 @@
 # @gpn-prototypes/vega-file-input
 
-Обёртка для компонента [BasicSelect](https://consta-uikit.vercel.app/?path=/story/components-filefield--playground) из Consta.
+Обёртка для компонента [file-input](https://consta-uikit.vercel.app/?path=/story/components-filefield--playground) из Consta.
 
 <img src="docs/pic-1.png" height="50">
 

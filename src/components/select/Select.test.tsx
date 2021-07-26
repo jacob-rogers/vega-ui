@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
-import { Combobox } from './Combobox';
+import { Select } from './Select';
 
 type Item = {
   label: string;
@@ -20,11 +20,11 @@ function renderComponent(): RenderResult {
     },
   ];
 
-  return render(<Combobox items={items} onChange={() => undefined} id="testSelect" />);
+  return render(<Select items={items} onChange={() => undefined} id="testSelect" />);
 }
 
-describe('Combobox', () => {
-  test('рендерится без ошибок', () => {
+describe('Select', () => {
+  test('Рендерится без ошибок', () => {
     expect(renderComponent).not.toThrow();
   });
 });

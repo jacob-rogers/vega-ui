@@ -21,47 +21,87 @@ storiesOf('ui/Combobox', module)
       },
     },
   })
-  .add('по умолчанию', () => {
-    type Option = {
+  .add('Single select', () => {
+    type Item = {
       label: string;
-      value: string;
+      id: number;
     };
 
-    const items = [
-      { label: 'Москва', value: 'moscow' },
-      { label: 'Санкт-Петербург', value: 'spb' },
-      { label: 'Томск', value: 'tomsk' },
-      { label: 'Омск', value: 'omsk' },
-      { label: 'Орск', value: 'orsk' },
-      { label: 'Тверь', value: 'tver' },
-      { label: 'Тула', value: 'tula' },
-      { label: 'Тамбов', value: 'tambov' },
-      { label: 'Краснодар', value: 'krasnodar' },
-      { label: 'Белгород', value: 'belgorod' },
+    const items: Item[] = [
+      {
+        label: 'Первый',
+        id: 1,
+      },
+      {
+        label: 'Второй',
+        id: 2,
+      },
+      {
+        label: 'Третий',
+        id: 3,
+      },
     ];
 
-    const [options, setOptions] = useState(items);
-    const [value, setValue] = useState<Option | null | undefined>();
-
-    const getItemLabel = (option: Option): string => option.label;
-
-    const handleCreate = (label: string): void => {
-      const newVal: Option = { label, value: label };
-      setValue(newVal);
-      setOptions([newVal, ...options]);
-    };
+    const [selected, setSelected] = useState<Item | null>();
 
     return (
       <>
         <div>
           <Combobox
             {...getCommonKnobs()}
-            id="city"
-            options={options}
-            value={value}
-            getOptionLabel={getItemLabel}
-            onChange={setValue}
-            onCreate={handleCreate}
+            items={items}
+            value={selected}
+            onChange={({ value }) => setSelected(value)}
+          />
+        </div>
+      </>
+    );
+  });
+
+storiesOf('ui/Combobox ', module)
+  .addDecorator(withKnobs)
+  .addParameters({
+    metadata: {
+      author: 'Consta',
+      status: 'Approved',
+      link: {
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-combobox--default-story',
+        text: 'Документация',
+      },
+    },
+  })
+  .add('Multiple select', () => {
+    type Item = {
+      label: string;
+      id: number;
+    };
+
+    const items: Item[] = [
+      {
+        label: 'Первый',
+        id: 1,
+      },
+      {
+        label: 'Второй',
+        id: 2,
+      },
+      {
+        label: 'Третий',
+        id: 3,
+      },
+    ];
+
+    const [selected, setSelected] = useState<Item[] | null>();
+
+    return (
+      <>
+        <div>
+          <Combobox
+            {...getCommonKnobs()}
+            items={items}
+            value={selected}
+            onChange={({ value }) => setSelected(value)}
+            multiple
           />
         </div>
       </>
