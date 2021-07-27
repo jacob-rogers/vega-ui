@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1-alpha.0](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.16...v3.3.1-alpha.0) (2021-07-27)
+
+
+### Bug Fixes
+
+* **version:** Поменяет версию пакета на 3.3.0 ([dd2bd74](https://github.com/gpn-prototypes/vega-ui/commit/dd2bd744197384a97df48c11bbe0cc14343a88e2))
+
 ### [3.1.10](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.9...v3.1.10) (2021-03-23)
 
 
