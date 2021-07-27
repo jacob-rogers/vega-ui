@@ -1,14 +1,14 @@
 import React from 'react';
 import { render, RenderResult } from '@testing-library/react';
 
-import { Combobox } from './Combobox';
+import { BasicSelect, BasicSelectProps } from './BasicSelect';
 
 type Option = {
   label: string;
   value: string;
 };
 
-function renderComponent(props?: React.ComponentProps<typeof Combobox>): RenderResult {
+function renderComponent(props?: BasicSelectProps): RenderResult {
   const opt = [
     {
       label: 'option 1',
@@ -21,7 +21,7 @@ function renderComponent(props?: React.ComponentProps<typeof Combobox>): RenderR
   ];
 
   return render(
-    <Combobox
+    <BasicSelect
       options={opt}
       getOptionLabel={(item: Option): string => item.label}
       id="testSelect"
@@ -30,7 +30,7 @@ function renderComponent(props?: React.ComponentProps<typeof Combobox>): RenderR
   );
 }
 
-describe('Combobox', () => {
+describe('BasicSelect', () => {
   test('рендерится без ошибок', () => {
     expect(renderComponent).not.toThrow();
   });

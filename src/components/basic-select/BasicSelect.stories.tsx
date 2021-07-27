@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
-import { Combobox } from './Combobox';
+import { BasicSelect } from './BasicSelect';
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const getCommonKnobs = () => ({
   placeholder: text('placeholder', 'Выберите город'),
 });
 
-storiesOf('ui/Combobox', module)
+storiesOf('ui/BasicSelect', module)
   .addDecorator(withKnobs)
   .addParameters({
     metadata: {
       author: 'Consta',
       status: 'Approved',
       link: {
-        href: 'https://consta-uikit.vercel.app/?path=/docs/components-combobox--default-story',
+        href: 'https://consta-uikit.vercel.app/?path=/docs/components-basicselect--default-story',
         text: 'Документация',
       },
     },
@@ -40,28 +40,20 @@ storiesOf('ui/Combobox', module)
       { label: 'Белгород', value: 'belgorod' },
     ];
 
-    const [options, setOptions] = useState(items);
     const [value, setValue] = useState<Option | null | undefined>();
 
     const getItemLabel = (option: Option): string => option.label;
 
-    const handleCreate = (label: string): void => {
-      const newVal: Option = { label, value: label };
-      setValue(newVal);
-      setOptions([newVal, ...options]);
-    };
-
     return (
       <>
         <div>
-          <Combobox
+          <BasicSelect
             {...getCommonKnobs()}
             id="city"
-            options={options}
-            value={value}
+            options={items}
             getOptionLabel={getItemLabel}
+            value={value}
             onChange={setValue}
-            onCreate={handleCreate}
           />
         </div>
       </>
