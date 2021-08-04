@@ -25,7 +25,6 @@ module.exports = {
     'testing-library/await-async-query': 'error',
     'testing-library/no-await-sync-query': 'error',
     'testing-library/no-debug': 'warn',
-    'react/require-default-props': 'warn',
   },
   settings: {
     'import/resolver': {

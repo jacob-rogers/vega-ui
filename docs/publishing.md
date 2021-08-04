@@ -1,6 +1,6 @@
 # Публикация пакетов
 
-Для управления версиями пакетов используется [standard-version](https://github.com/conventional-changelog/standard-version).
+Для управления версиями пакетов используется [standard-version](https://github.com/conventional-changelog/standard-version). 
 Пакеты являются публичными и публикуются в [Github-реджистри](https://npm.pkg.github.com) с помощью npm.
 
 Скоуп пакетов — [@gpn-prototypes](https://github.com/orgs/gpn-prototypes/packages).
@@ -9,10 +9,10 @@
 
 Чтобы все сработало, как часы, необходимо сделать следующее:
 
-*   Оформить коммиты по [правилам](commits-style.md)
-*   [Отправить PR](pr-style.md)
-*   [Пройти ревью](review.md)
-*   [Пройти тестирование](qa-flow.md)
+-   Оформить коммиты по [правилам](commits-style.md)
+-   [Отправить PR](pr-style.md)
+-   [Пройти ревью](review.md)
+-   [Пройти тестирование](qa-flow.md)
 
 ## Публикация
 
@@ -22,7 +22,7 @@
 
 ### Github Actions
 
-Запускается вручную во вкладке actions.
+Запускается вручную во вкладке actions. 
 [Конфигурация](../.github/workflows/publish.yml). При запуске данной конфигурации не на ветке `master` будет создана альфа-версия пакета.
 
 Происходят следующие действия:
@@ -36,7 +36,7 @@
 
 Пакеты становятся доступны публично, привязываются к организации [gpn-prototypes](https://github.com/orgs/gpn-prototypes/packages) и репозиторию [gpn-prototypes/vega-ui](https://github.com/gpn-prototypes/vega-ui/packages).
 
-*Внимание!* На данный момент пакеты публикуются только в Github-реджистри, а в npm-реджистри нет. Это значит, что через `npm` нельзя их установить, не [указав откуда их нужно скачивать](package-installation.md).
+_Внимание!_ На данный момент пакеты публикуются только в Github-реджистри, а в npm-реджистри нет. Это значит, что через `npm` нельзя их установить, не [указав откуда их нужно скачивать](package-installation.md).
 
 ## CHANGELOG
 

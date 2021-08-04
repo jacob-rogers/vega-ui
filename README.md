@@ -1,6 +1,6 @@
 # Vega UI kit
 
-![version](https://img.shields.io/badge/dynamic/json?label=vega-ui\&query=version\&url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpn-prototypes%2Fvega-ui%2Fmaster%2Fpackages%2Fcomponents%2Fpackage.json)
+![version](https://img.shields.io/badge/dynamic/json?label=vega-ui&query=version&url=https%3A%2F%2Fraw.githubusercontent.com%2Fgpn-prototypes%2Fvega-ui%2Fmaster%2Fpackages%2Fcomponents%2Fpackage.json)
 [![проверки](https://github.com/gpn-prototypes/vega-ui/workflows/%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B8/badge.svg?branch=master)](https://github.com/gpn-prototypes/vega-ui/actions?query=workflow%3A%D0%9F%D1%80%D0%BE%D0%B2%D0%B5%D1%80%D0%BA%D0%B8)
 
 ![node](https://img.shields.io/badge/node-%3E%3D%2012.16.2-brightgreen.svg)
@@ -10,8 +10,8 @@
 Библиотека компонентов для проекта Vega 2.0.
 Дополняет [дизайн-систему ГПН](https://github.com/gpn-prototypes/ui-kit). Для взаимодействия с ней созданы компоненты-обертки, которые позволяют:
 
-*   дополнять компоненты дизайн-системы новой функциональностью, не изменяя сам компонент;
-*   обновлять только обертку при изменении API компонента дизайн-системы, не трогая зависимости.
+-   дополнять компоненты дизайн-системы новой функциональностью, не изменяя сам компонент;
+-   обновлять только обертку при изменении API компонента дизайн-системы, не трогая зависимости.
 
 ## Структура проекта
 
@@ -28,9 +28,9 @@
 
 ## Зависимости
 
-*   node.js `^12.16.2`
-*   yarn `^1.22.4`
-*   Consta: [GPN UI kit](https://github.com/gpn-prototypes/ui-kit)
+-   node.js `^12.16.2`
+-   yarn `^1.22.4`
+-   Consta: [GPN UI kit](https://github.com/gpn-prototypes/ui-kit)
 
 Полный список зависимостей приведен в [package.json](package.json).
 
@@ -48,7 +48,7 @@ Edge старше 81 версии и IE [в поддержку не входят
 
 Чтобы установить пакеты, сначала необходимо авторизоваться в `github npm registry`. Для этого нужно сделать следующее:
 
-1.  Сгенерировать токен: <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a> → Generate new token. Дополнительно нужно отметить `read:packages` и `write:packages`.
+1.  Сгенерировать токен: <a href="https://github.com/settings/tokens">https&#x3A;//github.com/settings/tokens</a> → Generate new token. Дополнительно нужно отметить `read:packages` и `write:packages`.
 2.  Авторизоваться из текущей директории в Github-реджистри через npm:
 
 ```bash
@@ -75,30 +75,30 @@ $ yarn storybook
 
 ## Справка
 
-*   [Добавление нового компонента](docs/new-component.md)
-*   [Тестовое покрытие компонентов](docs/unit-tests.md)
-*   [Отправка PR на тестирование QA](docs/qa-flow.md)
-*   [Отправка PR в мастер](docs/pr-merge.md)
-*   [Публикация пакетов](docs/publishing.md)
-*   [Глобальное обновление Consta](docs/updating-consta.md)
-*   [Настройка среды разработки](docs/environment.md)
-*   [Особенности настройки проекта под Windows](docs/windows.md)
+-   [Добавление нового компонента](docs/new-component.md)
+-   [Тестовое покрытие компонентов](docs/unit-tests.md)
+-   [Отправка PR на тестирование QA](docs/qa-flow.md)
+-   [Отправка PR в мастер](docs/pr-merge.md)
+-   [Публикация пакетов](docs/publishing.md)
+-   [Глобальное обновление Consta](docs/updating-consta.md)
+-   [Настройка среды разработки](docs/environment.md)
+-   [Особенности настройки проекта под Windows](docs/windows.md)
 
 ## Оформление
 
-*   [Оформление кода: основные договоренности](docs/code-style.md)
-*   [Оформление коммитов](docs/commits-style.md)
-*   [Оформление PR](docs/pr-style.md)
-*   [Ведение Storybook](docs/storybook.md)
+-   [Оформление кода: основные договоренности](docs/code-style.md)
+-   [Оформление коммитов](docs/commits-style.md)
+-   [Оформление PR](docs/pr-style.md)
+-   [Ведение Storybook](docs/storybook.md)
 
 ## Внешним разработчикам
 
 Основная команда разработки — CSSSR, но любые другие команды всегда приветствуются к участию в развитии библиотеки.
 
-*   [Контрибьютинг](docs/contributors.md)
-*   [Ревью](docs/review.md)
-*   [Установка пакета](docs/package-installation.md)
-*   [Получение обновлений и проблемы при обновлении](docs/receiving-updates.md)
+-   [Контрибьютинг](docs/contributors.md)
+-   [Ревью](docs/review.md)
+-   [Установка пакета](docs/package-installation.md)
+-   [Получение обновлений и проблемы при обновлении](docs/receiving-updates.md)
 
 ## Мейнтейнеры
 

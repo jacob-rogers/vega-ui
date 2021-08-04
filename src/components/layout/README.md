@@ -2,8 +2,8 @@
 
 ### API
 
-*   [Описание компонентов](./docs/components.md)
-*   [Описание Grid](./docs/grid.md)
+-   [Описание компонентов](./docs/components.md)
+-   [Описание Grid](./docs/grid.md)
 
 ### Пример использования
 

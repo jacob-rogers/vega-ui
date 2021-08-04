@@ -116,7 +116,8 @@ storiesOf('ui/Modal', module)
       { label: 'Белгород', value: 'belgorod' },
     ];
 
-    const [selected, setSelected] = useState<Option | null | undefined>();
+    const getItemLabel = (option: Option): string => option.label;
+    const [value, setValue] = useState<Option | null | undefined>();
 
     return (
       <>
@@ -146,11 +147,10 @@ storiesOf('ui/Modal', module)
             <Combobox
               placeholder="Выберите город"
               id="city"
-              items={items}
-              value={selected}
-              onChange={({ value }) => setSelected(value)}
-              getItemLabel={(item) => item.label}
-              getItemKey={(item) => item.value}
+              value={value}
+              onChange={setValue}
+              options={items}
+              getOptionLabel={getItemLabel}
               dropdownRef={dropdownRef}
             />
           </Modal.Body>
