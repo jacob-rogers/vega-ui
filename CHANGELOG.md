@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.16...v3.3.0) (2021-08-17)
+
+
+### Features
+
+* **components:** Обновит компоненты BasicSelect, Combobox,  MultiCombobox, SnackBar ([#631](https://github.com/gpn-prototypes/vega-ui/issues/631)) ([47ef43a](https://github.com/gpn-prototypes/vega-ui/commit/47ef43a63ce4851754ca1ea3d866aa347c54f540))
+
 ## [3.2.0](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.16...v3.2.0) (2021-07-26)
 
 
