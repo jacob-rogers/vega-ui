@@ -5,8 +5,9 @@ import TreeContext from './context';
 import { TreeItemContainer } from './TreeItemContainer';
 import { TreeItemContent } from './TreeItemContent';
 import { TreeItem } from './types';
+import { useCheckedElementIdentifier } from './use-checked-element-identifier';
 import { useTreeHandlers } from './use-tree-handlers';
-import { useVisibilityIdentifier } from './use-visability-identifier';
+import { useVisibilityIdentifier } from './use-visibility-identifier';
 
 export const TreeLeaf: React.FC<TreeItem> = (props) => {
   const { id, name, isDraggable = true, iconId, isDropZone = true } = props;
@@ -18,6 +19,7 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     isDndEnable,
     dropZone,
     onHideItem,
+    onCheckItem,
     onContextMenu,
     onSelectItem,
     onDragStart,
@@ -34,6 +36,7 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     targetData,
     handleSelect,
     handleHide,
+    handleCheck,
     handleContextMenuOpen,
     handleDragStart,
     handleDragEnter,
@@ -47,6 +50,7 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     isDraggable: isDndEnable && isDraggable,
     onSelectItem,
     onHideItem,
+    onCheckItem,
     onDragStart,
     isDropZone,
     onDragEnd,
@@ -67,6 +71,10 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
     handleHide,
   });
 
+  const checkedElementIdentifier = useCheckedElementIdentifier({
+    item: { id },
+    handleCheck,
+  });
   return (
     <TreeItemContainer
       className={cnTree('Leaf')}
@@ -88,11 +96,13 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
           InaccessibleDropZone:
             withDropZoneIndicator && dropZone && dropZone.ref === targetRef && !dropZone.accessible,
           Hidden: visibilityIdentifier.isHidden,
+          Checked: checkedElementIdentifier.isChecked,
         })}
         onClick={handleSelect}
         name={name}
         iconId={iconId}
         renderVisibilitySwitcher={visibilityIdentifier.renderVisibilitySwitcher}
+        renderCheckedSwitcher={checkedElementIdentifier.renderCheckedSwitcher}
       />
     </TreeItemContainer>
   );

@@ -2,9 +2,9 @@ import React from 'react';
 import { fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { Tree } from './Tree';
-import { BlueLineSvg, OrangeLineSvg, RedLineSvg, rootProps } from './Tree.stories';
-import { TreeItem, TreeProps } from './types';
+import { Tree } from '../Tree';
+import { BlueLineSvg, OrangeLineSvg, RedLineSvg, rootProps } from '../Tree.stories';
+import { TreeItem, TreeProps } from '../types';
 
 export const icons = {
   'blue-line': BlueLineSvg,
@@ -291,5 +291,75 @@ describe('Tree', () => {
     }
 
     expect(onPasteClick).toBeCalledWith(['drag-item'], 'to');
+  });
+  test('отображаются чекбоксы', () => {
+    const nodes: TreeItem[] = [
+      {
+        name: '1',
+        id: '1',
+        isDraggable: false,
+        nodeList: [
+          {
+            name: '2',
+            id: '2',
+            nodeList: [],
+          },
+        ],
+      },
+    ];
+    const { container } = renderComponent({
+      nodeList: nodes,
+    });
+    const checkBoxes = container.querySelectorAll('.Checkbox-Input');
+    expect(checkBoxes.length).toBe(2);
+  });
+
+  test('убирается чекбоксы через withCheckElementSwitcher', () => {
+    const nodes: TreeItem[] = [
+      {
+        name: '1',
+        id: '1',
+        isDraggable: false,
+        nodeList: [
+          {
+            name: '2',
+            id: '2',
+            nodeList: [],
+          },
+        ],
+      },
+    ];
+    const { container } = renderComponent({
+      nodeList: nodes,
+      withCheckElementSwitcher: false,
+    });
+    const checkbox = container.querySelector('.Checkbox-Input');
+    expect(checkbox).not.toBeInTheDocument();
+  });
+
+  test('проверяем отображение заранее выбранных чекбоксов', () => {
+    const nodes: TreeItem[] = [
+      {
+        name: '1',
+        id: '1',
+        isDraggable: false,
+        nodeList: [
+          {
+            name: '2',
+            id: '2',
+            nodeList: [],
+          },
+        ],
+      },
+    ];
+    renderComponent({
+      nodeList: nodes,
+      checkedElements: ['2'],
+    });
+    const treeLeaf = document.getElementById('2');
+    expect(treeLeaf).toBeVisible();
+    const checkBox = treeLeaf?.querySelector('.VegaTree__NavigationItem');
+    expect(checkBox).toBeVisible();
+    expect(checkBox).toHaveClass('VegaTree__NavigationItem_Checked');
   });
 });

@@ -66,6 +66,7 @@ export type TreeProps<T = unknown> = {
   isDndEnable?: boolean;
   isContextMenuEnable?: boolean;
   withVisibilitySwitcher?: boolean;
+  withCheckElementSwitcher?: boolean;
   withDropZoneIndicator?: boolean;
   showIndentGuides?: boolean;
   isExternalDraggingElement?: boolean;
@@ -78,6 +79,8 @@ export type TreeProps<T = unknown> = {
   onDragEnd?: () => void;
   onSelectItem?: (items: TargetData[]) => void;
   onHideItem?: (items: HiddenItem[]) => void;
+  getCheckedItems?: (items: string[]) => void;
+  checkedElements?: string[];
 };
 
 export type NavigationEyeProps = {

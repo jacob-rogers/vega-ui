@@ -7,8 +7,11 @@ type TreeApi = {
   showIndentGuides: boolean;
   selectedItems: TargetData[];
   hiddenItems: HiddenItem[] | null;
+  checkedItems: string[];
+  intermediateItems: string[];
   contextMenuTarget: ContextMenuTarget | null;
   withVisibilitySwitcher?: boolean;
+  withCheckElementSwitcher?: boolean;
   withDropZoneIndicator?: boolean;
   actionItemComponents?: React.ReactElement[];
   icons?: {
@@ -26,15 +29,20 @@ type TreeApi = {
   dropZone?: DropZone | null;
   onSelectItem?: (selectedItem: TargetData) => void;
   onHideItem?: (item: HiddenItem) => void;
+  onCheckItem?: (item: string) => void;
   onRestoreHiddenItem?: (item: HiddenItem) => void;
+  onRestoreCheckedItem?: (item: HiddenItem) => void;
 };
 
 const TreeContext = React.createContext<TreeApi>({
   withVisibilitySwitcher: true,
+  withCheckElementSwitcher: true,
   showIndentGuides: true,
   selectedItems: [],
   contextMenuTarget: null,
   hiddenItems: [],
+  checkedItems: [],
+  intermediateItems: [],
   isDndEnable: true,
 });
 

@@ -1,4 +1,4 @@
-import { StateSaverService } from './StateSaverService';
+import { StateSaverService } from '../entities/StateSaverService';
 
 describe('ScreenSaverService', () => {
   beforeEach(() => {

@@ -1,8 +1,8 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 
-import { StateSaverService } from './entities/StateSaverService';
-import { HiddenItem } from './types';
-import { useHiddenItems } from './use-hidden-items';
+import { StateSaverService } from '../entities/StateSaverService';
+import { HiddenItem } from '../types';
+import { useHiddenItems } from '../use-hidden-items';
 
 describe('useHiddenItems', () => {
   beforeEach(() => {

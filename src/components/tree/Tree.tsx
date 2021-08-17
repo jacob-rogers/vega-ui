@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useRef, useState } from 'react';
+import React, { PropsWithChildren, useEffect, useRef, useState } from 'react';
 
 import { useKey, useResizeObserver } from '../../hooks';
 
@@ -8,6 +8,7 @@ import cnTree from './cn-tree';
 import TreeContext from './context';
 import renderTree from './tree-creator';
 import { ContextMenuTarget, DropZone, HiddenItem, TargetData, TreeProps } from './types';
+import { useCheckedItems } from './use-checked-items';
 import { useHiddenItems } from './use-hidden-items';
 
 import './Tree.css';
@@ -18,6 +19,7 @@ export function Tree<T extends unknown>(
   const {
     isDndEnable = true,
     icons,
+    checkedElements,
     nodeList = [],
     projectId,
     onDragStart,
@@ -25,11 +27,13 @@ export function Tree<T extends unknown>(
     onPasteItem,
     onSelectItem,
     onHideItem,
+    getCheckedItems,
     contextMenuItems,
     actionItemComponents,
     isExternalDraggingElement = false,
     isContextMenuEnable = true,
     withVisibilitySwitcher = true,
+    withCheckElementSwitcher = true,
     withDropZoneIndicator = true,
     withMultiSelect = true,
     showIndentGuides = true,
@@ -42,7 +46,11 @@ export function Tree<T extends unknown>(
   const [contextMenuTarget, setContextMenuTarget] = useState<ContextMenuTarget | null>(null);
 
   const { hiddenItems, handleHideItem, handleRestoreHiddenItem } = useHiddenItems(projectId);
-
+  const { checkedItems, intermediateItems, handleCheckItem } = useCheckedItems(
+    nodeList,
+    checkedElements as string[],
+    projectId,
+  );
   const rootRef = useRef<HTMLDivElement | null>(null);
 
   const { width: treeContainerWidth } = useResizeObserver(rootRef);
@@ -69,6 +77,13 @@ export function Tree<T extends unknown>(
     },
     { keyevent: 'keyup' },
   );
+
+  useEffect(() => {
+    if (getCheckedItems) {
+      getCheckedItems(checkedItems);
+    }
+  }, [checkedItems, getCheckedItems]);
+
   const handleSelectItem = (selectItem: TargetData): void => {
     if (isMultiSelect && selectedItems) {
       if (selectedItems.includes(selectItem)) {
@@ -204,12 +219,15 @@ export function Tree<T extends unknown>(
       value={{
         treeContainerWidth,
         withVisibilitySwitcher,
+        withCheckElementSwitcher,
         withDropZoneIndicator,
         showIndentGuides,
         icons,
         contextMenuTarget,
         actionItemComponents,
         hiddenItems,
+        checkedItems,
+        intermediateItems,
         selectedItems,
         isDndEnable,
         dropZone,
@@ -223,6 +241,7 @@ export function Tree<T extends unknown>(
         onDragLeave: handleDragLeave,
         onSelectItem: handleSelectItem,
         onHideItem: (item: HiddenItem) => handleHideItem(item, onHideItem),
+        onCheckItem: (item: string) => handleCheckItem(item),
         onRestoreHiddenItem: handleRestoreHiddenItem,
       }}
     >

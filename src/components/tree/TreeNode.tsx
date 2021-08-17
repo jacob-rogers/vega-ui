@@ -7,8 +7,9 @@ import TreeContext from './context';
 import { TreeItemContainer } from './TreeItemContainer';
 import { TreeItemContent } from './TreeItemContent';
 import { TreeItem } from './types';
+import { useCheckedElementIdentifier } from './use-checked-element-identifier';
 import { useTreeHandlers } from './use-tree-handlers';
-import { useVisibilityIdentifier } from './use-visability-identifier';
+import { useVisibilityIdentifier } from './use-visibility-identifier';
 
 export const TreeNode: React.FC<TreeItem> = (props) => {
   const {
@@ -27,6 +28,7 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     isDndEnable,
     dropZone,
     onHideItem,
+    onCheckItem,
     onContextMenu,
     onSelectItem,
     onDragStart,
@@ -59,6 +61,7 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     handleDrop,
     handleSelect,
     handleHide,
+    handleCheck,
     handleContextMenuOpen,
   } = useTreeHandlers({
     id,
@@ -69,6 +72,7 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     isDropZone,
     isDraggable: isDndEnable && isDraggable,
     onHideItem,
+    onCheckItem,
     onDragStart,
     onDragEnter,
     onDragLeave,
@@ -81,12 +85,15 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
       onRestoreHiddenItem({ id, ref: targetRef });
     }
   }, [id, onRestoreHiddenItem]);
-
   const visibilityIdentifier = useVisibilityIdentifier({
     item: { id, ref: targetRef },
     handleHide,
   });
 
+  const checkedElementIdentifier = useCheckedElementIdentifier({
+    item: { id },
+    handleCheck,
+  });
   const handleToggleExpand = (event: React.MouseEvent | React.KeyboardEvent): void => {
     event.stopPropagation();
 
@@ -121,11 +128,13 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
             dropZone.ref === dropZoneRef &&
             !dropZone.accessible,
           Hidden: visibilityIdentifier.isHidden,
+          Checked: checkedElementIdentifier.isChecked,
         })}
         onClick={handleSelect}
         name={name}
         iconId={iconId}
         renderVisibilitySwitcher={visibilityIdentifier.renderVisibilitySwitcher}
+        renderCheckedSwitcher={checkedElementIdentifier.renderCheckedSwitcher}
       >
         <button
           className={cnTree('NavigationArrow', { expanded })}
