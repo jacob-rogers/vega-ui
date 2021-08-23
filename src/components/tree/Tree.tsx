@@ -33,7 +33,7 @@ export function Tree<T extends unknown>(
     isExternalDraggingElement = false,
     isContextMenuEnable = true,
     withVisibilitySwitcher = true,
-    withCheckElementSwitcher = true,
+    withCheckElementSwitcher = false,
     withDropZoneIndicator = true,
     withMultiSelect = true,
     showIndentGuides = true,

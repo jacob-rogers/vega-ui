@@ -357,6 +357,7 @@ storiesOf('ui/Tree', module)
 
     return (
       <Tree
+        withCheckElementSwitcher
         icons={icons}
         projectId="a3333333-b111-c111-d111-e00000000011"
         actionItemComponents={[<ActionItemComponent />]}
