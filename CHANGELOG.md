@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/gpn-prototypes/vega-ui/compare/v3.3.0...v3.3.1) (2021-08-23)
+
+
+### Bug Fixes
+
+* **components:** fix default value of checkbox switcher ([#658](https://github.com/gpn-prototypes/vega-ui/issues/658)) ([85f4b69](https://github.com/gpn-prototypes/vega-ui/commit/85f4b6981f954ab8f080ec4f1274f763a520a0db))
+
 ## [3.3.0](https://github.com/gpn-prototypes/vega-ui/compare/v3.1.16...v3.3.0) (2021-08-17)
 
 
