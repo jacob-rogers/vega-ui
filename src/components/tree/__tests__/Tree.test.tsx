@@ -309,6 +309,7 @@ describe('Tree', () => {
     ];
     const { container } = renderComponent({
       nodeList: nodes,
+      withCheckElementSwitcher: true,
     });
     const checkBoxes = container.querySelectorAll('.Checkbox-Input');
     expect(checkBoxes.length).toBe(2);
