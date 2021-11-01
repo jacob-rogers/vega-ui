@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Jest Tests" tests="424" failures="0" errors="0" time="18.18">
+  <testsuite name="CanvasView" errors="0" failures="0" skipped="1" timestamp="2021-10-25T19:49:43" time="4.472" tests="13">
+    <testcase classname="CanvasView of создает экземпляр CanvasView" name="CanvasView of создает экземпляр CanvasView" time="0.002">
+    </testcase>
+    <testcase classname="CanvasView getState возвращает стейт" name="CanvasView getState возвращает стейт" time="0.001">
+    </testcase>
+    <testcase classname="CanvasView updateState обновляет стейт" name="CanvasView updateState обновляет стейт" time="0.001">
+    </testcase>
+    <testcase classname="CanvasView drawConnectionLine не вызывает обновление стейта, если в стейте нет linePoints" name="CanvasView drawConnectionLine не вызывает обновление стейта, если в стейте нет linePoints" time="0">
+    </testcase>
+    <testcase classname="CanvasView drawConnectionLine не обновляет linePoints, если stage равен null" name="CanvasView drawConnectionLine не обновляет linePoints, если stage равен null" time="0.001">
+    </testcase>
+    <testcase classname="CanvasView drawConnectionLine обновляет linePoints" name="CanvasView drawConnectionLine обновляет linePoints" time="0.005">
+    </testcase>
+    <testcase classname="CanvasView changeActiveData обновляет activeData в стейте" name="CanvasView changeActiveData обновляет activeData в стейте" time="0.001">
+    </testcase>
+    <testcase classname="CanvasView changeActiveData обновляет cursor, если переданный аргумент не равен null" name="CanvasView changeActiveData обновляет cursor, если переданный аргумент не равен null" time="0">
+    </testcase>
+    <testcase classname="CanvasView changeActiveData не обновляет cursor, если переданный аргумент равен null" name="CanvasView changeActiveData не обновляет cursor, если переданный аргумент равен null" time="0.001">
+    </testcase>
+    <testcase classname="CanvasView changeActiveData не обновляет linePoints, если не передан stage" name="CanvasView changeActiveData не обновляет linePoints, если не передан stage" time="0">
+    </testcase>
+    <testcase classname="CanvasView changeActiveData обновляет linePoints, если задан stage" name="CanvasView changeActiveData обновляет linePoints, если задан stage" time="0">
+      <skipped/>
+    </testcase>
+    <testcase classname="CanvasView removeSelectedItem дисконнектит элементы при удалении активной линии" name="CanvasView removeSelectedItem дисконнектит элементы при удалении активной линии" time="0.002">
+    </testcase>
+    <testcase classname="CanvasView removeSelectedItem удаляет элемент и его связи при удалении активного элемента" name="CanvasView removeSelectedItem удаляет элемент и его связи при удалении активного элемента" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Layout" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:43" time="5.176" tests="14">
+    <testcase classname="Layout рендерится без ошибок" name="Layout рендерится без ошибок" time="0.048">
+    </testcase>
+    <testcase classname="Layout лэйаут восстанавливается из переданного состояния" name="Layout лэйаут восстанавливается из переданного состояния" time="0.129">
+    </testcase>
+    <testcase classname="Layout Splitting рендерит опцию &quot;Добавить панель справа&quot;" name="Layout Splitting рендерит опцию &quot;Добавить панель справа&quot;" time="0.136">
+    </testcase>
+    <testcase classname="Layout Splitting рендерит опцию &quot;Добавить панель слева&quot;" name="Layout Splitting рендерит опцию &quot;Добавить панель слева&quot;" time="0.072">
+    </testcase>
+    <testcase classname="Layout Splitting рендерит опцию &quot;Добавить панель сверху&quot;" name="Layout Splitting рендерит опцию &quot;Добавить панель сверху&quot;" time="0.077">
+    </testcase>
+    <testcase classname="Layout Splitting рендерит опцию &quot;Добавить панель снизу&quot;" name="Layout Splitting рендерит опцию &quot;Добавить панель снизу&quot;" time="0.074">
+    </testcase>
+    <testcase classname="Layout Splitting вызывается onChange" name="Layout Splitting вызывается onChange" time="0.092">
+    </testcase>
+    <testcase classname="Layout Splitting опции закрываются после клика на элемент" name="Layout Splitting опции закрываются после клика на элемент" time="0.093">
+    </testcase>
+    <testcase classname="Layout Splitting создается новое окно в панели" name="Layout Splitting создается новое окно в панели" time="0.118">
+    </testcase>
+    <testcase classname="Layout Splitting панель закрывается" name="Layout Splitting панель закрывается" time="0.194">
+    </testcase>
+    <testcase classname="Layout Widgets рендерит custom element" name="Layout Widgets рендерит custom element" time="0.011">
+    </testcase>
+    <testcase classname="Layout Widgets рендерит react компонент" name="Layout Widgets рендерит react компонент" time="0.009">
+    </testcase>
+    <testcase classname="Layout Widgets виджет меняется" name="Layout Widgets виджет меняется" time="0.047">
+    </testcase>
+    <testcase classname="Layout Widgets происходит resize панелей" name="Layout Widgets происходит resize панелей" time="0.155">
+    </testcase>
+  </testsuite>
+  <testsuite name="HotkeyPrompt" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:48" time="0.906" tests="3">
+    <testcase classname="HotkeyPrompt отображается без ошибок" name="HotkeyPrompt отображается без ошибок" time="0.029">
+    </testcase>
+    <testcase classname="HotkeyPrompt открывается модальное окно" name="HotkeyPrompt открывается модальное окно" time="0.149">
+    </testcase>
+    <testcase classname="HotkeyPrompt отображается весь список горячих клавиш" name="HotkeyPrompt отображается весь список горячих клавиш" time="0.038">
+    </testcase>
+  </testsuite>
+  <testsuite name="OptionsPanel" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:49" time="1.086" tests="23">
+    <testcase classname="OptionsPanel корректно рендерится" name="OptionsPanel корректно рендерится" time="0.015">
+    </testcase>
+    <testcase classname="OptionsPanel прокидывается className" name="OptionsPanel прокидывается className" time="0.012">
+    </testcase>
+    <testcase classname="OptionsPanel опция &quot;Выбор элементов&quot; рендерится" name="OptionsPanel опция &quot;Выбор элементов&quot; рендерится" time="0.01">
+    </testcase>
+    <testcase classname="OptionsPanel опция &quot;Перемещение по полотну&quot; рендерится" name="OptionsPanel опция &quot;Перемещение по полотну&quot; рендерится" time="0.01">
+    </testcase>
+    <testcase classname="OptionsPanel опция &quot;Создание элементов&quot; рендерится" name="OptionsPanel опция &quot;Создание элементов&quot; рендерится" time="0.01">
+    </testcase>
+    <testcase classname="OptionsPanel опция &quot;Удаление элементов&quot; рендерится" name="OptionsPanel опция &quot;Удаление элементов&quot; рендерится" time="0.011">
+    </testcase>
+    <testcase classname="OptionsPanel по клику на &quot;Выбор элементов&quot; onChange вызывается с type &quot;selection&quot;" name="OptionsPanel по клику на &quot;Выбор элементов&quot; onChange вызывается с type &quot;selection&quot;" time="0.013">
+    </testcase>
+    <testcase classname="OptionsPanel по клику на &quot;Перемещение по полотну&quot; onChange вызывается с type &quot;dragging&quot;" name="OptionsPanel по клику на &quot;Перемещение по полотну&quot; onChange вызывается с type &quot;dragging&quot;" time="0.019">
+    </testcase>
+    <testcase classname="OptionsPanel по клику на &quot;Удаление элементов&quot; onChange вызывается с type &quot;remove&quot;" name="OptionsPanel по клику на &quot;Удаление элементов&quot; onChange вызывается с type &quot;remove&quot;" time="0.01">
+    </testcase>
+    <testcase classname="OptionsPanel CreateOption По клику на элемент меню &quot;Создание элементов&quot; открывается дропдаун" name="OptionsPanel CreateOption По клику на элемент меню &quot;Создание элементов&quot; открывается дропдаун" time="0.094">
+    </testcase>
+    <testcase classname="OptionsPanel CreateOption рендерится опция &quot;Начало&quot;" name="OptionsPanel CreateOption рендерится опция &quot;Начало&quot;" time="0.059">
+    </testcase>
+    <testcase classname="OptionsPanel CreateOption рендерится опция &quot;Выход&quot;" name="OptionsPanel CreateOption рендерится опция &quot;Выход&quot;" time="0.049">
+    </testcase>
+    <testcase classname="OptionsPanel CreateOption рендерится опция &quot;Шаг&quot;" name="OptionsPanel CreateOption рендерится опция &quot;Шаг&quot;" time="0.051">
+    </testcase>
+    <testcase classname="OptionsPanel CreateOption по клику на &quot;Начало&quot; onChange вызывается с type &quot;create&quot; и itemType &quot;root&quot;" name="OptionsPanel CreateOption по клику на &quot;Начало&quot; onChange вызывается с type &quot;create&quot; и itemType &quot;root&quot;" time="0.04">
+    </testcase>
+    <testcase classname="OptionsPanel CreateOption по клику на &quot;Выход&quot; onChange вызывается с type &quot;create&quot; и itemType &quot;end&quot;" name="OptionsPanel CreateOption по клику на &quot;Выход&quot; onChange вызывается с type &quot;create&quot; и itemType &quot;end&quot;" time="0.032">
+    </testcase>
+    <testcase classname="OptionsPanel CreateOption по клику на &quot;Шаг&quot; onChange вызывается с type &quot;create&quot; и itemType &quot;step&quot;" name="OptionsPanel CreateOption по клику на &quot;Шаг&quot; onChange вызывается с type &quot;create&quot; и itemType &quot;step&quot;" time="0.038">
+    </testcase>
+    <testcase classname="OptionsPanel disabledOption опция &quot;Выбор элементов&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;selection&quot;" name="OptionsPanel disabledOption опция &quot;Выбор элементов&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;selection&quot;" time="0.013">
+    </testcase>
+    <testcase classname="OptionsPanel disabledOption опция &quot;Перемещение по полотну&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;dragging&quot;" name="OptionsPanel disabledOption опция &quot;Перемещение по полотну&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;dragging&quot;" time="0.012">
+    </testcase>
+    <testcase classname="OptionsPanel disabledOption опция &quot;Создание элементов&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;create&quot;" name="OptionsPanel disabledOption опция &quot;Создание элементов&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;create&quot;" time="0.01">
+    </testcase>
+    <testcase classname="OptionsPanel disabledOption опция &quot;Удаление элементов&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;remove&quot;" name="OptionsPanel disabledOption опция &quot;Удаление элементов&quot; дизейблится при передаче пропса disabledOptions, содержащего тип &quot;remove&quot;" time="0.01">
+    </testcase>
+    <testcase classname="OptionsPanel disabledOption элементы дизейблятся, если передать их тип в пропсе disabledOptions" name="OptionsPanel disabledOption элементы дизейблятся, если передать их тип в пропсе disabledOptions" time="0.014">
+    </testcase>
+    <testcase classname="OptionsPanel activeValue элемент &quot;Выбор элементов&quot; может становиться активным, если передать activeValue &quot;selection&quot;" name="OptionsPanel activeValue элемент &quot;Выбор элементов&quot; может становиться активным, если передать activeValue &quot;selection&quot;" time="0.008">
+    </testcase>
+    <testcase classname="OptionsPanel activeValue элемент &quot;Перемещение по полотну&quot; может становиться активным, если передать activeValue &quot;dragging&quot;" name="OptionsPanel activeValue элемент &quot;Перемещение по полотну&quot; может становиться активным, если передать activeValue &quot;dragging&quot;" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="CanvasView" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:48" time="1.782" tests="7">
+    <testcase classname="CanvasView рендерится без ошибок" name="CanvasView рендерится без ошибок" time="0.092">
+    </testcase>
+    <testcase classname="CanvasView изменяет значение масштаба по Ctrl + Wheel" name="CanvasView изменяет значение масштаба по Ctrl + Wheel" time="0.064">
+    </testcase>
+    <testcase classname="CanvasView возвращает масштаб в исходное значение по Ctrl + 0" name="CanvasView возвращает масштаб в исходное значение по Ctrl + 0" time="0.108">
+    </testcase>
+    <testcase classname="CanvasView переключает режимы по нажатию на клавишу H" name="CanvasView переключает режимы по нажатию на клавишу H" time="0.059">
+    </testcase>
+    <testcase classname="CanvasView вызывает функцию перемещения по canvas по нажатию mouse wheel" name="CanvasView вызывает функцию перемещения по canvas по нажатию mouse wheel" time="0.067">
+    </testcase>
+    <testcase classname="CanvasView вызывает функцию перемещения по нажатию стрелок" name="CanvasView вызывает функцию перемещения по нажатию стрелок" time="0.04">
+    </testcase>
+    <testcase classname="CanvasView срабатывает горизонтальный скролл по canvas по Alt + mouse wheel" name="CanvasView срабатывает горизонтальный скролл по canvas по Alt + mouse wheel" time="0.06">
+    </testcase>
+  </testsuite>
+  <testsuite name="ScalePanel" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:50" time="0.972" tests="15">
+    <testcase classname="ScalePanel рендерится без ошибок" name="ScalePanel рендерится без ошибок" time="0.002">
+    </testcase>
+    <testcase classname="ScalePanel кнопка &quot;Выровнить содержимое&quot; срабатывает onChange по клику" name="ScalePanel кнопка &quot;Выровнить содержимое&quot; срабатывает onChange по клику" time="0.018">
+    </testcase>
+    <testcase classname="ScalePanel кнопка &quot;Уменьшить масштаб&quot; срабатывает onChange по клику" name="ScalePanel кнопка &quot;Уменьшить масштаб&quot; срабатывает onChange по клику" time="0.009">
+    </testcase>
+    <testcase classname="ScalePanel кнопка &quot;Уменьшить масштаб&quot; срабатывает условие minScale" name="ScalePanel кнопка &quot;Уменьшить масштаб&quot; срабатывает условие minScale" time="0.01">
+    </testcase>
+    <testcase classname="ScalePanel кнопка &quot;Увеличить масштаб&quot; срабатывает onChange по клику" name="ScalePanel кнопка &quot;Увеличить масштаб&quot; срабатывает onChange по клику" time="0.018">
+    </testcase>
+    <testcase classname="ScalePanel кнопка &quot;Увеличить масштаб&quot; срабатывает условие maxScale" name="ScalePanel кнопка &quot;Увеличить масштаб&quot; срабатывает условие maxScale" time="0.008">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input срабатывает onChange по Enter" name="ScalePanel ввод значения через input срабатывает onChange по Enter" time="0.037">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input срабатывает onChange при потере фокуса" name="ScalePanel ввод значения через input срабатывает onChange при потере фокуса" time="0.04">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input срабатывает условие minScale" name="ScalePanel ввод значения через input срабатывает условие minScale" time="0.035">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input срабатывает условие maxScale" name="ScalePanel ввод значения через input срабатывает условие maxScale" time="0.024">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input при повторном вводе значения перерисовки нет" name="ScalePanel ввод значения через input при повторном вводе значения перерисовки нет" time="0.02">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input игнорируется текст в ведённом значении" name="ScalePanel ввод значения через input игнорируется текст в ведённом значении" time="0.023">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input игнорируется введённое значении" name="ScalePanel ввод значения через input игнорируется введённое значении" time="0.024">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input игнорируется текст в ведённом значении превышающим верхний предел" name="ScalePanel ввод значения через input игнорируется текст в ведённом значении превышающим верхний предел" time="0.032">
+    </testcase>
+    <testcase classname="ScalePanel ввод значения через input значения за пределами допустимых заменяются на максимально и минимально допустимые" name="ScalePanel ввод значения через input значения за пределами допустимых заменяются на максимально и минимально допустимые" time="0.099">
+    </testcase>
+  </testsuite>
+  <testsuite name="Carousel" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:50" time="1.074" tests="16">
+    <testcase classname="Carousel рендерится без ошибок" name="Carousel рендерится без ошибок" time="0.015">
+    </testcase>
+    <testcase classname="Carousel ничего не рендерится, если нет слайдов" name="Carousel ничего не рендерится, если нет слайдов" time="0.003">
+    </testcase>
+    <testcase classname="Carousel при некорректном currentIdx ничего не рендерится" name="Carousel при некорректном currentIdx ничего не рендерится" time="0.002">
+    </testcase>
+    <testcase classname="Carousel рендерит стрелки только если передан arrows=true" name="Carousel рендерит стрелки только если передан arrows=true" time="0.024">
+    </testcase>
+    <testcase classname="Carousel рендерит точки только если передан dots=true" name="Carousel рендерит точки только если передан dots=true" time="0.18">
+    </testcase>
+    <testcase classname="Carousel вызывается onChange по клику на точку" name="Carousel вызывается onChange по клику на точку" time="0.045">
+    </testcase>
+    <testcase classname="Carousel вызывается onChange по клику на стрелку" name="Carousel вызывается onChange по клику на стрелку" time="0.011">
+    </testcase>
+    <testcase classname="Carousel autoPlay изменяет слайд автоматически" name="Carousel autoPlay изменяет слайд автоматически" time="0.01">
+    </testcase>
+    <testcase classname="Carousel autoPlay игнорирует значение 0" name="Carousel autoPlay игнорирует значение 0" time="0.028">
+    </testcase>
+    <testcase classname="Carousel autoPlay игнорирует значение Infinity" name="Carousel autoPlay игнорирует значение Infinity" time="0.019">
+    </testcase>
+    <testcase classname="Carousel autoPlay игнорирует значение -Infinity" name="Carousel autoPlay игнорирует значение -Infinity" time="0.008">
+    </testcase>
+    <testcase classname="Carousel autoPlay при наведении на слайд автовоспроизведение останавливается" name="Carousel autoPlay при наведении на слайд автовоспроизведение останавливается" time="0.023">
+    </testcase>
+    <testcase classname="use-slide корректно возвращает слайд" name="use-slide корректно возвращает слайд" time="0.005">
+    </testcase>
+    <testcase classname="use-autoplay вызывает callback" name="use-autoplay вызывает callback" time="0.003">
+    </testcase>
+    <testcase classname="use-autoplay выставляет паузу" name="use-autoplay выставляет паузу" time="0.003">
+    </testcase>
+    <testcase classname="use-autoplay возобновляет воспроизведение" name="use-autoplay возобновляет воспроизведение" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Sidebar" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:51" time="0.787" tests="13">
+    <testcase classname="Sidebar рендерится без ошибок" name="Sidebar рендерится без ошибок" time="0.012">
+    </testcase>
+    <testcase classname="Sidebar вызывается onMinimize по клику на кнопку &quot;Свернуть&quot;" name="Sidebar вызывается onMinimize по клику на кнопку &quot;Свернуть&quot;" time="0.051">
+    </testcase>
+    <testcase classname="Sidebar вызывается onClose по клику на кнопку &quot;Закрыть&quot;" name="Sidebar вызывается onClose по клику на кнопку &quot;Закрыть&quot;" time="0.027">
+    </testcase>
+    <testcase classname="Sidebar проверка props isOpen сайдбар рендерится открытым с isOpen = true" name="Sidebar проверка props isOpen сайдбар рендерится открытым с isOpen = true" time="0.006">
+    </testcase>
+    <testcase classname="Sidebar проверка props isOpen сайдбар рендерится закрытым с isOpen = false" name="Sidebar проверка props isOpen сайдбар рендерится закрытым с isOpen = false" time="0.002">
+    </testcase>
+    <testcase classname="Sidebar проверка props isOpen сайдбар по умолчанию закрыт" name="Sidebar проверка props isOpen сайдбар по умолчанию закрыт" time="0.002">
+    </testcase>
+    <testcase classname="Sidebar проверка props isMinimized если isMinimized = true, то окно всегда находится справа" name="Sidebar проверка props isMinimized если isMinimized = true, то окно всегда находится справа" time="0.007">
+    </testcase>
+    <testcase classname="Sidebar проверка props isMinimized если isMinimized = false, то окно располагается согласно пропу align" name="Sidebar проверка props isMinimized если isMinimized = false, то окно располагается согласно пропу align" time="0.011">
+    </testcase>
+    <testcase classname="Sidebar проверка props portal рендерится в портале" name="Sidebar проверка props portal рендерится в портале" time="0.01">
+    </testcase>
+    <testcase classname="Sidebar проверка props hasOverlay оверлей рендерится с hasOverlay = true" name="Sidebar проверка props hasOverlay оверлей рендерится с hasOverlay = true" time="0.005">
+    </testcase>
+    <testcase classname="Sidebar проверка props hasOverlay оверлей не рендерится с hasOverlay = false" name="Sidebar проверка props hasOverlay оверлей не рендерится с hasOverlay = false" time="0.007">
+    </testcase>
+    <testcase classname="Sidebar проверка props hasOverlay оверлей не рендерится с закрытым Сайдбаром" name="Sidebar проверка props hasOverlay оверлей не рендерится с закрытым Сайдбаром" time="0.002">
+    </testcase>
+    <testcase classname="Sidebar проверка props onOverlayClick срабатывает обработчик при клике на Оверлей" name="Sidebar проверка props onOverlayClick срабатывает обработчик при клике на Оверлей" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="Tree" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:43" time="8.489" tests="17">
+    <testcase classname="Tree рендерится без ошибок" name="Tree рендерится без ошибок" time="0.195">
+    </testcase>
+    <testcase classname="Tree рендерится только с одним узлом" name="Tree рендерится только с одним узлом" time="0.087">
+    </testcase>
+    <testcase classname="Tree рендерится с пустым nodeList" name="Tree рендерится с пустым nodeList" time="0.021">
+    </testcase>
+    <testcase classname="Tree рендерится с иконками" name="Tree рендерится с иконками" time="0.193">
+    </testcase>
+    <testcase classname="Tree при клике выделяется" name="Tree при клике выделяется" time="0.489">
+    </testcase>
+    <testcase classname="Tree при клике на иконку стрелки список элементов открывается и закрывается" name="Tree при клике на иконку стрелки список элементов открывается и закрывается" time="0.258">
+    </testcase>
+    <testcase classname="Tree при клике на иконку, скрывающую элементы Дерева, элемент меняет стилизацию" name="Tree при клике на иконку, скрывающую элементы Дерева, элемент меняет стилизацию" time="0.938">
+    </testcase>
+    <testcase classname="Tree скрытые элементы Дерева, восстанавливаются после перезагрузки" name="Tree скрытые элементы Дерева, восстанавливаются после перезагрузки" time="0.698">
+    </testcase>
+    <testcase classname="Tree скрытые элементы Дерева, восстанавливаются после перезагрузки, без указания projectId" name="Tree скрытые элементы Дерева, восстанавливаются после перезагрузки, без указания projectId" time="0.689">
+    </testcase>
+    <testcase classname="Tree все элементы видимы после перезагрузки, если сохраненных скрытых элементов Дерева нет" name="Tree все элементы видимы после перезагрузки, если сохраненных скрытых элементов Дерева нет" time="0.073">
+    </testcase>
+    <testcase classname="Tree Вызывается onHideItem при переключении видимости элемента" name="Tree Вызывается onHideItem при переключении видимости элемента" time="0.497">
+    </testcase>
+    <testcase classname="Tree скрытые элементы Дерева, сохраняются с корректным projectId" name="Tree скрытые элементы Дерева, сохраняются с корректным projectId" time="0.246">
+    </testcase>
+    <testcase classname="Tree скрытые элементы Дерева, сохраняются под стандартным именем, если нет projectId" name="Tree скрытые элементы Дерева, сохраняются под стандартным именем, если нет projectId" time="0.164">
+    </testcase>
+    <testcase classname="Tree drag and drop работает, при событии drop обработчик onPaste срабатывает и передает нужные параметры" name="Tree drag and drop работает, при событии drop обработчик onPaste срабатывает и передает нужные параметры" time="0.042">
+    </testcase>
+    <testcase classname="Tree отображаются чекбоксы" name="Tree отображаются чекбоксы" time="0.016">
+    </testcase>
+    <testcase classname="Tree убирается чекбоксы через withCheckElementSwitcher" name="Tree убирается чекбоксы через withCheckElementSwitcher" time="0.009">
+    </testcase>
+    <testcase classname="Tree проверяем отображение заранее выбранных чекбоксов" name="Tree проверяем отображение заранее выбранных чекбоксов" time="0.025">
+    </testcase>
+  </testsuite>
+  <testsuite name="LayoutMenu" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:51" time="0.792" tests="6">
+    <testcase classname="LayoutMenu рендерится без ошибок" name="LayoutMenu рендерится без ошибок" time="0.008">
+    </testcase>
+    <testcase classname="LayoutMenu рендерится триггер" name="LayoutMenu рендерится триггер" time="0.009">
+    </testcase>
+    <testcase classname="LayoutMenu рендерятся элементы меню" name="LayoutMenu рендерятся элементы меню" time="0.065">
+    </testcase>
+    <testcase classname="LayoutMenu вызывается onChange по клику на элемент" name="LayoutMenu вызывается onChange по клику на элемент" time="0.052">
+    </testcase>
+    <testcase classname="LayoutMenu по умолчанию активный элемент отсутствует" name="LayoutMenu по умолчанию активный элемент отсутствует" time="0.061">
+    </testcase>
+    <testcase classname="LayoutMenu выставляется активный элемент" name="LayoutMenu выставляется активный элемент" time="0.037">
+    </testcase>
+  </testsuite>
+  <testsuite name="FileDropzone" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:52" time="0.615" tests="4">
+    <testcase classname="FileDropzone рендерится без ошибок" name="FileDropzone рендерится без ошибок" time="0.012">
+    </testcase>
+    <testcase classname="FileDropzone рендерится label к input по умолчанию" name="FileDropzone рендерится label к input по умолчанию" time="0.026">
+    </testcase>
+    <testcase classname="FileDropzone вызываются обработчики onDrop, onDragEnter, onDragLeave " name="FileDropzone вызываются обработчики onDrop, onDragEnter, onDragLeave " time="0.016">
+    </testcase>
+    <testcase classname="FileDropzone срабатывает dragOver" name="FileDropzone срабатывает dragOver" time="0.008">
+    </testcase>
+  </testsuite>
+  <testsuite name="SplitPanes" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:52" time="0.548" tests="11">
+    <testcase classname="SplitPanes рендерится без ошибок" name="SplitPanes рендерится без ошибок" time="0.025">
+    </testcase>
+    <testcase classname="SplitPanes рендерит окна" name="SplitPanes рендерит окна" time="0.007">
+    </testcase>
+    <testcase classname="SplitPanes рендерит ресайзеры" name="SplitPanes рендерит ресайзеры" time="0.028">
+    </testcase>
+    <testcase classname="SplitPanes ресайзер становится активным по нажатию" name="SplitPanes ресайзер становится активным по нажатию" time="0.018">
+    </testcase>
+    <testcase classname="SplitPanes ресайзер становится активным только по нажатию на левую кнопку мыши" name="SplitPanes ресайзер становится активным только по нажатию на левую кнопку мыши" time="0.03">
+    </testcase>
+    <testcase classname="SplitPanes ресайзер становится неактивным при отпускании кнопки мыши" name="SplitPanes ресайзер становится неактивным при отпускании кнопки мыши" time="0.016">
+    </testcase>
+    <testcase classname="SplitPanes ресайзер становится неактивным при отпускании кнопки мыши вне окна браузера" name="SplitPanes ресайзер становится неактивным при отпускании кнопки мыши вне окна браузера" time="0.02">
+    </testcase>
+    <testcase classname="SplitPanes ресайзер не активируется, если передан allowResize = false" name="SplitPanes ресайзер не активируется, если передан allowResize = false" time="0.015">
+    </testcase>
+    <testcase classname="SplitPanes onResizeStart вызывается" name="SplitPanes onResizeStart вызывается" time="0.016">
+    </testcase>
+    <testcase classname="SplitPanes onResize вызывается" name="SplitPanes onResize вызывается" time="0.02">
+    </testcase>
+    <testcase classname="SplitPanes onResizeEnd вызывается" name="SplitPanes onResizeEnd вызывается" time="0.026">
+    </testcase>
+  </testsuite>
+  <testsuite name="Tabs" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:52" time="0.535" tests="4">
+    <testcase classname="Tabs рендерится без ошибок" name="Tabs рендерится без ошибок" time="0.016">
+    </testcase>
+    <testcase classname="Tabs количество табов совпадает с количеством переданных" name="Tabs количество табов совпадает с количеством переданных" time="0.011">
+    </testcase>
+    <testcase classname="Tabs активный таб отображается верно" name="Tabs активный таб отображается верно" time="0.011">
+    </testcase>
+    <testcase classname="Tabs срабатывает onChange" name="Tabs срабатывает onChange" time="0.019">
+    </testcase>
+  </testsuite>
+  <testsuite name="CarouselArrows" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:53" time="0.496" tests="5">
+    <testcase classname="CarouselArrows рендерится без ошибок" name="CarouselArrows рендерится без ошибок" time="0.006">
+    </testcase>
+    <testcase classname="CarouselArrows вызывает onNext по клику" name="CarouselArrows вызывает onNext по клику" time="0.006">
+    </testcase>
+    <testcase classname="CarouselArrows вызывает onPrev по клику" name="CarouselArrows вызывает onPrev по клику" time="0.004">
+    </testcase>
+    <testcase classname="CarouselArrows передаются классы для кнопок" name="CarouselArrows передаются классы для кнопок" time="0.004">
+    </testcase>
+    <testcase classname="CarouselArrows проставляются дефолтные лейблы" name="CarouselArrows проставляются дефолтные лейблы" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="useTask/useTimeout" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:53" time="0.44" tests="27">
+    <testcase classname="useTask/useTimeout вызывает callback по таймауту" name="useTask/useTimeout вызывает callback по таймауту" time="0.007">
+    </testcase>
+    <testcase classname="useTask/useTimeout перерендер не сбрасывает таймаут" name="useTask/useTimeout перерендер не сбрасывает таймаут" time="0.003">
+    </testcase>
+    <testcase classname="useTask/useTimeout смена таймаута отменяет предыдущую задачу" name="useTask/useTimeout смена таймаута отменяет предыдущую задачу" time="0.003">
+    </testcase>
+    <testcase classname="useTask/useTimeout ручная отмена" name="useTask/useTimeout ручная отмена" time="0.003">
+    </testcase>
+    <testcase classname="useTask/useTimeout повторная ручная отмена не имеет эффекта" name="useTask/useTimeout повторная ручная отмена не имеет эффекта" time="0.003">
+    </testcase>
+    <testcase classname="useTask/useTimeout отмена при unmount" name="useTask/useTimeout отмена при unmount" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useTimeout отмена при ручном старте" name="useTask/useTimeout отмена при ручном старте" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useTimeout перезапуск" name="useTask/useTimeout перезапуск" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useTimeout ручной запуск" name="useTask/useTimeout ручной запуск" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useTimeout включение autostart запускает таймер" name="useTask/useTimeout включение autostart запускает таймер" time="0.011">
+    </testcase>
+    <testcase classname="useTask/useTimeout смена callback не сбрасывает таймер" name="useTask/useTimeout смена callback не сбрасывает таймер" time="0.01">
+    </testcase>
+    <testcase classname="useTask/useTimeout вызов flush запускает callback и отменяет задачу" name="useTask/useTimeout вызов flush запускает callback и отменяет задачу" time="0.004">
+    </testcase>
+    <testcase classname="useTask/useTimeout бесконечный таймаут не имеет эффекта" name="useTask/useTimeout бесконечный таймаут не имеет эффекта" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval вызывает callback по таймауту" name="useTask/useInterval вызывает callback по таймауту" time="0.003">
+    </testcase>
+    <testcase classname="useTask/useInterval перерендер не сбрасывает таймаут" name="useTask/useInterval перерендер не сбрасывает таймаут" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval смена таймаута отменяет предыдущую задачу" name="useTask/useInterval смена таймаута отменяет предыдущую задачу" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval ручная отмена" name="useTask/useInterval ручная отмена" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval повторная ручная отмена не имеет эффекта" name="useTask/useInterval повторная ручная отмена не имеет эффекта" time="0.003">
+    </testcase>
+    <testcase classname="useTask/useInterval отмена при unmount" name="useTask/useInterval отмена при unmount" time="0.004">
+    </testcase>
+    <testcase classname="useTask/useInterval отмена при ручном старте" name="useTask/useInterval отмена при ручном старте" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval перезапуск" name="useTask/useInterval перезапуск" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval ручной запуск" name="useTask/useInterval ручной запуск" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval включение autostart запускает таймер" name="useTask/useInterval включение autostart запускает таймер" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval смена callback не сбрасывает таймер" name="useTask/useInterval смена callback не сбрасывает таймер" time="0.003">
+    </testcase>
+    <testcase classname="useTask/useInterval вызов flush запускает callback и отменяет задачу" name="useTask/useInterval вызов flush запускает callback и отменяет задачу" time="0.002">
+    </testcase>
+    <testcase classname="useTask/useInterval бесконечный таймаут не имеет эффекта" name="useTask/useInterval бесконечный таймаут не имеет эффекта" time="0.002">
+    </testcase>
+    <testcase classname="useInterval callback вызывается повторно" name="useInterval callback вызывается повторно" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Modal" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:52" time="1.683" tests="11">
+    <testcase classname="Modal рендерится без ошибок" name="Modal рендерится без ошибок" time="0.008">
+    </testcase>
+    <testcase classname="Modal если isOpen false, то ничего не рендерится" name="Modal если isOpen false, то ничего не рендерится" time="0.009">
+    </testcase>
+    <testcase classname="Modal blockBodyScroll если blockBodyScroll true, то к body добавляется дополнительный класс" name="Modal blockBodyScroll если blockBodyScroll true, то к body добавляется дополнительный класс" time="0.005">
+    </testcase>
+    <testcase classname="Modal blockBodyScroll если blockBodyScroll false, то дополнительный класс к body не добавляется" name="Modal blockBodyScroll если blockBodyScroll false, то дополнительный класс к body не добавляется" time="0.003">
+    </testcase>
+    <testcase classname="Modal Кнопка закрытия рендерится кнопка, если передать hasCloseButton" name="Modal Кнопка закрытия рендерится кнопка, если передать hasCloseButton" time="0.008">
+    </testcase>
+    <testcase classname="Modal Кнопка закрытия по клику на кнопку вызывается onClose" name="Modal Кнопка закрытия по клику на кнопку вызывается onClose" time="0.01">
+    </testcase>
+    <testcase classname="Modal Оверлей рендерится оверлей, если передать hasOverlay" name="Modal Оверлей рендерится оверлей, если передать hasOverlay" time="0.006">
+    </testcase>
+    <testcase classname="Modal Оверлей можно прокинуть onOverlayClick" name="Modal Оверлей можно прокинуть onOverlayClick" time="0.004">
+    </testcase>
+    <testcase classname="Modal ModalHeader прокидывается className" name="Modal ModalHeader прокидывается className" time="0.002">
+    </testcase>
+    <testcase classname="Modal ModalBody прокидывается className" name="Modal ModalBody прокидывается className" time="0.002">
+    </testcase>
+    <testcase classname="Modal ModalFooter прокидывается className" name="Modal ModalFooter прокидывается className" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="getUnit" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:53" time="0.304" tests="27">
+    <testcase classname="getUnit getUnit(0%) = %" name="getUnit getUnit(0%) = %" time="0.001">
+    </testcase>
+    <testcase classname="getUnit getUnit(100%) = %" name="getUnit getUnit(100%) = %" time="0">
+    </testcase>
+    <testcase classname="getUnit getUnit(0px) = px" name="getUnit getUnit(0px) = px" time="0.001">
+    </testcase>
+    <testcase classname="getUnit getUnit(10px) = px" name="getUnit getUnit(10px) = px" time="0">
+    </testcase>
+    <testcase classname="getUnit getUnit(0) = ratio" name="getUnit getUnit(0) = ratio" time="0">
+    </testcase>
+    <testcase classname="getUnit getUnit(0) = ratio" name="getUnit getUnit(0) = ratio" time="0">
+    </testcase>
+    <testcase classname="getUnit getUnit() = ratio" name="getUnit getUnit() = ratio" time="0.001">
+    </testcase>
+    <testcase classname="convert падает с ошибкой для некорректного входного значения &quot;&quot;" name="convert падает с ошибкой для некорректного входного значения &quot;&quot;" time="0.008">
+    </testcase>
+    <testcase classname="convert падает с ошибкой для некорректного входного значения &quot;%&quot;" name="convert падает с ошибкой для некорректного входного значения &quot;%&quot;" time="0.001">
+    </testcase>
+    <testcase classname="convert падает с ошибкой для некорректного входного значения &quot;px&quot;" name="convert падает с ошибкой для некорректного входного значения &quot;px&quot;" time="0.009">
+    </testcase>
+    <testcase classname="convert convert(&quot;100%&quot;) = 200" name="convert convert(&quot;100%&quot;) = 200" time="0">
+    </testcase>
+    <testcase classname="convert convert(&quot;50%&quot;) = 100" name="convert convert(&quot;50%&quot;) = 100" time="0.001">
+    </testcase>
+    <testcase classname="convert convert(&quot;0%&quot;) = 0" name="convert convert(&quot;0%&quot;) = 0" time="0">
+    </testcase>
+    <testcase classname="convert convert(&quot;1&quot;) = 1" name="convert convert(&quot;1&quot;) = 1" time="0">
+    </testcase>
+    <testcase classname="convert convert(&quot;50&quot;) = 50" name="convert convert(&quot;50&quot;) = 50" time="0">
+    </testcase>
+    <testcase classname="convert convert(&quot;1px&quot;) = 1" name="convert convert(&quot;1px&quot;) = 1" time="0">
+    </testcase>
+    <testcase classname="convertToUnit падает с ошибкой, если передан некорректный unit" name="convertToUnit падает с ошибкой, если передан некорректный unit" time="0">
+    </testcase>
+    <testcase classname="convertToUnit convertToUnit(100, &quot;px&quot;, 200) = 100px" name="convertToUnit convertToUnit(100, &quot;px&quot;, 200) = 100px" time="0.001">
+    </testcase>
+    <testcase classname="convertToUnit convertToUnit(20, &quot;%&quot;, 200) = 10%" name="convertToUnit convertToUnit(20, &quot;%&quot;, 200) = 10%" time="0">
+    </testcase>
+    <testcase classname="convertToUnit convertToUnit(10.12345, &quot;ratio&quot;, 200) = 1012" name="convertToUnit convertToUnit(10.12345, &quot;ratio&quot;, 200) = 1012" time="0">
+    </testcase>
+    <testcase classname="convertSizeToCSSValue convertSizeToCSSValue(1px, undefined) = &quot;1px&quot;" name="convertSizeToCSSValue convertSizeToCSSValue(1px, undefined) = &quot;1px&quot;" time="0">
+    </testcase>
+    <testcase classname="convertSizeToCSSValue convertSizeToCSSValue(0%, 1) = &quot;0%&quot;" name="convertSizeToCSSValue convertSizeToCSSValue(0%, 1) = &quot;0%&quot;" time="0.001">
+    </testcase>
+    <testcase classname="convertSizeToCSSValue convertSizeToCSSValue(100%, undefined) = &quot;100%&quot;" name="convertSizeToCSSValue convertSizeToCSSValue(100%, undefined) = &quot;100%&quot;" time="0">
+    </testcase>
+    <testcase classname="convertSizeToCSSValue convertSizeToCSSValue(50%, 2) = &quot;calc(50% - 2px * 0.5)&quot;" name="convertSizeToCSSValue convertSizeToCSSValue(50%, 2) = &quot;calc(50% - 2px * 0.5)&quot;" time="0">
+    </testcase>
+    <testcase classname="toPx toPx(&quot;50&quot;, 200, &quot;%&quot;) = 100" name="toPx toPx(&quot;50&quot;, 200, &quot;%&quot;) = 100" time="0">
+    </testcase>
+    <testcase classname="toPx toPx(&quot;50&quot;, 200, &quot;px&quot;) = 50" name="toPx toPx(&quot;50&quot;, 200, &quot;px&quot;) = 50" time="0">
+    </testcase>
+    <testcase classname="toPx toPx(&quot;50&quot;, 200, &quot;ratio&quot;) = 50" name="toPx toPx(&quot;50&quot;, 200, &quot;ratio&quot;) = 50" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Dropdown" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:53" time="0.539" tests="7">
+    <testcase classname="Dropdown рендерится без ошибок" name="Dropdown рендерится без ошибок" time="0.008">
+    </testcase>
+    <testcase classname="Dropdown открытие/закрытие меню" name="Dropdown открытие/закрытие меню" time="0.053">
+    </testcase>
+    <testcase classname="Dropdown меню рендерится всегда, если onlyOpen=false" name="Dropdown меню рендерится всегда, если onlyOpen=false" time="0.044">
+    </testcase>
+    <testcase classname="Dropdown вызывается onToggle при клика на тригер" name="Dropdown вызывается onToggle при клика на тригер" time="0.006">
+    </testcase>
+    <testcase classname="Dropdown вызывается onClickOutside при клика вне дропдауна" name="Dropdown вызывается onClickOutside при клика вне дропдауна" time="0.004">
+    </testcase>
+    <testcase classname="Dropdown onToggle возвращает новое состояние дропдауна" name="Dropdown onToggle возвращает новое состояние дропдауна" time="0.005">
+    </testcase>
+    <testcase classname="Dropdown рендерится в портале" name="Dropdown рендерится в портале" time="0.035">
+    </testcase>
+  </testsuite>
+  <testsuite name="Form" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.4" tests="6">
+    <testcase classname="Form Form рендерится без ошибок" name="Form Form рендерится без ошибок" time="0.004">
+    </testcase>
+    <testcase classname="Form Field рендерится без ошибок" name="Form Field рендерится без ошибок" time="0.002">
+    </testcase>
+    <testcase classname="Form Fieldset рендерится без ошибок" name="Form Fieldset рендерится без ошибок" time="0.002">
+    </testcase>
+    <testcase classname="Form Row рендерится без ошибок" name="Form Row рендерится без ошибок" time="0.003">
+    </testcase>
+    <testcase classname="Form Label рендерится без ошибок" name="Form Label рендерится без ошибок" time="0.003">
+    </testcase>
+    <testcase classname="Form Legend рендерится без ошибок" name="Form Legend рендерится без ошибок" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="MultiCombobox" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.374" tests="1">
+    <testcase classname="MultiCombobox рендерится без ошибок" name="MultiCombobox рендерится без ошибок" time="0.011">
+    </testcase>
+  </testsuite>
+  <testsuite name="use-local-storage" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.294" tests="6">
+    <testcase classname="use-local-storage возвращает значение по умолчанию" name="use-local-storage возвращает значение по умолчанию" time="0.003">
+    </testcase>
+    <testcase classname="use-local-storage записывает новое значение" name="use-local-storage записывает новое значение" time="0.003">
+    </testcase>
+    <testcase classname="use-local-storage реагирует на событие storage" name="use-local-storage реагирует на событие storage" time="0.003">
+    </testcase>
+    <testcase classname="use-local-storage при анмаунте не реагирует на событие storage" name="use-local-storage при анмаунте не реагирует на событие storage" time="0.003">
+    </testcase>
+    <testcase classname="use-local-storage при ошибке парсинга значения из localStorage вернет дефолтное значение" name="use-local-storage при ошибке парсинга значения из localStorage вернет дефолтное значение" time="0.003">
+    </testcase>
+    <testcase classname="use-local-storage если в сеттер передать функцию, то в storage сохранится результат её выполнения над текущим значением" name="use-local-storage если в сеттер передать функцию, то в storage сохранится результат её выполнения над текущим значением" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="RadioList" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.384" tests="5">
+    <testcase classname="RadioList рендерится без ошибок" name="RadioList рендерится без ошибок" time="0.007">
+    </testcase>
+    <testcase classname="RadioListItem по умолчанию не выбрано значение" name="RadioListItem по умолчанию не выбрано значение" time="0.016">
+    </testcase>
+    <testcase classname="RadioListItem проставляется active" name="RadioListItem проставляется active" time="0.011">
+    </testcase>
+    <testcase classname="RadioListItem переключаются radio " name="RadioListItem переключаются radio " time="0.021">
+    </testcase>
+    <testcase classname="RadioListItem срабатывает onChange" name="RadioListItem срабатывает onChange" time="0.018">
+    </testcase>
+  </testsuite>
+  <testsuite name="Grid" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.244" tests="2">
+    <testcase classname="Grid возвращает ошибку об отсутствии элемента с заданным индексом" name="Grid возвращает ошибку об отсутствии элемента с заданным индексом" time="0.004">
+    </testcase>
+    <testcase classname="Grid удаляются слушатели" name="Grid удаляются слушатели" time="0">
+    </testcase>
+  </testsuite>
+  <testsuite name="Hotkey" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.359" tests="3">
+    <testcase classname="Hotkey отображается без ошибок" name="Hotkey отображается без ошибок" time="0.015">
+    </testcase>
+    <testcase classname="Hotkey отображаются несколько горячих клавиш" name="Hotkey отображаются несколько горячих клавиш" time="0.018">
+    </testcase>
+    <testcase classname="Hotkey отображается комбинация горячих клавиш" name="Hotkey отображается комбинация горячих клавиш" time="0.034">
+    </testcase>
+  </testsuite>
+  <testsuite name="Root" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.344" tests="9">
+    <testcase classname="Root рендерится без ошибок" name="Root рендерится без ошибок" time="0.007">
+    </testcase>
+    <testcase classname="Root Theme прокидывается тема" name="Root Theme прокидывается тема" time="0.006">
+    </testcase>
+    <testcase classname="Root Theme обновляется тема" name="Root Theme обновляется тема" time="0.007">
+    </testcase>
+    <testcase classname="Root Portals создает порталы" name="Root Portals создает порталы" time="0.005">
+    </testcase>
+    <testcase classname="Root Portals хук usePortal получает созданные порталы" name="Root Portals хук usePortal получает созданные порталы" time="0.005">
+    </testcase>
+    <testcase classname="Root Portals хук usePortal создает порталы, если они не были созданы" name="Root Portals хук usePortal создает порталы, если они не были созданы" time="0.006">
+    </testcase>
+    <testcase classname="Root Portals порталы удаляются при анмаунте компонента" name="Root Portals порталы удаляются при анмаунте компонента" time="0.004">
+    </testcase>
+    <testcase classname="Root Portals на порталы прокидывается className" name="Root Portals на порталы прокидывается className" time="0.005">
+    </testcase>
+    <testcase classname="Root Portals портал рендерится в корректной ноде" name="Root Portals портал рендерится в корректной ноде" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="CarouselDots" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:54" time="0.372" tests="6">
+    <testcase classname="CarouselDots рендерится без ошибок" name="CarouselDots рендерится без ошибок" time="0.004">
+    </testcase>
+    <testcase classname="CarouselDots ничего не рендерится, если слайдов меньше двух" name="CarouselDots ничего не рендерится, если слайдов меньше двух" time="0.012">
+    </testcase>
+    <testcase classname="CarouselDots добавляется className для контейнера" name="CarouselDots добавляется className для контейнера" time="0.003">
+    </testcase>
+    <testcase classname="CarouselDots добавляется dotClassName для всех кнопок" name="CarouselDots добавляется dotClassName для всех кнопок" time="0.038">
+    </testcase>
+    <testcase classname="CarouselDots добавляется is-active для активной точки" name="CarouselDots добавляется is-active для активной точки" time="0.015">
+    </testcase>
+    <testcase classname="CarouselDots onChange вызывается с индексом элемента" name="CarouselDots onChange вызывается с индексом элемента" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="CarouselCaption" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.293" tests="4">
+    <testcase classname="CarouselCaption рендерится без ошибок" name="CarouselCaption рендерится без ошибок" time="0.004">
+    </testcase>
+    <testcase classname="CarouselCaption ничего не рендерится, если не передан caption" name="CarouselCaption ничего не рендерится, если не передан caption" time="0.002">
+    </testcase>
+    <testcase classname="CarouselCaption выводится caption" name="CarouselCaption выводится caption" time="0.005">
+    </testcase>
+    <testcase classname="CarouselCaption передается className" name="CarouselCaption передается className" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="useMount" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.273" tests="1">
+    <testcase classname="useMount вызывает функцию при маунте" name="useMount вызывает функцию при маунте" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="Attach" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.325" tests="1">
+    <testcase classname="Attach рендерится без ошибок" name="Attach рендерится без ошибок" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="Dropzone" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.333" tests="8">
+    <testcase classname="Dropzone рендерится без ошибок" name="Dropzone рендерится без ошибок" time="0.01">
+    </testcase>
+    <testcase classname="Dropzone Не Fullscreen отрабатывают события dnd" name="Dropzone Не Fullscreen отрабатывают события dnd" time="0.004">
+    </testcase>
+    <testcase classname="Dropzone Не Fullscreen прокидывается корректный className" name="Dropzone Не Fullscreen прокидывается корректный className" time="0.013">
+    </testcase>
+    <testcase classname="Dropzone Fullscreen отрабатывает событие dragenter на document" name="Dropzone Fullscreen отрабатывает событие dragenter на document" time="0.004">
+    </testcase>
+    <testcase classname="Dropzone Fullscreen проставляется корректный className" name="Dropzone Fullscreen проставляется корректный className" time="0.003">
+    </testcase>
+    <testcase classname="Dropzone Fullscreen рендерит оверлей" name="Dropzone Fullscreen рендерит оверлей" time="0.003">
+    </testcase>
+    <testcase classname="Dropzone Fullscreen имеется класс visible, если show = true" name="Dropzone Fullscreen имеется класс visible, если show = true" time="0.003">
+    </testcase>
+    <testcase classname="Dropzone Fullscreen не имеет класс visible, если show = false" name="Dropzone Fullscreen не имеет класс visible, если show = false" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="ProgressSpin" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.25" tests="1">
+    <testcase classname="ProgressSpin рендерится без ошибок" name="ProgressSpin рендерится без ошибок" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="Combobox" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.314" tests="1">
+    <testcase classname="Combobox рендерится без ошибок" name="Combobox рендерится без ошибок" time="0.01">
+    </testcase>
+  </testsuite>
+  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.366" tests="1">
+    <testcase classname="Table рендерится без ошибок" name="Table рендерится без ошибок" time="0.021">
+    </testcase>
+  </testsuite>
+  <testsuite name="Canvas utils" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:55" time="0.334" tests="3">
+    <testcase classname="Canvas utils calcCreatedStepPosition function При layer = null возвращает точку {x: 0, y: 0}" name="Canvas utils calcCreatedStepPosition function При layer = null возвращает точку {x: 0, y: 0}" time="0.001">
+    </testcase>
+    <testcase classname="Canvas utils calcCreatedStepPosition function Возвращает корректную точку создания шага при стандартном scale" name="Canvas utils calcCreatedStepPosition function Возвращает корректную точку создания шага при стандартном scale" time="0.01">
+    </testcase>
+    <testcase classname="Canvas utils calcCreatedStepPosition function Возвращает корректную точку создания шага при измененном scale" name="Canvas utils calcCreatedStepPosition function Возвращает корректную точку создания шага при измененном scale" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="movementReducer" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.279" tests="6">
+    <testcase classname="movementReducer должен выполниться с ошибкой, если передано неизвестное действие" name="movementReducer должен выполниться с ошибкой, если передано неизвестное действие" time="0.004">
+    </testcase>
+    <testcase classname="movementReducer переходит в активное состояние при начале перемещения" name="movementReducer переходит в активное состояние при начале перемещения" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer выходит из активного состояния при завершении перемещения" name="movementReducer выходит из активного состояния при завершении перемещения" time="0">
+    </testcase>
+    <testcase classname="movementReducer уставновка положения ресайзера не обновляет состояние, если оно не отличается" name="movementReducer уставновка положения ресайзера не обновляет состояние, если оно не отличается" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer уставновка ширины не обновляет состояние, если оно не отличается" name="movementReducer уставновка ширины не обновляет состояние, если оно не отличается" time="0">
+    </testcase>
+    <testcase classname="movementReducer положение ресайзера не должно выходить за границы ширины" name="movementReducer положение ресайзера не должно выходить за границы ширины" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="File" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.304" tests="1">
+    <testcase classname="File рендерится без ошибок" name="File рендерится без ошибок" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="BasicSelect" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.393" tests="1">
+    <testcase classname="BasicSelect рендерится без ошибок" name="BasicSelect рендерится без ошибок" time="0.018">
+    </testcase>
+  </testsuite>
+  <testsuite name="FileInput" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.314" tests="3">
+    <testcase classname="FileInput рендерится без ошибок" name="FileInput рендерится без ошибок" time="0.004">
+    </testcase>
+    <testcase classname="FileInput вызывается onChange" name="FileInput вызывается onChange" time="0.004">
+    </testcase>
+    <testcase classname="FileInput отрабатывает рендер children" name="FileInput отрабатывает рендер children" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="CarouselSlide" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.299" tests="4">
+    <testcase classname="CarouselSlide рендерится без ошибок" name="CarouselSlide рендерится без ошибок" time="0.003">
+    </testcase>
+    <testcase classname="CarouselSlide вызывается onPointerEnter" name="CarouselSlide вызывается onPointerEnter" time="0.012">
+    </testcase>
+    <testcase classname="CarouselSlide вызывается onPointerLeave" name="CarouselSlide вызывается onPointerLeave" time="0.012">
+    </testcase>
+    <testcase classname="CarouselSlide передаётся класс" name="CarouselSlide передаётся класс" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="Animation | Appearance" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.284" tests="2">
+    <testcase classname="Animation | Appearance рендерится без ошибок" name="Animation | Appearance рендерится без ошибок" time="0.003">
+    </testcase>
+    <testcase classname="Animation | Base рендерится без ошибок" name="Animation | Base рендерится без ошибок" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="useHiddenItems" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.293" tests="3">
+    <testcase classname="useHiddenItems восстановление состояния сохраненного скрытого элемента" name="useHiddenItems восстановление состояния сохраненного скрытого элемента" time="0.004">
+    </testcase>
+    <testcase classname="useHiddenItems элемент добавляется в список скрытых" name="useHiddenItems элемент добавляется в список скрытых" time="0.003">
+    </testcase>
+    <testcase classname="useHiddenItems элемент удаляется из списока скрытых" name="useHiddenItems элемент удаляется из списока скрытых" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="PageBanner" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.317" tests="4">
+    <testcase classname="PageBanner рендерится без ошибок" name="PageBanner рендерится без ошибок" time="0.003">
+    </testcase>
+    <testcase classname="PageBanner рендерится с заголовком" name="PageBanner рендерится с заголовком" time="0.004">
+    </testcase>
+    <testcase classname="PageBanner рендерится с описанием" name="PageBanner рендерится с описанием" time="0.014">
+    </testcase>
+    <testcase classname="PageBanner рендерится с дополнительным классом" name="PageBanner рендерится с дополнительным классом" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="use-sidebar" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:56" time="0.359" tests="5">
+    <testcase classname="use-sidebar isOpen open открывает сайдбар" name="use-sidebar isOpen open открывает сайдбар" time="0.006">
+    </testcase>
+    <testcase classname="use-sidebar isOpen close закрывает сайдбар" name="use-sidebar isOpen close закрывает сайдбар" time="0.002">
+    </testcase>
+    <testcase classname="use-sidebar isMinimized minimize сворачивает сайдбар" name="use-sidebar isMinimized minimize сворачивает сайдбар" time="0.002">
+    </testcase>
+    <testcase classname="use-sidebar isMinimized maximize разворачивает сайдбар" name="use-sidebar isMinimized maximize разворачивает сайдбар" time="0.002">
+    </testcase>
+    <testcase classname="use-sidebar задает дефолтные значения стейта" name="use-sidebar задает дефолтные значения стейта" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="useFileDropzoneProvider" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.29" tests="1">
+    <testcase classname="useFileDropzoneProvider выдает ошибку, если хук вызыван вне FileDropzoneProvider" name="useFileDropzoneProvider выдает ошибку, если хук вызыван вне FileDropzoneProvider" time="0.019">
+    </testcase>
+  </testsuite>
+  <testsuite name="Tree" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.269" tests="15">
+    <testcase classname="Tree creation of" name="Tree creation of" time="0.001">
+    </testcase>
+    <testcase classname="Tree creation from" name="Tree creation from" time="0">
+    </testcase>
+    <testcase classname="Tree creation create" name="Tree creation create" time="0.001">
+    </testcase>
+    <testcase classname="Tree nth" name="Tree nth" time="0">
+    </testcase>
+    <testcase classname="Tree root" name="Tree root" time="0.001">
+    </testcase>
+    <testcase classname="Tree root возвращает ошибку" name="Tree root возвращает ошибку" time="0.004">
+    </testcase>
+    <testcase classname="Tree indexOf" name="Tree indexOf" time="0.001">
+    </testcase>
+    <testcase classname="Tree max" name="Tree max" time="0">
+    </testcase>
+    <testcase classname="Tree toBranch" name="Tree toBranch" time="0.002">
+    </testcase>
+    <testcase classname="Tree toBranch не выполняется если узел branch" name="Tree toBranch не выполняется если узел branch" time="0">
+    </testcase>
+    <testcase classname="Tree remove замена родителя соседом удаленного узла" name="Tree remove замена родителя соседом удаленного узла" time="0.001">
+    </testcase>
+    <testcase classname="Tree remove нет ошибки при попытке удалении несуществующего узла" name="Tree remove нет ошибки при попытке удалении несуществующего узла" time="0">
+    </testcase>
+    <testcase classname="Tree remove поднятие левого идеального поддерева на место родителя" name="Tree remove поднятие левого идеального поддерева на место родителя" time="0.001">
+    </testcase>
+    <testcase classname="Tree remove поднятие правого идеального поддерева на место родителя" name="Tree remove поднятие правого идеального поддерева на место родителя" time="0.003">
+    </testcase>
+    <testcase classname="Tree восстановление и извлечение состояния" name="Tree восстановление и извлечение состояния" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="NavigationList" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.337" tests="4">
+    <testcase classname="NavigationList рендерится без ошибок" name="NavigationList рендерится без ошибок" time="0.006">
+    </testcase>
+    <testcase classname="NavigationList для нумерации добавляется класс ordered" name="NavigationList для нумерации добавляется класс ordered" time="0.005">
+    </testcase>
+    <testcase classname="NavigationList.Item к активному элементу добавляется active класс" name="NavigationList.Item к активному элементу добавляется active класс" time="0.004">
+    </testcase>
+    <testcase classname="NavigationList.Item при клике по элементу срабатывает onClick" name="NavigationList.Item при клике по элементу срабатывает onClick" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="Tag" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.287" tests="1">
+    <testcase classname="Tag рендерится без ошибок" name="Tag рендерится без ошибок" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="LayoutMenuList" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.313" tests="1">
+    <testcase classname="LayoutMenuList рендерится без ошибок" name="LayoutMenuList рендерится без ошибок" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="useWindowSize" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.305" tests="1">
+    <testcase classname="useWindowSize размер окна отображается в компоненте" name="useWindowSize размер окна отображается в компоненте" time="0.029">
+    </testcase>
+  </testsuite>
+  <testsuite name="useKey" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.281" tests="1">
+    <testcase classname="useKey callback вызывается, если кликнули на Enter" name="useKey callback вызывается, если кликнули на Enter" time="0.005">
+    </testcase>
+  </testsuite>
+  <testsuite name="Radio" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:57" time="0.301" tests="1">
+    <testcase classname="Radio рендерится без ошибок" name="Radio рендерится без ошибок" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="Timer" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.273" tests="1">
+    <testcase classname="Timer рендерится без ошибок" name="Timer рендерится без ошибок" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="DataView" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.273" tests="1">
+    <testcase classname="DataView возвращает ошибку если невозможно создать DataView" name="DataView возвращает ошибку если невозможно создать DataView" time="0.009">
+    </testcase>
+  </testsuite>
+  <testsuite name="use-modal" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.272" tests="3">
+    <testcase classname="use-modal isOpen принимает значение initialOpen" name="use-modal isOpen принимает значение initialOpen" time="0.003">
+    </testcase>
+    <testcase classname="use-modal при вызове open isOpen становится true" name="use-modal при вызове open isOpen становится true" time="0.002">
+    </testcase>
+    <testcase classname="use-modal при вызове close isOpen становится false" name="use-modal при вызове close isOpen становится false" time="0.002">
+    </testcase>
+  </testsuite>
+  <testsuite name="Canvas" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.267" tests="11">
+    <testcase classname="Canvas of" name="Canvas of" time="0">
+    </testcase>
+    <testcase classname="Canvas connect добавляет ребенка в дерево" name="Canvas connect добавляет ребенка в дерево" time="0">
+    </testcase>
+    <testcase classname="Canvas connect добавляет родителя в дерево" name="Canvas connect добавляет родителя в дерево" time="0">
+    </testcase>
+    <testcase classname="Canvas connect не добавляет ребенка, если родитель и ребенок это один и тот же элемент" name="Canvas connect не добавляет ребенка, если родитель и ребенок это один и тот же элемент" time="0.001">
+    </testcase>
+    <testcase classname="Canvas connect не создает циклические зависимости у элементов" name="Canvas connect не создает циклические зависимости у элементов" time="0">
+    </testcase>
+    <testcase classname="Canvas remove удаляет элемент из канваса" name="Canvas remove удаляет элемент из канваса" time="0.001">
+    </testcase>
+    <testcase classname="Canvas remove удаляет связь с родительским элементом" name="Canvas remove удаляет связь с родительским элементом" time="0">
+    </testcase>
+    <testcase classname="Canvas remove удаляет связи с дочерними элементами" name="Canvas remove удаляет связи с дочерними элементами" time="0">
+    </testcase>
+    <testcase classname="Canvas disconnect" name="Canvas disconnect" time="0.001">
+    </testcase>
+    <testcase classname="Canvas extract" name="Canvas extract" time="0">
+    </testcase>
+    <testcase classname="Canvas moveToTop" name="Canvas moveToTop" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="Loader" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.279" tests="1">
+    <testcase classname="Loader рендерится без ошибок" name="Loader рендерится без ошибок" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="usePortals" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.284" tests="2">
+    <testcase classname="usePortals компонент рендерится" name="usePortals компонент рендерится" time="0.004">
+    </testcase>
+    <testcase classname="usePortals создается портал" name="usePortals создается портал" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="useResizeObserver" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.286" tests="5">
+    <testcase classname="useResizeObserver возвращает значение по умолчанию" name="useResizeObserver возвращает значение по умолчанию" time="0.003">
+    </testcase>
+    <testcase classname="useResizeObserver если нет эелемента, то он не добавляется в ResizeObserver" name="useResizeObserver если нет эелемента, то он не добавляется в ResizeObserver" time="0.002">
+    </testcase>
+    <testcase classname="useResizeObserver элемент добавляется в ResizeObserver" name="useResizeObserver элемент добавляется в ResizeObserver" time="0.002">
+    </testcase>
+    <testcase classname="useResizeObserver при замене элемента прошлый удаляется из ResizeObserver" name="useResizeObserver при замене элемента прошлый удаляется из ResizeObserver" time="0.004">
+    </testcase>
+    <testcase classname="useResizeObserver возвращает размер элемента при ресайзе" name="useResizeObserver возвращает размер элемента при ресайзе" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="SnackBar" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.31" tests="1">
+    <testcase classname="SnackBar рендерится без ошибок" name="SnackBar рендерится без ошибок" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="movementReducer" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.361" tests="11">
+    <testcase classname="movementReducer dir right" name="movementReducer dir right" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer dir left" name="movementReducer dir left" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer dir null" name="movementReducer dir null" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer offset перемещение вправо" name="movementReducer offset перемещение вправо" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer offset перемещение влево" name="movementReducer offset перемещение влево" time="0">
+    </testcase>
+    <testcase classname="movementReducer offset ограничение offset шириной элемента" name="movementReducer offset ограничение offset шириной элемента" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer offset установка нужного offset" name="movementReducer offset установка нужного offset" time="0">
+    </testcase>
+    <testcase classname="movementReducer isActive" name="movementReducer isActive" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer limits isLeftLimit" name="movementReducer limits isLeftLimit" time="0.001">
+    </testcase>
+    <testcase classname="movementReducer limits isRightLimit" name="movementReducer limits isRightLimit" time="0">
+    </testcase>
+    <testcase classname="movementReducer getNextOffset" name="movementReducer getNextOffset" time="0.013">
+    </testcase>
+  </testsuite>
+  <testsuite name="Button" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:58" time="0.378" tests="1">
+    <testcase classname="Button рендерит label" name="Button рендерит label" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="useOnChange" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.359" tests="4">
+    <testcase classname="useOnChange вызывает обработчик при смене значения" name="useOnChange вызывает обработчик при смене значения" time="0.007">
+    </testcase>
+    <testcase classname="useOnChange обработчик не вызывается, если значение не изменилось" name="useOnChange обработчик не вызывается, если значение не изменилось" time="0.003">
+    </testcase>
+    <testcase classname="useOnChange смена обработчика не повторяет его вызов" name="useOnChange смена обработчика не повторяет его вызов" time="0.003">
+    </testcase>
+    <testcase classname="useOnChange при смене обработчика вызывается логика отмены предыдущего обработчика" name="useOnChange при смене обработчика вызывается логика отмены предыдущего обработчика" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="Cursor" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.26" tests="15">
+    <testcase classname="Cursor указывает на корень по умолчанию" name="Cursor указывает на корень по умолчанию" time="0">
+    </testcase>
+    <testcase classname="Cursor указывает -1 при любом отрицательном индексе" name="Cursor указывает -1 при любом отрицательном индексе" time="0.001">
+    </testcase>
+    <testcase classname="Cursor clone" name="Cursor clone" time="0.001">
+    </testcase>
+    <testcase classname="Cursor left" name="Cursor left" time="0">
+    </testcase>
+    <testcase classname="Cursor right" name="Cursor right" time="0.001">
+    </testcase>
+    <testcase classname="Cursor isRight / isLeft корень не должен быть ни правым ни левым" name="Cursor isRight / isLeft корень не должен быть ни правым ни левым" time="0">
+    </testcase>
+    <testcase classname="Cursor isRight / isLeft указывает на левого потомка" name="Cursor isRight / isLeft указывает на левого потомка" time="0.001">
+    </testcase>
+    <testcase classname="Cursor isRight / isLeft указывает на правого потомка" name="Cursor isRight / isLeft указывает на правого потомка" time="0">
+    </testcase>
+    <testcase classname="Cursor parent" name="Cursor parent" time="0.002">
+    </testcase>
+    <testcase classname="Cursor sibling" name="Cursor sibling" time="0">
+    </testcase>
+    <testcase classname="Cursor sibling" name="Cursor sibling" time="0.001">
+    </testcase>
+    <testcase classname="Cursor перемещение курсора к левому потомку" name="Cursor перемещение курсора к левому потомку" time="0">
+    </testcase>
+    <testcase classname="Cursor перемещение курсора к правому потомку" name="Cursor перемещение курсора к правому потомку" time="0.001">
+    </testcase>
+    <testcase classname="Cursor перемещение курсора к родителю" name="Cursor перемещение курсора к родителю" time="0">
+    </testcase>
+    <testcase classname="Cursor перемещение курсора к соседнему элементу" name="Cursor перемещение курсора к соседнему элементу" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="useFileDropzone" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.281" tests="1">
+    <testcase classname="useFileDropzone отсутствие аргумента options не вызывает ошибку" name="useFileDropzone отсутствие аргумента options не вызывает ошибку" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="useUnmount" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.281" tests="1">
+    <testcase classname="useUnmount вызывает функцию при анмаунте" name="useUnmount вызывает функцию при анмаунте" time="0.006">
+    </testcase>
+  </testsuite>
+  <testsuite name="Logo" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.291" tests="1">
+    <testcase classname="Logo рендерится без ошибок" name="Logo рендерится без ошибок" time="0.012">
+    </testcase>
+  </testsuite>
+  <testsuite name="useOnClickOutside" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.289" tests="2">
+    <testcase classname="useOnClickOutside коллбек не вызывается, если кликнули на элемент, который обернут в хук" name="useOnClickOutside коллбек не вызывается, если кликнули на элемент, который обернут в хук" time="0.007">
+    </testcase>
+    <testcase classname="useOnClickOutside коллбек вызывается, если кликнули вне обернутого элемента" name="useOnClickOutside коллбек вызывается, если кликнули вне обернутого элемента" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="Tree" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.274" tests="13">
+    <testcase classname="Tree создание of" name="Tree создание of" time="0">
+    </testcase>
+    <testcase classname="Tree addChild добавляет ребенка, если такого еще нет" name="Tree addChild добавляет ребенка, если такого еще нет" time="0">
+    </testcase>
+    <testcase classname="Tree addChild не добавляет ребенка, если тот уже существует" name="Tree addChild не добавляет ребенка, если тот уже существует" time="0.001">
+    </testcase>
+    <testcase classname="Tree removeChild" name="Tree removeChild" time="0">
+    </testcase>
+    <testcase classname="Tree addParent добавляет родителя, если такого еще нет" name="Tree addParent добавляет родителя, если такого еще нет" time="0.001">
+    </testcase>
+    <testcase classname="Tree addParent не добавляет родителя, если тот уже существует" name="Tree addParent не добавляет родителя, если тот уже существует" time="0">
+    </testcase>
+    <testcase classname="Tree removeParent" name="Tree removeParent" time="0.001">
+    </testcase>
+    <testcase classname="Tree setChildren" name="Tree setChildren" time="0">
+    </testcase>
+    <testcase classname="Tree setChildrenIds" name="Tree setChildrenIds" time="0">
+    </testcase>
+    <testcase classname="Tree canConnectedWith возвращает false, если передать самого себе" name="Tree canConnectedWith возвращает false, если передать самого себе" time="0">
+    </testcase>
+    <testcase classname="Tree canConnectedWith возвращает false, если вызвать с существующим ребенком" name="Tree canConnectedWith возвращает false, если вызвать с существующим ребенком" time="0.001">
+    </testcase>
+    <testcase classname="Tree canConnectedWith возвращает false, если вызвать с существующим родителем" name="Tree canConnectedWith возвращает false, если вызвать с существующим родителем" time="0">
+    </testcase>
+    <testcase classname="Tree canConnectedWith возвращает true, если попытаться вызвать с еще несуществующей связью" name="Tree canConnectedWith возвращает true, если попытаться вызвать с еще несуществующей связью" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="PageFooter" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:49:59" time="0.312" tests="1">
+    <testcase classname="PageFooter рендерится без ошибок" name="PageFooter рендерится без ошибок" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="Split" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:50:00" time="0.306" tests="9">
+    <testcase classname="Split getOrientation по направлению &quot;up&quot; выводит ориентацию &quot;vertical&quot;" name="Split getOrientation по направлению &quot;up&quot; выводит ориентацию &quot;vertical&quot;" time="0.001">
+    </testcase>
+    <testcase classname="Split getOrientation по направлению &quot;down&quot; выводит ориентацию &quot;vertical&quot;" name="Split getOrientation по направлению &quot;down&quot; выводит ориентацию &quot;vertical&quot;" time="0">
+    </testcase>
+    <testcase classname="Split getOrientation по направлению &quot;left&quot; выводит ориентацию &quot;horizontal&quot;" name="Split getOrientation по направлению &quot;left&quot; выводит ориентацию &quot;horizontal&quot;" time="0">
+    </testcase>
+    <testcase classname="Split getOrientation по направлению &quot;right&quot; выводит ориентацию &quot;horizontal&quot;" name="Split getOrientation по направлению &quot;right&quot; выводит ориентацию &quot;horizontal&quot;" time="0.001">
+    </testcase>
+    <testcase classname="Split getDirection" name="Split getDirection" time="0">
+    </testcase>
+    <testcase classname="Split isVertical" name="Split isVertical" time="0.001">
+    </testcase>
+    <testcase classname="Split isHorizontal" name="Split isHorizontal" time="0">
+    </testcase>
+    <testcase classname="Split isBefore" name="Split isBefore" time="0.001">
+    </testcase>
+    <testcase classname="Split isAfter" name="Split isAfter" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="ScreenSaverService" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:50:00" time="0.247" tests="2">
+    <testcase classname="ScreenSaverService saverScreenId: устанавливает и добавляет к ключам" name="ScreenSaverService saverScreenId: устанавливает и добавляет к ключам" time="0.003">
+    </testcase>
+    <testcase classname="ScreenSaverService Проставляет значения без savedScreenId" name="ScreenSaverService Проставляет значения без savedScreenId" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="SplitView" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:50:00" time="0.242" tests="1">
+    <testcase classname="SplitView возвращает ошибку если невозможно создать SplitView" name="SplitView возвращает ошибку если невозможно создать SplitView" time="0.003">
+    </testcase>
+  </testsuite>
+  <testsuite name="ScreenSaverService" errors="0" failures="0" skipped="0" timestamp="2021-10-25T19:50:00" time="0.214" tests="2">
+    <testcase classname="ScreenSaverService устанавливает и добавляет к ключам значение projectId" name="ScreenSaverService устанавливает и добавляет к ключам значение projectId" time="0.001">
+    </testcase>
+    <testcase classname="ScreenSaverService Проставляет значения без savedScreenId" name="ScreenSaverService Проставляет значения без savedScreenId" time="0">
+    </testcase>
+  </testsuite>
+</testsuites>

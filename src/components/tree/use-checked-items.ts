@@ -4,21 +4,21 @@ import { StateSaverService } from './entities/StateSaverService';
 import { TreeItem } from './types';
 
 type UseCheckedItems = {
-  checkedItems: string[];
+  checkedItems: TreeItem[];
   intermediateItems: string[];
   handleCheckItem(id: string): void;
 };
 
 export const useCheckedItems = (
   nodeList: TreeItem[],
-  treeElements: string[],
+  treeElements: TreeItem[],
   projectId?: string,
 ): UseCheckedItems => {
   const stateSaverService = new StateSaverService();
 
-  const [checkedItems, setCheckedItems] = useState<string[]>([]);
+  const [checkedItems, setCheckedItems] = useState<TreeItem[]>([]);
   const [intermediateItems, setIntermediateItems] = useState<string[]>([]);
-  const checkedElemsRef = useRef<string[]>([]);
+  const checkedElemsRef = useRef<TreeItem[]>([]);
   const intermediateElemsRef = useRef<string[]>([]);
   stateSaverService.setProjectId(projectId);
 
@@ -34,8 +34,15 @@ export const useCheckedItems = (
       ) => {
         nodes.forEach((_item) => {
           // uncheck
-          if ((isLastChild && id === _item.id && checkedElemsRef.current.includes(id)) || checked) {
-            checkedElemsRef.current = checkedElemsRef.current.filter((elem) => elem !== _item.id);
+          if (
+            (isLastChild &&
+              id === _item.id &&
+              checkedElemsRef.current.some((elem) => elem.id === id)) ||
+            checked
+          ) {
+            checkedElemsRef.current = checkedElemsRef.current.filter(
+              (elem) => elem.id !== _item.id,
+            );
             if (_item.nodeList.length) {
               getItemNode(_item.nodeList, id, false, true);
             }
@@ -44,14 +51,14 @@ export const useCheckedItems = (
 
           // check if parent checked
           if (isParentChecked) {
-            checkedElemsRef.current.push(_item.id);
+            checkedElemsRef.current.push(_item);
             if (_item.nodeList.length) {
               getItemNode(_item.nodeList, id, true);
             }
           }
           // check by click
           if (id === _item.id) {
-            checkedElemsRef.current.push(_item.id);
+            checkedElemsRef.current.push(_item);
             if (_item.nodeList.length) {
               getItemNode(_item.nodeList, id, true);
             }
@@ -62,10 +69,12 @@ export const useCheckedItems = (
           // uncheck if all children unchecked
           if (
             _item.nodeList.length &&
-            !_item.nodeList.some((elem) => checkedElemsRef.current.includes(elem.id))
+            !_item.nodeList.some((elem) =>
+              checkedElemsRef.current.some((element) => element.id === elem.id),
+            )
           ) {
             checkedElemsRef.current = checkedElemsRef.current.filter(
-              (element) => element !== _item.id,
+              (element) => element.id !== _item.id,
             );
             intermediateElemsRef.current = intermediateElemsRef.current.filter(
               (element) => element !== _item.id,
@@ -75,12 +84,16 @@ export const useCheckedItems = (
           // intermediate if some children checked
           if (
             (_item.nodeList.length &&
-              _item.nodeList.some((elem) => checkedElemsRef.current.includes(elem.id)) &&
-              !_item.nodeList.every((elem) => checkedElemsRef.current.includes(elem.id))) ||
+              _item.nodeList.some((elem) =>
+                checkedElemsRef.current.some((element) => element.id === elem.id),
+              ) &&
+              !_item.nodeList.every((elem) =>
+                checkedElemsRef.current.some((element) => element.id === elem.id),
+              )) ||
             _item.nodeList.some((elem) => intermediateElemsRef.current.includes(elem.id))
           ) {
             checkedElemsRef.current = checkedElemsRef.current.filter(
-              (element) => element !== _item.id,
+              (element) => element.id !== _item.id,
             );
             intermediateElemsRef.current.push(_item.id);
           }
@@ -88,12 +101,14 @@ export const useCheckedItems = (
           // check if all children checked
           if (
             _item.nodeList.length &&
-            _item.nodeList.every((elem) => checkedElemsRef.current.includes(elem.id))
+            _item.nodeList.every((elem) =>
+              checkedElemsRef.current.some((element) => element.id === elem.id),
+            )
           ) {
             intermediateElemsRef.current = intermediateElemsRef.current.filter(
               (element) => element !== _item.id,
             );
-            checkedElemsRef.current.push(_item.id);
+            checkedElemsRef.current.push(_item);
             getItemNode(_item.nodeList, _item.id, true, false, false);
           }
         });
@@ -106,7 +121,7 @@ export const useCheckedItems = (
   );
   useLayoutEffect(() => {
     treeElements?.forEach((item) => {
-      handleCheckItem(item);
+      handleCheckItem(item.id);
     });
   }, [handleCheckItem, treeElements]);
   const uniqueCheckedElems = Array.from(new Set(checkedItems));

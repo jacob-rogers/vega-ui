@@ -52,7 +52,11 @@ export const useTreeHandlers = (props: UseTreeHandlersProps): TreeHandlersApi =>
     dropZoneRef,
     isDropZone,
   } = props;
-  const [targetData, setTargetData] = useState<TargetData>({ id, ref, isDraggable });
+  const [targetData, setTargetData] = useState<TargetData>({
+    id,
+    ref,
+    isDraggable,
+  });
 
   useEffect(() => {
     setTargetData({

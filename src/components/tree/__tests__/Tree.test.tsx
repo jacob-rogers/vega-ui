@@ -355,7 +355,13 @@ describe('Tree', () => {
     ];
     renderComponent({
       nodeList: nodes,
-      checkedElements: ['2'],
+      checkedElements: [
+        {
+          name: '2',
+          id: '2',
+          nodeList: [],
+        },
+      ],
     });
     const treeLeaf = document.getElementById('2');
     expect(treeLeaf).toBeVisible();

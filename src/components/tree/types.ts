@@ -79,8 +79,8 @@ export type TreeProps<T = unknown> = {
   onDragEnd?: () => void;
   onSelectItem?: (items: TargetData[]) => void;
   onHideItem?: (items: HiddenItem[]) => void;
-  getCheckedItems?: (items: string[]) => void;
-  checkedElements?: string[];
+  getCheckedItems?: (items: TreeItem[]) => void;
+  checkedElements?: TreeItem[];
 };
 
 export type NavigationEyeProps = {

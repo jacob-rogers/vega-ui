@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { ContextMenuTarget, DropZone, HiddenItem, TargetData } from './types';
+import { ContextMenuTarget, DropZone, HiddenItem, TargetData, TreeItem } from './types';
 
 type TreeApi = {
   treeContainerWidth?: number | string;
   showIndentGuides: boolean;
   selectedItems: TargetData[];
   hiddenItems: HiddenItem[] | null;
-  checkedItems: string[];
+  checkedItems: TreeItem[];
   intermediateItems: string[];
   contextMenuTarget: ContextMenuTarget | null;
   withVisibilitySwitcher?: boolean;

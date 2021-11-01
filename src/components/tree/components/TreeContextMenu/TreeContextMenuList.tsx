@@ -40,7 +40,9 @@ const TreeContextMenuList: React.FC<ContextMenuListProps> = (props) => {
             form="default"
             width="full"
             view="clear"
-            className={cnTree('ContextMenuItem', { withSeparator: item.withSeparator }).toString()}
+            className={cnTree('ContextMenuItem', {
+              withSeparator: item.withSeparator,
+            }).toString()}
           />
         );
       })}

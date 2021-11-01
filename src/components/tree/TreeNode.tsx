@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useLayoutEffect, useRef, useState } from 'react';
-
-import { IconArrowDown, IconArrowRight } from '../icons';
+import { IconArrowDown } from '@consta/uikit/IconArrowDown';
+import { IconArrowRight } from '@consta/uikit/IconArrowRight';
 
 import cnTree from './cn-tree';
 import TreeContext from './context';
@@ -153,7 +153,10 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
         ref={dropZoneRef}
         data-container-id={id}
         onDragLeave={handleDragLeave}
-        className={cnTree('NodeList', { expanded, withIndentGuides: showIndentGuides && expanded })}
+        className={cnTree('NodeList', {
+          expanded,
+          withIndentGuides: showIndentGuides && expanded,
+        })}
       >
         {children}
       </ul>

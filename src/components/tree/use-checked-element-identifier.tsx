@@ -23,7 +23,7 @@ export const useCheckedElementIdentifier = ({
     return (
       <Checkbox
         onClick={handleCheck}
-        checked={checkedItems.includes(item.id)}
+        checked={checkedItems.some((elem) => elem.id === item.id)}
         intermediate={intermediateItems.includes(item.id)}
       />
     );
@@ -31,6 +31,6 @@ export const useCheckedElementIdentifier = ({
 
   return {
     renderCheckedSwitcher,
-    isChecked: checkedItems.includes(item.id),
+    isChecked: checkedItems.some((elem) => elem.id === item.id),
   };
 };

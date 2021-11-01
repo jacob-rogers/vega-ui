@@ -7,7 +7,7 @@ import { useContextMenu } from './components/TreeContextMenu/use-context-menu';
 import cnTree from './cn-tree';
 import TreeContext from './context';
 import renderTree from './tree-creator';
-import { ContextMenuTarget, DropZone, HiddenItem, TargetData, TreeProps } from './types';
+import { ContextMenuTarget, DropZone, HiddenItem, TargetData, TreeItem, TreeProps } from './types';
 import { useCheckedItems } from './use-checked-items';
 import { useHiddenItems } from './use-hidden-items';
 
@@ -47,8 +47,8 @@ export function Tree<T extends unknown>(
 
   const { hiddenItems, handleHideItem, handleRestoreHiddenItem } = useHiddenItems(projectId);
   const { checkedItems, intermediateItems, handleCheckItem } = useCheckedItems(
-    nodeList,
-    checkedElements as string[],
+    nodeList as TreeItem[],
+    checkedElements as TreeItem[],
     projectId,
   );
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -154,7 +154,11 @@ export function Tree<T extends unknown>(
     e.stopPropagation();
     e.preventDefault();
 
-    const newState = { id: dropZoneItem.id, ref: dropZoneItem.ref, accessible: true };
+    const newState = {
+      id: dropZoneItem.id,
+      ref: dropZoneItem.ref,
+      accessible: true,
+    };
 
     const inaccessible =
       !dropZoneItem.isDropZone ||
