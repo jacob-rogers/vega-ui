@@ -23,7 +23,7 @@ describe('Tree', () => {
 
   const mockProjectId = 'mock project id';
 
-  test('рендерится без ошибок', () => {
+  test('компонент рендерится без ошибок', () => {
     renderComponent({ nodeList: rootProps, projectId: mockProjectId });
   });
 
