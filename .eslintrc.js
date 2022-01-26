@@ -1,3 +1,5 @@
+const localePrettierConfig = require('./.prettierrc');
+
 module.exports = {
   extends: [require.resolve('@gpn-prototypes/frontend-configs/.eslintrc')],
   plugins: ['testing-library', 'jest-dom'],
@@ -5,10 +7,13 @@ module.exports = {
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     'no-use-before-define': 'off',
+    'react/require-default-props': 'off',
+    'react/prop-types': 'off',
     '@typescript-eslint/no-use-before-define': ['error'],
     'no-redeclare': 'off',
     '@typescript-eslint/no-redeclare': ['error'],
     'no-shadow': 'off',
+    'prettier/prettier': ['off', localePrettierConfig],
     '@typescript-eslint/no-shadow': ['error'],
     'no-useless-constructor': 'off',
     '@typescript-eslint/no-useless-constructor': 'error',
@@ -33,7 +38,7 @@ module.exports = {
           ['vega-components', './src/components'],
           ['vega-hooks', './src/hooks/index.ts'],
         ],
-        extensions: ['.ts', '.js', '.jsx', '.json'],
+        extensions: ['.ts', '.d.ts', '.js', '.jsx', '.json'],
       },
     },
   },

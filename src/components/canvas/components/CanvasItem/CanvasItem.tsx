@@ -34,15 +34,8 @@ const stepData = {
 const eventData = { name: 'Сейсмика', id: '1' };
 
 export const CanvasItem: React.FC<CanvasItemProps> = (props) => {
-  const {
-    item,
-    onDragStart,
-    onClick,
-    onMouseUp,
-    onMouseMove,
-    onPositionChange,
-    onWidthUpdate,
-  } = props;
+  const { item, onDragStart, onClick, onMouseUp, onMouseMove, onPositionChange, onWidthUpdate } =
+    props;
 
   const id = item.getId();
   const data = item.getData();

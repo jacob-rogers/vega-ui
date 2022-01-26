@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from '@consta/uikit/Text';
 import styled from '@emotion/styled';
 import { action } from '@storybook/addon-actions';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
@@ -6,7 +7,6 @@ import { storiesOf } from '@storybook/react';
 
 import { FileIconAvi, FileIconBmp, FileIconDoc, FileIconGif } from '../../icons';
 import { usePortal } from '../../root';
-import { Text } from '../../text';
 
 import { FileDropzone } from './FileDropzone';
 
@@ -49,8 +49,7 @@ storiesOf('ui/FileDropzone', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/dropzone/README.md',
+        href: 'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/dropzone/README.md',
         text: 'Документация',
       },
     },

@@ -16,18 +16,11 @@ export class ScrollService {
   }
 
   public scroll(dx: number, dy: number): void {
-    const {
-      stage,
-      layer,
-      horizontalScrollbar,
-      verticalScrollbar,
-      stageSize,
-      contentRect,
-    } = this.service.getData();
+    const { stage, layer, horizontalScrollbar, verticalScrollbar, stageSize, contentRect } =
+      this.service.getData();
 
-    const { horizontal: horizontalPadding, vertical: verticalPadding } = getContentPadding(
-      stageSize,
-    );
+    const { horizontal: horizontalPadding, vertical: verticalPadding } =
+      getContentPadding(stageSize);
 
     if (!stage || !layer || !horizontalScrollbar || !verticalScrollbar) {
       return;

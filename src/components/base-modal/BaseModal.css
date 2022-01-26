@@ -1,0 +1,38 @@
+.BaseModal {
+  position: relative;
+
+  padding: 3px var(--space-m) var(--space-xl) var(--space-m);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-height: 200px;
+
+  &__Title {
+    width: 100%;
+
+    text-align: center;
+  }
+
+  &__Body {
+    margin-top: var(--space-l);
+  }
+
+  &__Footer {
+    margin-top: var(--space-xl);
+  }
+
+  &__Error {
+    margin-top: var(--space-s);
+  }
+
+  &__Close {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    cursor: pointer;
+  }
+}

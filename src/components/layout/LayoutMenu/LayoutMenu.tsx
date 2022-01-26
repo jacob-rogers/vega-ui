@@ -1,6 +1,6 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
 
-import { Button } from '../../button';
 import { IconSelect } from '../../icons';
 import { cnLayout } from '../cn-layout';
 import { LayoutDropdown } from '../LayoutDropdown';
@@ -12,10 +12,10 @@ export type LayoutMenuProps = LayoutMenuListProps;
 export const LayoutMenu: React.FC<LayoutMenuProps> = (props) => {
   const { activeValue = '', items = [], onChange = (): void => {} } = props;
 
-  const activeItem = React.useMemo(() => items.find((item) => activeValue === item.value), [
-    activeValue,
-    items,
-  ]);
+  const activeItem = React.useMemo(
+    () => items.find((item) => activeValue === item.value),
+    [activeValue, items],
+  );
 
   return (
     <LayoutDropdown

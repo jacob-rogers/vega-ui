@@ -72,8 +72,10 @@ const WIDTH_BUTTON_SCROLL = 44;
 
 export const useIsomorphicEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 
-const clamp = (min: number, max: number) => (value: number): number =>
-  Math.max(min, Math.min(value, max));
+const clamp =
+  (min: number, max: number) =>
+  (value: number): number =>
+    Math.max(min, Math.min(value, max));
 
 function getXFromTouchEvent(event: TouchEvent): number {
   const first = event.touches[0];

@@ -10,13 +10,8 @@ export class ScrollbarService {
   }
 
   public getPoints(): { hx: number; vy: number } {
-    const {
-      layer,
-      horizontalScrollbar,
-      verticalScrollbar,
-      stageSize,
-      contentRect,
-    } = this.service.getData();
+    const { layer, horizontalScrollbar, verticalScrollbar, stageSize, contentRect } =
+      this.service.getData();
 
     const getScrollbarPoint = createScrollbarPointGetter({
       layer,

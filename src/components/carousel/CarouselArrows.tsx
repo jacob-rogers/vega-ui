@@ -1,6 +1,6 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
 
-import { Button } from '../button';
 import { IconArrowLeft, IconArrowRight } from '../icons';
 
 import { b, useCarousel } from './context';

@@ -1,10 +1,9 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
 import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import { boolean, select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
-
-import { Button } from '../button';
 
 import { Sidebar, SidebarProps } from './Sidebar';
 import { useSidebar } from './use-sidebar';
@@ -51,8 +50,7 @@ storiesOf('ui/Sidebar', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/sidebar/README.md',
+        href: 'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/sidebar/README.md',
         text: 'Документация',
       },
     },

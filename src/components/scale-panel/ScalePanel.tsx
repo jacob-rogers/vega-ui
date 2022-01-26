@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { Button } from '@consta/uikit/Button';
+import { TextField } from '@consta/uikit/TextField';
 
 import { useOnClickOutside } from '../../hooks';
-import { Button } from '../button';
 import { IconAdd, IconMaxWidth, IconRemove } from '../icons';
-import { TextField } from '../text-field';
 
 import { cnScalePanel } from './cn-scale-panel';
 
@@ -42,8 +42,10 @@ interface ScalePanelProps extends Omit<DivProps, 'onChange'> {
   onAlign?: () => void;
 }
 
-const getClamp = (min: number, max: number) => (number: number): number =>
-  Math.min(max, Math.max(min, number));
+const getClamp =
+  (min: number, max: number) =>
+  (number: number): number =>
+    Math.min(max, Math.max(min, number));
 
 // Деструктуризация для того чтобы дока уловила дефолтное значение пропа
 export const ScalePanel: React.FC<ScalePanelProps> = ({ onAlign = () => {}, ...props }) => {

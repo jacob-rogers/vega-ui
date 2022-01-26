@@ -28,13 +28,8 @@ type FileDropzoneType<T> = React.FC<T> & {
 
 const FileDropzoneContent: React.FC<FileDropzoneContentProps> = (props) => {
   const { children, className, show = true, fullscreen = false } = props;
-  const {
-    handleDragEnter,
-    handleDragLeave,
-    handleDragOver,
-    handleDrop,
-    inDropArea,
-  } = useFileDropzoneProvider();
+  const { handleDragEnter, handleDragLeave, handleDragOver, handleDrop, inDropArea } =
+    useFileDropzoneProvider();
 
   const dropzoneProps: React.ComponentProps<typeof Dropzone> = {
     onDragLeave: handleDragLeave,

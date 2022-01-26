@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
-
-import { Checkbox } from '../checkbox';
+import { Checkbox } from '@consta/uikit/Checkbox';
 
 import TreeContext from './context';
 

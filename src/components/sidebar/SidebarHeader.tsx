@@ -1,8 +1,8 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
+import { Text } from '@consta/uikit/Text';
 
-import { Button } from '../button';
 import { IconClose, IconRemove } from '../icons';
-import { Text } from '../text';
 
 import { cnSidebar } from './cn-sidebar';
 import { useSidebarContext } from './use-sidebar-context';

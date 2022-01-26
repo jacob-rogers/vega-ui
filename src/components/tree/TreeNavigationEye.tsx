@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react';
-
-import { Text } from '../text';
-import { Tooltip } from '../tooltip';
+import { Text } from '@consta/uikit/Text';
+import { Tooltip } from '@consta/uikit/Tooltip';
 
 import cnTree from './cn-tree';
 import { NavigationEyeProps } from './types';

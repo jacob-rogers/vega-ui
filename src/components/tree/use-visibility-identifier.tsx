@@ -25,10 +25,8 @@ export const useVisibilityIdentifier = ({
 }: UseVisibilityIdentifier): VisibilityIdentifierAPI => {
   const { hiddenItems } = useContext(TreeContext);
 
-  const [
-    visibilityIdentifierData,
-    setVisibilityIdentifierData,
-  ] = useState<VisibilityIdentifierData | null>(null);
+  const [visibilityIdentifierData, setVisibilityIdentifierData] =
+    useState<VisibilityIdentifierData | null>(null);
 
   useEffect(() => {
     if (hiddenItems?.find((hiddenItem) => hiddenItem.id === item.id)) {

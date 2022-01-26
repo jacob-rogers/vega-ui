@@ -1,6 +1,6 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
 
-import { Button } from '../../button';
 import { NavigationList } from '../../navigation-list';
 import { cnLayout } from '../cn-layout';
 

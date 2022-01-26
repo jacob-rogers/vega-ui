@@ -1,7 +1,7 @@
 import React from 'react';
+import { Badge } from '@consta/uikit/Badge';
+import { Text } from '@consta/uikit/Text';
 
-import { Badge } from '../../../badge';
-import { Text } from '../../../text';
 import { cnCanvas } from '../../cn-canvas';
 
 import { HotkeyData, KeysCombination } from './types';

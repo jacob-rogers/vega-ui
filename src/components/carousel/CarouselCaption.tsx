@@ -1,6 +1,5 @@
 import React from 'react';
-
-import { Text } from '../text';
+import { Text } from '@consta/uikit/Text';
 
 import { b, useCarousel, useSlide } from './context';
 

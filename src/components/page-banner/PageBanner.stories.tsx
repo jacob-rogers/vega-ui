@@ -16,8 +16,7 @@ storiesOf('ui/PageBanner', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/page-banner/README.md',
+        href: 'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/page-banner/README.md',
         text: 'Документация',
       },
     },

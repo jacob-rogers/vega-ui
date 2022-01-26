@@ -1,7 +1,7 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
+import { FileField } from '@consta/uikit/FileField';
 
-import { Button } from '../../button';
-import { FileInput } from '../../file-input';
 import { IconAttach } from '../../icons';
 
 import { cnFileDropzone } from './cn-file-dropzone';
@@ -9,7 +9,7 @@ import { useFileDropzoneProvider } from './FileDropzoneContext';
 
 import './FileDropzone.css';
 
-type FileDropzoneInputProps = React.ComponentProps<typeof FileInput> & { label?: string };
+type FileDropzoneInputProps = React.ComponentProps<typeof FileField> & { label?: string };
 
 export const FileDropzoneInput: React.FC<FileDropzoneInputProps> = ({
   className,
@@ -19,7 +19,7 @@ export const FileDropzoneInput: React.FC<FileDropzoneInputProps> = ({
 }) => {
   const { handleDrop } = useFileDropzoneProvider();
   return (
-    <FileInput {...rest} id={id} onChange={handleDrop} className={className}>
+    <FileField {...rest} id={id} onChange={handleDrop} className={className}>
       {(buttonProps): React.ReactNode => (
         <Button
           size="s"
@@ -31,6 +31,6 @@ export const FileDropzoneInput: React.FC<FileDropzoneInputProps> = ({
           {...buttonProps}
         />
       )}
-    </FileInput>
+    </FileField>
   );
 };

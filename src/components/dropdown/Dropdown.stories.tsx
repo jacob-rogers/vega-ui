@@ -69,8 +69,7 @@ storiesOf('ui/Dropdown', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/dropdown/README.md',
+        href: 'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/dropdown/README.md',
         text: 'Документация',
       },
     },

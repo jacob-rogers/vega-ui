@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { Button } from '@consta/uikit/Button';
 import styled from '@emotion/styled';
 import { select } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
 
 import { Animation } from '../animation';
-import { Button } from '../button';
 
 import { PageFooter } from './PageFooter';
 
@@ -39,8 +39,7 @@ storiesOf('ui/PageFooter', module)
       author: 'CSSSR',
       status: 'Approved',
       link: {
-        href:
-          'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/page-footer/README.md',
+        href: 'https://github.com/gpn-prototypes/vega-ui/blob/master/src/components/page-footer/README.md',
         text: 'Документация',
       },
     },

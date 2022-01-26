@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
+import { Button } from '@consta/uikit/Button';
 
-import { Button } from '../../../button';
 import cnTree from '../../cn-tree';
 import TreeContext from '../../context';
 import { ContextMenuItem } from '../../types';
@@ -11,9 +11,8 @@ type ContextMenuListProps = {
 
 const TreeContextMenuList: React.FC<ContextMenuListProps> = (props) => {
   const { items } = props;
-  const { contextMenuTarget, onHideItem, onSelectItem, selectedItems, hiddenItems } = useContext(
-    TreeContext,
-  );
+  const { contextMenuTarget, onHideItem, onSelectItem, selectedItems, hiddenItems } =
+    useContext(TreeContext);
   return (
     <div className={cnTree('ContextMenuList')}>
       {items.map((item) => {

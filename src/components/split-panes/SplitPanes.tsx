@@ -132,9 +132,10 @@ export const SplitPanes: SplitPanesComponent = (props) => {
   const [activeResizer, setResizer] = React.useState<Element | null>(null);
   const isResizing = activeResizer !== null;
 
-  const isResizerActive = React.useCallback((element: Element) => activeResizer === element, [
-    activeResizer,
-  ]);
+  const isResizerActive = React.useCallback(
+    (element: Element) => activeResizer === element,
+    [activeResizer],
+  );
 
   const start = (event: React.MouseEvent<Element>): void => {
     const { clientX: x, clientY: y, currentTarget: resizer } = event;

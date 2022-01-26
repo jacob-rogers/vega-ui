@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
+import { Button } from '@consta/uikit/Button';
 import { css } from '@emotion/core';
 import { select, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
-
-import { Button } from '../button';
 
 import { Appearance } from './Appearance';
 

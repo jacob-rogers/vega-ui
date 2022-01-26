@@ -8,7 +8,6 @@ type ThemeName = 'default' | 'dark' | 'display';
 
 type VegaThemeDecoratorProps = {
   themeName: ThemeName;
-  className: string;
 };
 
 const StorybookThemeRoot: React.FC<VegaThemeDecoratorProps> = ({ themeName, children }) => {

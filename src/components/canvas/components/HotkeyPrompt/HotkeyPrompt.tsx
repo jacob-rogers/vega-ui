@@ -1,9 +1,10 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
+import { Modal } from '@consta/uikit/Modal';
 
-import { Button } from '../../../button';
+import { BaseModal } from '../../../base-modal';
 import { IconQuestion } from '../../../icons';
-import { Modal, useModal } from '../../../modal';
-import { Text } from '../../../text';
+import { useModal } from '../../../modal';
 import { cnCanvas } from '../../cn-canvas';
 
 import { hotkeys } from './constants';
@@ -24,18 +25,19 @@ export const HotkeyPrompt: React.FC = () => {
         onlyIcon
         type="button"
       />
-      <Modal hasOverlay hasCloseButton onClose={close} isOpen={isOpen}>
-        <Modal.Header>
-          <Text size="xs">Горячие клавиши</Text>
-        </Modal.Header>
-        <Modal.Body>
-          <div className={cnCanvas('HotkeyPrompt')}>
-            {React.Children.toArray(hotkeys.map((item) => <Hotkey hotkey={item} />))}
-          </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button size="m" view="primary" label="Закрыть" onClick={close} />
-        </Modal.Footer>
+
+      <Modal hasOverlay onClose={close} onClickOutside={close} isOpen={isOpen}>
+        <BaseModal
+          title="Горячие клавиши"
+          testId="calculate-settings"
+          body={(
+            <div className={cnCanvas('HotkeyPrompt')}>
+              {React.Children.toArray(hotkeys.map((item) => <Hotkey hotkey={item} />))}
+            </div>
+          )}
+          footer={<Button size="m" view="primary" label="Закрыть" onClick={close} />}
+          handleClose={close}
+        />
       </Modal>
     </>
   );

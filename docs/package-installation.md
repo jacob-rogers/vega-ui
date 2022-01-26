@@ -11,10 +11,10 @@ registry=https://registry.npmjs.org/
 
 Далее можно устанавливать зависимости, как обычно:
 
--   `yarn add @gpn-prototypes/vega-ui` — установить все компоненты
+*   `yarn add @gpn-prototypes/vega-ui` — установить все компоненты
 
 Использование:
 
 ```typescript
-import { Avatar, Button, Dropdown, useKey } from '@gpn-prototypes/vega-ui';
+import { Button, Dropdown, useKey } from '@gpn-prototypes/vega-ui';
 ```

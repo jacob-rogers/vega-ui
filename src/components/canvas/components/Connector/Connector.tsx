@@ -16,16 +16,8 @@ type ConnectorProps = {
 };
 
 export const Connector: React.FC<ConnectorProps> = (props) => {
-  const {
-    id,
-    type,
-    position,
-    isSelected,
-    isActive,
-    isConnectionPossible,
-    isDisabled,
-    onActivate,
-  } = props;
+  const { id, type, position, isSelected, isActive, isConnectionPossible, isDisabled, onActivate } =
+    props;
 
   const [stroke, setStroke] = useState(metrics.connector.stroke);
 

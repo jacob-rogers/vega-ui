@@ -1,11 +1,10 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
+import { TextField } from '@consta/uikit/TextField';
 import { css } from '@emotion/core';
 import { action } from '@storybook/addon-actions';
 import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
 import { storiesOf } from '@storybook/react';
-
-import { Button } from '../button';
-import { TextField } from '../text-field';
 
 import { Form } from './Form';
 

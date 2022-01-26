@@ -1,6 +1,6 @@
 import React from 'react';
+import { Button } from '@consta/uikit/Button';
 
-import { Button } from '../../../../button';
 import { cnCanvas } from '../../../cn-canvas';
 import { ItemType } from '../../../types';
 import { Option as OptionType, OptionView } from '../types';
