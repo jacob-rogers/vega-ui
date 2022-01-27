@@ -17,3 +17,4 @@ export * from './theme';
 export * from './tree';
 export * from './split-panes';
 export * from './canvas';
+export * from './modal';
