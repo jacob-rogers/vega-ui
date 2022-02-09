@@ -21,6 +21,20 @@
 
   &__Footer {
     margin-top: var(--space-xl);
+
+    display: flex;
+
+    &_left {
+      justify-content: flex-start;
+    }
+
+    &_center {
+      justify-content: center;
+    }
+
+    &_right {
+      justify-content: flex-end;
+    }
   }
 
   &__Error {

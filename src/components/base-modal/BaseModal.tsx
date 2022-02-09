@@ -8,6 +8,9 @@ import './BaseModal.css';
 
 const cn = block('BaseModal');
 
+type footerAlign = 'right' | 'center' | 'left';
+const defaultFooterAlign: footerAlign = 'right';
+
 type Props = {
   title: string;
   testId: string;
@@ -16,6 +19,7 @@ type Props = {
   handleClose: () => void;
   width?: string;
   errorMessage?: string;
+  footerAlign?: footerAlign;
   onUnmountCallback?: () => void;
 };
 
@@ -27,6 +31,7 @@ export const BaseModal: React.FC<Props> = ({
   handleClose,
   width = undefined,
   errorMessage = undefined,
+  footerAlign = defaultFooterAlign,
   onUnmountCallback = undefined,
 }: Props) => {
   useEffect(() => {
@@ -36,6 +41,14 @@ export const BaseModal: React.FC<Props> = ({
       }
     };
   }, [onUnmountCallback]);
+
+  const getFooterAlign = () => {
+    return {
+      right: footerAlign === 'right',
+      center: footerAlign === 'center',
+      left: footerAlign === 'left',
+    };
+  }
 
   return (
     <div
@@ -59,7 +72,7 @@ export const BaseModal: React.FC<Props> = ({
         )}
       </div>
 
-      <div className={cn('Footer')}>{footer}</div>
+      <div className={cn('Footer', getFooterAlign())}>{footer}</div>
 
       {handleClose && (
         <div className={cn('Close')}>
