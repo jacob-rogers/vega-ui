@@ -6,6 +6,7 @@
     "declaration": true,
     "declarationDir": "./dist",
     "baseUrl": ".",
+    "downlevelIteration": true
   },
   "files": ["./types/assets.d.ts", "./types/ResizeObserver.d.ts", "./types/mdx.d.ts"],
   "include": ["src/**/*.ts", "src/**/*.tsx"],

@@ -1,0 +1,32 @@
+.TableFilterPopover {
+  display: flex;
+
+  .Button {
+    .Icon {
+      opacity: 0;
+
+      transition: opacity var(--fast-transition);
+
+      &:hover {
+        opacity: 0.4;
+      }
+    }
+  }
+
+  &_isOpened {
+    .Button {
+      .Icon {
+        opacity: 1;
+      }
+    }
+  }
+
+  &_isActive {
+    .Button {
+      .Icon {
+        color: var(--color-control-typo-secondary);
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+.Header {
+  &__Root {
+    padding: 0 var(--space-2xs);
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    background-color: inherit;
+    opacity: 1;
+  }
+
+  &__Icon {
+    margin-right: var(--space-xs);
+  }
+
+  &__WrapperIcon {
+    display: flex;
+  }
+
+  &__HeaderId {
+    padding-right: var(--space-xs);
+
+    display: flex;
+
+    color: var(--color-typo-ghost);
+    opacity: 0.8;
+  }
+
+  &__CalcParamHeader {
+    justify-content: space-between;
+
+    width: 100%;
+  }
+
+  &__WrapperText {
+    padding-right: var(--space-2xs);
+
+    display: flex;
+    overflow: hidden;
+    justify-content: space-between;
+
+    width: 100%;
+
+    text-overflow: ellipsis;
+  }
+
+  &__IsDragging {
+    opacity: 0.5;
+  }
+
+  &__IsOver {
+    background-color: var(--color-control-bg-focus);
+  }
+
+  &__Error {
+    background-color: var(--color-bg-alert);
+  }
+}
