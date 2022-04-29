@@ -30,10 +30,10 @@ jobs:
         run: yarn coverage
         if: always()
 
-      - name: Проверка покрытия
-        uses: Inzephirum/gha-test-coverage-check@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          min_threshold: '100'
-          report_file_path: './coverage/lcov.info'
+#       - name: Проверка покрытия
+#         uses: Inzephirum/gha-test-coverage-check@v1
+#         with:
+#           github_token: ${{ secrets.GITHUB_TOKEN }}
+#           min_threshold: '100'
+#           report_file_path: './coverage/lcov.info'
 
