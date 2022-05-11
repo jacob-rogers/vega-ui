@@ -71,6 +71,10 @@ export const TABLE_DATA: GridCollection = {
       key: "geo_object_fluid_category",
       name: "Флюид",
       type: ColumnTypes.WithClickEditor,
+      columnEditor: (props) =>
+        React.createElement(GeoCategoryEditor, {
+          ...props,
+        }),
       visible: {
         table: true,
       },

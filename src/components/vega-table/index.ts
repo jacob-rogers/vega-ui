@@ -1,0 +1,1 @@
+export { VegaTable } from './VegaTable';
