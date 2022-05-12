@@ -78,7 +78,6 @@ export interface FilteredGridDataKeys {
 export interface GridCollection {
   columns: GridColumn[];
   rows: GridRow[];
-  rowsToDisplay: GridRow[];
   filteredDataKeys: FilteredGridDataKeys;
   isLoading?: boolean;
   tempColumnIndex?: number | null;
@@ -89,7 +88,7 @@ export interface CellPosition {
   rowIdx: number;
 }
 
-export type BaseProps = {
+export type BaseTableProps = {
   formatter: ComponentType<FormatterProps<GridRow>>;
   headerRenderer: ComponentType<BaseHeaderRendererProps<GridRow>>;
 };

@@ -1,9 +1,9 @@
 import { curry } from 'lodash/fp';
 
-import { BaseProps, GridColumn } from '../types';
+import { BaseTableProps, GridColumn } from '../types';
 
 const getBaseColumn = curry<
-  BaseProps,
+  BaseTableProps,
   GridColumn,
   // eslint-disable-next-line @typescript-eslint/ban-types
   Object,

@@ -51,7 +51,6 @@ export const VegaTableContext = createContext<VegaTableAPI>({
   grid: {
     columns: [],
     rows: [],
-    rowsToDisplay: [],
     filteredDataKeys: {
       columnsKeys: [],
       rowsKeys: [],

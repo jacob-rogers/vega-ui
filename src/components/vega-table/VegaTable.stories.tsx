@@ -41,7 +41,6 @@ storiesOf('ui/VegaTable', module)
           grid={{
             columns: TABLE_DATA.columns,
             rows: TABLE_DATA.rows,
-            rowsToDisplay: TABLE_DATA.rowsToDisplay,
             filteredDataKeys: TABLE_DATA.filteredDataKeys,
           }}
           rowHeight={(args) => {
@@ -101,7 +100,6 @@ storiesOf('ui/VegaTable', module)
           grid={{
             columns: TABLE_DATA.columns,
             rows: TABLE_DATA.rows,
-            rowsToDisplay: TABLE_DATA.rowsToDisplay,
             filteredDataKeys: TABLE_DATA.filteredDataKeys,
           }}
           isReadOnly
