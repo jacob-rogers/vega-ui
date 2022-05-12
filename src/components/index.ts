@@ -18,3 +18,4 @@ export * from './tree';
 export * from './split-panes';
 export * from './canvas';
 export * from './modal';
+export * from './vega-table';
