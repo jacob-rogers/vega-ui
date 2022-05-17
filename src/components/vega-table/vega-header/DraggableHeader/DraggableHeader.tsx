@@ -48,6 +48,7 @@ export const DraggableHeader = ({
     isReadOnly,
     handleHeaderClick,
     handleColumnsReorder,
+    handleHeaderContextClick,
   } = useVegaTable();
 
   const {
@@ -121,6 +122,7 @@ export const DraggableHeader = ({
   const handleContextMenuClick = (event: React.MouseEvent) => {
     if (isReadOnly) return;
     if (isColumnRenaming) event.stopPropagation();
+    handleHeaderContextClick?.(event, combinedRef, columnKey);
   };
 
   return (

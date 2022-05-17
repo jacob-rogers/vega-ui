@@ -30,6 +30,8 @@ export const VegaTable: React.FC<VegaTableAPI> = (props) => {
     setFiltering,
     enableVirtualization,
     cellState,
+    handleHeaderContextClick,
+    handleRowContextClick,
   } = props;
 
   const columnsList = useMemo(() => {
@@ -58,6 +60,8 @@ export const VegaTable: React.FC<VegaTableAPI> = (props) => {
       setFiltering,
       enableVirtualization,
       cellState,
+      handleHeaderContextClick,
+      handleRowContextClick,
     };
   }, [
     cellState,
@@ -77,6 +81,8 @@ export const VegaTable: React.FC<VegaTableAPI> = (props) => {
     setFiltering,
     setSorting,
     sorting,
+    handleHeaderContextClick,
+    handleRowContextClick,
   ]);
 
   return (

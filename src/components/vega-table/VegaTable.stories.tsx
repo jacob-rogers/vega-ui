@@ -80,6 +80,14 @@ storiesOf('ui/VegaTable', module)
             // eslint-disable-next-line no-console
             console.log('handle reorder columns: move from ', sourceIndex,' to ', targetIndex);
           }}
+          handleRowContextClick={(event, ref, row) => {
+            // eslint-disable-next-line no-console
+            console.log('onRowContext', event, ref, row);
+          }}
+          handleHeaderContextClick={(event, ref, columnKey) => {
+            // eslint-disable-next-line no-console
+            console.log('onHeaderContext', event, ref, columnKey);
+          }}
         />
       </Container>
     );

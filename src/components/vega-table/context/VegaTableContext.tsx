@@ -37,6 +37,8 @@ export type VegaTableAPI = {
   setSorting?: (sort: SortState) => void;
   filtering?: FilterState,
   setFiltering?: (filter: FilterState) => void,
+  handleHeaderContextClick?: (event: React.MouseEvent, ref: React.RefObject<HTMLDivElement>, columnKey: string) => void;
+  handleRowContextClick?: (event: React.MouseEvent, ref: React.RefObject<HTMLDivElement>, row: GridRow) => void;
   cellState?: {
     getIsDisabled(cell: GridCell): boolean | null;
     getError(cell: GridCell): CellError | null;
@@ -76,6 +78,8 @@ export const VegaTableContext = createContext<VegaTableAPI>({
   },
   setFiltering: () => {},
   enableVirtualization: false,
+  handleHeaderContextClick: () => {},
+  handleRowContextClick: () => {},
   cellState: {
     getIsDisabled: () => false,
     getError: () => null,

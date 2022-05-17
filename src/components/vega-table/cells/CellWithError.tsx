@@ -41,7 +41,7 @@ const CellWithError = (props: Props, ref: React.Ref<HTMLDivElement>) => {
     isRowSelected,
     isCellSelected,
   } = props;
-  const { cellState, isReadOnly, handleRowClick } = useVegaTable();
+  const { cellState, isReadOnly, handleRowClick, handleRowContextClick } = useVegaTable();
   const column = props.column as UniColumn;
   const innerRef = useRef<HTMLDivElement>(null);
   const combinedRef = useCombinedRefs(ref, innerRef);
@@ -128,6 +128,7 @@ const CellWithError = (props: Props, ref: React.Ref<HTMLDivElement>) => {
       onDoubleClick={ handleDoubleClick}
       onContextMenu={(e) => {
         onContextMenu?.(e);
+        handleRowContextClick?.(e, combinedRef, row);
       }}
       onKeyDown={onKeyDown}
       onMouseEnter={() => setIsShowError(true)}
