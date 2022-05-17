@@ -1,6 +1,6 @@
 {
   "name": "@gpn-prototypes/vega-ui",
-  "version": "4.0.10",
+  "version": "4.0.11",
   "repository": {
     "type": "git",
     "url": "ssh://git@github.com:gpn-prototypes/vega-ui.git"
