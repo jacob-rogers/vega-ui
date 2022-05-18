@@ -19,6 +19,7 @@ export const TABLE_DATA: GridCollection = {
       key: "4b4b4bf6-0437-43ab-8854-d3c10510151e",
       name: "Лиц. участок",
       type: ColumnTypes.RemovableWithEditor,
+      width: 120,
       visible: {
         table: true,
       },

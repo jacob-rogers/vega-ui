@@ -23,7 +23,7 @@ export function columnsFactory(
     editable: !isReadOnly,
     resizable: true,
     sortable: true,
-    minWidth: 140,
+    minWidth: column.width || 140,
     dataTestId: 'text-cell',
   };
 

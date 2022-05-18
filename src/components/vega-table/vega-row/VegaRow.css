@@ -14,7 +14,7 @@
   }
 
   &__Odd {
-    background-color: rgb(60 64 67);
+    background-color: var(--color-bg-stripe);
   }
 
   &__First {

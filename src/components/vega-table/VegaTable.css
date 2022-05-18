@@ -71,7 +71,7 @@
     font-size: var(--size-text-xs);
     font-weight: var(--font-weight-text-regular);
 
-    color: var(--color-typo-primary);
+    color: var(--color-control-typo-ghost);
 
     background-color: var(--color-bg-default);
 
@@ -111,7 +111,7 @@
     border-top-color: var(--color-bg-border);
 
     border-left: none;
-    border-right: none;
+    border-right: 1px solid var(--color-bg-border);
     border-bottom: 1px solid var(--color-bg-border);
 
     border-bottom-color: var(--color-bg-border);
