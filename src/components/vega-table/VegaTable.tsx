@@ -103,6 +103,10 @@ export const VegaTable: React.FC<VegaTableAPI> = (props) => {
           onSelectedCellChange={handleSelectedCellChange}
           rowRenderer={VegaRow}
           enableVirtualization={enableVirtualization}
+          // TODO: подумать, как это улучшить
+          style={{
+            height: `calc(var(--header-row-height) * ${grid.rows.length + 1})`,
+          }}
         />
       </DndProvider>
     </ VegaTableContext.Provider>

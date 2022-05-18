@@ -25,7 +25,6 @@
     --checkbox-color: var(--color-control-bg-primary);
     --checkbox-focus-color: var(--color-control-bg-primary);
     width: 100%;
-    height: 100%;
 
     background: inherit;
     border: none;
