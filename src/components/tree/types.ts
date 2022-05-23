@@ -22,6 +22,7 @@ export interface TreeItem<T = unknown> {
   isDraggable?: boolean;
   isDropZone?: boolean;
   isExpanded?: boolean;
+  rich?: boolean;
   data?: T;
 }
 

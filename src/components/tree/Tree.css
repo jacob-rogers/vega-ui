@@ -79,6 +79,10 @@
 
     white-space: nowrap;
     text-overflow: ellipsis;
+
+    &_Rich {
+      font-weight: 700;
+    }
   }
 
   &__Backlight {

@@ -10,7 +10,14 @@ import { useTreeHandlers } from './use-tree-handlers';
 import { useVisibilityIdentifier } from './use-visibility-identifier';
 
 export const TreeLeaf: React.FC<TreeItem> = (props) => {
-  const { id, name, isDraggable = true, iconId, isDropZone = true } = props;
+  const {
+    id,
+    name,
+    isDraggable = true,
+    iconId,
+    isDropZone = true,
+    rich = false,
+  } = props;
 
   const targetRef = useRef<HTMLLIElement | null>(null);
 
@@ -101,6 +108,7 @@ export const TreeLeaf: React.FC<TreeItem> = (props) => {
         onClick={handleSelect}
         name={name}
         iconId={iconId}
+        labelKind={rich === true ? 'rich' : 'normal'}
         renderVisibilitySwitcher={visibilityIdentifier.renderVisibilitySwitcher}
         renderCheckedSwitcher={checkedElementIdentifier.renderCheckedSwitcher}
       />

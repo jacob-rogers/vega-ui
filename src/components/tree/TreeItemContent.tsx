@@ -8,9 +8,28 @@ export type TreeItemContentProps = JSX.IntrinsicElements['div'] & {
   iconId?: string | number;
   name?: string;
   children?: React.ReactNode;
+  labelKind?: TreeItemLabelKind;
   renderVisibilitySwitcher?: () => React.ReactElement;
   renderCheckedSwitcher?: () => React.ReactElement;
 };
+
+export type TreeItemLabelKind = "normal" | "rich";
+
+type TreeItemLabelProps = JSX.IntrinsicElements['div'] & {
+  kind?: TreeItemLabelKind;
+  text?: string;
+};
+
+export const TreeItemLabel = (props: TreeItemLabelProps): React.ReactElement => {
+  const {
+    kind = 'normal',
+    text,
+  } = props;
+
+  return (
+    <div className={cnTree('ItemName', { Rich: kind === 'rich' })}>{text}</div>
+  );
+}
 
 export const TreeItemContent = (props: TreeItemContentProps): React.ReactElement => {
   const {
@@ -18,6 +37,7 @@ export const TreeItemContent = (props: TreeItemContentProps): React.ReactElement
     className,
     children,
     iconId,
+    labelKind,
     name,
     renderVisibilitySwitcher,
     renderCheckedSwitcher,
@@ -45,7 +65,8 @@ export const TreeItemContent = (props: TreeItemContentProps): React.ReactElement
       <div className={cnTree('checkBox')}>
         {withCheckElementSwitcher && renderCheckedSwitcher && renderCheckedSwitcher()}
       </div>
-      <div className={cnTree('ItemName')}>{name}</div>
+
+      <TreeItemLabel className={cnTree('ItemName')} kind={labelKind} text={name} />
 
       <div
         className={cnTree('Backlight')}

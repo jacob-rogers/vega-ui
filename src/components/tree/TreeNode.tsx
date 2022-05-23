@@ -20,6 +20,7 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
     isDropZone = true,
     iconId,
     isExpanded = false,
+    rich = false,
   } = props;
 
   const {
@@ -133,6 +134,7 @@ export const TreeNode: React.FC<TreeItem> = (props) => {
         onClick={handleSelect}
         name={name}
         iconId={iconId}
+        labelKind={rich === true ? 'rich' : 'normal'}
         renderVisibilitySwitcher={visibilityIdentifier.renderVisibilitySwitcher}
         renderCheckedSwitcher={checkedElementIdentifier.renderCheckedSwitcher}
       >

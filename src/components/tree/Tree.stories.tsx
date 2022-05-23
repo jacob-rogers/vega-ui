@@ -76,6 +76,7 @@ export const rootProps: TreeItem[] = [
         id: '2',
         parentId: '1',
         isDraggable: false,
+        rich: true,
         nodeList: [
           {
             name: 'Залежь - 78',
@@ -96,6 +97,7 @@ export const rootProps: TreeItem[] = [
                     isDraggable: false,
                     parentId: '21',
                     nodeList: [],
+                    rich: true,
                   },
                 ],
               },
@@ -357,6 +359,7 @@ storiesOf('ui/Tree', module)
 
     return (
       <Tree
+      withMultiSelect
         withCheckElementSwitcher
         icons={icons}
         projectId="a3333333-b111-c111-d111-e00000000011"
